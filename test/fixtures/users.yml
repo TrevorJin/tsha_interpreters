@@ -5,4 +5,30 @@ michael:
   last_name: Example
   email: michael@example.com
   password_digest: <%= User.digest('password') %>
-  
+  admin: true
+
+archer:
+  first_name: Sterling
+  last_name: Archer
+  email: chocolatemilk@example.gov
+  password_digest: <%= User.digest('password') %>
+
+samson:
+  first_name: Samson
+  last_name: Kane
+  email: finally@example.gov
+  password_digest: <%= User.digest('password') %>
+
+wonka:
+  first_name: Wonka
+  last_name: Flack
+  email: bossy@example.gov
+  password_digest: <%= User.digest('password') %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  first_name:  <%= "First #{n}" %>
+  last_name:  <%= "Last #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>
