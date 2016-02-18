@@ -8,6 +8,7 @@
 
 User.create!(first_name:  "Example",
 						 last_name:  "User",
+             cell_phone: "1234567890",
              email: "example@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar",
@@ -18,10 +19,12 @@ User.create!(first_name:  "Example",
 99.times do |n|
   first_name  = Faker::Name.name
   last_name  = Faker::Name.name
+  cell_phone = "#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}"
   email = "example-#{n+1}@tsha.cc"
   password = "password"
   User.create!(first_name:  first_name,
   						 last_name:  last_name,
+               cell_phone: cell_phone,
                email: email,
                password:              password,
                password_confirmation: password,

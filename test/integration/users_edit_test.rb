@@ -11,7 +11,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     get edit_user_path(@user)
     assert_template 'users/edit'
     patch user_path(@user), user: { first_name:  "",
-    																last_name:  "",
+    								last_name:  "",
+                                    cell_phone: "",
                                     email: "foo@invalid",
                                     password:              "foo",
                                     password_confirmation: "bar" }
@@ -24,9 +25,11 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@user)
     first_name  = "Foo"
     last_name = "Bar"
+    cell_phone = "1234567890"
     email = "foo@bar.com"
     patch user_path(@user), user: { first_name:  first_name,
                                     last_name:   last_name,
+                                    cell_phone: cell_phone,
                                     email: email,
                                     password:              "",
                                     password_confirmation: "" }
@@ -35,6 +38,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal first_name,  @user.first_name
     assert_equal last_name, @user.last_name
+    assert_equal cell_phone, @user.cell_phone
     assert_equal email, @user.email
   end
 end

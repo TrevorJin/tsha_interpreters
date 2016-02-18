@@ -11,6 +11,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_no_difference 'User.count' do
       post users_path, user: { first_name:  "",
       												 last_name:  "",
+                               cell_phone: "",
                                email: "user@invalid",
                                password:              "foo",
                                password_confirmation: "bar" }
@@ -24,10 +25,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_difference 'User.count', 1 do
       post users_path, user: { first_name:  "Example",
-      																			last_name:  "User",
-                                            email: "user@example.com",
-                                            password:              "password",
-                                            password_confirmation: "password" }
+      												 last_name:  "User",
+                               cell_phone: "1234567890",
+                               email: "user@example.com",
+                               password:              "password",
+                               password_confirmation: "password" }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)
