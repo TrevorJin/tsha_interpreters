@@ -5,13 +5,19 @@ class UsersControllerTest < ActionController::TestCase
   def setup
     @admin_user = users(:michael)
     @manager_user = users(:sanchez)
-    @regular_user = users(:samson)
-    @other_user = users(:archer)
+    @regular_user = users(:archer)
+    @other_user = users(:samson)
   end
 
   test "should redirect index when not logged in" do
     get :index
     assert_redirected_to login_url
+  end
+
+  test "should redirect index when not manager" do
+    log_in_as(@regular_user)
+    get :index
+    assert_redirected_to root_url
   end
 
   test "should get new" do

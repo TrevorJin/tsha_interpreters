@@ -12,6 +12,12 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def self.search(query)
+    # where(:title, query) -> This would return an exact match of the query
+    #where("last_name like ?", "%#{query}%")
+    where("last_name LIKE ? OR first_name like ?" , "%#{query}%", "%#{query}%")
+  end
+
 	# Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
