@@ -6,16 +6,18 @@ michael:
   cell_phone: 1234567890
   email: michael@example.com
   password_digest: <%= User.digest('password') %>
+  manager: true
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
 
-archer:
-  first_name: Sterling
-  last_name: Archer
-  cell_phone: 6783451234
-  email: chocolatemilk@example.gov
+sanchez:
+  first_name: Sanchez
+  last_name: Sanderson
+  cell_phone: 1234567890
+  email: mastermind@example.com
   password_digest: <%= User.digest('password') %>
+  manager: true
   activated: true
   activated_at: <%= Time.zone.now %>
 
@@ -24,6 +26,15 @@ samson:
   last_name: Kane
   cell_phone: 9876543210
   email: finally@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+archer:
+  first_name: Sterling
+  last_name: Archer
+  cell_phone: 6783451234
+  email: chocolatemilk@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
