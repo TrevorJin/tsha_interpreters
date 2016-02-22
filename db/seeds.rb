@@ -27,6 +27,47 @@ User.create!(first_name:  "Example",
              activated: true,
              activated_at: Time.zone.now)
 
+User.create!(first_name: "Rene'",
+             last_name:  "Ryan",
+             cell_phone: "1234567890",
+             email: "rryan@tsha.cc",
+             password: "foobar",
+             password_confirmation: "foobar",
+             manager: true,
+             admin: true,
+             activated: true,
+             activated_at: Time.zone.now)
+
+User.create!(first_name: "Linda",
+             last_name:  "Hawkins",
+             cell_phone: "1234567890",
+             email: "lhawkins@tsha.cc",
+             password: "foobar",
+             password_confirmation: "foobar",
+             manager: true,
+             activated: true,
+             activated_at: Time.zone.now)
+
+User.create!(first_name: "Angie",
+             last_name:  "Davis",
+             cell_phone: "1234567890",
+             email: "adavis@tsha.cc",
+             password: "foobar",
+             password_confirmation: "foobar",
+             manager: true,
+             activated: true,
+             activated_at: Time.zone.now)
+
+User.create!(first_name: "Yamileth",
+             last_name:  "Canales",
+             cell_phone: "1234567890",
+             email: "ycanales@tsha.cc",
+             password: "foobar",
+             password_confirmation: "foobar",
+             manager: true,
+             activated: true,
+             activated_at: Time.zone.now)
+
 99.times do |n|
   first_name  = Faker::Name.first_name
   last_name  = Faker::Name.last_name

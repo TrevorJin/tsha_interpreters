@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :manager_user,   only: :index
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :destroy]
 
   def index
     if params[:search]
-      @users = User.search(params[:search]).order("created_at DESC")
+      @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     else
-      @users = User.paginate(page: params[:page])
+      @users = User.paginate(page: params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     end
   end
 
@@ -48,6 +48,34 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
+    redirect_to users_url
+  end
+
+  def promote_to_manager
+    @user = User.find(params[:id])
+    @user.change_to_manager
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to a manager."
+    redirect_to users_url
+  end
+
+  def promote_to_admin
+    @user = User.find(params[:id])
+    @user.change_to_admin
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to an admin."
+    redirect_to users_url
+  end
+
+  def demote_to_manager
+    @user = User.find(params[:id])
+    @user.change_to_manager
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to a manager."
+    redirect_to users_url
+  end
+
+  def demote_to_interpreter
+    @user = User.find(params[:id])
+    @user.change_to_interpreter
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to an interpreter."
     redirect_to users_url
   end
 
