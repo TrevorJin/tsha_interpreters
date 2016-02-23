@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start: 2016-02-22 15:10:36
+  end: 2016-02-22 15:10:36
+  address_line_1: MyString
+  address_line_2: MyString
+  address_line_3: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  invoice_notes: MyText
+  notes_for_irp: MyText
+  notes_for_interpreter: MyText
+  directions: MyText
+
+two:
+  start: 2016-02-22 15:10:36
+  end: 2016-02-22 15:10:36
+  address_line_1: MyString
+  address_line_2: MyString
+  address_line_3: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  invoice_notes: MyText
+  notes_for_irp: MyText
+  notes_for_interpreter: MyText
+  directions: MyText

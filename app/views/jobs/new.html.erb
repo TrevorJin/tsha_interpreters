@@ -1,0 +1,23 @@
+<% provide(:title, 'Create A Job') %>
+<h1>Create a Job</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= simple_form_for @job do |f| %>
+      <%= f.input :start, as: :datetime %>
+      <%= f.input :end, as: :datetime %>
+      <%= f.input :address_line_1 %>
+      <%= f.input :address_line_2 %>
+      <%= f.input :address_line_3 %>
+      <%= f.input :city %>
+      <%= f.input :state %>
+      <%= f.input :zip %>
+      <%= f.input :invoice_notes %>
+      <%= f.input :notes_for_irp %>
+      <%= f.input :notes_for_interpreter %>
+      <%= f.input :directions %>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>

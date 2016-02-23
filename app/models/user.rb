@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  has_many :appointments
+  has_many :jobs, through: :appointments
+
   def self.search(search, page)
     order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("last_name LIKE ? OR first_name like ?" , "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
   end

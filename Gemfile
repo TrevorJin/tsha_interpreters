@@ -26,6 +26,9 @@ gem 'jbuilder',                '2.2.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc',                    '0.4.0', group: :doc
 
+gem 'momentjs-rails',          '2.9.0'
+gem 'simple_form',             '3.2.0'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3',     '1.3.9'

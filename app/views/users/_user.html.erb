@@ -15,12 +15,12 @@
   <% if current_user.admin? && !current_user?(user) %>
    | Options:
   <% if user.admin? %>
-   | <%= link_to "Demote to Manager?", users_demote_to_manager_path(id: user.id) %>
+   | <%= link_to "Demote to Manager?", demote_to_manager_user_path(id: user.id) %>
   <% elsif user.manager? %>
-   | <%= link_to "Promote to Admin?", users_promote_to_admin_path(id: user.id) %>
-   | <%= link_to "Demote to Interpreter?", users_demote_to_interpreter_path(id: user.id) %>
+   | <%= link_to "Promote to Admin?", promote_to_admin_user_path(id: user.id) %>
+   | <%= link_to "Demote to Interpreter?", demote_to_interpreter_user_path(id: user.id) %>
   <% elsif !user.admin? %>
-   | <%= link_to "Promote to Manager?", users_promote_to_manager_path(id: user.id) %>
+   | <%= link_to "Promote to Manager?", promote_to_manager_user_path(id: user.id) %>
   <% end %>
   <% end %>
   <% if current_user.admin? && !current_user?(user) %>

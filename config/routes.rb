@@ -24,14 +24,18 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :users
+  resources :users do
+    member do
+      get 'promote_to_manager'
+      get 'promote_to_admin'
+      get 'demote_to_manager'
+      get 'demote_to_interpreter'
+    end
+  end
+
+  resources :jobs
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-
-  match 'users/:id/promote_to_manager'     => 'users#promote_to_manager',     via: [:get], as: :users_promote_to_manager
-  match 'users/:id/promote_to_admin'       => 'users#promote_to_admin',       via: [:get], as: :users_promote_to_admin
-  match 'users/:id/demote_to_manager'      => 'users#demote_to_manager',      via: [:get], as: :users_demote_to_manager
-  match 'users/:id/demote_to_interpreter'  => 'users#demote_to_interpreter',  via: [:get], as: :users_demote_to_interpreter
 
   # Example resource route with options:
   #   resources :products do
