@@ -88,5 +88,13 @@ class UserTest < ActiveSupport::TestCase
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
   end
+
+  test "new user should not be an admin" do
+    assert_not @user.admin?
+  end
+
+  test "new user should not be a manager" do
+    assert_not @user.manager?
+  end
 end
 	
