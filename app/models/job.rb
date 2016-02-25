@@ -1,5 +1,4 @@
 class Job < ActiveRecord::Base
-
 	validates :start, presence: true
 	validates :end, presence: true
 	validates :address_line_1, presence: { message: "The job must have an address." }, length: { maximum: 100 }
