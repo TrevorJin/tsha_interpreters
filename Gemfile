@@ -25,7 +25,7 @@ gem 'turbolinks',              '2.3.0'
 gem 'jbuilder',                '2.2.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc',                    '0.4.0', group: :doc
-
+gem 'font-awesome-rails',      '4.5.0'
 gem 'momentjs-rails',          '2.9.0'
 gem 'simple_form',             '3.2.0'
 
