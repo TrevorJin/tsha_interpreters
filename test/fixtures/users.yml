@@ -3,7 +3,7 @@
 michael:
   first_name: Michael
   last_name: Example
-  cell_phone: 1234567890
+  cell_phone: +18662466453
   email: michael@example.com
   password_digest: <%= User.digest('password') %>
   manager: true
@@ -14,7 +14,7 @@ michael:
 sanchez:
   first_name: Sanchez
   last_name: Sanderson
-  cell_phone: 1234567890
+  cell_phone: +18662466453
   email: mastermind@example.com
   password_digest: <%= User.digest('password') %>
   manager: true
@@ -24,7 +24,7 @@ sanchez:
 samson:
   first_name: Samson
   last_name: Kane
-  cell_phone: 9876543210
+  cell_phone: +18662466453
   email: finally@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -33,7 +33,7 @@ samson:
 archer:
   first_name: Sterling
   last_name: Archer
-  cell_phone: 6783451234
+  cell_phone: +18662466453
   email: chocolatemilk@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -42,7 +42,7 @@ archer:
 wonka:
   first_name: Wonka
   last_name: Flack
-  cell_phone: 6766766766
+  cell_phone: +18662466453
   email: bossy@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
@@ -52,7 +52,7 @@ wonka:
 user_<%= n %>:
   first_name:  <%= "First #{n}" %>
   last_name:  <%= "Last #{n}" %>
-  cell_phone: <%= "#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}#{n}" %>
+  cell_phone: +18662466453
   email: <%= "user-#{n}@example.com" %>
   password_digest: <%= User.digest('password') %>
   activated: true

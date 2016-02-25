@@ -9,8 +9,8 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 mail_address_line_1: "123 Mulberry Street",
     							 					 mail_address_line_2: "", mail_address_line_3: "",
     							 					 customer_name: "Boster Beer Company",
-    							 					 phone_number: "123456789", phone_number_extension: "1",
-    							 					 contact_phone_number: "987654321", contact_phone_number_extension: "1",
+    							 					 phone_number: "+18662466453", phone_number_extension: "1",
+    							 					 contact_phone_number: "+18662466453", contact_phone_number_extension: "1",
     							 					 email: "samadams@bostonbeer.com", fax: "111222333")
   end
 
@@ -81,12 +81,27 @@ class CustomerTest < ActiveSupport::TestCase
   end
 
   test "phone number should not be too long" do
-    @customer.phone_number = "a" * 31
+    @customer.phone_number = "+186624664531234567890123456789"
+    assert_not @customer.valid?
+  end
+
+  test "contact phone number should not be too long" do
+    @customer.contact_phone_number = "+186624664531234567890123456789"
     assert_not @customer.valid?
   end
 
   test "phone number extension should not be too long" do
-    @customer.phone_number_extension = "a" * 31
+    @customer.phone_number_extension = "1" * 21
+    assert_not @customer.valid?
+  end
+
+  # test "phone number extension should not have non-numeric characters" do
+  #   @customer.phone_number_extension = "abc123"
+  #   assert_not @customer.valid?
+  # end
+
+  test "contact phone number extension should not be too long" do
+    @customer.contact_phone_number_extension = "1" * 21
     assert_not @customer.valid?
   end
 

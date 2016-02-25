@@ -25,7 +25,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@regular_user)
     first_name  = "Foo"
     last_name = "Bar"
-    cell_phone = "1234567890"
+    cell_phone = "+18662466453"
     email = "foo@bar.com"
     patch user_path(@regular_user), user: { first_name:  first_name,
                                             last_name:   last_name,

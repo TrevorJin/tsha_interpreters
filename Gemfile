@@ -27,7 +27,10 @@ gem 'jbuilder',                '2.2.3'
 gem 'sdoc',                    '0.4.0', group: :doc
 gem 'font-awesome-rails',      '4.5.0'
 gem 'momentjs-rails',          '2.9.0'
+# Easy forms
 gem 'simple_form',             '3.2.0'
+# Validate phone numbers
+gem 'phony_rails',             '0.12.13'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

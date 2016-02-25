@@ -2,20 +2,26 @@ class User < ActiveRecord::Base
 	attr_accessor :remember_token, :activation_token, :reset_token
 	before_save   :downcase_email
   before_create :create_activation_digest
-	validates :first_name, presence: { message: "First Name Required" },
-                         length: { maximum: 50, message: "First Name must be 50 characters or less" }
-	validates :last_name, presence: { message: "Last Name Required" },
-                        length: { maximum: 50, message: "Last Name must be 50 characters or less" }
-	validates :cell_phone, presence: { message: "Cell Phone Required" },
-                         length: { maximum: 30, message: "Cell phone must be 30 characters or less" }
+
+	validates :first_name, presence: { message: "required" },
+                         length: { maximum: 50, message: "must be 50 characters or less" }
+	validates :last_name, presence: { message: "required" },
+                        length: { maximum: 50, message: "must be 50 characters or less" }
+  # Clean phone number input before validation.
+  phony_normalize :cell_phone, default_country_code: 'US'
+	validates :cell_phone, presence: { message: "required" },
+                         length: { maximum: 30, message: "must be 30 characters or less" },
+                         phony_plausible: true
+
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	validates :email, presence: { message: "Email Required" },
-                    length: { maximum: 255, message: "Email must be 255 characters or less" },
-	                  format: { with: VALID_EMAIL_REGEX, message: "Email is not a valid email format" },
-	                  uniqueness: { case_sensitive: false, message: "Email has already been taken" }
-	has_secure_password
-	validates :password, presence: { message: "Password Required" },
-                       length: { minimum: 6, message: "Password must be at least 6 characters long" }, allow_nil: true
+	validates :email, presence: { message: "required" },
+                    length: { maximum: 255, message: "must be 255 characters or less" },
+	                  format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" },
+	                  uniqueness: { case_sensitive: false, message: "has already been taken" }
+	
+  has_secure_password
+	validates :password, presence: { message: "required" },
+                       length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
 
   has_many :appointments
   has_many :jobs, through: :appointments
