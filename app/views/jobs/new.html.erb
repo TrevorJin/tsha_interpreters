@@ -3,7 +3,6 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-
     <%= simple_form_for @job do |f| %>
       <%= f.input :start, as: :datetime %>
       <%= f.input :end, as: :datetime %>
@@ -17,7 +16,7 @@
       <%= f.input :notes_for_irp %>
       <%= f.input :notes_for_interpreter %>
       <%= f.input :directions %>
-      <%= f.button :submit %>
+      <%= f.submit "Create Job", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

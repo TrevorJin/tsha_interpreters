@@ -3,7 +3,7 @@ en:
     "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'required'
+      text: 'Required'
       mark: '*'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
@@ -11,18 +11,42 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     # Examples
-    # labels:
-    #   defaults:
-    #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
+    labels:
+      # defaults:
+        # password: 'Password'
+      user:
+        new:
+          first_name: 'First Name'
+          last_name:  'Last Name'
+          cell_phone: 'Cell Phone'
+          email: 'Email'
+          password: 'Password'
+          password_confirmation: 'Confirm Password'
+        edit:
+          first_name: 'First Name'
+          last_name:  'Last Name'
+          cell_phone: 'Cell Phone'
+          email: 'Email.'
+          password: 'Password'
+          password_confirmation: 'Confirm Password'
+      job:
+        new:
+          start: 'Start Date and Time'
+          end: 'End Date and Time'
+          address_line_1: 'Address Line 1'
+          address_line_2: 'Address Line 2'
+          address_line_3: 'Address Line 3'
+          city: 'City'
+          state: 'State'
+          zip: 'Zip Code'
+          invoice_notes: 'Invoice Notes'
+          notes_for_irp: 'Notes for IRP'
+          notes_for_interpreter: 'Notes for Interpreter'
+          directions: 'Directions'
     # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
+      # defaults:
+        # username: 'User name to sign in.'
+        # password: 'No special characters, please.'
     # include_blanks:
     #   defaults:
     #     age: 'Rather not say'
