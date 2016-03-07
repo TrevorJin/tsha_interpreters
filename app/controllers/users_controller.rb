@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:show, :index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :manager_user,   only: :index
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :destroy]
