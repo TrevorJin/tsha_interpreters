@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   has_many :appointments
   has_many :jobs, through: :appointments
 
+  accepts_nested_attributes_for :jobs, allow_destroy: true
+
   def self.search(search, page)
     order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("last_name LIKE ? OR first_name like ?" , "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
   end

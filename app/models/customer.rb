@@ -28,6 +28,8 @@ class Customer < ActiveRecord::Base
   validates :contact_phone_number_extension, length: { maximum: 20, message: "must be 20 characters or less" }
 	validates :fax, length: { maximum: 30, message: "must be 30 characters or less" }
 
+	has_many :jobs
+
 	private
 
     # Converts email to all lower-case.

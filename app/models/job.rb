@@ -18,4 +18,8 @@ class Job < ActiveRecord::Base
 
 	has_many :appointments
   has_many :users, through: :appointments
+  has_one :customer
+  validates_presence_of :customer
+
+  accepts_nested_attributes_for :customer
 end
