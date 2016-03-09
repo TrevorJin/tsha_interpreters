@@ -3,7 +3,15 @@ require 'test_helper'
 class JobTest < ActiveSupport::TestCase
   
   def setup
-    @job = Job.new(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
+    @customer = Customer.new(customer_name: "University of Tulsa", email: "willywonka@utulsa.edu",
+                             contact_first_name: "Willy", contact_last_name: "Wonka",
+                             billing_address_line_1: "567 5th Avenue", billing_address_line_2: "",
+                             billing_address_line_3: "", mail_address_line_1: "", mail_address_line_2: "",
+                             mail_address_line_3: "", phone_number: "+18662466453",
+                             contact_phone_number: "+18662466453", phone_number_extension: "",
+                             contact_phone_number_extension: "", fax: "")
+    @customer.save
+    @job = @customer.jobs.create(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
     							 end: DateTime.parse('March 4th 2017 04:05:06 AM'),
     							 address_line_1: "123 Mulberry Street",
     							 address_line_2: "", address_line_3: "", city: "Tulsa",
@@ -13,6 +21,11 @@ class JobTest < ActiveSupport::TestCase
 
   test "should be valid" do
     assert @job.valid?
+  end
+
+  test "customer id should be present" do
+    @job.customer_id = nil
+    assert_not @job.valid?
   end
 
   test "start should be present" do

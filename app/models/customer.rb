@@ -1,6 +1,8 @@
 class Customer < ActiveRecord::Base
 	before_save :downcase_email
 
+	has_many :jobs
+
 	validates :customer_name, length: { maximum: 2000, message: "must be 2,000 characters or less"}
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	validates :email, length: { maximum: 255, message: "must be 255 characters or less" },
@@ -27,8 +29,6 @@ class Customer < ActiveRecord::Base
 																		 # format: { with: VALID_PHONE_NUMBER_EXTENSION_REGEX, message: "must only have digits"}
   validates :contact_phone_number_extension, length: { maximum: 20, message: "must be 20 characters or less" }
 	validates :fax, length: { maximum: 30, message: "must be 30 characters or less" }
-
-	has_many :jobs
 
 	private
 

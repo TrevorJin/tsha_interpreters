@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 	before_save   :downcase_email
   before_create :create_activation_digest
 
+  has_many :appointments
+  has_many :jobs, through: :appointments
+
 	validates :first_name, presence: { message: "required" },
                          length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :last_name, presence: { message: "required" },
@@ -22,11 +25,6 @@ class User < ActiveRecord::Base
   has_secure_password
 	validates :password, presence: { message: "required" },
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
-
-  has_many :appointments
-  has_many :jobs, through: :appointments
-
-  accepts_nested_attributes_for :jobs, allow_destroy: true
 
   def self.search(search, page)
     order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("last_name LIKE ? OR first_name like ?" , "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)

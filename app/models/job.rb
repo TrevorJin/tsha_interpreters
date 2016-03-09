@@ -1,4 +1,8 @@
 class Job < ActiveRecord::Base
+	has_many :appointments
+  has_many :users, through: :appointments
+  belongs_to :customer
+
 	validates :start, presence: { message: "date and time required" }
 	validates :end, presence: { message: "date and time required" }
 	validates :address_line_1, presence: { message: "required" },
@@ -15,11 +19,5 @@ class Job < ActiveRecord::Base
 	validates :notes_for_irp, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 	validates :notes_for_interpreter, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 	validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
-
-	has_many :appointments
-  has_many :users, through: :appointments
-  has_one :customer
-  validates_presence_of :customer
-
-  accepts_nested_attributes_for :customer
+	validates :customer_id, presence: true
 end
