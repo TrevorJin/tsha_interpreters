@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get    'help'    => 'static_pages#help'
   get    'about'   => 'static_pages#about'
   get    'signup'  => 'users#new'
+  get    'interpreters' => 'users#index'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :customers
   resources :jobs
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
