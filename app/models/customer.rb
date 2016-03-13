@@ -2,10 +2,13 @@ class Customer < ActiveRecord::Base
 	before_save :downcase_email
 
 	has_many :jobs
+	accepts_nested_attributes_for :jobs
 
-	validates :customer_name, length: { maximum: 2000, message: "must be 2,000 characters or less"}
+	validates :customer_name, presence: { message: "required" },
+														length: { maximum: 2000, message: "must be 2,000 characters or less"}
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	validates :email, length: { maximum: 255, message: "must be 255 characters or less" },
+	validates :email, presence: { message: "required" },
+										length: { maximum: 255, message: "must be 255 characters or less" },
 	                  format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" }
 	validates :contact_first_name, length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :contact_last_name, length: { maximum: 50, message: "must be 50 characters or less" }

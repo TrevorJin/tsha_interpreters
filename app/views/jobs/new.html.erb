@@ -1,9 +1,15 @@
 <% provide(:title, 'Create A Job') %>
-<h1>Create a Job</h1>
-
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Create a Job</h1>
+        </div>
+    </div>
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-9 col-md-offset-2">
     <%= simple_form_for @job do |f| %>
+      <%= f.association :customer, label_method: :customer_name, :value_method => :id %>
       <%= f.input :start, as: :datetime %>
       <%= f.input :end, as: :datetime %>
       <%= f.input :address_line_1 %>
@@ -19,4 +25,5 @@
       <%= f.submit "Create Job", class: "btn btn-primary" %>
     <% end %>
   </div>
+</div>
 </div>

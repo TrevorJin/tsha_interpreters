@@ -10,31 +10,37 @@
                         <a href="#"><i class="fa fa-search fa-fw"></i> Search</a>
                     </li>
                     <li>
-                        <%= link_to interpreters_path do %>
-                            <%= content_tag :i, "", :class => "fa fa-commenting-o fa-fw" %> Interpreters
-                        <% end %>
-                    </li>
-                    <li>
-                        <%= link_to customers_path do %>
-                            <%= content_tag :i, "", :class => "fa fa-users fa-fw" %> Customers
-                        <% end %>
-                    </li>
-                    <li>
-                         <%= link_to jobs_path do %>
-                            <%= content_tag :i, "", :class => "fa fa-briefcase fa-fw" %> Jobs
-                        <% end %>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-commenting-o fa-fw"></i> Interpreters<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Flot Charts</a>
+                                <%= link_to "All Interpreters", interpreters_path %>
                             </li>
                             <li>
-                                <a href="#">Morris.js Charts</a>
+                                <%= link_to "Create an Interpreter", interpreters_new_path %>
                             </li>
                         </ul>
-                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-briefcase fa-fw"></i> Jobs<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <%= link_to "All Jobs", jobs_path %>
+                            </li>
+                            <li>
+                                <%= link_to "Create a Job", new_job_path %>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-users fa-fw"></i> Customers<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <%= link_to "All Customers", customers_path %>
+                            </li>
+                            <li>
+                                <%= link_to "Create a Customer", new_customer_path %>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

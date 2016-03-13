@@ -49,7 +49,7 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:start, :end, :address_line_1, :address_line_2,
                                    :address_line_3, :city, :state, :zip, :invoice_notes,
-                                   :notes_for_irp, :notes_for_interpreter, :directions)
+                                   :notes_for_irp, :notes_for_interpreter, :directions, :customer_id)
     end
 
     # Before filters
