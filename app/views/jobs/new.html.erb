@@ -7,7 +7,7 @@
         </div>
     </div>
 <div class="row">
-  <div class="col-md-9 col-md-offset-2">
+  <div class="col-md-8 col-md-offset-2">
     <%= simple_form_for @job do |f| %>
       <%= f.association :customer, label_method: :customer_name, :value_method => :id %>
       <%= f.input :start, as: :datetime %>
@@ -16,7 +16,7 @@
       <%= f.input :address_line_2 %>
       <%= f.input :address_line_3 %>
       <%= f.input :city %>
-      <%= f.input :state %>
+      <%= f.input :state, :collection => us_states %>
       <%= f.input :zip %>
       <%= f.input :invoice_notes %>
       <%= f.input :notes_for_irp %>

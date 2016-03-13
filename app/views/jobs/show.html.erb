@@ -5,7 +5,9 @@
       <h1>
         Job #<%= @job.id %>
         <br>
-        Customer for the Job: <%= @job.customer.customer_name %>
+        Customer: <%= @job.customer.customer_name %>
+        <br>
+        Location: <%= @job.city %>, <%= @job.state %>  <%= @job.zip %>
       </h1>
     </section>
   </aside>

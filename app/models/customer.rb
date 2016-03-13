@@ -10,8 +10,10 @@ class Customer < ActiveRecord::Base
 	validates :email, presence: { message: "required" },
 										length: { maximum: 255, message: "must be 255 characters or less" },
 	                  format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" }
-	validates :contact_first_name, length: { maximum: 50, message: "must be 50 characters or less" }
-	validates :contact_last_name, length: { maximum: 50, message: "must be 50 characters or less" }
+	validates :contact_first_name, presence: { message: "required" }, 
+																 length: { maximum: 50, message: "must be 50 characters or less" }
+	validates :contact_last_name, presence: { message: "required" },
+																length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :billing_address_line_1, length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :billing_address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :billing_address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }

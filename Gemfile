@@ -31,6 +31,8 @@ gem 'momentjs-rails',          '2.9.0'
 gem 'simple_form',             '3.2.0'
 # Validate phone numbers
 gem 'phony_rails',             '0.12.13'
+# Fix turbolinks glitches
+gem 'jquery-turbolinks'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
