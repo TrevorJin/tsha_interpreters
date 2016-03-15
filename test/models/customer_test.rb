@@ -14,8 +14,18 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 email: "samadams@bostonbeer.com", fax: "111222333")
   end
 
+  test "customer name should be present" do
+    @customer.customer_name = "     "
+    assert_not @customer.valid?
+  end
+
   test "customer name should not be too long" do
     @customer.customer_name = "a" * 2001
+    assert_not @customer.valid?
+  end
+
+  test "email should be present" do
+    @customer.email = "     "
     assert_not @customer.valid?
   end
 
@@ -40,8 +50,18 @@ class CustomerTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @customer.reload.email
   end
 
+  test "contact first name should be present" do
+    @customer.contact_first_name = "     "
+    assert_not @customer.valid?
+  end
+
   test "contact first name should not be too long" do
     @customer.contact_first_name = "a" * 51
+    assert_not @customer.valid?
+  end
+
+  test "contact last name should be present" do
+    @customer.contact_last_name = "     "
     assert_not @customer.valid?
   end
 

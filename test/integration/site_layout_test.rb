@@ -14,7 +14,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", help_path
-    assert_select "a[href=?]", users_path, count: 1
+    assert_select "a[href=?]", jobs_path, count: 1
+    assert_select "a[href=?]", new_job_path, count: 1
     assert_select "a[href=?]", user_path(@admin), count: 1
     assert_select "a[href=?]", edit_user_path(@admin), count: 1
     assert_select "a[href=?]", about_path
@@ -31,7 +32,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", help_path
-    assert_select "a[href=?]", users_path, count: 1
+    assert_select "a[href=?]", new_job_path, count: 1
     assert_select "a[href=?]", user_path(@manager), count: 1
     assert_select "a[href=?]", edit_user_path(@manager), count: 1
     assert_select "a[href=?]", about_path

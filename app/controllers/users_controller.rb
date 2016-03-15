@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:show, :index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
+                                        :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
+                                        :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :manager_user,   only: :index
-  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :destroy]
+  before_action :manager_user,   only: [:dashboard, :index]
+  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
+                                        :demote_to_interpreter, :destroy]
 
   def index
     if params[:search]
@@ -49,6 +52,12 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+
+  def dashboard
+    @interpreters = User.all
+    @jobs = Job.all
+    @customers = Customer.all
   end
 
   def promote_to_manager
