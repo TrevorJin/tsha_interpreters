@@ -1,5 +1,8 @@
 <% provide(:title, "Edit user") %>
-<h1>Update your profile</h1>
+<%= render 'layouts/alerts' %>
+<h1>
+  Update your profile
+</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -27,4 +30,6 @@
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
   </div>
+  <!-- /.col-md-6 col-md-offset-3 -->
 </div>
+<!-- /.row -->

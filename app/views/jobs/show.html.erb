@@ -1,4 +1,6 @@
 <% provide(:title, @job.id) %>
+<%= render 'layouts/manager_dashboard' %>
+<%= render 'layouts/alerts' %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -10,5 +12,8 @@
         Location: <%= @job.city %>, <%= @job.state %>  <%= @job.zip %>
       </h1>
     </section>
+    <!-- /.user_info -->
   </aside>
+  <!-- /.col-md-4 -->
 </div>
+<!-- /.row -->

@@ -1,4 +1,5 @@
 <% provide(:title, @user.first_name) %>
+<%= render 'layouts/alerts' %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -6,5 +7,8 @@
         <%= @user.first_name %> <%= @user.last_name %>'s Page
       </h1>
     </section>
+    <!-- /.user_info -->
   </aside>
+  <!-- /.col-md-4 -->
 </div>
+<!-- /.row -->
