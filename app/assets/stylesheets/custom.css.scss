@@ -141,6 +141,12 @@ aside {
   }
 }
 
+/* tables */
+
+.qualification-cell {
+  text-align: center;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -198,4 +204,12 @@ input {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+
+/* Glyphicons */
+
+.glyphicon-ok {
+  display: block;
+  text-align: center;
+  color: green;
 }

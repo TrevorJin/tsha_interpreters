@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309192600) do
+ActiveRecord::Schema.define(version: 20160318051731) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -67,18 +67,38 @@ ActiveRecord::Schema.define(version: 20160309192600) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",                        default: false
+    t.boolean  "admin",                             default: false
     t.string   "activation_digest"
-    t.boolean  "activated",                    default: false
+    t.boolean  "activated",                         default: false
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.string   "cell_phone",        limit: 30
-    t.boolean  "manager",                      default: false
+    t.string   "cell_phone",             limit: 30
+    t.boolean  "manager",                           default: false
+    t.boolean  "approved",                          default: false
+    t.datetime "approved_at"
+    t.boolean  "qast_1_interpreting",               default: false
+    t.boolean  "qast_2_interpreting",               default: false
+    t.boolean  "qast_3_interpreting",               default: false
+    t.boolean  "qast_4_interpreting",               default: false
+    t.boolean  "qast_5_interpreting",               default: false
+    t.boolean  "qast_1_transliterating",            default: false
+    t.boolean  "qast_2_transliterating",            default: false
+    t.boolean  "qast_3_transliterating",            default: false
+    t.boolean  "qast_4_transliterating",            default: false
+    t.boolean  "qast_5_transliterating",            default: false
+    t.boolean  "rid_ci",                            default: false
+    t.boolean  "rid_ct",                            default: false
+    t.boolean  "rid_cdi",                           default: false
+    t.boolean  "di",                                default: false
+    t.boolean  "nic",                               default: false
+    t.boolean  "nic_advanced",                      default: false
+    t.boolean  "nic_master",                        default: false
+    t.boolean  "rid_sc_l",                          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
