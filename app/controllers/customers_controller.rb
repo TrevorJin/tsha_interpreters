@@ -1,7 +1,13 @@
 class CustomersController < ApplicationController
 
   def index
-    @customers = Customer.all
+    # @customers = Customer.all
+
+    if params[:search]
+      @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
+    else
+      @customers = Customer.paginate(page: params[:page]).order(customer_name: :asc)
+    end
   end
 
   def show

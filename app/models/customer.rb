@@ -35,6 +35,10 @@ class Customer < ActiveRecord::Base
   validates :contact_phone_number_extension, length: { maximum: 20, message: "must be 20 characters or less" }
 	validates :fax, length: { maximum: 30, message: "must be 30 characters or less" }
 
+	def self.search(search, page)
+    order(customer_name: :asc).where("customer_name LIKE ?" , "%#{search}%").paginate(page: page, per_page: 20)
+  end
+
 	private
 
     # Converts email to all lower-case.

@@ -191,15 +191,13 @@ User.create!(first_name: "Yamileth",
 99.times do |n|
   first_name  = Faker::Name.first_name
   last_name  = Faker::Name.last_name
-  cell_phone = "+18662466453"
   email = Faker::Internet.free_email("#{first_name}#{last_name}")
-  password = "password"
   User.create!(first_name:  first_name,
   						 last_name:  last_name,
-               cell_phone: cell_phone,
+               cell_phone: "+18662466453",
                email: email,
-               password:              password,
-               password_confirmation: password,
+               password:              "password",
+               password_confirmation: "password",
                activated: true,
                activated_at: Time.zone.now,
                approved: true,
@@ -222,4 +220,63 @@ User.create!(first_name: "Yamileth",
                nic_advanced: true,
                nic_master: true,
                rid_sc_l: true)
+end
+
+Customer.create!(customer_name:  "University of Tulsa",
+                 contact_first_name:  "John",
+                 contact_last_name: "Smith",
+                 contact_phone_number: "+18662466453",
+                 contact_phone_number_extension: "123",
+                 phone_number: "+18662466453",
+                 phone_number_extension: "",
+                 email: "admission@utulsa.edu",
+                 fax: "918-631-5003",
+                 billing_address_line_1: "Collins Hall",
+                 billing_address_line_2: "The University of Tulsa",
+                 billing_address_line_3: "800 South Tucker Drive",
+                 mail_address_line_1: "Collins Hall",
+                 mail_address_line_2: "The University of Tulsa",
+                 mail_address_line_3: "800 South Tucker Drive")
+
+Customer.create!(customer_name:  "Hideaway Pizza",
+                 contact_first_name:  "Harry",
+                 contact_last_name: "Hideaway",
+                 contact_phone_number: "+18662466453",
+                 contact_phone_number_extension: "123",
+                 phone_number: "+18662466453",
+                 phone_number_extension: "",
+                 email: "letseatsomepizza@hideawaypizza.com",
+                 fax: "",
+                 billing_address_line_1: "Hideaway-2, Inc.",
+                 billing_address_line_2: "1631 S. Boston Ave.",
+                 billing_address_line_3: "Tulsa, OK 74119",
+                 mail_address_line_1: "Hideaway-2, Inc.",
+                 mail_address_line_2: "1631 S. Boston Ave.",
+                 mail_address_line_3: "Tulsa, OK 74119")
+
+30.times do |n|
+  customer_name  = Faker::Company.name
+  contact_first_name = Faker::Name.first_name
+  contact_last_name  = Faker::Name.last_name
+  email = Faker::Internet.free_email("#{contact_first_name}#{contact_last_name}")
+  address_line_1 = Faker::Address.street_address
+  city = Faker::Address.city
+  state = Faker::Address.state
+  zip_code = Faker::Address.zip_code
+  address_line_2 = "#{city}, #{state} #{zip_code}"
+  Customer.create!(customer_name:  customer_name,
+                   contact_first_name:  contact_first_name,
+                   contact_last_name:  contact_last_name,
+                   contact_phone_number: "+18662466453",
+                   contact_phone_number_extension: "123",
+                   phone_number: "+18662466453",
+                   phone_number_extension: "",
+                   email: email,
+                   fax: "",
+                   billing_address_line_1: address_line_1,
+                   billing_address_line_2: address_line_2,
+                   billing_address_line_3: "",
+                   mail_address_line_1: address_line_1,
+                   mail_address_line_2: address_line_2,
+                   mail_address_line_3: "")
 end

@@ -1,3 +1,17 @@
-<li>
-  <%= link_to "Customer Name: #{customer.customer_name}; Customer ID: #{customer.id}", customer %>
-</li>
+<tr>
+	<td>
+    <%= link_to "#{customer.id}", customer %>
+  </td>
+  <td>
+    <%= link_to "#{customer.customer_name}", customer %>
+  </td>
+  <td>
+    <%= link_to "#{customer.contact_first_name}", customer %>
+  </td>
+  <td>
+    <%= link_to "#{customer.contact_last_name}", customer %>
+  </td>
+  <td>
+    <%= link_to "#{customer.email}", customer %>
+  </td>
+</tr>

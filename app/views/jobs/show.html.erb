@@ -1,6 +1,6 @@
-<% provide(:title, @job.id) %>
+<% provide(:title, "Job #{@job.id}") %>
 <%= render 'layouts/manager_dashboard' %>
-<div class="page-wrapper">
+<div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <aside class="col-md-4">
