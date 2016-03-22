@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318051731) do
+ActiveRecord::Schema.define(version: 20160321032704) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -56,9 +56,27 @@ ActiveRecord::Schema.define(version: 20160318051731) do
     t.text     "notes_for_irp"
     t.text     "notes_for_interpreter"
     t.text     "directions"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "customer_id"
+    t.boolean  "qast_1_interpreting_required",             default: false
+    t.boolean  "qast_2_interpreting_required",             default: false
+    t.boolean  "qast_3_interpreting_required",             default: false
+    t.boolean  "qast_4_interpreting_required",             default: false
+    t.boolean  "qast_5_interpreting_required",             default: false
+    t.boolean  "qast_1_transliterating_required_required", default: false
+    t.boolean  "qast_2_transliterating_required",          default: false
+    t.boolean  "qast_3_transliterating_required",          default: false
+    t.boolean  "qast_4_transliterating_required",          default: false
+    t.boolean  "qast_5_transliterating_required",          default: false
+    t.boolean  "rid_ci_required",                          default: false
+    t.boolean  "rid_ct_required",                          default: false
+    t.boolean  "rid_cdi_required",                         default: false
+    t.boolean  "di_required",                              default: false
+    t.boolean  "nic_required",                             default: false
+    t.boolean  "nic_advanced_required",                    default: false
+    t.boolean  "nic_master_required",                      default: false
+    t.boolean  "rid_sc_l_required",                        default: false
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"

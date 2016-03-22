@@ -14,7 +14,14 @@
           <a href="#"><i class="fa fa-comments fa-fw"></i> Interpreters<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "All Interpreters", interpreters_path %>
+              <%= link_to pending_users_path do %>
+                Pending Users <%= content_tag :span, "#{@pending_users.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to interpreters_path do %>
+                All Interpreters <%= content_tag :span, "#{@total_users.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
               <%= link_to "Create an Interpreter", interpreters_new_path %>

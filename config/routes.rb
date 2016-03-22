@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get    'about'            => 'static_pages#about'
   get    'signup'           => 'users#new'
   get    'dashboard'        => 'users#dashboard'
+  get    'pending_users'    => 'users#pending_users'
   get    'interpreters'     => 'users#index'
   get    'interpreters/new' => 'users#new'
   get    'login'            => 'sessions#new'
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
       get 'promote_to_admin'
       get 'demote_to_manager'
       get 'demote_to_interpreter'
+      get 'approve_account'
     end
   end
 

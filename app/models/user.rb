@@ -111,6 +111,12 @@ class User < ActiveRecord::Base
     update_attribute(:admin,    false)
   end
 
+  # Approve interpreter's account
+  def approve_interpreter_account
+    update_attribute(:approved, true)
+    update_attribute(:approved_at, Time.zone.now)
+  end
+
 private
 
     # Converts email to all lower-case.

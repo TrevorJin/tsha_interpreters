@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
-                                        :destroy]
+                                        :approve_account, :pending_users, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :manager_user,   only: [:dashboard, :index]
+  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :pending_users]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :destroy]
+                                        :demote_to_interpreter, :approve_account, :destroy]
 
   def index
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     else
@@ -16,6 +18,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @total_users = User.where(approved: true)
+    @pending_users = User.where(approved: false)
+
     @user = User.find(params[:id])
   end
 
@@ -57,9 +62,17 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @interpreters = User.all
+    @total_users = User.where(approved: true)
+    @pending_users = User.where(approved: false)
+
+    @interpreters = User.where(approved: true)
     @jobs = Job.all
     @customers = Customer.all
+  end
+
+  def pending_users
+    @total_users = User.where(approved: true)
+    @pending_users = User.where(approved: false)
   end
 
   def promote_to_manager
@@ -87,6 +100,21 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.change_to_interpreter
     flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to an interpreter."
+    redirect_to users_url
+  end
+
+  def approve_account
+    @user = User.find(params[:id])
+    @user.approve_interpreter_account
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been activated."
+    redirect_to users_url
+  end
+
+  def deny_account
+    @user = User.find(params[:id])
+    name = "#{@user.first_name} #{@user.last_name}"
+    User.find(params[:id]).destroy
+    flash[:success] = "#{name} has been successfully deleted."
     redirect_to users_url
   end
 

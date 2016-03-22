@@ -1,0 +1,59 @@
+<% provide(:title, 'Pending Users') %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        Pending Users
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <% if current_user.manager? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          First Name
+        </th>
+        <th>
+          Last Name
+        </th>
+        <th>
+          Approve?
+        </th>
+        <th>
+          Deny?
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pending_users.each do |pending_user| %>
+        <tr>
+          <td>
+            <%= pending_user.id %>
+          </td>
+          <td>
+            <%= pending_user.first_name %>
+          </td>
+          <td>
+            <%= pending_user.last_name %>
+          </td>
+          <td>
+            <%= link_to "Approve interpreter's account?", approve_account_user_path(id: pending_user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to activate #{pending_user.first_name} #{pending_user.last_name}'s account?"} %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped -->
+  <% end %>  
+</div>
+<!-- /.page-wrapper -->

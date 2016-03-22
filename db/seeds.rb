@@ -280,3 +280,37 @@ Customer.create!(customer_name:  "Hideaway Pizza",
                    mail_address_line_2: address_line_2,
                    mail_address_line_3: "")
 end
+
+12.times do |n|
+  first_name  = Faker::Name.first_name
+  last_name  = Faker::Name.last_name
+  email = Faker::Internet.free_email("#{first_name}#{last_name}")
+  User.create!(first_name:  first_name,
+               last_name:  last_name,
+               cell_phone: "+18662466453",
+               email: email,
+               password:              "password",
+               password_confirmation: "password",
+               activated: true,
+               activated_at: Time.zone.now,
+               approved: false,
+               approved_at: "",
+               qast_1_interpreting: true,
+               qast_2_interpreting: true,
+               qast_3_interpreting: true,
+               qast_4_interpreting: true,
+               qast_5_interpreting: true,
+               qast_1_transliterating: true,
+               qast_2_transliterating: true,
+               qast_3_transliterating: true,
+               qast_4_transliterating: true,
+               qast_5_transliterating: true,
+               rid_ci: true,
+               rid_ct: true,
+               rid_cdi: true,
+               di: true,
+               nic: true,
+               nic_advanced: true,
+               nic_master: true,
+               rid_sc_l: true)
+end
