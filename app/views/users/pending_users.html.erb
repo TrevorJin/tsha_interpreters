@@ -49,6 +49,8 @@
           <td>
             <%= link_to "Approve interpreter's account?", approve_account_user_path(id: pending_user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to activate #{pending_user.first_name} #{pending_user.last_name}'s account?"} %>
           </td>
+          <td>
+          </td>
         </tr>
       <% end %>
     </tbody>
