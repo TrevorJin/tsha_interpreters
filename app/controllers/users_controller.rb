@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def index
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     else
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     name = "#{@user.first_name} #{@user.last_name}"
     User.find(params[:id]).destroy
-    flash[:success] = "#{name} has been successfully deleted."
+    flash[:success] = "#{name}'s account has been denied.'"
     redirect_to users_url
   end
 
@@ -106,16 +106,8 @@ class UsersController < ApplicationController
   def approve_account
     @user = User.find(params[:id])
     @user.approve_interpreter_account
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been activated."
-    redirect_to users_url
-  end
-
-  def deny_account
-    @user = User.find(params[:id])
-    name = "#{@user.first_name} #{@user.last_name}"
-    User.find(params[:id]).destroy
-    flash[:success] = "#{name} has been successfully deleted."
-    redirect_to users_url
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved."
+    redirect_to pending_users_url
   end
 
   private
