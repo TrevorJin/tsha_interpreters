@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def index
     @pending_users = User.where(approved: false)
-    @total_users = User.all
+    @total_users = User.where(approved: true)
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     else
