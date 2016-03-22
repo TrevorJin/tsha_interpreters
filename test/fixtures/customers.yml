@@ -1,1 +1,36 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+university:
+  customer_name: University of Tulsa
+  contact_first_name: John
+  contact_last_name: Smith
+  contact_phone_number: +18662466453
+  contact_phone_number_extension: 123
+  phone_number: +18662466453
+  phone_number_extension: 321
+  email: admission@utulsa.edu
+  fax: 918-631-5003
+  billing_address_line_1: Collins Hall
+  billing_address_line_2: The University of Tulsa
+  billing_address_line_3: 800 South Tucker Drive
+  mail_address_line_1: Collins Hall
+  mail_address_line_2: The University of Tulsa
+  mail_address_line_3: 800 South Tucker Drive
+
+hideaway:
+  customer_name: Hideaway Pizza
+  contact_first_name: Harry
+  contact_last_name: Hideaway
+  contact_phone_number: +18662466453
+  contact_phone_number_extension: 123
+  phone_number: +18662466453
+  phone_number_extension: 321
+  email: letseatsomepizza@hideawaypizza.com
+  fax: 918-631-5003
+  billing_address_line_1: Hideaway-2 Inc.
+  billing_address_line_2: 1631 S. Boston Ave.
+  billing_address_line_3: Tulsa OK 74119
+  mail_address_line_1: Hideaway-2 Inc.
+  mail_address_line_2: 1631 S. Boston Ave.
+  mail_address_line_3: Tulsa OK 74119
+  

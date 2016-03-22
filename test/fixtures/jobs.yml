@@ -13,6 +13,24 @@ one:
   notes_for_irp: MyText
   notes_for_interpreter: MyText
   directions: MyText
+  qast_1_interpreting_required: true
+  qast_2_interpreting_required: false
+  qast_3_interpreting_required: false
+  qast_4_interpreting_required: false
+  qast_5_interpreting_required: false
+  qast_1_transliterating_required_required: false
+  qast_2_transliterating_required: false
+  qast_3_transliterating_required: false
+  qast_4_transliterating_required: false
+  qast_5_transliterating_required: false
+  rid_ci_required: false
+  rid_ct_required: false
+  rid_cdi_required: false
+  di_required: false
+  nic_required: false
+  nic_advanced_required: false
+  nic_master_required: false
+  rid_sc_l_required: false
 
 two:
   start: 2016-02-22 15:10:36
@@ -27,3 +45,21 @@ two:
   notes_for_irp: MyText
   notes_for_interpreter: MyText
   directions: MyText
+  qast_1_interpreting_required: true
+  qast_2_interpreting_required: false
+  qast_3_interpreting_required: false
+  qast_4_interpreting_required: false
+  qast_5_interpreting_required: false
+  qast_1_transliterating_required_required: false
+  qast_2_transliterating_required: false
+  qast_3_transliterating_required: false
+  qast_4_transliterating_required: false
+  qast_5_transliterating_required: false
+  rid_ci_required: false
+  rid_ct_required: false
+  rid_cdi_required: false
+  di_required: false
+  nic_required: false
+  nic_advanced_required: false
+  nic_master_required: false
+  rid_sc_l_required: false

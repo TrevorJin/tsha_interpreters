@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Admin User
 michael:
   first_name: Michael
   last_name: Example
@@ -12,7 +13,26 @@ michael:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 
+# Manager User
 sanchez:
   first_name: Sanchez
   last_name: Sanderson
@@ -24,7 +44,26 @@ sanchez:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 
+# Regular Interpreter
 samson:
   first_name: Samson
   last_name: Kane
@@ -35,7 +74,26 @@ samson:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 
+# Regular Interpreter
 archer:
   first_name: Sterling
   last_name: Archer
@@ -44,7 +102,28 @@ archer:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 
+# Regular Interpreter
 wonka:
   first_name: Wonka
   last_name: Flack
@@ -55,7 +134,26 @@ wonka:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 
+# Regular Interpreters
 <% 30.times do |n| %>
 user_<%= n %>:
   first_name:  <%= "First #{n}" %>
@@ -67,4 +165,22 @@ user_<%= n %>:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
 <% end %>
