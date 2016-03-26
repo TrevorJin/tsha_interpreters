@@ -153,6 +153,36 @@ wonka:
   nic_master: true
   rid_sc_l: true
 
+# Regular Interpreter (Not Appproved Yet)
+flaky:
+  first_name: Flaky
+  last_name: Tank
+  cell_phone: +18662466453
+  email: flaky@snowflake.gov
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  approved: false
+  approved_at:
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
+
 # Regular Interpreters
 <% 30.times do |n| %>
 user_<%= n %>:

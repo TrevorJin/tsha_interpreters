@@ -27,4 +27,11 @@
       <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
     <% end %>
   </td>
+  <td>
+    <% if user.active? %>
+      <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+    <% else %>
+      <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
+    <% end %>
+  </td>
 </tr>

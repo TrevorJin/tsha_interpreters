@@ -117,6 +117,11 @@ class User < ActiveRecord::Base
     update_attribute(:approved_at, Time.zone.now)
   end
 
+  # Deactivate user's account
+  def deactivate_user
+    update_attribute(:active, false)
+  end
+
 private
 
     # Converts email to all lower-case.

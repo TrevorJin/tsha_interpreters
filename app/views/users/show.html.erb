@@ -37,7 +37,7 @@
       				<%= link_to "Promote to Manager", promote_to_manager_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to promote #{@user.first_name} #{@user.last_name} to manager?"} %>
       			<% end %>
       			<% if current_user.admin? && !current_user?(@user) %>
-      				<%= link_to "Permanently Delete User", @user, method: :delete, class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to permanently delete #{@user.first_name} #{@user.last_name}? (Warning: This cannot be reversed.)"} %>
+      				<%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
   					<% end %>
       		</div>
       		<!-- /.btn-group btn-group-justified -->

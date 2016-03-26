@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
-                                        :approve_account, :pending_users, :destroy]
+                                        :approve_account, :pending_users, :deactivate_user]
   before_action :correct_user,   only: [:edit, :update]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :pending_users]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :approve_account, :destroy]
+                                        :demote_to_interpreter, :approve_account, :deactivate_user]
 
   def index
     @pending_users = User.where(approved: false)
@@ -108,6 +108,13 @@ class UsersController < ApplicationController
     @user.approve_interpreter_account
     flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved."
     redirect_to pending_users_url
+  end
+
+  def deactivate_user
+    @user = User.find(params[:id])
+    @user.deactivate_user
+    flash[:success] = "#{@user.first_name} #{@user.last_name}'s account has been deactivated."
+    redirect_to users_url
   end
 
   private

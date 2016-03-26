@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'demote_to_manager'
       get 'demote_to_interpreter'
       get 'approve_account'
+      get 'deactivate_user'
     end
   end
 

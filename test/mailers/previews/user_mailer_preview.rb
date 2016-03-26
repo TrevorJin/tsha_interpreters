@@ -14,4 +14,11 @@ class UserMailerPreview < ActionMailer::Preview
     user.reset_token = User.new_token
     UserMailer.password_reset(user)
   end
+
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/account_approved
+  def account_approved
+    manager = User.first
+    user = User.find(20)
+    UserMailer.account_approved(user, manager)
+  end
 end
