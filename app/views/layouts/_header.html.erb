@@ -17,6 +17,10 @@
           <li>
             <%= link_to "Manager Dashboard", dashboard_path %>
           </li>
+        <% elsif logged_in? && !current_user.manager? %>
+          <li>
+            <%= link_to "Dashboard", jobs_path %>
+          </li>
         <% end %>
         <li>
           <%= link_to "Help",   help_path %>

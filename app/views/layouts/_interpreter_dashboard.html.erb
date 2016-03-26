@@ -1,0 +1,55 @@
+<div id="wrapper">
+  <div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+      <ul class="nav" id="side-menu">
+        <% if logged_in? && !current_user.manager? && !current_user.approved? %>
+        <li>
+          <%= link_to jobs_path do %>
+            <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Awaiting Approval
+          <% end %>
+        </li>
+        <% elsif logged_in? && !current_user.manager? && current_user.approved? %>
+        <li>
+          <%= link_to jobs_path do %>
+            <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Available Jobs
+          <% end %>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-briefcase fa-fw"></i> Your Jobs<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to "Current", jobs_path %>
+            </li>
+            <li>
+              <%= link_to "Pending Approval", jobs_path %>
+            </li>
+            <li>
+              <%= link_to "Completed", jobs_path %>
+            </li>
+            <li>
+              <%= link_to "Rejected", jobs_path %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-tasks fa-fw"></i> Invoices<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to "History", jobs_path %>
+            </li>
+            <li>
+              <%= link_to "Submit", jobs_path %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
+        </li>
+        <% end %>
+      </ul>
+      <!-- /.nav -->
+    </div>
+    <!-- /.sidebar-nav navbar-collapse -->
+  </div>
+  <!-- /.navbar-default sidebar -->
+</div>
+<!-- /.wrapper -->

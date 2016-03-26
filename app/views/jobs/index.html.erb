@@ -1,20 +1,42 @@
-<% provide(:title, 'All Jobs') %>
-<%= render 'layouts/manager_dashboard' %>
+<% if logged_in? && current_user.manager? %>
+  <% provide(:title, 'All Jobs') %>
+<% elsif logged_in? && !current_user.manager? %>
+  <% provide(:title, 'Available Jobs') %>
+<% end %>
+<% if logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
+<% elsif logged_in? && !current_user.manager? %>
+<%= render 'layouts/interpreter_dashboard' %>
+  
+<% end %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        All Jobs
+        <% if logged_in? && current_user.manager? %>
+          All Jobs
+        <% elsif logged_in? && !current_user.manager? && current_user.approved? %>
+          Available Jobs
+        <% elsif logged_in? && !current_user.manager? && !current_user.approved? %>
+          Awaiting Approval
+        <% end %>
       </h1>
       <!-- /.page-header -->
     </div>
     <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
-	<ul class="jobs">
-		<%= render @jobs %>
-	</ul>
-	<!-- /.jobs -->
+  <% if logged_in? && !current_user.manager? && !current_user.approved? %>
+    <p style="text-align: center">
+      Please wait for TSHA to approve your account before jobs can be viewed.
+    </p>
+  <% end %>
+  <% if logged_in? && current_user.approved? %>
+	 <ul class="jobs">
+		  <%= render @jobs %>
+	 </ul>
+	 <!-- /.jobs -->
+  <% end %>
 </div>
 <!-- /.page-wrapper -->

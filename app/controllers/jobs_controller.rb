@@ -1,8 +1,10 @@
 class JobsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :manager_user,   only: [:index, :edit, :update, :destroy]
+  before_action :manager_user,   only: [:edit, :update, :destroy]
 
   def index
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     @jobs = Job.all
   end
 

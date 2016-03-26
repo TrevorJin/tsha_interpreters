@@ -194,6 +194,34 @@ User.create!(first_name: "Yamileth",
              nic_master: true,
              rid_sc_l: true)
 
+User.create!(first_name: "Sammy",
+             last_name:  "Flake",
+             cell_phone: "+18662466453",
+             email: "sammyflake@yahoo.com",
+             password: "foobar",
+             password_confirmation: "foobar",
+             activated: true,
+             activated_at: Time.zone.now,
+             active: true,
+             qast_1_interpreting: true,
+             qast_2_interpreting: true,
+             qast_3_interpreting: true,
+             qast_4_interpreting: true,
+             qast_5_interpreting: true,
+             qast_1_transliterating: true,
+             qast_2_transliterating: true,
+             qast_3_transliterating: true,
+             qast_4_transliterating: true,
+             qast_5_transliterating: true,
+             rid_ci: true,
+             rid_ct: true,
+             rid_cdi: true,
+             di: true,
+             nic: true,
+             nic_advanced: true,
+             nic_master: true,
+             rid_sc_l: true)
+
 99.times do |n|
   first_name  = Faker::Name.first_name
   last_name  = Faker::Name.last_name
