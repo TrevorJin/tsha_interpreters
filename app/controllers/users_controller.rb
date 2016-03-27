@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
-                                        :approve_account, :pending_users, :deactivate_user, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :pending_users]
-  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :approve_account, :deactivate_user,
+                                        :approve_account, :deny_account, :pending_users, :deactivate_user,
                                         :destroy]
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users]
+  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
+                                        :demote_to_interpreter, :deactivate_user, :destroy]
 
   def index
     @pending_users = User.where(approved: false)
@@ -54,11 +54,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # The only account destruction will be for interpreters trying to have their new account accepted.
+  # Any existing interpreter that should be blocked will be put into a "deactivated" state instead of
+  # being destroyed for record keeping purposes. We do not want to lose their history with TSHA.
   def destroy
     @user = User.find(params[:id])
+    @user.send_account_denied_email
     name = "#{@user.first_name} #{@user.last_name}"
     User.find(params[:id]).destroy
-    flash[:success] = "#{name}'s account has been denied.'"
+    flash[:success] = "#{name}'s account has been denied. They have been notified via email.'"
     redirect_to users_url
   end
 
@@ -117,7 +121,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.deactivate_user
     flash[:success] = "#{@user.first_name} #{@user.last_name}'s account has been deactivated."
-    redirect_to users_url
   end
 
   private

@@ -98,6 +98,11 @@ class User < ActiveRecord::Base
     UserMailer.account_approved(self, approving_manager).deliver_now
   end
 
+  # Sends account denied email.
+  def send_account_denied_email
+    UserMailer.account_denied(self).deliver_now
+  end
+
   # Change to manager.
   def change_to_manager
     update_attribute(:manager,  true)
