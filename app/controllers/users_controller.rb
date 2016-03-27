@@ -108,7 +108,7 @@ class UsersController < ApplicationController
     @approving_manager = current_user
     @user.approve_interpreter_account
     flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved."
-    @user.send_activation_email(@approving_manager)
+    @user.send_account_approved_email(@approving_manager)
     redirect_to pending_users_url
   end
 
