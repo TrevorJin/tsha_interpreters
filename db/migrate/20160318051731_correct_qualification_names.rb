@@ -1,23 +1,5 @@
 class CorrectQualificationNames < ActiveRecord::Migration
   def change
-  	remove_column :users, :QAST_1_interpreting
-  	remove_column :users, :QAST_2_interpreting
-  	remove_column :users, :QAST_3_interpreting
-  	remove_column :users, :QAST_4_interpreting
-  	remove_column :users, :QAST_5_interpreting
-  	remove_column :users, :QAST_1_transliterating
-  	remove_column :users, :QAST_2_transliterating
-  	remove_column :users, :QAST_3_transliterating
-  	remove_column :users, :QAST_4_transliterating
-  	remove_column :users, :QAST_5_transliterating
-  	remove_column :users, :RID_CI
-  	remove_column :users, :RID_CT
-  	remove_column :users, :RID_CDI
-  	remove_column :users, :DI
-  	remove_column :users, :NIC
-  	remove_column :users, :NIC_advanced
-  	remove_column :users, :NIC_master
-  	remove_column :users, :RID_SC_L
   	add_column :users, :qast_1_interpreting, :boolean, default: false
   	add_column :users, :qast_2_interpreting, :boolean, default: false
   	add_column :users, :qast_3_interpreting, :boolean, default: false
