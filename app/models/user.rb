@@ -93,6 +93,11 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
+  # Sends account approved email.
+  def send_account_approved_email(approving_manager)
+    UserMailer.account_approved(self, approving_manager).deliver_now
+  end
+
   # Change to manager.
   def change_to_manager
     update_attribute(:manager,  true)
