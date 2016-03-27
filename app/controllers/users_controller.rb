@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
-                                        :approve_account, :pending_users, :deactivate_user]
+                                        :approve_account, :pending_users, :deactivate_user, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :pending_users]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :approve_account, :deactivate_user]
+                                        :demote_to_interpreter, :approve_account, :deactivate_user,
+                                        :destroy]
 
   def index
     @pending_users = User.where(approved: false)
@@ -107,8 +108,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @approving_manager = current_user
     @user.approve_interpreter_account
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved."
     @user.send_account_approved_email(@approving_manager)
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved. They have been notified via email."
     redirect_to pending_users_url
   end
 
