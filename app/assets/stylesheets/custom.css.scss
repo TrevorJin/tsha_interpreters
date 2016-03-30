@@ -223,13 +223,11 @@ input {
 /* Scrollspy Help Menu */
 
 .group {
-    background: yellow;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
 }
 .group .subgroup {
-    background: orange;
-    width: 500px;
+    width: 600px;
     height: 200px;
 }
 .fixed {
@@ -288,5 +286,10 @@ input {
 }
 /* show active nested list */
 .bs-docs-sidebar .nav>.active>ul.nav {
-    display: block;           
+  display: block;           
+}
+
+.scroll-adjust{
+  padding-top: 40px;
+  margin-top: -40px;
 }
