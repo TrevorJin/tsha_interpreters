@@ -10,6 +10,13 @@ module ApplicationHelper
     end
   end
 
+  def gender_options
+    [
+      ['Male', 'Male'],
+      ['Female', 'Female']
+    ]
+  end
+
   def us_states
     [
       ['Alabama', 'AL'],
@@ -65,5 +72,5 @@ module ApplicationHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-end
+  end
 end

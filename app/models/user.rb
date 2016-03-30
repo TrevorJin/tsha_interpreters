@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
                          length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :last_name, presence: { message: "required" },
                         length: { maximum: 50, message: "must be 50 characters or less" }
+  validates :gender, presence: { message: "required" }
+
   # Clean phone number input before validation.
   phony_normalize :cell_phone, default_country_code: 'US'
 	validates :cell_phone, presence: { message: "required" },

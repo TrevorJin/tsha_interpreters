@@ -12,6 +12,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_template 'users/edit'
     patch user_path(@regular_user), user: { first_name:  "",
     								        last_name:  "",
+                                            gender: "",
                                             cell_phone: "",
                                             email: "foo@invalid",
                                             password:              "foo",
@@ -25,10 +26,12 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@regular_user)
     first_name  = "Foo"
     last_name = "Bar"
+    gender = "Male"
     cell_phone = "+18662466453"
     email = "foo@bar.com"
     patch user_path(@regular_user), user: { first_name:  first_name,
                                             last_name:   last_name,
+                                            gender: gender,
                                             cell_phone: cell_phone,
                                             email: email,
                                             password:              "",

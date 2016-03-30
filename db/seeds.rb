@@ -8,6 +8,7 @@
 
 User.create!(first_name:  "Example",
 						 last_name:  "Admin",
+             gender: "Male",
              cell_phone: "+18662466453",
              email: "admin@tsha.cc",
              password:              "foobar",
@@ -40,6 +41,7 @@ User.create!(first_name:  "Example",
 
 User.create!(first_name:  "Example",
              last_name:  "Manager",
+             gender: "Male",
              cell_phone: "+18662466453",
              email: "manager@tsha.cc",
              password:              "foobar",
@@ -71,6 +73,7 @@ User.create!(first_name:  "Example",
 
 User.create!(first_name: "Rene'",
              last_name:  "Ryan",
+             gender: "Female",
              cell_phone: "+18662466453",
              email: "rryan@tsha.cc",
              password: "foobar",
@@ -103,6 +106,7 @@ User.create!(first_name: "Rene'",
 
 User.create!(first_name: "Linda",
              last_name:  "Hawkins",
+             gender: "Female",
              cell_phone: "+18662466453",
              email: "lhawkins@tsha.cc",
              password: "foobar",
@@ -134,6 +138,7 @@ User.create!(first_name: "Linda",
 
 User.create!(first_name: "Angie",
              last_name:  "Davis",
+             gender: "Female",
              cell_phone: "+18662466453",
              email: "adavis@tsha.cc",
              password: "foobar",
@@ -165,6 +170,7 @@ User.create!(first_name: "Angie",
 
 User.create!(first_name: "Yamileth",
              last_name:  "Canales",
+             gender: "Female",
              cell_phone: "+18662466453",
              email: "ycanales@tsha.cc",
              password: "foobar",
@@ -196,6 +202,7 @@ User.create!(first_name: "Yamileth",
 
 User.create!(first_name: "Sammy",
              last_name:  "Flake",
+             gender: "Male",
              cell_phone: "+18662466453",
              email: "sammyflake@yahoo.com",
              password: "foobar",
@@ -225,9 +232,16 @@ User.create!(first_name: "Sammy",
 99.times do |n|
   first_name  = Faker::Name.first_name
   last_name  = Faker::Name.last_name
+  gender_boolean = Faker::Boolean.boolean
+  if gender_boolean
+    gender = "Male"
+  else
+    gender = "Female"
+  end
   email = Faker::Internet.free_email("#{first_name}#{last_name}")
   User.create!(first_name:  first_name,
   						 last_name:  last_name,
+               gender: gender,
                cell_phone: "+18662466453",
                email: email,
                password:              "password",
@@ -316,12 +330,19 @@ Customer.create!(customer_name:  "Hideaway Pizza",
                    mail_address_line_3: "")
 end
 
-12.times do |n|
+17.times do |n|
   first_name  = Faker::Name.first_name
   last_name  = Faker::Name.last_name
+  gender_boolean = Faker::Boolean.boolean
+  if gender_boolean
+    gender = "Male"
+  else
+    gender = "Female"
+  end
   email = Faker::Internet.free_email("#{first_name}#{last_name}")
   User.create!(first_name:  first_name,
                last_name:  last_name,
+               gender: gender,
                cell_phone: "+18662466453",
                email: email,
                password:              "password",

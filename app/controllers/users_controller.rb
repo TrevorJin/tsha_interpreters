@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     @user.send_account_denied_email
     name = "#{@user.first_name} #{@user.last_name}"
     User.find(params[:id]).destroy
-    flash[:success] = "#{name}'s account has been denied. They have been notified via email.'"
+    flash[:success] = "#{name}'s account has been denied. They have been notified via email."
     redirect_to users_url
   end
 
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :cell_phone,
+      params.require(:user).permit(:first_name, :last_name, :gender, :email, :cell_phone,
                                    :password, :password_confirmation)
     end
 

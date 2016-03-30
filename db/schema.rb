@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324175002) do
+ActiveRecord::Schema.define(version: 20160328203139) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160324175002) do
     t.boolean  "nic_master",                        default: false
     t.boolean  "rid_sc_l",                          default: false
     t.boolean  "active",                            default: true
+    t.string   "gender"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

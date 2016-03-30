@@ -9,10 +9,14 @@ class JobsController < ApplicationController
   end
 
   def show
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     @job = Job.find(params[:id])
   end
 
   def new
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
   	@job = Job.new
   end
 
@@ -27,6 +31,8 @@ class JobsController < ApplicationController
   end
 
   def edit
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     @job = Job.find(params[:id])
   end
 

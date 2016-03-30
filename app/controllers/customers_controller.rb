@@ -1,8 +1,8 @@
 class CustomersController < ApplicationController
 
   def index
-    # @customers = Customer.all
-
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     if params[:search]
       @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
     else
@@ -11,10 +11,14 @@ class CustomersController < ApplicationController
   end
 
   def show
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     @customer = Customer.find(params[:id])
   end
 
   def new
+    @pending_users = User.where(approved: false)
+    @total_users = User.where(approved: true)
     @customer = Customer.new
   end
 

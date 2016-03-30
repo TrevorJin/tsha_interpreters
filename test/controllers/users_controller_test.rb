@@ -33,7 +33,8 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should redirect update when not logged in" do
     patch :update, id: @regular_user, user: { first_name: @regular_user.first_name, last_name: @regular_user.last_name,
-    																	cell_phone: @regular_user.cell_phone, email: @regular_user.email }
+    																	gender: @regular_user.gender, cell_phone: @regular_user.cell_phone,
+                                      email: @regular_user.email }
     assert_not flash.empty?
     assert_redirected_to login_url
   end
@@ -48,7 +49,8 @@ class UsersControllerTest < ActionController::TestCase
   test "should redirect update when logged in as wrong user" do
     log_in_as(@other_user)
     patch :update, id: @regular_user, user: { first_name: @regular_user.first_name, last_name: @regular_user.last_name,
-                                      cell_phone: @regular_user.cell_phone, email: @regular_user.email }
+                                      gender: @regular_user.gender, cell_phone: @regular_user.cell_phone,
+                                      email: @regular_user.email }
     assert flash.empty?
     assert_redirected_to root_url
   end
