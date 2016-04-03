@@ -9,7 +9,8 @@ class JobTest < ActiveSupport::TestCase
                              billing_address_line_3: "", mail_address_line_1: "", mail_address_line_2: "",
                              mail_address_line_3: "", phone_number: "+18662466453",
                              contact_phone_number: "+18662466453", phone_number_extension: "",
-                             contact_phone_number_extension: "", fax: "")
+                             contact_phone_number_extension: "", fax: "",
+                             password: "foobar", password_confirmation: "foobar")
     @customer.save
     @job = @customer.jobs.create(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
     							 end: DateTime.parse('March 4th 2017 04:05:06 AM'),

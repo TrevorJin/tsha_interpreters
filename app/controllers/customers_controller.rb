@@ -1,8 +1,14 @@
 class CustomersController < ApplicationController
+  before_action :logged_in_user, only: [:index, :pending_customers]
+  before_action :manager_user,   only: [:index, :pending_customers]
+  before_action :correct_customer,   only: [:edit, :update]
 
   def index
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     if params[:search]
       @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
     else
@@ -12,24 +18,82 @@ class CustomersController < ApplicationController
 
   def show
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @customer = Customer.find(params[:id])
   end
 
   def new
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @customer = Customer.new
   end
 
   def create
     @customer = Customer.new(customer_params)
     if @customer.save
-      flash[:info] = "Customer has been successfully created."
-      redirect_to customers_url
+      flash[:info] = "An email has been sent to activate this account."
+      redirect_to root_url
     else
       render 'new'
     end
+  end
+
+  def edit
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+    
+    @customer = Customer.find(params[:id])
+  end
+
+  def update
+    @customer = Customer.find(params[:id])
+    if @customer.update_attributes(customer_params)
+      flash[:success] = "Profile updated"
+      redirect_to @customer
+    else
+      render 'edit'
+    end
+  end
+
+  # The only account destruction will be for customers trying to have their new account accepted.
+  # Any existing customer that should be blocked will be put into a "deactivated" state instead of
+  # being destroyed for record keeping purposes. We do not want to lose their history with TSHA.
+  def destroy
+    @customer = Customer.find(params[:id])
+    @customer.send_account_denied_email
+    Customer.find(params[:id]).destroy
+    flash[:success] = "The account for #{@customer.customer_name} has been denied. They have been notified via email."
+    redirect_to pending_customers_url
+  end
+
+  def pending_customers
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+  end
+
+  def approve_account
+    @customer = Customer.find(params[:id])
+    @approving_manager = current_user
+    @customer.approve_customer_account
+    @customer.send_account_approved_email(@approving_manager)
+    flash[:success] = "#{@customer.customer_name} has been approved. They have been notified via email."
+    redirect_to pending_customers_url
+  end
+
+  def deactivate_customer
+    @customer = Customer.find(params[:id])
+    @customer.deactivate_customer
+    flash[:success] = "The account for #{@customer.customer_name} has been deactivated."
   end
 
   private
@@ -40,6 +104,28 @@ class CustomersController < ApplicationController
       																 :mail_address_line_1, :mail_address_line_2, :mail_address_line_3,
       																 :customer_name, :phone_number, :phone_number_extension,
       																 :contact_phone_number, :contact_phone_number_extension, :email, :fax,
-      																 {:job_ids => []})
+                                       :password, :password_confirmation, {:job_ids => []})
+    end
+
+    # Before filters
+
+    # Confirms the correct customer.
+    def correct_customer
+      @customer = Customer.find(params[:id])
+      redirect_to(root_url) unless current_customer?(@customer)
+    end
+
+    # Confirms a logged-in user.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms a manager user.
+    def manager_user
+      redirect_to(root_url) unless current_user.manager?
     end
 end

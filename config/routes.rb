@@ -11,16 +11,21 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  get    'help'             => 'static_pages#help'
-  get    'about'            => 'static_pages#about'
-  get    'signup'           => 'users#new'
-  get    'dashboard'        => 'users#dashboard'
-  get    'pending_users'    => 'users#pending_users'
-  get    'interpreters'     => 'users#index'
-  get    'interpreters/new' => 'users#new'
-  get    'login'            => 'sessions#new'
-  post   'login'            => 'sessions#create'
-  delete 'logout'           => 'sessions#destroy'
+  get    'help'                 => 'static_pages#help'
+  get    'about'                => 'static_pages#about'
+  get    'interpreter_signup'   => 'users#new'
+  get    'customer_signup'      => 'customers#new'
+  get    'dashboard'            => 'users#dashboard'
+  get    'pending_interpreters' => 'users#pending_users'
+  get    'pending_customers'    => 'customers#pending_customers'
+  get    'interpreters'         => 'users#index'
+  get    'interpreters/new'     => 'users#new'
+  get    'login'                => 'sessions#new'
+  post   'login'                => 'sessions#create'
+  delete 'logout'               => 'sessions#destroy'
+  get    'customer_login'       => 'customer_sessions#new'
+  post   'customer_login'       => 'customer_sessions#create'
+  delete 'customer_logout'      => 'customer_sessions#destroy'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -38,10 +43,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :customers
+  resources :customers do
+    member do
+      get 'approve_account'
+      get 'deactivate_customer'
+    end
+  end
+
   resources :jobs
-  resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :account_activations,      only: [:edit]
+  resources :password_resets,          only: [:new, :create, :edit, :update]
+  resources :customer_account_activations,      only: [:edit]
+  resources :customer_password_resets, only: [:new, :create, :edit, :update]
 
   # Example resource route with options:
   #   resources :products do

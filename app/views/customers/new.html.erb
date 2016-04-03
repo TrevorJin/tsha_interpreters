@@ -1,11 +1,17 @@
 <% provide(:title, 'Create A Customer') %>
-<%= render 'layouts/manager_dashboard' %>
+<% if logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
 <div id="page-wrapper">
+<% end %>
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        Create a Customer
+        <% if logged_in? %>
+          Create a Customer
+        <% else %>
+          Sign Up
+        <% end %>
       </h1>
       <!-- /.page-header -->
     </div>
@@ -17,6 +23,8 @@
       <%= simple_form_for @customer do |f| %>
         <%= f.input :customer_name %>
         <%= f.input :email %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
         <%= f.input :contact_first_name %>
         <%= f.input :contact_last_name %>
         <%= f.input :billing_address_line_1 %>
@@ -36,5 +44,7 @@
     <!-- /.col-md8 col-md-offset-2 -->
   </div>
   <!-- /.row -->
+<% if logged_in? && current_user.manager? %>
 </div>
 <!-- /.page-wrapper -->
+<% end %>

@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 
   def index
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     else
@@ -19,8 +21,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @total_users = User.where(approved: true)
+    @total_users = User.all
     @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
 
     @user = User.find(params[:id])
   end
@@ -63,12 +67,14 @@ class UsersController < ApplicationController
     name = "#{@user.first_name} #{@user.last_name}"
     User.find(params[:id]).destroy
     flash[:success] = "#{name}'s account has been denied. They have been notified via email."
-    redirect_to users_url
+    redirect_to pending_interpreters_url
   end
 
   def dashboard
     @total_users = User.where(approved: true)
     @pending_users = User.where(approved: false)
+    @total_customers = Customer.where(approved: true)
+    @pending_customers = Customer.where(approved: false)
 
     @interpreters = User.where(approved: true)
     @jobs = Job.all
@@ -76,8 +82,10 @@ class UsersController < ApplicationController
   end
 
   def pending_users
-    @total_users = User.where(approved: true)
+    @total_users = User.all
     @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
   end
 
   def promote_to_manager
@@ -114,7 +122,7 @@ class UsersController < ApplicationController
     @user.approve_interpreter_account
     @user.send_account_approved_email(@approving_manager)
     flash[:success] = "#{@user.first_name} #{@user.last_name} has been approved. They have been notified via email."
-    redirect_to pending_users_url
+    redirect_to pending_interpreters_url
   end
 
   def deactivate_user

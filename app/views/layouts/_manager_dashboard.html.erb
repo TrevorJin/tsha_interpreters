@@ -14,8 +14,8 @@
           <a href="#"><i class="fa fa-comments fa-fw"></i> Interpreters<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to pending_users_path do %>
-                Pending Users <%= content_tag :span, "#{@pending_users.count}", :class => "badge" %>
+              <%= link_to pending_interpreters_path do %>
+                Pending Interpreters <%= content_tag :span, "#{@pending_users.count}", :class => "badge" %>
               <% end %>
             </li>
             <li>
@@ -45,7 +45,14 @@
           <a href="#"><i class="fa fa-users fa-fw"></i> Customers<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "All Customers", customers_path %>
+              <%= link_to pending_customers_path do %>
+                Pending Customers <%= content_tag :span, "#{@pending_customers.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to customers_path do %>
+                All Customers <%= content_tag :span, "#{@total_customers.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
               <%= link_to "Create a Customer", new_customer_path %>

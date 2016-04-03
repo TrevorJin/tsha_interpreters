@@ -1,0 +1,5 @@
+Hi <%= @customer.contact_first_name %> <%= @customer.contact_last_name %>,
+
+Welcome to the TSHA Interpreters System! Click on the link below to activate your account:
+
+<%= edit_customer_account_activation_url(@customer.activation_token, email: @customer.email) %>

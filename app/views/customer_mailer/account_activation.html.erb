@@ -1,0 +1,14 @@
+<h1>
+	TSHA Interpreters
+</h1>
+
+<p>
+	Hi <%= @customer.contact_first_name %> <%= @customer.contact_last_name %>,
+</p>
+
+<p>
+Welcome to the TSHA Interpreters System! Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_customer_account_activation_url(@customer.activation_token,
+                                                    					email: @customer.email) %>

@@ -13,6 +13,24 @@
       		</h3>
       	</div>
       	<!-- /.page-header -->
+        <% if @customer.approved? && current_user.admin? %>
+          <h4>
+            Admin Options:
+          </h4>
+          <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= link_to "Deactivate Account", deactivate_customer_customer_path(id: @customer.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate the account for #{@customer.customer_name}? They will no longer be able to use the site."} %>
+          </div>
+          <!-- /.btn-group btn-group-justified -->
+        <% elsif !@customer.approved? && current_user.manager? %>
+          <h4>
+            Manager Options:
+          </h4>
+          <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= link_to "Approve Account Request", approve_account_customer_path(id: @customer.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to approve the account request for #{@customer.customer_name}? They will be notified via email."} %>
+            <%= link_to "Deny Account Request", @customer, method: :delete, class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to permanently deny the account request for #{@customer.customer_name}? (Warning: This cannot be reversed.)"} %>
+          </div>
+          <!-- /.btn-group btn-group-justified -->
+        <% end %>
     	</section>
     	<!-- /.user_info -->
   	</aside>

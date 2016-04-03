@@ -21,8 +21,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get signup_path
-    assert_select "title", full_title("Sign up")
+    get interpreter_signup_path
+    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links for manager user" do
@@ -38,8 +38,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get signup_path
-    assert_select "title", full_title("Sign up")
+    get interpreter_signup_path
+    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links for regular user" do
@@ -55,8 +55,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get signup_path
-    assert_select "title", full_title("Sign up")
+    get interpreter_signup_path
+    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links when not logged in" do
@@ -70,8 +70,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get signup_path
-    assert_select "title", full_title("Sign up")
+    get interpreter_signup_path
+    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "manager dashboard for admin" do
@@ -79,7 +79,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get dashboard_path
     assert_template 'users/dashboard'
     assert_select "a[href=?]", dashboard_path, count: 2
-    assert_select "a[href=?]", pending_users_path, count: 2
+    assert_select "a[href=?]", pending_interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_new_path, count: 1
     assert_select "a[href=?]", jobs_path, count: 2
@@ -93,7 +93,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     get dashboard_path
     assert_template 'users/dashboard'
     assert_select "a[href=?]", dashboard_path, count: 2
-    assert_select "a[href=?]", pending_users_path, count: 2
+    assert_select "a[href=?]", pending_interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_new_path, count: 1
     assert_select "a[href=?]", jobs_path, count: 2

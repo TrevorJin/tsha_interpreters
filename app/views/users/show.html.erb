@@ -8,9 +8,11 @@
   				<h3>
   					#<%= @user.id %> - <%= @user.first_name %> <%= @user.last_name %>
   						<small>
-  							<% if current_user.admin? %>
+                <% if !@user.approved? %>
+                  Pending Interpreter
+  							<% elsif @user.admin? %>
       						Administrator
-      					<% elsif current_user.manager? %>
+      					<% elsif @user.manager? %>
       						Manager
       					<% else %>
       						Interpreter
@@ -23,7 +25,7 @@
           Show Qualifications
         </button>
         <!-- /.btn btn-primary -->
-      	<% if current_user.admin? && !current_user?(@user) %>
+      	<% if @user.approved? && current_user.admin? && !current_user?(@user) %>
       		<h4>
       			Admin Options:
       		</h4>
@@ -36,13 +38,19 @@
       			<% elsif !@user.admin? %>
       				<%= link_to "Promote to Manager", promote_to_manager_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to promote #{@user.first_name} #{@user.last_name} to manager?"} %>
       			<% end %>
-      			<% if current_user.admin? && !current_user?(@user) %>
-      				<%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
-  					<% end %>
+      			<%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
       		</div>
       		<!-- /.btn-group btn-group-justified -->
-      		<% end %>
-
+        <% elsif !@user.approved? && current_user.manager? && !current_user?(@user) %>
+          <h4>
+            Manager Options:
+          </h4>
+          <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= link_to "Approve Account Request", approve_account_user_path(id: @user.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to approve #{@user.first_name} #{@user.last_name}'s account request? They will be notified via email."} %>
+            <%= link_to "Deny Account Request", @user, method: :delete, class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to permanently deny #{@user.first_name} #{@user.last_name}'s account request? (Warning: This cannot be reversed.)"} %>
+          </div>
+          <!-- /.btn-group btn-group-justified -->
+      	<% end %>
           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">

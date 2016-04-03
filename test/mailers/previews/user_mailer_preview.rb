@@ -21,4 +21,10 @@ class UserMailerPreview < ActionMailer::Preview
     user = User.find(20)
     UserMailer.account_approved(user, manager)
   end
+
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/account_denied
+  def account_denied
+    user = User.find(20)
+    UserMailer.account_denied(user)
+  end
 end

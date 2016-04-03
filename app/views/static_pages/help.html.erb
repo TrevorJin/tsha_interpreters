@@ -7,21 +7,16 @@
 </script>
 <div class="container">
 	<%= render 'layouts/alerts' %>
-	<h1>
-		Help
-	</h1>
-	<p>
-		This is the help page for TSHA's interpreter matching system. For more info on TSHA, please visit <a href="http://tsha.cc/">TSHA's website</a>.
-	</p>
 <div class="row">
     <!--Nav Bar -->
     <nav class="col-xs-3 bs-docs-sidebar">
         <ul id="sidebar" class="nav nav-stacked fixed">
             <li>
-                <a href="#GroupA">Group A</a>
+                <a href="#Admin">Admin</a>
                 <ul class="nav nav-stacked">
-                    <li><a href="#GroupASub1">Sub-Group 1</a></li>
-                    <li><a href="#GroupASub2">Sub-Group 2</a></li>
+                    <li><a href="#PendingInterpreters">Pending Interpreters</a></li>
+                    <li><a href="#AllInterpreters">All Interpreters</a></li>
+                    <li><a href="#PromotionDemotion">Promotion or Demotion of Users</a></li>
                 </ul>
             </li>
             <li>
@@ -42,13 +37,25 @@
     </nav>
     <!--Main Content -->
     <div class="col-xs-9">
-        <section id="GroupA" class="group">
-            <h3>Group A</h3>
-            <div id="GroupASub1" class="subgroup scroll-adjust">
-                <h4>Group A Sub 1</h4>
+        <section id="Admin" class="group">
+            <h3>Admin</h3>
+            <div id="PendingInterpreters" class="subgroup scroll-adjust">
+                <h4>Pending Interpreters</h4>
+                <p>
+                    On this page, Admin can approve interpreter to be part of the TSHA system, or deny their access completely. Once an interpreter has signed up for an account they receive an email notification. This email will have a link that directs the interpreter to the TSHA page. Access will only be granted once the admin has approved the application. They will then be able to begin to use their account. If denied, the interpreter will also get an email notification which informs them they have not been accepted.
+                </p>
             </div>
-            <div id="GroupASub2" class="subgroup scroll-adjust">
-                <h4>Group A Sub 2</h4>
+            <div id="AllInterpreters" class="subgroup scroll-adjust">
+                <h4>All Interpreters</h4>
+                <p>
+                    On this page, all of the interpreters are listed with their role (admin, manager, interpreter), first name, last name, email and whether they are approved and active. Active determines whether or not the interpreter has accessed the link in the email received after completing the signup form. Approved demonstrates that the interpreter has been accepted and has an account. The admin and manager can later remove any individuals. If an interpreter's first name, last name or email is selected, their personal profile will appear. This includes their qualifications, admin options (promote to admin, demote to interpreters, deactivate account).
+                </p>
+            </div>
+            <div id="PromotionDemotion" class="subgroup scroll-adjust">
+                <h4>Promotion or Demotion of Users</h4>
+                <p>
+                    By going to the Interpreter subsection of “All Interpreters”, you can see everyone have the capability to act like an interpreter. This will include interpreter,manager and administrator. By clicking on any of their information, the ID, first name, last name, or email, you will direct to their personal information page. Here as an admin or manager, you will see the option of promote, demote or deactivate an account. By promoting or demoting, the user will have the capability of the position they have been newly assigned. All users are restricted to promoting or demoting themselves.
+                </p>
             </div>
         </section>
         <section id="GroupB" class="group scroll-adjust">

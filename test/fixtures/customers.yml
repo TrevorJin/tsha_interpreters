@@ -1,5 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Regular Customer
+
 university:
   customer_name: University of Tulsa
   contact_first_name: John
@@ -16,6 +18,13 @@ university:
   mail_address_line_1: Collins Hall
   mail_address_line_2: The University of Tulsa
   mail_address_line_3: 800 South Tucker Drive
+  password_digest: <%= Customer.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+
+# Regular Customer
 
 hideaway:
   customer_name: Hideaway Pizza
@@ -33,4 +42,32 @@ hideaway:
   mail_address_line_1: Hideaway-2 Inc.
   mail_address_line_2: 1631 S. Boston Ave.
   mail_address_line_3: Tulsa OK 74119
-  
+  password_digest: <%= Customer.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  approved: true
+  approved_at: <%= Time.zone.now %>
+
+# Regular Customer, not yet approved
+
+shady:
+  customer_name: Shady Corporation
+  contact_first_name: Shady
+  contact_last_name: Shandy
+  contact_phone_number: +18662466453
+  contact_phone_number_extension: 123
+  phone_number: +18662466453
+  phone_number_extension: 321
+  email: wearenotshady@shadycorp.com
+  fax: 918-631-5003
+  billing_address_line_1: 123 Shady Avenue
+  billing_address_line_2: Apt 561
+  billing_address_line_3: Tulsa OK 74104
+  mail_address_line_1: 123 Shady Avenue
+  mail_address_line_2: Apt 561
+  mail_address_line_3: Tulsa OK 74104
+  password_digest: <%= Customer.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  approved: false
+  approved_at:

@@ -4,19 +4,28 @@ class JobsController < ApplicationController
 
   def index
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @jobs = Job.all
   end
 
   def show
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @job = Job.find(params[:id])
   end
 
   def new
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
   	@job = Job.new
   end
 
@@ -32,7 +41,10 @@ class JobsController < ApplicationController
 
   def edit
     @pending_users = User.where(approved: false)
-    @total_users = User.where(approved: true)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    
     @job = Job.find(params[:id])
   end
 

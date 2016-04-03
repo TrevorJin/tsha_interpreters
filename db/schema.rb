@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328203139) do
+ActiveRecord::Schema.define(version: 20160403051334) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20160328203139) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "contact_first_name"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "contact_last_name"
     t.string   "billing_address_line_1"
     t.string   "billing_address_line_2"
@@ -41,7 +41,19 @@ ActiveRecord::Schema.define(version: 20160328203139) do
     t.string   "contact_phone_number_extension"
     t.string   "email"
     t.string   "fax"
+    t.string   "password_digest"
+    t.string   "activation_digest"
+    t.boolean  "activated",                      default: false
+    t.datetime "activated_at"
+    t.string   "remember_digest"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
+    t.boolean  "approved",                       default: false
+    t.datetime "approved_at"
+    t.boolean  "active",                         default: true
   end
+
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
 
   create_table "jobs", force: :cascade do |t|
     t.datetime "start"

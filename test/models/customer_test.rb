@@ -11,7 +11,8 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 customer_name: "Boster Beer Company",
     							 					 phone_number: "+18662466453", phone_number_extension: "1",
     							 					 contact_phone_number: "+18662466453", contact_phone_number_extension: "1",
-    							 					 email: "samadams@bostonbeer.com", fax: "111222333")
+    							 					 email: "samadams@bostonbeer.com", fax: "111222333",
+                             password: "foobar", password_confirmation: "foobar")
   end
 
   test "customer name should be present" do
@@ -41,6 +42,13 @@ class CustomerTest < ActiveSupport::TestCase
       @customer.email = valid_address
       assert @customer.valid?, "#{valid_address.inspect} should be valid"
     end
+  end
+
+  test "email addresses should be unique" do
+    duplicate_customer = @customer.dup
+    duplicate_customer.email = @customer.email.upcase
+    @customer.save
+    assert_not duplicate_customer.valid?
   end
 
   test "email addresses should be saved as lower-case" do
@@ -129,4 +137,15 @@ class CustomerTest < ActiveSupport::TestCase
     @customer.fax = "a" * 31
     assert_not @customer.valid?
   end
+
+  test "password should be present (nonblank)" do
+    @customer.password = @customer.password_confirmation = " " * 6
+    assert_not @customer.valid?
+  end
+
+  test "password should have a minimum length" do
+    @customer.password = @customer.password_confirmation = "a" * 5
+    assert_not @customer.valid?
+  end
+
 end

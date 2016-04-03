@@ -7,6 +7,8 @@ class ActiveSupport::TestCase
   fixtures :all
   include ApplicationHelper
 
+  # User Helpers
+
   # Returns true if a test user is logged in.
   def is_logged_in?
     !session[:user_id].nil?
@@ -22,6 +24,26 @@ class ActiveSupport::TestCase
                                   remember_me: remember_me }
     else
       session[:user_id] = user.id
+    end
+  end
+
+  # Customer Helpers
+
+  # Returns true if a test customer is logged in.
+  def customer_is_logged_in?
+    !customer_session[:customer_id].nil?
+  end
+
+  # Logs in a test customer.
+  def customer_log_in_as(customer, options = {})
+    password    = options[:password]    || 'password'
+    remember_me = options[:remember_me] || '1'
+    if integration_test?
+      post customer_login_path, customer_session: { email: customer.email,
+                                  password:    password,
+                                  remember_me: remember_me }
+    else
+      customer_session[:customer_id] = customer.id
     end
   end
 
