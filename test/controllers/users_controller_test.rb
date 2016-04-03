@@ -15,7 +15,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should redirect index when not manager" do
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     get :index
     assert_redirected_to root_url
   end
@@ -40,14 +40,14 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should redirect edit when logged in as wrong user" do
-    log_in_as(@other_user)
+    user_log_in_as(@other_user)
     get :edit, id: @regular_user
     assert flash.empty?
     assert_redirected_to root_url
   end
 
   test "should redirect update when logged in as wrong user" do
-    log_in_as(@other_user)
+    user_log_in_as(@other_user)
     patch :update, id: @regular_user, user: { first_name: @regular_user.first_name, last_name: @regular_user.last_name,
                                       gender: @regular_user.gender, cell_phone: @regular_user.cell_phone,
                                       email: @regular_user.email }
@@ -63,7 +63,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should redirect destroy when logged in as a regular user" do
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     assert_no_difference 'User.count' do
       delete :destroy, id: @regular_user
     end
@@ -71,7 +71,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should redirect destroy when logged in as a manager" do
-    log_in_as(@manager_user)
+    user_log_in_as(@manager_user)
     assert_no_difference 'User.count' do
       delete :destroy, id: @regular_user
     end

@@ -1,5 +1,5 @@
 <% provide(:title, 'Create A Customer') %>
-<% if logged_in? && current_user.manager? %>
+<% if user_logged_in? && current_user.manager? %>
   <%= render 'layouts/manager_dashboard' %>
 <div id="page-wrapper">
 <% end %>
@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        <% if logged_in? %>
+        <% if user_logged_in? %>
           Create a Customer
         <% else %>
           Sign Up
@@ -44,7 +44,7 @@
     <!-- /.col-md8 col-md-offset-2 -->
   </div>
   <!-- /.row -->
-<% if logged_in? && current_user.manager? %>
+<% if user_logged_in? && current_user.manager? %>
 </div>
 <!-- /.page-wrapper -->
 <% end %>

@@ -13,11 +13,11 @@
 
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? && current_user.manager? %>
+        <% if user_logged_in? && current_user.manager? %>
           <li>
             <%= link_to "Manager Dashboard", dashboard_path %>
           </li>
-        <% elsif logged_in? && !current_user.manager? %>
+        <% elsif user_logged_in? && !current_user.manager? %>
           <li>
             <%= link_to "Dashboard", jobs_path %>
           </li>
@@ -25,7 +25,7 @@
         <li>
           <%= link_to "Help",   help_path %>
         </li>
-        <% if logged_in? %>
+        <% if user_logged_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>

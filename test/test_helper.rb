@@ -10,12 +10,12 @@ class ActiveSupport::TestCase
   # User Helpers
 
   # Returns true if a test user is logged in.
-  def is_logged_in?
+  def user_is_logged_in?
     !session[:user_id].nil?
   end
 
   # Logs in a test user.
-  def log_in_as(user, options = {})
+  def user_log_in_as(user, options = {})
     password    = options[:password]    || 'password'
     remember_me = options[:remember_me] || '1'
     if integration_test?

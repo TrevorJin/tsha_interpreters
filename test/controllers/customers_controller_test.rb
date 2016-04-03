@@ -13,7 +13,7 @@ class CustomersControllerTest < ActionController::TestCase
   end
 
   test "should redirect index when not manager" do
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     get :index
     assert_redirected_to root_url
   end

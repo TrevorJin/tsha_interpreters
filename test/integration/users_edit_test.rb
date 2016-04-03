@@ -7,7 +7,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "unsuccessful edit" do
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     get edit_user_path(@regular_user)
     assert_template 'users/edit'
     patch user_path(@regular_user), user: { first_name:  "",
@@ -22,7 +22,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
   test "successful edit with friendly forwarding" do
     get edit_user_path(@regular_user)
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     assert_redirected_to edit_user_path(@regular_user)
     first_name  = "Foo"
     last_name = "Bar"

@@ -19,7 +19,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information followed by logout" do
     get login_path
     post login_path, session: { email: @user.email, password: 'password' }
-    assert is_logged_in?
+    assert user_is_logged_in?
     assert_redirected_to @user
     follow_redirect!
     assert_template 'users/show'
@@ -27,7 +27,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", user_path(@user)
     delete logout_path
-    assert_not is_logged_in?
+    assert_not user_is_logged_in?
     assert_redirected_to root_url
     # Simulate a user clicking logout in a second window.
     delete logout_path
@@ -38,12 +38,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "login with remembering" do
-    log_in_as(@user, remember_me: '1')
+    user_log_in_as(@user, remember_me: '1')
     assert_not_nil cookies['remember_token']
   end
 
   test "login without remembering" do
-    log_in_as(@user, remember_me: '0')
+    user_log_in_as(@user, remember_me: '0')
     assert_nil cookies['remember_token']
   end
 end

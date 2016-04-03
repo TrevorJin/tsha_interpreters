@@ -13,6 +13,8 @@ class Customer < ActiveRecord::Base
 										length: { maximum: 255, message: "must be 255 characters or less" },
 	                  format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" },
 	                  uniqueness: { case_sensitive: false, message: "has already been taken" }
+  validate :unique_email
+
 	validates :contact_first_name, presence: { message: "required" }, 
 																 length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :contact_last_name, presence: { message: "required" },
@@ -129,6 +131,11 @@ class Customer < ActiveRecord::Base
     # Converts email to all lower-case.
     def downcase_email
       self.email = email.downcase
+    end
+
+    def unique_email
+      self.email = email.downcase
+      self.errors.add(:email, 'is already taken') if User.where(email: self.email).exists?
     end
 
     # Creates and assigns the activation token and digest.

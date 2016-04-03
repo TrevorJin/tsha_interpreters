@@ -9,7 +9,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "layout links for admin user" do
-    log_in_as(@admin)
+    user_log_in_as(@admin)
     get root_path
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 1
@@ -26,7 +26,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "layout links for manager user" do
-    log_in_as(@manager)
+    user_log_in_as(@manager)
     get root_path
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 1
@@ -43,7 +43,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "layout links for regular user" do
-    log_in_as(@regular_user)
+    user_log_in_as(@regular_user)
     get root_path
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path,  count: 1
@@ -75,7 +75,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "manager dashboard for admin" do
-    log_in_as(@admin)
+    user_log_in_as(@admin)
     get dashboard_path
     assert_template 'users/dashboard'
     assert_select "a[href=?]", dashboard_path, count: 2
@@ -89,7 +89,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   end
 
   test "manager dashboard for manager" do
-    log_in_as(@manager)
+    user_log_in_as(@manager)
     get dashboard_path
     assert_template 'users/dashboard'
     assert_select "a[href=?]", dashboard_path, count: 2

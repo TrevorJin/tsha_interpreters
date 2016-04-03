@@ -2,13 +2,13 @@
   <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
       <ul class="nav" id="side-menu">
-        <% if logged_in? && !current_user.manager? && !current_user.approved? %>
+        <% if user_logged_in? && !current_user.manager? && !current_user.approved? %>
         <li>
           <%= link_to jobs_path do %>
             <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Awaiting Approval
           <% end %>
         </li>
-        <% elsif logged_in? && !current_user.manager? && current_user.approved? %>
+        <% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
         <li>
           <%= link_to jobs_path do %>
             <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Available Jobs
