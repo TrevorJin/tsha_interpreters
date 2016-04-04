@@ -20,7 +20,7 @@ module SessionsHelper
   end
 
   # Logs in the given customer.
-  def customer_log_in(user)
+  def customer_log_in(customer)
     session[:customer_id] = customer.id
   end
 

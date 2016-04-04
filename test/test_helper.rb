@@ -31,7 +31,7 @@ class ActiveSupport::TestCase
 
   # Returns true if a test customer is logged in.
   def customer_is_logged_in?
-    !customer_session[:customer_id].nil?
+    !session[:customer_id].nil?
   end
 
   # Logs in a test customer.
@@ -39,11 +39,11 @@ class ActiveSupport::TestCase
     password    = options[:password]    || 'password'
     remember_me = options[:remember_me] || '1'
     if integration_test?
-      post customer_login_path, customer_session: { email: customer.email,
+      post login_path, session: { email: customer.email,
                                   password:    password,
                                   remember_me: remember_me }
     else
-      customer_session[:customer_id] = customer.id
+      session[:customer_id] = customer.id
     end
   end
 

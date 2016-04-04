@@ -13,7 +13,7 @@
       		</h3>
       	</div>
       	<!-- /.page-header -->
-        <% if @customer.approved? && current_user.admin? %>
+        <% if @customer.approved? && user_logged_in? && current_user.admin? %>
           <h4>
             Admin Options:
           </h4>
@@ -21,7 +21,7 @@
             <%= link_to "Deactivate Account", deactivate_customer_customer_path(id: @customer.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate the account for #{@customer.customer_name}? They will no longer be able to use the site."} %>
           </div>
           <!-- /.btn-group btn-group-justified -->
-        <% elsif !@customer.approved? && current_user.manager? %>
+        <% elsif !@customer.approved? && user_logged_in? && current_user.manager? %>
           <h4>
             Manager Options:
           </h4>

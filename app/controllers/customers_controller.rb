@@ -1,7 +1,9 @@
 class CustomersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :pending_customers]
+  before_action :logged_in_user, only: [:index, :pending_customers, :destroy]
   before_action :manager_user,   only: [:index, :pending_customers]
-  before_action :correct_customer,   only: [:edit, :update]
+  before_action :admin_user, only: [:destroy]
+  before_action :logged_in_user_or_customer, only: [:edit, :update]
+  before_action :correct_customer_or_manager_user, only: [:edit, :update]
 
   def index
     @pending_users = User.where(approved: false)
@@ -37,6 +39,7 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     if @customer.save
+      @customer.send_activation_email
       flash[:info] = "An email has been sent to activate this account."
       redirect_to root_url
     else
@@ -109,12 +112,6 @@ class CustomersController < ApplicationController
 
     # Before filters
 
-    # Confirms the correct customer.
-    def correct_customer
-      @customer = Customer.find(params[:id])
-      redirect_to(root_url) unless current_customer?(@customer)
-    end
-
     # Confirms a logged-in user.
     def logged_in_user
       unless user_logged_in?
@@ -124,8 +121,34 @@ class CustomersController < ApplicationController
       end
     end
 
+    # Confirms either a logged-in user or customer.
+    def logged_in_user_or_customer
+      unless user_logged_in? || customer_logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms a correct customer or manager user.
+    def correct_customer_or_manager_user
+      @customer = Customer.find(params[:id])
+      if (current_customer && current_customer?(@customer))
+        # Do Nothing
+      elsif (current_user && current_user.manager?)
+        # Do Nothing
+      else
+        redirect_to(root_url)
+      end
+    end
+
     # Confirms a manager user.
     def manager_user
-      redirect_to(root_url) unless current_user.manager?
+      redirect_to(root_url) unless current_user && current_user.manager?
+    end
+
+    # Confirms an admin user.
+    def admin_user
+      redirect_to(root_url) unless current_user && current_user.admin?
     end
 end

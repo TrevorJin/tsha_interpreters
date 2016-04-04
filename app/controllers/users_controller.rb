@@ -71,12 +71,12 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @total_users = User.where(approved: true)
+    @total_users = User.all
     @pending_users = User.where(approved: false)
-    @total_customers = Customer.where(approved: true)
+    @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
 
-    @interpreters = User.where(approved: true)
+    @interpreters = User.all
     @jobs = Job.all
     @customers = Customer.all
   end

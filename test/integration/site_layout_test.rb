@@ -6,6 +6,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     @admin        = users(:michael)
     @manager      = users(:sanchez)
     @regular_user = users(:archer)
+    @customer     = customers(:university)
   end
 
   test "layout links for admin user" do
@@ -21,8 +22,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get interpreter_signup_path
-    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links for manager user" do
@@ -38,8 +37,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get interpreter_signup_path
-    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links for regular user" do
@@ -55,8 +52,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
-    get interpreter_signup_path
-    assert_select "title", full_title("Sign Up As Interpreter")
   end
 
   test "layout links when not logged in" do
@@ -72,6 +67,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
     get interpreter_signup_path
     assert_select "title", full_title("Sign Up As Interpreter")
+    get customer_signup_path
+    assert_select "title", full_title("Create A Customer")
   end
 
   test "manager dashboard for admin" do
@@ -100,5 +97,20 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_job_path, count: 1
     assert_select "a[href=?]", customers_path, count: 2
     assert_select "a[href=?]", new_customer_path, count: 1
+  end
+
+  test "layout links for customer" do
+    customer_log_in_as(@customer)
+    get root_path
+    assert_template 'static_pages/home'
+    assert_select "a[href=?]", root_path,  count: 1
+    assert_select "a[href=?]", help_path,  count: 1
+    assert_select "a[href=?]", customer_path(@customer), count: 1
+    assert_select "a[href=?]", edit_customer_path(@customer), count: 1
+    assert_select "a[href=?]", "http://www.tsha.cc/"
+    assert_select "a[href=?]", about_path, count: 1
+    assert_select "a[href=?]", "http://www.tsha.cc/events/", count: 1
+    assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
+    assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
   end
 end
