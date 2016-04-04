@@ -1,5 +1,9 @@
 <% provide(:title, "Job Request #{@job_request.id}") %>
-<%= render 'layouts/customer_dashboard' %>
+<% if customer_logged_in? %>
+  <%= render 'layouts/customer_dashboard' %>
+<% elsif user_logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
+<% end %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">

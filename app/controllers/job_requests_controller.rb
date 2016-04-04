@@ -17,10 +17,11 @@ class JobRequestsController < ApplicationController
   end
 
   def show
-    # @pending_users = User.where(approved: false)
-    # @total_users = User.all
-    # @total_customers = Customer.all
-    # @pending_customers = Customer.where(approved: false)
+    @pending_users = User.where(approved: false)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @job_request = JobRequest.find(params[:id])
   end
