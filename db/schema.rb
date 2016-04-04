@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404052944) do
+ActiveRecord::Schema.define(version: 20160404203353) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160404052944) do
     t.boolean  "nic_advanced_required",                    default: false
     t.boolean  "nic_master_required",                      default: false
     t.boolean  "rid_sc_l_required",                        default: false
+    t.boolean  "has_interpreter_assigned",                 default: false
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"

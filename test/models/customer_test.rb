@@ -108,8 +108,18 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
+  test "phone number should be present" do
+    @customer.phone_number = "     "
+    assert_not @customer.valid?
+  end
+
   test "phone number should not be too long" do
     @customer.phone_number = "+186624664531234567890123456789"
+    assert_not @customer.valid?
+  end
+
+  test "contact phone number should be present" do
+    @customer.contact_phone_number = "     "
     assert_not @customer.valid?
   end
 

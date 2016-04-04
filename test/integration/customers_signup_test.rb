@@ -13,6 +13,8 @@ class CustomersSignupTest < ActionDispatch::IntegrationTest
       												 contact_first_name:  "",
                                contact_last_name: "",
                                email: "user@invalid",
+                               phone_number: "",
+                               contact_phone_number: "",
                                password:              "foo",
                                password_confirmation: "bar" }
     end
@@ -26,6 +28,8 @@ class CustomersSignupTest < ActionDispatch::IntegrationTest
       												 contact_first_name:  "Peter",
                                contact_last_name: "Pasta",
                                email: "peterpasta@pastapalace.com",
+                               phone_number: "+18662466453",
+                               contact_phone_number: "+18662466453",
                                password:              "password",
                                password_confirmation: "password" }
     end

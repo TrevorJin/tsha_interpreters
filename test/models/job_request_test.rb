@@ -94,6 +94,11 @@ class JobRequestTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @job_request.reload.requester_email
   end
 
+  test "requester phone number should be present" do
+    @job_request.requester_phone_number = "     "
+    assert_not @job_request.valid?
+  end
+
   test "requester phone number should not be too long" do
     @job_request.requester_phone_number = "+186624664531234567890123456789"
     assert_not @job_request.valid?
@@ -201,6 +206,11 @@ class JobRequestTest < ActiveSupport::TestCase
 
   test "zip should not be too long" do
     @job_request.zip = "a" * 21
+    assert_not @job_request.valid?
+  end
+
+  test "office phone number should be present" do
+    @job_request.office_phone_number = "     "
     assert_not @job_request.valid?
   end
 

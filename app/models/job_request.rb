@@ -16,7 +16,8 @@ class JobRequest < ActiveRecord::Base
 	                  					format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" }
   # Clean phone number input before validation.
   phony_normalize :requester_phone_number, default_country_code: 'US'
-	validates :requester_phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
+	validates :requester_phone_number, presence: { message: "required" },
+																		 length: { maximum: 30, message: "must be 30 characters or less" },
 													 					 phony_plausible: true
   validates :requester_fax_number, length: { maximum: 30, message: "must be 30 characters or less" }
   validates :start, presence: { message: "date and time required" }
@@ -41,7 +42,8 @@ class JobRequest < ActiveRecord::Base
 									length: { maximum: 20, message: "must be 20 characters or less" }
   # Clean phone number input before validation.
   phony_normalize :office_phone_number, default_country_code: 'US'
-	validates :office_phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
+	validates :office_phone_number, presence: { message: "required" },
+																	length: { maximum: 30, message: "must be 30 characters or less" },
 													 				phony_plausible: true
   validates :type_of_appointment_situation, length: { maximum: 2000, message: "must be 2,000 characters or less" }
   validates :message, length: { maximum: 2000, message: "must be 2,000 characters or less" }

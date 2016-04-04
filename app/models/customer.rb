@@ -30,11 +30,13 @@ class Customer < ActiveRecord::Base
 	validates :mail_address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }
 	# Clean phone number input before validation.
   phony_normalize :phone_number, default_country_code: 'US'
-	validates :phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
+	validates :phone_number, presence: { message: "required" },
+                           length: { maximum: 30, message: "must be 30 characters or less" },
 													 phony_plausible: true
 	# Clean phone number input before validation.
   phony_normalize :contact_phone_number, default_country_code: 'US'
-	validates :contact_phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
+	validates :contact_phone_number, presence: { message: "required" },
+                                   length: { maximum: 30, message: "must be 30 characters or less" },
 													 				 phony_plausible: true
   # Phone number extension should only have numbers.
 	# VALID_PHONE_NUMBER_EXTENSION_REGEX = /^[0-9]*$/
