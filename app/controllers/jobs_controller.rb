@@ -30,6 +30,11 @@ class JobsController < ApplicationController
   end
 
   def create
+    @pending_users = User.where(approved: false)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @job = Job.new(job_params)
     if @job.save
       flash[:info] = "Job has been successfully created."

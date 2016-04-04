@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403051334) do
+ActiveRecord::Schema.define(version: 20160404052944) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,6 +54,35 @@ ActiveRecord::Schema.define(version: 20160403051334) do
   end
 
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+
+  create_table "job_requests", force: :cascade do |t|
+    t.string   "requester_first_name"
+    t.string   "requester_last_name"
+    t.string   "office_business_name"
+    t.string   "requester_email"
+    t.string   "requester_phone_number"
+    t.string   "requester_fax_number"
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "deaf_client_first_name"
+    t.string   "deaf_client_last_name"
+    t.string   "contact_person_first_name"
+    t.string   "contact_person_last_name"
+    t.string   "event_location_address_line_1"
+    t.string   "event_location_address_line_2"
+    t.string   "event_location_address_line_3"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "office_phone_number"
+    t.text     "type_of_appointment_situation"
+    t.text     "message"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "customer_id"
+  end
+
+  add_index "job_requests", ["customer_id"], name: "index_job_requests_on_customer_id"
 
   create_table "jobs", force: :cascade do |t|
     t.datetime "start"

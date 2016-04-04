@@ -1,0 +1,46 @@
+<% provide(:title, 'Submit A Job Request') %>
+<%= render 'layouts/customer_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        Submit A Job Request
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= simple_form_for @job_request do |f| %>
+        <%= f.input :requester_first_name %>
+        <%= f.input :requester_last_name %>
+        <%= f.input :office_business_name %>
+        <%= f.input :requester_email %>
+        <%= f.input :requester_phone_number %>
+        <%= f.input :requester_fax_number %>
+        <%= f.input :start, as: :datetime %>
+        <%= f.input :end, as: :datetime %>
+        <%= f.input :deaf_client_first_name %>
+        <%= f.input :deaf_client_last_name %>
+        <%= f.input :contact_person_first_name %>
+        <%= f.input :contact_person_last_name %>
+        <%= f.input :event_location_address_line_1 %>
+        <%= f.input :event_location_address_line_2 %>
+        <%= f.input :event_location_address_line_3 %>
+        <%= f.input :city %>
+        <%= f.input :state %>
+        <%= f.input :zip %>
+        <%= f.input :office_phone_number %>
+        <%= f.input :type_of_appointment_situation %>
+        <%= f.input :message %>
+        <%= f.submit "Submit Job Request", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <!-- /.col-md-8 col-md-offset-2 -->
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.page-wrapper -->

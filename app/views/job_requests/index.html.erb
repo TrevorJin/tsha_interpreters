@@ -1,0 +1,33 @@
+<% provide(:title, 'Current Job Requests') %>
+<%= render 'layouts/customer_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        <% if user_logged_in? && current_user.manager? %>
+          All Jobs
+        <% elsif customer_logged_in? && current_customer.approved? %>
+          Current Job Requests
+        <% elsif customer_logged_in && !current_customer.approved? %>
+          Awaiting Approval
+        <% end %>
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <% if customer_logged_in? && !current_customer.approved? %>
+    <p style="text-align: center">
+      Please wait for TSHA to approve your account before jobs can be requested.
+    </p>
+  <% end %>
+  <% if customer_logged_in? && current_customer.approved? %>
+   <ul class="job_requests">
+      <%= render @job_requests %>
+   </ul>
+   <!-- /.jobs -->
+  <% end %>
+</div>
+<!-- /.page-wrapper -->

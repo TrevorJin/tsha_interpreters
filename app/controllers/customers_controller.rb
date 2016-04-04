@@ -37,6 +37,11 @@ class CustomersController < ApplicationController
   end
 
   def create
+    @pending_users = User.where(approved: false)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+
     @customer = Customer.new(customer_params)
     if @customer.save
       @customer.send_activation_email

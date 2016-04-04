@@ -6,6 +6,9 @@ class Customer < ActiveRecord::Base
 	has_many :jobs
 	accepts_nested_attributes_for :jobs
 
+  has_many :job_requests
+  accepts_nested_attributes_for :job_requests
+
 	validates :customer_name, presence: { message: "required" },
 														length: { maximum: 2000, message: "must be 2,000 characters or less"}
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -29,7 +32,7 @@ class Customer < ActiveRecord::Base
   phony_normalize :phone_number, default_country_code: 'US'
 	validates :phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
 													 phony_plausible: true
-													 # Clean phone number input before validation.
+	# Clean phone number input before validation.
   phony_normalize :contact_phone_number, default_country_code: 'US'
 	validates :contact_phone_number, length: { maximum: 30, message: "must be 30 characters or less" },
 													 				 phony_plausible: true
