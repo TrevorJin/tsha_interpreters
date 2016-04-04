@@ -10,6 +10,7 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     if params[:search]
       @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
@@ -23,6 +24,7 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @customer = Customer.find(params[:id])
   end
@@ -32,6 +34,7 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @customer = Customer.new
   end
@@ -41,12 +44,17 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @customer = Customer.new(customer_params)
     if @customer.save
       @customer.send_activation_email
       flash[:info] = "An email has been sent to activate this account."
-      redirect_to root_url
+      if user_logged_in? && current_user.manager?
+        redirect_to new_customer_url
+      else
+        redirect_to root_url
+      end
     else
       render 'new'
     end
@@ -57,6 +65,7 @@ class CustomersController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @total_users = User.all
     @pending_users = User.where(approved: false)
+    @job_requests = JobRequest.all
     
     @customer = Customer.find(params[:id])
   end
@@ -87,6 +96,7 @@ class CustomersController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @total_users = User.all
     @pending_users = User.where(approved: false)
+    @job_requests = JobRequest.all
   end
 
   def approve_account

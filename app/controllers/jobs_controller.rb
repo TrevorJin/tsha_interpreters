@@ -7,6 +7,7 @@ class JobsController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @jobs = Job.all
   end
@@ -16,6 +17,7 @@ class JobsController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @job = Job.find(params[:id])
   end
@@ -25,6 +27,7 @@ class JobsController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
   	@job = Job.new
   end
@@ -34,6 +37,7 @@ class JobsController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
 
     @job = Job.new(job_params)
     if @job.save
@@ -49,6 +53,7 @@ class JobsController < ApplicationController
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
     
     @job = Job.find(params[:id])
   end
@@ -81,7 +86,7 @@ class JobsController < ApplicationController
 
     # Confirms a logged-in user.
     def logged_in_user
-      unless logged_in?
+      unless user_logged_in?
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url

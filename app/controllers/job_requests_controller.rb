@@ -1,11 +1,19 @@
 class JobRequestsController < ApplicationController
-  def index
-    # @pending_users = User.where(approved: false)
-    # @total_users = User.all
-    # @total_customers = Customer.all
-    # @pending_customers = Customer.where(approved: false)
+  before_action :logged_in_user_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
+  def index
+    @pending_users = User.where(approved: false)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+
+    if current_customer
+      @customer = current_customer
+      @job_requests = JobRequest.where(customer_id: @customer.id)
+    elsif current_user && current_user.manager?
+      @job_requests = JobRequest.all
+    end
   end
 
   def show
@@ -22,10 +30,8 @@ class JobRequestsController < ApplicationController
     # @total_users = User.all
     # @total_customers = Customer.all
     # @pending_customers = Customer.where(approved: false)
-
     
   	@job_request = JobRequest.new
-    # @job_request.customer = current_customer
   end
 
   def create
@@ -74,5 +80,16 @@ class JobRequestsController < ApplicationController
                                           :event_location_address_line_1, :event_location_address_line_2,
                                           :event_location_address_line_3, :city, :state, :zip, :office_phone_number,
                                           :type_of_appointment_situation, :message, :customer_id)
+    end
+
+    # Before filters
+
+    # Confirms either a logged-in user or customer.
+    def logged_in_user_or_customer
+      unless user_logged_in? || customer_logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 end
