@@ -106,6 +106,17 @@ class User < ActiveRecord::Base
     UserMailer.account_denied(self).deliver_now
   end
 
+  # Approve interpreter's account
+  def approve_interpreter_account
+    update_attribute(:approved, true)
+    update_attribute(:approved_at, Time.zone.now)
+  end
+
+  # Deactivate user's account
+  def deactivate_user
+    update_attribute(:active, false)
+  end
+
   # Change to manager.
   def change_to_manager
     update_attribute(:manager,  true)
@@ -124,15 +135,84 @@ class User < ActiveRecord::Base
     update_attribute(:admin,    false)
   end
 
-  # Approve interpreter's account
-  def approve_interpreter_account
-    update_attribute(:approved, true)
-    update_attribute(:approved_at, Time.zone.now)
+  def promote_qualification(qualification)
+    if (qualification == "QAST I Interpreting")
+      update_attribute(:qast_1_interpreting,  true)
+    elsif (qualification == "QAST II Interpreting")
+      update_attribute(:qast_2_interpreting,  true)
+    elsif (qualification == "QAST III Interpreting")
+      update_attribute(:qast_3_interpreting,  true)
+    elsif (qualification == "QAST IV Interpreting")
+      update_attribute(:qast_4_interpreting,  true)
+    elsif (qualification == "QAST V Interpreting")
+      update_attribute(:qast_5_interpreting,  true)
+    elsif (qualification == "QAST I Transliterating")
+      update_attribute(:qast_1_transliterating,  true)
+    elsif (qualification == "QAST II Transliterating")
+      update_attribute(:qast_2_transliterating,  true)
+    elsif (qualification == "QAST III Transliterating")
+      update_attribute(:qast_3_transliterating,  true)
+    elsif (qualification == "QAST IV Transliterating")
+      update_attribute(:qast_4_transliterating,  true)
+    elsif (qualification == "QAST V Transliterating")
+      update_attribute(:qast_5_transliterating,  true)
+    elsif (qualification == "RID CI")
+      update_attribute(:rid_ci,  true)
+    elsif (qualification == "RID CT")
+      update_attribute(:rid_ct,  true)
+    elsif (qualification == "RID CDI")
+      update_attribute(:rid_cdi,  true)
+    elsif (qualification == "DI")
+      update_attribute(:di,  true)
+    elsif (qualification == "NIC")
+      update_attribute(:nic,  true)
+    elsif (qualification == "NIC Advanced")
+      update_attribute(:nic_advanced,  true)
+    elsif (qualification == "NIC Master")
+      update_attribute(:nic_master,  true)
+    elsif (qualification == "RID SC:L")
+      update_attribute(:rid_sc_l,  true)
+    end
   end
 
-  # Deactivate user's account
-  def deactivate_user
-    update_attribute(:active, false)
+  def revoke_qualification(qualification)
+    if (qualification == "QAST I Interpreting")
+      update_attribute(:qast_1_interpreting,  false)
+    elsif (qualification == "QAST II Interpreting")
+      update_attribute(:qast_2_interpreting,  false)
+    elsif (qualification == "QAST III Interpreting")
+      update_attribute(:qast_3_interpreting,  false)
+    elsif (qualification == "QAST IV Interpreting")
+      update_attribute(:qast_4_interpreting,  false)
+    elsif (qualification == "QAST V Interpreting")
+      update_attribute(:qast_5_interpreting,  false)
+    elsif (qualification == "QAST I Transliterating")
+      update_attribute(:qast_1_transliterating,  false)
+    elsif (qualification == "QAST II Transliterating")
+      update_attribute(:qast_2_transliterating,  false)
+    elsif (qualification == "QAST III Transliterating")
+      update_attribute(:qast_3_transliterating,  false)
+    elsif (qualification == "QAST IV Transliterating")
+      update_attribute(:qast_4_transliterating,  false)
+    elsif (qualification == "QAST V Transliterating")
+      update_attribute(:qast_5_transliterating,  false)
+    elsif (qualification == "RID CI")
+      update_attribute(:rid_ci,  false)
+    elsif (qualification == "RID CT")
+      update_attribute(:rid_ct,  false)
+    elsif (qualification == "RID CDI")
+      update_attribute(:rid_cdi,  false)
+    elsif (qualification == "DI")
+      update_attribute(:di,  false)
+    elsif (qualification == "NIC")
+      update_attribute(:nic,  false)
+    elsif (qualification == "NIC Advanced")
+      update_attribute(:nic_advanced,  false)
+    elsif (qualification == "NIC Master")
+      update_attribute(:nic_master,  false)
+    elsif (qualification == "RID SC:L")
+      update_attribute(:rid_sc_l,  false)
+    end
   end
 
 private

@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       get 'demote_to_interpreter'
       get 'approve_account'
       get 'deactivate_user'
+      get 'promote_qualification'
+      get 'revoke_qualification'
     end
   end
 

@@ -2,9 +2,10 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
-                                        :destroy]
+                                        :promote_qualification, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users]
+  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
+                                        :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
                                         :demote_to_interpreter, :deactivate_user, :destroy]
 
@@ -98,34 +99,6 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
   end
 
-  def promote_to_manager
-    @user = User.find(params[:id])
-    @user.change_to_manager
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to a manager."
-    redirect_to users_url
-  end
-
-  def promote_to_admin
-    @user = User.find(params[:id])
-    @user.change_to_admin
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to an admin."
-    redirect_to users_url
-  end
-
-  def demote_to_manager
-    @user = User.find(params[:id])
-    @user.change_to_manager
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to a manager."
-    redirect_to users_url
-  end
-
-  def demote_to_interpreter
-    @user = User.find(params[:id])
-    @user.change_to_interpreter
-    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to an interpreter."
-    redirect_to users_url
-  end
-
   def approve_account
     @user = User.find(params[:id])
     @approving_manager = current_user
@@ -139,6 +112,50 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.deactivate_user
     flash[:success] = "#{@user.first_name} #{@user.last_name}'s account has been deactivated."
+  end
+
+  def promote_to_manager
+    @user = User.find(params[:id])
+    @user.change_to_manager
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to a manager."
+    redirect_to user_url(@user)
+  end
+
+  def promote_to_admin
+    @user = User.find(params[:id])
+    @user.change_to_admin
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been promoted to an admin."
+    redirect_to user_url(@user)
+  end
+
+  def demote_to_manager
+    @user = User.find(params[:id])
+    @user.change_to_manager
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to a manager."
+    redirect_to user_url(@user)
+  end
+
+  def demote_to_interpreter
+    @user = User.find(params[:id])
+    @user.change_to_interpreter
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has been demoted to an interpreter."
+    redirect_to user_url(@user)
+  end
+
+  def promote_qualification
+    @user = User.find(params[:id])
+    qualification = params[:qualification]
+    @user.promote_qualification(qualification)
+    flash[:success] = "#{@user.first_name} #{@user.last_name} has received the #{qualification} qualification."
+    redirect_to user_url(@user)
+  end
+
+  def revoke_qualification
+    @user = User.find(params[:id])
+    qualification = params[:qualification]
+    @user.revoke_qualification(qualification)
+    flash[:success] = "#{@user.first_name} #{@user.last_name} no longer has the #{qualification} qualification."
+    redirect_to user_url(@user)
   end
 
   private
