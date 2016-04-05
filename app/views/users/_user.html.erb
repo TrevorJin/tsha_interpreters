@@ -18,6 +18,9 @@
     <%= link_to "#{user.email}", user %>
   </td>
   <td>
+    <%= link_to "#{user.created_at.strftime("%b %d, %Y")}", user %>
+  </td>
+  <td>
     <% if user.approved? %>
       <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
     <% else %>
