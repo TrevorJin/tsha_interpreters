@@ -1,3 +1,24 @@
-<li>
-  <%= link_to "Job Request ID: #{job_request.id}", job_request %>
-</li>
+<tr>
+	<td>
+		<%= link_to "#{job_request.id}", job_request %>
+	</td>
+	<td>
+    <%= link_to "#{job_request.deaf_client_first_name} #{job_request.deaf_client_last_name}", job_request %>
+  </td>
+  <td>
+    <%= link_to "#{job_request.contact_person_first_name} #{job_request.contact_person_last_name}", job_request %>
+  </td>
+  <td>
+    <%= job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
+  </td>
+  <td>
+    <%= job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+  </td>
+  <td>
+		<% if job_request.awaiting_approval? %>
+    	<span class="label label-warning">Awaiting Approval</span>
+  	<% else %>
+    	<span class="label label-success">Job Request Approved</span>
+    <% end %>
+  </td>
+</tr>
