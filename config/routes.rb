@@ -52,7 +52,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :jobs
+  resources :jobs do
+    member do
+      get 'new_job_from_job_request'
+    end
+  end
   resources :job_requests
   resources :account_activations,      only: [:edit]
   resources :password_resets,          only: [:new, :create, :edit, :update]

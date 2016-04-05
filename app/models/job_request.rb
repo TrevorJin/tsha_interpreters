@@ -2,6 +2,7 @@ class JobRequest < ActiveRecord::Base
   before_save :downcase_email
 
   belongs_to :customer
+  belongs_to :job
 
   validates :customer_id, presence: true
   validates :requester_first_name, presence: { message: "required" }, 

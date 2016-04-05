@@ -7,6 +7,7 @@ class JobRequestsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     if current_customer
       @customer = current_customer
@@ -22,6 +23,7 @@ class JobRequestsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @job_request = JobRequest.find(params[:id])
   end

@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
 	has_many :appointments
   has_many :users, through: :appointments
+  has_one :job_request
   belongs_to :customer
 
   validates :customer_id, presence: true

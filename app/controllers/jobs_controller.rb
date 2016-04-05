@@ -8,6 +8,7 @@ class JobsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @jobs = Job.all
   end
@@ -18,6 +19,7 @@ class JobsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @job = Job.find(params[:id])
   end
@@ -28,8 +30,21 @@ class JobsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
   	@job = Job.new
+  end
+
+  def new_job_from_job_request
+    @pending_users = User.where(approved: false)
+    @total_users = User.all
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
+    @total_jobs = Job.all
+
+    @job_request = JobRequest.find(params[:job_request_id])
+    @job = Job.new
   end
 
   def create
@@ -38,6 +53,7 @@ class JobsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @job = Job.new(job_params)
     if @job.save
@@ -54,6 +70,7 @@ class JobsController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
     
     @job = Job.find(params[:id])
   end
@@ -79,7 +96,15 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:start, :end, :address_line_1, :address_line_2,
                                    :address_line_3, :city, :state, :zip, :invoice_notes,
-                                   :notes_for_irp, :notes_for_interpreter, :directions, :customer_id)
+                                   :notes_for_irp, :notes_for_interpreter, :directions, :customer_id,
+                                   :qast_1_interpreting_required, :qast_2_interpreting_required,
+                                   :qast_3_interpreting_required, :qast_4_interpreting_required,
+                                   :qast_5_interpreting_required, :qast_1_transliterating_required_required,
+                                   :qast_2_transliterating_required, :qast_3_transliterating_required,
+                                   :qast_4_transliterating_required, :qast_5_transliterating_required,
+                                   :rid_ci_required, :rid_ct_required, :rid_cdi_required, :di_required,
+                                   :nic_required, :nic_advanced_required, :nic_master_required, 
+                                   :rid_sc_l_required)
     end
 
     # Before filters

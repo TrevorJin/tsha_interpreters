@@ -1,11 +1,11 @@
-<% provide(:title, 'Create A Job') %>
+<% provide(:title, 'Create A Job From Job Request') %>
 <%= render 'layouts/manager_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        Create a Job
+        Create a Job From Job Request
       </h1>
       <!-- /.page-header -->
     </div>
@@ -15,17 +15,41 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <%= simple_form_for @job do |f| %>
-        <%= f.association :customer, label_method: :customer_name, :value_method => :id, collection: Customer.order('customer_name ASC') %>
+        <%= f.association :customer, label_method: :customer_name, :input_html => { :value => params[:customer_id] }, :value_method => :id, collection: Customer.order('customer_name ASC') %>
         <%= f.input :start, as: :date %>
         <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
         <%= f.input :end, as: :date %>
         <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
-        <%= f.input :address_line_1 %>
-        <%= f.input :address_line_2 %>
-        <%= f.input :address_line_3 %>
-        <%= f.input :city %>
-        <%= f.input :state, :collection => us_states %>
-        <%= f.input :zip %>
+        <% if params[:address_line_1] %>
+          <%= f.input :address_line_1, :input_html => { :value => params[:address_line_1] } %>
+        <% else %>
+          <%= f.input :address_line_1 %>
+        <% end %>
+        <% if params[:address_line_2] %>
+          <%= f.input :address_line_2, :input_html => { :value => params[:address_line_2] } %>
+        <% else %>
+          <%= f.input :address_line_2 %>
+        <% end %>
+        <% if params[:address_line_3] %>
+          <%= f.input :address_line_3, :input_html => { :value => params[:address_line_3] } %>
+        <% else %>
+          <%= f.input :address_line_3 %>
+        <% end %>
+        <% if params[:city] %>
+          <%= f.input :city, :input_html => { :value => params[:city] } %>
+        <% else %>
+          <%= f.input :city %>
+        <% end %>
+        <% if params[:state] %>
+          <%= f.input :state, :collection => us_states, :input_html => { :value => params[:state] } %>
+        <% else %>
+          <%= f.input :state, :collection => us_states %>
+        <% end %>
+        <% if params[:zip] %>
+          <%= f.input :zip, :input_html => { :value => params[:zip] } %>
+        <% else %>
+          <%= f.input :zip %>
+        <% end %>
         <%= f.input :invoice_notes %>
         <%= f.input :notes_for_irp %>
         <%= f.input :notes_for_interpreter %>

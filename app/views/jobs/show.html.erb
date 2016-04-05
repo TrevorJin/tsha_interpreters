@@ -3,19 +3,263 @@
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
-    <aside class="col-md-4">
+    <aside class="col-lg-12">
       <section class="user_info">
         <h1>
           Job #<%= @job.id %>
           <br>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+            Show Qualification Requirements 
+          </button>
+          <!-- /.btn btn-primary -->
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="gridSystemModalLabel">
+                    Interpreting Qualification Requirements
+                  </h4>
+                  <!-- /.modal-title -->
+                </div>
+                <!-- /.modal-header -->
+                <div class="modal-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th class="qualification-cell">
+                          QAST I Interpreting
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST II Interpreting
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST III Interpreting
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST IV Interpreting
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST V Interpreting
+                        </th>
+                        <!-- /.qualification-cell -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <% if @job.qast_1_interpreting_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_2_interpreting_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_3_interpreting_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_4_interpreting_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_5_interpreting_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                      </tr>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th class="qualification-cell">
+                          QAST I Transliterating
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST II Transliterating
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST III Transliterating
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST IV Transliterating
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          QAST V Transliterating
+                        </th>
+                        <!-- /.qualification-cell -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <% if @job.qast_1_transliterating_required_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_2_transliterating_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_3_transliterating_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_4_transliterating_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.qast_5_transliterating_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                      </tr>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th class="qualification-cell">
+                          RID CI
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          RID CT
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          RID CDI
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          DI
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          NIC
+                        </th>
+                        <!-- /.qualification-cell -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <% if @job.rid_ci_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.rid_ct_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.rid_cdi_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.di_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.nic_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                      </tr>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th class="qualification-cell">
+                          NIC Advanced
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          NIC Master
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          RID SC:L
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                  
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                  
+                        </th>
+                        <!-- /.qualification-cell -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <% if @job.nic_advanced_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.nic_master_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @job.rid_sc_l_required? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- /.table table-hover -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finished</button>
+                  </div>
+                  <!-- /.modal-footer -->
+                </div>
+                <!-- /.modal-body -->
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog modal-lg -->
+          </div>
+          <!-- /.modal fade bs-example-modal-lg -->
+          <br>
           Customer: <%= @job.customer.customer_name %>
           <br>
           Location: <%= @job.city %>, <%= @job.state %>  <%= @job.zip %>
+          <br>
+          Start: <%= @job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          <br>
+          End: <%= @job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          
         </h1>
       </section>
       <!-- /.user_info -->
     </aside>
-    <!-- /.col-md-4 -->
+    <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
 </div>

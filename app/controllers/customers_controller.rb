@@ -11,6 +11,7 @@ class CustomersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     if params[:search]
       @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
@@ -25,6 +26,7 @@ class CustomersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @customer = Customer.find(params[:id])
   end
@@ -35,6 +37,7 @@ class CustomersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @customer = Customer.new
   end
@@ -45,6 +48,7 @@ class CustomersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @customer = Customer.new(customer_params)
     if @customer.save
@@ -66,6 +70,7 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @pending_users = User.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
     
     @customer = Customer.find(params[:id])
   end
@@ -97,6 +102,7 @@ class CustomersController < ApplicationController
     @total_users = User.all
     @pending_users = User.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
   end
 
   def approve_account

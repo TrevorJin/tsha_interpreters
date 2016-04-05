@@ -21,8 +21,10 @@
         <%= f.input :requester_email %>
         <%= f.input :requester_phone_number %>
         <%= f.input :requester_fax_number %>
-        <%= f.input :start, as: :datetime %>
-        <%= f.input :end, as: :datetime %>
+        <%= f.input :start, as: :date %>
+        <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
+        <%= f.input :end, as: :date %>
+        <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
         <%= f.input :deaf_client_first_name %>
         <%= f.input :deaf_client_last_name %>
         <%= f.input :contact_person_first_name %>
@@ -31,7 +33,7 @@
         <%= f.input :event_location_address_line_2 %>
         <%= f.input :event_location_address_line_3 %>
         <%= f.input :city %>
-        <%= f.input :state %>
+        <%= f.input :state, :collection => us_states %>
         <%= f.input :zip %>
         <%= f.input :office_phone_number %>
         <%= f.input :type_of_appointment_situation %>

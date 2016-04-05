@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
     
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @user = User.find(params[:id])
   end
@@ -79,6 +81,7 @@ class UsersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
 
     @interpreters = User.all
     @jobs = Job.all
@@ -92,6 +95,7 @@ class UsersController < ApplicationController
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
+    @total_jobs = Job.all
   end
 
   def promote_to_manager
