@@ -36,18 +36,18 @@
         </thead>
         <tbody>
           <tr>
-            <th>
+            <td>
               <%= @job_request.id %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.requester_first_name %> <%= @job_request.requester_last_name %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.office_business_name %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.requester_email %>
-            </th>
+            </td>
           </tr>
         </tbody>
         <thead>
@@ -68,18 +68,18 @@
         </thead>
         <tbody>
           <tr>
-            <th>
+            <td>
               <%= @job_request.requester_phone_number %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.requester_fax_number %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </th>
+            </td>
           </tr>
         </tbody>
         <thead>
@@ -99,17 +99,17 @@
         </thead>
         <tbody>
           <tr>
-            <th>
+            <td>
               <%= @job_request.deaf_client_first_name %> <%= @job_request.deaf_client_last_name %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.contact_person_first_name %> <%= @job_request.contact_person_last_name %>
-            </th>
-            <th>
+            </td>
+            <td>
               <%= @job_request.office_phone_number %>
-            </th>
-            <th>
-            </th>
+            </td>
+            <td>
+            </td>
           </tr>
         </tbody>
       </table>

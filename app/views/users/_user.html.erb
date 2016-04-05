@@ -12,10 +12,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to "#{user.first_name}", user %>
-  </td>
-  <td>
-    <%= link_to "#{user.last_name}", user %>
+    <%= link_to "#{user.first_name} #{user.last_name}", user %>
   </td>
   <td>
     <%= link_to "#{user.email}", user %>

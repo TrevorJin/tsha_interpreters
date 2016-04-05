@@ -19,7 +19,7 @@
   </div>
   <!-- /.row -->
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-4 col-md-offset-4">
       <%= simple_form_for @customer do |f| %>
         <%= f.input :customer_name %>
         <%= f.input :email %>
@@ -41,7 +41,7 @@
         <%= f.submit "Create Customer", class: "btn btn-primary" %>
       <% end %>
     </div>
-    <!-- /.col-md8 col-md-offset-2 -->
+    <!-- /.col-md-4 col-md-offset-4 -->
   </div>
   <!-- /.row -->
 <% if user_logged_in? && current_user.manager? %>
