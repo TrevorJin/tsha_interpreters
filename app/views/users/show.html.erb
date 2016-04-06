@@ -11,7 +11,7 @@
     	<section class="user_info">
     		<div class="page-header">
   				<h3>
-  					#<%= @user.id %> - <%= @user.first_name %> <%= @user.last_name %>
+  					<%= @user.first_name %> <%= @user.last_name %>
   						<small>
                 <% if !@user.approved? %>
                   Pending Interpreter
@@ -496,6 +496,9 @@
               <thead>
                 <tr>
                   <th>
+                    ID
+                  </th>
+                  <th>
                     Name
                   </th>
                   <th>
@@ -517,6 +520,9 @@
               </thead>
               <tbody>
                 <tr>
+                  <td>
+                    <%= @user.id %>
+                  </td>
                   <td>
                     <%= @user.first_name %> <%= @user.last_name %>
                   </td>

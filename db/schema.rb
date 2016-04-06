@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405133622) do
+ActiveRecord::Schema.define(version: 20160406020752) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -77,10 +77,14 @@ ActiveRecord::Schema.define(version: 20160405133622) do
     t.string   "office_phone_number"
     t.text     "type_of_appointment_situation"
     t.text     "message"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "customer_id"
     t.boolean  "awaiting_approval",             default: true
+    t.boolean  "accepted",                      default: false
+    t.datetime "accepted_at"
+    t.boolean  "denied",                        default: false
+    t.datetime "denied_at"
   end
 
   add_index "job_requests", ["customer_id"], name: "index_job_requests_on_customer_id"

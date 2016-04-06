@@ -6,10 +6,7 @@
     <%= link_to "#{customer.customer_name}", customer %>
   </td>
   <td>
-    <%= link_to "#{customer.contact_first_name}", customer %>
-  </td>
-  <td>
-    <%= link_to "#{customer.contact_last_name}", customer %>
+    <%= link_to "#{customer.contact_first_name} #{customer.contact_last_name}", customer %>
   </td>
   <td>
     <%= link_to "#{customer.email}", customer %>
