@@ -11,6 +11,11 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @jobs = Job.all
+
+    if (current_user)
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+    end
   end
 
   def show

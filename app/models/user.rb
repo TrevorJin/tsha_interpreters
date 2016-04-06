@@ -215,6 +215,147 @@ class User < ActiveRecord::Base
     end
   end
 
+  def eligible_jobs
+    eligible_jobs_array = Array.new
+    available_jobs = Job.where("start > ?", Time.now)
+    
+    available_jobs.each do |job|
+      this_is_an_eligible_job = true
+      if job.qast_1_interpreting_required
+        if self.qast_1_interpreting
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_2_interpreting_required
+        if self.qast_2_interpreting
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_3_interpreting_required
+        if self.qast_3_interpreting
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_4_interpreting_required
+        if self.qast_4_interpreting
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_5_interpreting_required
+        if self.qast_5_interpreting
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_1_transliterating_required_required
+        if self.qast_1_transliterating
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_2_transliterating_required
+        if self.qast_2_transliterating
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_3_transliterating_required
+        if self.qast_3_transliterating
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_4_transliterating_required
+        if self.qast_4_transliterating
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.qast_5_transliterating_required
+        if self.qast_5_transliterating
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.rid_ci_required
+        if self.rid_ci
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.rid_ct_required
+        if self.rid_ct
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.rid_cdi_required
+        if self.rid_cdi
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.di_required
+        if self.di
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.nic_required
+        if self.nic
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.nic_advanced_required
+        if self.nic_advanced
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.nic_master_required
+        if self.nic_master
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+      if job.rid_sc_l_required
+        if self.rid_sc_l
+          # Interpreter is qualified here, continue.
+        else
+          this_is_an_eligible_job = false
+        end
+      end
+
+      if this_is_an_eligible_job
+        eligible_jobs_array.push job
+      end
+    end
+
+    return eligible_jobs_array
+  end
+
 private
 
     # Converts email to all lower-case.

@@ -33,10 +33,41 @@
     </p>
   <% end %>
   <% if user_logged_in? && current_user.approved? && !current_user.manager? %>
-	 <ul class="jobs">
-		  <%= render @jobs %>
-	 </ul>
-	 <!-- /.jobs -->
+		<table class="table table-striped table-hover">
+      <thead>
+        <th>
+          Location
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Action
+        </th>
+      </thead>
+      <tbody>
+        <% @user_jobs.each do |user_job| %>
+          <tr>
+            <td>
+              <%= user_job.city %>, <%= user_job.state %>
+            </td>
+            <td>
+              <%= user_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <%= user_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              YO
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- /.table table-striped table-hover -->
   <% elsif user_logged_in? && current_user.manager? %>
     <table class="table table-striped table-hover">
       <thead>
