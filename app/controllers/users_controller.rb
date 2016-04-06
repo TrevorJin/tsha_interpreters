@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
-                                        :promote_qualification, :destroy]
+                                        :promote_qualification, :confirmed_jobs, :attempted_jobs,
+                                        :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
                                         :promote_qualification]

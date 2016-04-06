@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get 'deactivate_user'
       get 'promote_qualification'
       get 'revoke_qualification'
+      get :confirmed_jobs, :attempted_jobs
     end
   end
 
@@ -64,6 +65,9 @@ Rails.application.routes.draw do
   resources :password_resets,          only: [:new, :create, :edit, :update]
   resources :customer_account_activations,      only: [:edit]
   resources :customer_password_resets, only: [:new, :create, :edit, :update]
+  resources :appointments,       only: [:create, :destroy]
+  resources :interpreting_requests,       only: [:create, :destroy]
+
 
   # Example resource route with options:
   #   resources :products do

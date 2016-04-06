@@ -3,8 +3,18 @@ class User < ActiveRecord::Base
 	before_save   :downcase_email
   before_create :create_activation_digest
 
-  has_many :appointments
-  has_many :jobs, through: :appointments
+  has_many :confirmed_job_requests, class_name: "Appointment",
+                                    foreign_key: "user_id",
+                                    dependent: :destroy
+  has_many :confirmed_jobs, through: :confirmed_job_requests, source: :job
+
+  # has_many :appointments
+  # has_many :jobs, through: :appointments
+
+  has_many :attempted_job_requests, class_name: "InterpretingRequest",
+                                    foreign_key: "user_id",
+                                    dependent: :destroy
+  has_many :attempted_jobs, through: :attempted_job_requests, source: :job
 
 	validates :first_name, presence: { message: "required" },
                          length: { maximum: 50, message: "must be 50 characters or less" }
@@ -133,6 +143,36 @@ class User < ActiveRecord::Base
   def change_to_interpreter
     update_attribute(:manager,  false)
     update_attribute(:admin,    false)
+  end
+
+  # Confirms a job connection with user
+  def confirm_job(job)
+    confirmed_job_requests.create(job_id: job.id)
+  end
+
+  # Unconfirms a job connection with user
+  def unconfirm_job(job)
+    confirmed_job_requests.find_by(job_id: job.id).destroy
+  end
+
+  # Returns true if the current user is confirmed with this job.
+  def confirmed?(job)
+    confirmed_jobs.include?(job)
+  end
+
+  # Request a job.
+  def request_job(job)
+    attempted_job_requests.create(job_id: job.id)
+  end
+
+  # Un-request a job.
+  def unrequest_job(job)
+    attempted_job_requests.find_by(job_id: job.id).destroy
+  end
+
+  # Returns true if the current user is requesting this job.
+  def requesting?(job)
+    attempted_jobs.include?(job)
   end
 
   def promote_qualification(qualification)

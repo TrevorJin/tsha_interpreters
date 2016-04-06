@@ -102,5 +102,25 @@ class UserTest < ActiveSupport::TestCase
   test "new user should not be a manager" do
     assert_not @user.manager?
   end
+
+  test "should confirm and unconfirm a job" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not samson.confirmed?(job)
+    samson.confirm_job(job)
+    assert samson.confirmed?(job)
+    samson.unconfirm_job(job)
+    assert_not samson.confirmed?(job)
+  end
+
+  test "should request and unrequest a job" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not samson.requesting?(job)
+    samson.request_job(job)
+    assert samson.requesting?(job)
+    samson.unrequest_job(job)
+    assert_not samson.requesting?(job)
+  end
 end
 	

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406020752) do
+ActiveRecord::Schema.define(version: 20160406050719) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160406020752) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "appointments", ["job_id", "user_id"], name: "index_appointments_on_job_id_and_user_id", unique: true
   add_index "appointments", ["job_id"], name: "index_appointments_on_job_id"
   add_index "appointments", ["user_id"], name: "index_appointments_on_user_id"
 
@@ -54,6 +55,17 @@ ActiveRecord::Schema.define(version: 20160406020752) do
   end
 
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+
+  create_table "interpreting_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "interpreting_requests", ["job_id"], name: "index_interpreting_requests_on_job_id"
+  add_index "interpreting_requests", ["user_id", "job_id"], name: "index_interpreting_requests_on_user_id_and_job_id", unique: true
+  add_index "interpreting_requests", ["user_id"], name: "index_interpreting_requests_on_user_id"
 
   create_table "job_requests", force: :cascade do |t|
     t.string   "requester_first_name"

@@ -31,6 +31,8 @@ one:
   nic_advanced_required: false
   nic_master_required: false
   rid_sc_l_required: false
+  has_interpreter_assigned: false
+  customer_id: 1
 
 two:
   start: 2016-02-22 15:10:36
@@ -63,3 +65,5 @@ two:
   nic_advanced_required: false
   nic_master_required: false
   rid_sc_l_required: false
+  has_interpreter_assigned: false
+  customer_id: 2

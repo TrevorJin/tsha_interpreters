@@ -108,5 +108,25 @@ class JobTest < ActiveSupport::TestCase
     @job.directions = "a" * 2001
     assert_not @job.valid?
   end
+
+  test "should confirm and unconfirm a user" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not job.confirmed?(samson)
+    job.confirm_user(samson)
+    assert job.confirmed?(samson)
+    job.unconfirm_user(samson)
+    assert_not job.confirmed?(samson)
+  end
+
+  test "should add user's request and remove it" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not job.requesting?(samson)
+    job.add_requester(samson)
+    assert job.requesting?(samson)
+    job.remove_requester(samson)
+    assert_not job.requesting?(samson)
+  end
 end
 

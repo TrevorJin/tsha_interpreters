@@ -1,7 +1,16 @@
 class Job < ActiveRecord::Base
-	has_many :appointments
-  has_many :users, through: :appointments
-  has_one :job_request
+	has_many :confirmed_interpreter_requests, class_name: "Appointment",
+																						foreign_key: "job_id",
+																						dependent: :destroy
+  has_many :confirmed_interpreters, through: :confirmed_interpreter_requests, source: :user
+	# has_many :appointments
+ #  has_many :users, through: :appointments
+
+  has_many :attempted_interpreter_requests, class_name: "InterpretingRequest",
+                                    				foreign_key: "job_id",
+                                    				dependent: :destroy
+  has_many :attempted_interpreters, through: :attempted_interpreter_requests, source: :user
+
   belongs_to :customer
 
   validates :customer_id, presence: true
@@ -21,4 +30,34 @@ class Job < ActiveRecord::Base
 	validates :notes_for_irp, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 	validates :notes_for_interpreter, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 	validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+
+	# Confirms a user connection with job
+  def confirm_user(user)
+    confirmed_interpreter_requests.create(user_id: user.id)
+  end
+
+  # Unconfirms a user connection with job
+  def unconfirm_user(user)
+    confirmed_interpreter_requests.find_by(user_id: user.id).destroy
+  end
+
+  # Returns true if the current job is confirmed with this user.
+  def confirmed?(user)
+    confirmed_interpreters.include?(user)
+  end
+
+  # Adds a requesting user.
+  def add_requester(user)
+    attempted_interpreter_requests.create(user_id: user.id)
+  end
+
+  # Remove a requesting user.
+  def remove_requester(user)
+    attempted_interpreter_requests.find_by(user_id: user.id).destroy
+  end
+
+  # Returns true if the current job is requested by this user.
+  def requesting?(user)
+    attempted_interpreters.include?(user)
+  end
 end
