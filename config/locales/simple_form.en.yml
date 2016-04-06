@@ -78,6 +78,30 @@ en:
           nic_required: 'NIC Required?'
           nic_advanced_required: 'NIC Advanced Required?'
           nic_master_required: 'NIC Master Required?'
+      job_request:
+        new:
+          requester_first_name: "Requester First Name"
+          requester_last_name: "Requester Last Name"
+          office_business_name: "Office/Business Name"
+          requester_email: "Requester Email"
+          requester_phone_number: "Requester Phone Number"
+          requester_fax_number: "Requester Fax Number"
+          start: "Event Start"
+          end: "Event End"
+          deaf_client_first_name: "Deaf Client First Name"
+          deaf_client_last_name: "Deaf Client Last Name"
+          contact_person_first_name: "Contact Person First Name"
+          contact_person_last_name: "Contact Person Last Name"
+          event_location_address_line_1: "Event Location Address Line 1"
+          event_location_address_line_2: "Address Line 2"
+          event_location_address_line_3: "Address Line 3"
+          city: "City"
+          state: "State"
+          zip: "Zip Code"
+          office_phone_number: "Office Phone Number"
+          type_of_appointment_situation: "Type of Appointment/Situation"
+          message: "Message"
+
     # hints:
       # defaults:
         # username: 'User name to sign in.'

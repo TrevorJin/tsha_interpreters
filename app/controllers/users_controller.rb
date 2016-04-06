@@ -213,6 +213,12 @@ class UsersController < ApplicationController
     redirect_to user_url(@user)
   end
 
+  def approve_job_request
+    @job_request = JobRequest.find(params[:job_request_id])
+    @job_request.approve_job_request
+    redirect_to job_request_url(@job_request)
+  end
+
   private
 
     def user_params

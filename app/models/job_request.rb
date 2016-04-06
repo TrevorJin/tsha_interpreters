@@ -49,6 +49,12 @@ class JobRequest < ActiveRecord::Base
   validates :type_of_appointment_situation, length: { maximum: 2000, message: "must be 2,000 characters or less" }
   validates :message, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
+  def approve_job_request
+    update_attribute(:awaiting_approval, false)
+    update_attribute(:accepted, true)
+    update_attribute(:accepted_at, Time.zone.now)
+  end
+
   private
 
     # Converts requester email to all lower-case.

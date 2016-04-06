@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       get 'promote_qualification'
       get 'revoke_qualification'
       get :confirmed_jobs, :attempted_jobs
+      get 'approve_job_request'
     end
   end
 

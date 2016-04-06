@@ -57,7 +57,7 @@
             <td>
               <div class="btn-group" role="group" aria-label="Justified button group">
                 <%= link_to "Approve", approve_account_user_path(id: pending_user.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to approve #{pending_user.first_name} #{pending_user.last_name}'s account? They will be notified via email."} %>
-                <%= link_to "Deny", pending_user, method: :delete, class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to permanently deny #{pending_user.first_name} #{pending_user.last_name}'s account request? (Warning: This cannot be reversed.)"} %>
+                <%= link_to "Deny", pending_user, method: :delete, class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to permanently deny #{pending_user.first_name} #{pending_user.last_name}'s account request? They will be notified via email. (Warning: This cannot be reversed.)"} %>
               </div>
               <!-- /.btn-group btn-group-justified -->
             </td>

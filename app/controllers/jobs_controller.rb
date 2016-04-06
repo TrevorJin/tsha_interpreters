@@ -39,6 +39,7 @@ class JobsController < ApplicationController
     @rejected_jobs = @user.rejected_jobs
 
     @job = Job.find(params[:id])
+    @attempted_interpreters = @job.attempted_interpreters
   end
 
   def new

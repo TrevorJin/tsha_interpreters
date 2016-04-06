@@ -418,6 +418,46 @@
       <!-- /. panel panel-info -->
       </section>
       <!-- /.user_info -->
+      <% if current_user && current_user.manager? %>
+        <% if @attempted_interpreters.count > 0 %>
+          <h1 class="page-header">
+            Interpreting Requests
+          </h1>
+          <table class="table table-striped table-hover">
+            <thead>
+              <th>
+                Requester Name
+              </th>
+              <th>
+                Action?
+              </th>
+            </thead>
+            <tbody>
+              <% @attempted_interpreters.each do |attempted_interpreter| %>
+                <tr>
+                  <td>
+                     <%= link_to "#{attempted_interpreter.first_name} #{attempted_interpreter.last_name}", attempted_interpreter %>
+                  </td>
+                  <td>
+                    <div class="btn-group" role="group" aria-label="Justified button group">
+                      <%= form_for(attempted_interpreter.confirmed_job_requests.build) do |f| %>
+                        <div>
+                          <%= hidden_field_tag :job_id, @job.id %>
+                        </div>
+                        <div>
+                          <%= hidden_field_tag :attempted_interpreter_id, attempted_interpreter.id %>
+                        </div>
+                        <%= f.submit "Accept", class: "btn btn-primary" %>
+                      <% end %>
+                    </div>
+                    <!-- /.btn-group btn-group-justified -->
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
     </aside>
     <!-- /.col-lg-12 -->
   </div>
