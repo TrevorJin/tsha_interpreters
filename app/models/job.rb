@@ -11,6 +11,16 @@ class Job < ActiveRecord::Base
                                     				dependent: :destroy
   has_many :attempted_interpreters, through: :attempted_interpreter_requests, source: :user
 
+  has_many :job_completions, class_name: "JobCompletion",
+                             foreign_key: "job_id",
+                             dependent: :destroy
+  has_many :completing_interpreters, through: :job_completions, source: :user
+
+  has_many :job_rejections, class_name: "JobRejection",
+                            foreign_key: "job_id",
+                            dependent: :destroy
+  has_many :rejecting_interpreters, through: :job_rejections, source: :user
+
   belongs_to :customer
 
   validates :customer_id, presence: true
@@ -59,5 +69,35 @@ class Job < ActiveRecord::Base
   # Returns true if the current job is requested by this user.
   def requesting?(user)
     attempted_interpreters.include?(user)
+  end
+
+  # Confirms a job completion by a user
+  def complete_job(user)
+    job_completions.create(user_id: user.id)
+  end
+
+  # Unconfirms a job completion by a user
+  def uncomplete_job(user)
+    job_completions.find_by(user_id: user.id).destroy
+  end
+
+  # Returns true if the current job is completed by this user.
+  def completed?(user)
+    completing_interpreters.include?(user)
+  end
+
+  # Confirms a job rejection by a user
+  def reject_job(user)
+    job_rejections.create(user_id: user.id)
+  end
+
+  # Unconfirms a job rejection by a user
+  def unreject_job(user)
+    job_rejections.find_by(user_id: user.id).destroy
+  end
+
+  # Returns true if the current job is rejected by this user.
+  def rejected?(user)
+    rejecting_interpreters.include?(user)
   end
 end

@@ -18,16 +18,24 @@
           <a href="#"><i class="fa fa-briefcase fa-fw"></i> Your Jobs<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "Current", jobs_path %>
+              <%= link_to current_jobs_path do %>
+                Current <%= content_tag :span, "#{@current_jobs.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
-              <%= link_to "Pending Approval", jobs_path %>
+              <%= link_to pending_jobs_path do %>
+                Pending Approval <%= content_tag :span, "#{@pending_jobs.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
-              <%= link_to "Completed", jobs_path %>
+              <%= link_to completed_jobs_path do %>
+                Completed <%= content_tag :span, "#{@completed_jobs.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
-              <%= link_to "Rejected", jobs_path %>
+              <%= link_to rejected_jobs_path do %>
+                Rejected <%= content_tag :span, "#{@rejected_jobs.count}", :class => "badge" %>
+              <% end %>
             </li>
           </ul>
           <!-- /.nav nav-second-level -->

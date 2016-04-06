@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406050719) do
+ActiveRecord::Schema.define(version: 20160406065138) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -66,6 +66,28 @@ ActiveRecord::Schema.define(version: 20160406050719) do
   add_index "interpreting_requests", ["job_id"], name: "index_interpreting_requests_on_job_id"
   add_index "interpreting_requests", ["user_id", "job_id"], name: "index_interpreting_requests_on_user_id_and_job_id", unique: true
   add_index "interpreting_requests", ["user_id"], name: "index_interpreting_requests_on_user_id"
+
+  create_table "job_completions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "job_completions", ["job_id"], name: "index_job_completions_on_job_id"
+  add_index "job_completions", ["user_id", "job_id"], name: "index_job_completions_on_user_id_and_job_id", unique: true
+  add_index "job_completions", ["user_id"], name: "index_job_completions_on_user_id"
+
+  create_table "job_rejections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "job_rejections", ["job_id"], name: "index_job_rejections_on_job_id"
+  add_index "job_rejections", ["user_id", "job_id"], name: "index_job_rejections_on_user_id_and_job_id", unique: true
+  add_index "job_rejections", ["user_id"], name: "index_job_rejections_on_user_id"
 
   create_table "job_requests", force: :cascade do |t|
     t.string   "requester_first_name"

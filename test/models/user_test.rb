@@ -122,5 +122,25 @@ class UserTest < ActiveSupport::TestCase
     samson.unrequest_job(job)
     assert_not samson.requesting?(job)
   end
+
+  test "should complete and uncomplete a job" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not samson.completed?(job)
+    samson.complete_job(job)
+    assert samson.completed?(job)
+    samson.uncomplete_job(job)
+    assert_not samson.completed?(job)
+  end
+
+  test "should reject and unreject a job" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not samson.rejected?(job)
+    samson.reject_job(job)
+    assert samson.rejected?(job)
+    samson.unreject_job(job)
+    assert_not samson.rejected?(job)
+  end
 end
 	

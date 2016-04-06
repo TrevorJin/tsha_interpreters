@@ -6,8 +6,7 @@
 <% if user_logged_in? && current_user.manager? %>
   <%= render 'layouts/manager_dashboard' %>
 <% elsif user_logged_in? && !current_user.manager? %>
-<%= render 'layouts/interpreter_dashboard' %>
-  
+  <%= render 'layouts/interpreter_dashboard' %>
 <% end %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
@@ -45,7 +44,7 @@
           End
         </th>
         <th>
-          Action
+          Action?
         </th>
       </thead>
       <tbody>
@@ -61,7 +60,15 @@
               <%= user_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
             <td>
-              YO
+              <div class="btn-group" role="group" aria-label="Justified button group">
+                <%= form_for(current_user.attempted_job_requests.build) do |f| %>
+                  <div>
+                    <%= hidden_field_tag :job_id, user_job.id %>
+                  </div>
+                  <%= f.submit "Request", class: "btn btn-primary" %>
+                <% end %>
+              </div>
+              <!-- /.btn-group btn-group-justified -->
             </td>
           </tr>
         <% end %>

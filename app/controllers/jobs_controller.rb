@@ -10,6 +10,12 @@ class JobsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     @jobs = Job.all
 
     if (current_user)
@@ -26,6 +32,12 @@ class JobsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     @job = Job.find(params[:id])
   end
 
@@ -37,6 +49,12 @@ class JobsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
   	@job = Job.new
   end
 
@@ -47,6 +65,12 @@ class JobsController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
 
     @job_request = JobRequest.find(params[:job_request_id])
     @job = Job.new
@@ -76,6 +100,12 @@ class JobsController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
     
     @job = Job.find(params[:id])
   end

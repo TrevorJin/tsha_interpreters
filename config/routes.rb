@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   get    'customer_login'       => 'customer_sessions#new'
   post   'customer_login'       => 'customer_sessions#create'
   delete 'customer_logout'      => 'customer_sessions#destroy'
+  get    'current_jobs'         => 'users#current_jobs'
+  get    'pending_jobs'         => 'users#pending_jobs'
+  get    'completed_jobs'       => 'users#completed_jobs'
+  get    'rejected_jobs'        => 'users#rejected_jobs'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -61,12 +65,14 @@ Rails.application.routes.draw do
     end
   end
   resources :job_requests
-  resources :account_activations,      only: [:edit]
-  resources :password_resets,          only: [:new, :create, :edit, :update]
-  resources :customer_account_activations,      only: [:edit]
-  resources :customer_password_resets, only: [:new, :create, :edit, :update]
-  resources :appointments,       only: [:create, :destroy]
-  resources :interpreting_requests,       only: [:create, :destroy]
+  resources :account_activations,           only: [:edit]
+  resources :password_resets,               only: [:new, :create, :edit, :update]
+  resources :customer_account_activations,  only: [:edit]
+  resources :customer_password_resets,      only: [:new, :create, :edit, :update]
+  resources :appointments,                  only: [:create, :destroy]
+  resources :interpreting_requests,         only: [:create, :destroy]
+  resources :job_completions,               only: [:create, :destroy]
+  resources :job_rejection,                 only: [:create, :destroy]
 
 
   # Example resource route with options:

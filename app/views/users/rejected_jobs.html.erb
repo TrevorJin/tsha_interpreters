@@ -1,0 +1,66 @@
+<% provide(:title, 'Rejected Jobs') %>
+<% if user_logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
+<% elsif user_logged_in? && !current_user.manager? %>
+  <%= render 'layouts/interpreter_dashboard' %>
+<% end %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        <% if user_logged_in? && current_user.approved? %>
+          Rejected Jobs
+        <% elsif user_logged_in? && !current_user.approved? %>
+          Awaiting Approval
+        <% end %>
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <% if user_logged_in? && !current_user.manager? && !current_user.approved? %>
+    <p style="text-align: center">
+      Please wait for TSHA to approve your account before current jobs can be viewed.
+    </p>
+  <% end %>
+  <% if user_logged_in? && current_user.approved? && !current_user.manager? && @rejected_jobs.count > 0 %>
+		<table class="table table-striped table-hover">
+      <thead>
+        <th>
+          Location
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Action
+        </th>
+      </thead>
+      <tbody>
+        <% @rejected_jobs.each do |rejected_job| %>
+          <tr>
+            <td>
+              <%= rejected_job.city %>, <%= rejected_job.state %>
+            </td>
+            <td>
+              <%= rejected_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <%= rejected_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              TBD
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- /.table table-striped table-hover -->
+  <% end %>
+</div>
+<!-- /.page-wrapper -->

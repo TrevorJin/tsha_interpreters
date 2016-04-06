@@ -16,6 +16,16 @@ class User < ActiveRecord::Base
                                     dependent: :destroy
   has_many :attempted_jobs, through: :attempted_job_requests, source: :job
 
+  has_many :completions, class_name: "JobCompletion",
+                         foreign_key: "user_id",
+                         dependent: :destroy
+  has_many :completed_jobs, through: :completions, source: :job
+
+  has_many :rejections, class_name: "JobRejection",
+                        foreign_key: "user_id",
+                        dependent: :destroy
+  has_many :rejected_jobs, through: :rejections, source: :job
+
 	validates :first_name, presence: { message: "required" },
                          length: { maximum: 50, message: "must be 50 characters or less" }
 	validates :last_name, presence: { message: "required" },
@@ -145,12 +155,12 @@ class User < ActiveRecord::Base
     update_attribute(:admin,    false)
   end
 
-  # Confirms a job connection with user
+  # Confirms a job connection with user.
   def confirm_job(job)
     confirmed_job_requests.create(job_id: job.id)
   end
 
-  # Unconfirms a job connection with user
+  # Unconfirms a job connection with user.
   def unconfirm_job(job)
     confirmed_job_requests.find_by(job_id: job.id).destroy
   end
@@ -173,6 +183,36 @@ class User < ActiveRecord::Base
   # Returns true if the current user is requesting this job.
   def requesting?(job)
     attempted_jobs.include?(job)
+  end
+
+  # Confirms the completion of a job.
+  def complete_job(job)
+    completions.create(job_id: job.id)
+  end
+
+  # Uncompletes the completion of a job.
+  def uncomplete_job(job)
+    completions.find_by(job_id: job.id).destroy
+  end
+
+  # Returns true if the current user completed this job.
+  def completed?(job)
+    completed_jobs.include?(job)
+  end
+
+  # Confirms the rejection of a job.
+  def reject_job(job)
+    rejections.create(job_id: job.id)
+  end
+
+  # Unrejects the rejection of a job.
+  def unreject_job(job)
+    rejections.find_by(job_id: job.id).destroy
+  end
+
+  # Returns true if the current user rejected this job.
+  def rejected?(job)
+    rejected_jobs.include?(job)
   end
 
   def promote_qualification(qualification)
@@ -261,130 +301,135 @@ class User < ActiveRecord::Base
     
     available_jobs.each do |job|
       this_is_an_eligible_job = true
-      if job.qast_1_interpreting_required
-        if self.qast_1_interpreting
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+      if self.requesting?(job) || self.confirmed?(job)
+        # Interpreter already connected to this job
+        this_is_an_eligible_job = false
+      else
+        if job.qast_1_interpreting_required
+          if self.qast_1_interpreting
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_2_interpreting_required
-        if self.qast_2_interpreting
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_2_interpreting_required
+          if self.qast_2_interpreting
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_3_interpreting_required
-        if self.qast_3_interpreting
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_3_interpreting_required
+          if self.qast_3_interpreting
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_4_interpreting_required
-        if self.qast_4_interpreting
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_4_interpreting_required
+          if self.qast_4_interpreting
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_5_interpreting_required
-        if self.qast_5_interpreting
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_5_interpreting_required
+          if self.qast_5_interpreting
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_1_transliterating_required_required
-        if self.qast_1_transliterating
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_1_transliterating_required_required
+          if self.qast_1_transliterating
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_2_transliterating_required
-        if self.qast_2_transliterating
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_2_transliterating_required
+          if self.qast_2_transliterating
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_3_transliterating_required
-        if self.qast_3_transliterating
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_3_transliterating_required
+          if self.qast_3_transliterating
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_4_transliterating_required
-        if self.qast_4_transliterating
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_4_transliterating_required
+          if self.qast_4_transliterating
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.qast_5_transliterating_required
-        if self.qast_5_transliterating
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.qast_5_transliterating_required
+          if self.qast_5_transliterating
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.rid_ci_required
-        if self.rid_ci
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.rid_ci_required
+          if self.rid_ci
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.rid_ct_required
-        if self.rid_ct
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.rid_ct_required
+          if self.rid_ct
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.rid_cdi_required
-        if self.rid_cdi
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.rid_cdi_required
+          if self.rid_cdi
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.di_required
-        if self.di
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.di_required
+          if self.di
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.nic_required
-        if self.nic
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.nic_required
+          if self.nic
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.nic_advanced_required
-        if self.nic_advanced
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.nic_advanced_required
+          if self.nic_advanced
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.nic_master_required
-        if self.nic_master
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.nic_master_required
+          if self.nic_master
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
-      end
-      if job.rid_sc_l_required
-        if self.rid_sc_l
-          # Interpreter is qualified here, continue.
-        else
-          this_is_an_eligible_job = false
+        if job.rid_sc_l_required
+          if self.rid_sc_l
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
         end
       end
 

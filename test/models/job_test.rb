@@ -128,5 +128,24 @@ class JobTest < ActiveSupport::TestCase
     job.remove_requester(samson)
     assert_not job.requesting?(samson)
   end
-end
 
+  test "should add link user's job completion and remove it" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not job.completed?(samson)
+    job.complete_job(samson)
+    assert job.completed?(samson)
+    job.uncomplete_job(samson)
+    assert_not job.completed?(samson)
+  end
+
+  test "should add link user's job rejection and remove it" do
+    job = jobs(:one)
+    samson  = users(:samson)
+    assert_not job.rejected?(samson)
+    job.reject_job(samson)
+    assert job.rejected?(samson)
+    job.unreject_job(samson)
+    assert_not job.rejected?(samson)
+  end
+end

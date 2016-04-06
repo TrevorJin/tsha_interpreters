@@ -13,6 +13,12 @@ class CustomersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     if params[:search]
       @customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc)
     else
@@ -28,6 +34,14 @@ class CustomersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
+
     @customer = Customer.find(params[:id])
   end
 
@@ -39,6 +53,14 @@ class CustomersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
+
     @customer = Customer.new
   end
 
@@ -49,6 +71,14 @@ class CustomersController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
     @customer = Customer.new(customer_params)
     if @customer.save
@@ -71,6 +101,14 @@ class CustomersController < ApplicationController
     @pending_users = User.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
     
     @customer = Customer.find(params[:id])
   end
@@ -103,6 +141,12 @@ class CustomersController < ApplicationController
     @pending_users = User.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
   end
 
   def approve_account
