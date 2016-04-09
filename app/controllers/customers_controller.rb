@@ -44,7 +44,7 @@ class CustomersController < ApplicationController
     end
 
     if (current_customer)
-      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
     end
 
     @customer = Customer.find(params[:id])
