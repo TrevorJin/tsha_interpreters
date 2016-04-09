@@ -13,7 +13,10 @@ class JobRequestsController < ApplicationController
       @customer = current_customer
       @job_requests = JobRequest.where(customer_id: @customer.id)
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", @customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", @customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", @customer.id)
     elsif current_user && current_user.manager?
       @job_requests = JobRequest.all
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)
@@ -31,7 +34,10 @@ class JobRequestsController < ApplicationController
 
     if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
     end
 
     @job_request = JobRequest.find(params[:id])
@@ -42,6 +48,14 @@ class JobRequestsController < ApplicationController
     # @total_users = User.all
     # @total_customers = Customer.all
     # @pending_customers = Customer.where(approved: false)
+
+    if current_customer
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+    end
     
   	@job_request = JobRequest.new
   end

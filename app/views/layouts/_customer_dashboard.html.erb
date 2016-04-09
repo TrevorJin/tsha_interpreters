@@ -10,11 +10,6 @@
         </li>
         <% elsif customer_logged_in? && current_customer.approved? %>
         <li>
-          <%= link_to job_requests_path do %>
-            <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Current Job Requests
-          <% end %>
-        </li>
-        <li>
           <a href="#"><i class="fa fa-briefcase fa-fw"></i> Your Job Requests<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
@@ -26,15 +21,23 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "Current", job_requests_path %>
-            </li>
-            
-            <li>
-              <%= link_to "Completed", job_requests_path %>
+              <%= link_to approved_job_requests_path do %>
+                Approved <%= content_tag :span, "#{@approved_job_requests.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
               <%= link_to rejected_job_requests_path do %>
                 Rejected <%= content_tag :span, "#{@rejected_job_requests.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to expired_job_requests_path do %>
+                Expired <%= content_tag :span, "#{@expired_job_requests.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to job_requests_path do %>
+                Total <%= content_tag :span, "#{@total_job_requests.count}", :class => "badge" %>
               <% end %>
             </li>
           </ul>
