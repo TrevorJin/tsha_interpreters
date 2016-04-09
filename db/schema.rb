@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406065138) do
+ActiveRecord::Schema.define(version: 20160409194117) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 20160406065138) do
     t.datetime "accepted_at"
     t.boolean  "denied",                        default: false
     t.datetime "denied_at"
+    t.boolean  "expired",                       default: false
+    t.datetime "expired_at"
   end
 
   add_index "job_requests", ["customer_id"], name: "index_job_requests_on_customer_id"
