@@ -36,14 +36,4 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match manager.first_name, mail.body.encoded
     assert_match manager.last_name, mail.body.encoded
   end
-
-  test "account_denied" do
-    user = users(:flaky)
-    mail = UserMailer.account_denied(user)
-    assert_equal "Your account has not been approved by TSHA", mail.subject
-    assert_equal [user.email], mail.to
-    assert_equal ["noreply@tshainterpreters.com"], mail.from
-    assert_match "Your account request with the TSHA system has not been approved.", mail.body.encoded
-    assert_match user.first_name, mail.body.encoded
-  end
 end

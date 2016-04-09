@@ -80,10 +80,9 @@ class UsersController < ApplicationController
   # being destroyed for record keeping purposes. We do not want to lose their history with TSHA.
   def destroy
     @user = User.find(params[:id])
-    @user.send_account_denied_email
     name = "#{@user.first_name} #{@user.last_name}"
     User.find(params[:id]).destroy
-    flash[:success] = "#{name}'s account has been denied. They have been notified via email."
+    flash[:success] = "#{name}'s account has been denied."
     redirect_to pending_interpreters_url
   end
 
