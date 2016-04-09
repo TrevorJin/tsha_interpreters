@@ -21,18 +21,21 @@
               <%= link_to "Create", new_job_request_path %>
             </li>
             <li>
-              <%= link_to "Current", job_requests_path %>
-            </li>
-            <li>
               <%= link_to pending_approval_path do %>
                 Pending Approval <%= content_tag :span, "#{@pending_job_requests.count}", :class => "badge" %>
               <% end %>
             </li>
             <li>
+              <%= link_to "Current", job_requests_path %>
+            </li>
+            
+            <li>
               <%= link_to "Completed", job_requests_path %>
             </li>
             <li>
-              <%= link_to "Rejected", job_requests_path %>
+              <%= link_to rejected_job_requests_path do %>
+                Rejected <%= content_tag :span, "#{@rejected_job_requests.count}", :class => "badge" %>
+              <% end %>
             </li>
           </ul>
           <!-- /.nav nav-second-level -->

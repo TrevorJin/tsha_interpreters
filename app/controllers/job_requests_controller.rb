@@ -13,6 +13,7 @@ class JobRequestsController < ApplicationController
       @customer = current_customer
       @job_requests = JobRequest.where(customer_id: @customer.id)
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
     elsif current_user && current_user.manager?
       @job_requests = JobRequest.all
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)
@@ -27,6 +28,11 @@ class JobRequestsController < ApplicationController
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
+
+    if current_customer
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+    end
 
     @job_request = JobRequest.find(params[:id])
   end

@@ -1,4 +1,4 @@
-<% provide(:title, 'Job Requests Awaiting Approval') %>
+<% provide(:title, 'Rejected Job Requests') %>
 <%= render 'layouts/customer_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
@@ -6,7 +6,7 @@
     <div class="col-lg-12">
       <h1 class="page-header">
         <% if customer_logged_in? && current_customer.approved? %>
-          Job Requests Awaiting Approval
+          Rejected Job Requests
         <% elsif customer_logged_in && !current_customer.approved? %>
           Awaiting Approval
         <% end %>
@@ -45,31 +45,31 @@
         </tr>
       </thead>
       <tbody>
-        <% @pending_job_requests.each do |pending_job_request| %>
+        <% @rejected_job_requests.each do |rejected_job_request| %>
           <tr>
             <td>
-              <%= link_to "#{pending_job_request.id}", pending_job_request %>
+              <%= link_to "#{rejected_job_request.id}", rejected_job_request %>
             </td>
             <td>
-              <%= link_to "#{pending_job_request.deaf_client_first_name} #{pending_job_request.deaf_client_last_name}", pending_job_request %>
+              <%= link_to "#{rejected_job_request.deaf_client_first_name} #{rejected_job_request.deaf_client_last_name}", rejected_job_request %>
             </td>
             <td>
-              <%= link_to "#{pending_job_request.contact_person_first_name} #{pending_job_request.contact_person_last_name}", pending_job_request %>
+              <%= link_to "#{rejected_job_request.contact_person_first_name} #{rejected_job_request.contact_person_last_name}", rejected_job_request %>
             </td>
             <td>
-              <%= pending_job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
+              <%= rejected_job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
             <td>
-              <%= pending_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+              <%= rejected_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
             <td>
-              <% if pending_job_request.awaiting_approval? %>
+              <% if rejected_job_request.awaiting_approval? %>
                 <span class="label label-warning">Awaiting Approval</span>
-              <% elsif pending_job_request.accepted? %>
+              <% elsif rejected_job_request.accepted? %>
                 <span class="label label-success">Job Request Approved</span>
-              <% elsif pending_job_request.denied? %>
+              <% elsif rejected_job_request.denied? %>
                 <span class="label label-danger">Job Request Rejected</span>
-              <% elsif pending_job_request.expired? %>
+              <% elsif rejected_job_request.expired? %>
                 <span class="label label-danger">Job Request Expired</span>
               <% end %>
             </td>

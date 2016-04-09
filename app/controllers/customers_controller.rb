@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :logged_in_user, only: [:index, :pending_customers, :destroy]
-  before_action :logged_in_customer, only: [:pending_approval]
+  before_action :logged_in_customer, only: [:pending_approval, :rejected_job_requests]
   before_action :manager_user,   only: [:index, :pending_customers]
   before_action :admin_user, only: [:destroy]
   before_action :logged_in_user_or_customer, only: [:edit, :update]
@@ -45,6 +45,7 @@ class CustomersController < ApplicationController
 
     if (current_customer)
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
     end
 
     @customer = Customer.find(params[:id])
@@ -117,6 +118,7 @@ class CustomersController < ApplicationController
 
     if (current_customer)
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
     end
     
     @customer = Customer.find(params[:id])
@@ -161,6 +163,13 @@ class CustomersController < ApplicationController
   def pending_approval
     @customer = current_customer
     @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+    @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
+  end
+
+  def rejected_job_requests
+    @customer = current_customer
+    @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+    @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
   end
 
   def approve_account
