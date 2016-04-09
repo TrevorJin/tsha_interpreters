@@ -16,7 +16,7 @@ class JobRequestsController < ApplicationController
     elsif current_user && current_user.manager?
       @job_requests = JobRequest.all
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)
-      @approved_job_requests = JobRequest.where(awaiting_approval: false)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false)
     end
   end
 

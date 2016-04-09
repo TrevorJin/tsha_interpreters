@@ -215,6 +215,14 @@ class UsersController < ApplicationController
   def approve_job_request
     @job_request = JobRequest.find(params[:job_request_id])
     @job_request.approve_job_request
+    flash[:success] = "Job Request #{@job_request.id} for #{@job_request.requester_first_name} #{@job_request.requester_last_name} has been marked as approved."
+    redirect_to job_request_url(@job_request)
+  end
+
+  def reject_job_request
+    @job_request = JobRequest.find(params[:job_request_id])
+    @job_request.reject_job_request
+    flash[:success] = "Job Request #{@job_request.id} for #{@job_request.requester_first_name} #{@job_request.requester_last_name} has been marked as denied."
     redirect_to job_request_url(@job_request)
   end
 

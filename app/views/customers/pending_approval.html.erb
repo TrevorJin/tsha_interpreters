@@ -62,6 +62,15 @@
             <td>
               <%= pending_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
+            <% if pending_job_request.awaiting_approval? %>
+              <span class="label label-warning">Awaiting Approval</span>
+            <% elsif pending_job_request.accepted? %>
+              <span class="label label-success">Job Request Approved</span>
+            <% elsif pending_job_request.denied? %>
+              <span class="label label-danger">Job Request Rejected</span>
+            <% elsif pending_job_request.expired? %>
+              <span class="label label-danger">Job Request Expired</span>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

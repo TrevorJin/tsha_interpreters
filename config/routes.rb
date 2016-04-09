@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       get 'revoke_qualification'
       get :confirmed_jobs, :attempted_jobs
       get 'approve_job_request'
+      get 'reject_job_request'
     end
   end
 
