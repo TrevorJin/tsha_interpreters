@@ -24,7 +24,9 @@
               <%= link_to "Current", job_requests_path %>
             </li>
             <li>
-              <%= link_to "Pending Approval", job_requests_path %>
+              <%= link_to pending_approval_path do %>
+                Pending Approval <%= content_tag :span, "#{@pending_job_requests.count}", :class => "badge" %>
+              <% end %>
             </li>
             <li>
               <%= link_to "Completed", job_requests_path %>

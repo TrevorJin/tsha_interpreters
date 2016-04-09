@@ -12,6 +12,7 @@ class JobRequestsController < ApplicationController
     if current_customer
       @customer = current_customer
       @job_requests = JobRequest.where(customer_id: @customer.id)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
     elsif current_user && current_user.manager?
       @job_requests = JobRequest.all
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)

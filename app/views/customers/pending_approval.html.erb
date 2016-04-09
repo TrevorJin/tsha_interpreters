@@ -1,0 +1,72 @@
+<% provide(:title, 'Job Requests Awaiting Approval') %>
+<%= render 'layouts/customer_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        <% if customer_logged_in? && current_customer.approved? %>
+          Job Requests Awaiting Approval
+        <% elsif customer_logged_in && !current_customer.approved? %>
+          Awaiting Approval
+        <% end %>
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <% if customer_logged_in? && !current_customer.approved? %>
+    <p style="text-align: center">
+      Please wait for TSHA to approve your account before pending job requests can be viewed.
+    </p>
+  <% elsif customer_logged_in? && current_customer.approved? %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Deaf Client
+          </th>
+          <th>
+            Contact Person
+          </th>
+          <th>
+            Start
+          </th>
+          <th>
+            End
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending_job_requests.each do |pending_job_request| %>
+          <tr>
+            <td>
+              <%= link_to "#{pending_job_request.id}", pending_job_request %>
+            </td>
+            <td>
+              <%= link_to "#{pending_job_request.deaf_client_first_name} #{pending_job_request.deaf_client_last_name}", pending_job_request %>
+            </td>
+            <td>
+              <%= link_to "#{pending_job_request.contact_person_first_name} #{pending_job_request.contact_person_last_name}", pending_job_request %>
+            </td>
+            <td>
+              <%= pending_job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <%= pending_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- /.table table-striped table-hover -->
+  <% end %>
+</div>
+<!-- /.page-wrapper -->

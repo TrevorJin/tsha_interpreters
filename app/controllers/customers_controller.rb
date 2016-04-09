@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :logged_in_user, only: [:index, :pending_customers, :destroy]
+  before_action :logged_in_customer, only: [:pending_approval]
   before_action :manager_user,   only: [:index, :pending_customers]
   before_action :admin_user, only: [:destroy]
   before_action :logged_in_user_or_customer, only: [:edit, :update]
@@ -40,6 +41,10 @@ class CustomersController < ApplicationController
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
+    end
+
+    if (current_customer)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
     end
 
     @customer = Customer.find(params[:id])
@@ -109,6 +114,10 @@ class CustomersController < ApplicationController
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
     end
+
+    if (current_customer)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+    end
     
     @customer = Customer.find(params[:id])
   end
@@ -149,6 +158,11 @@ class CustomersController < ApplicationController
     @rejected_jobs = @user.rejected_jobs
   end
 
+  def pending_approval
+    @customer = current_customer
+    @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
+  end
+
   def approve_account
     @customer = Customer.find(params[:id])
     @approving_manager = current_user
@@ -180,6 +194,15 @@ class CustomersController < ApplicationController
     # Confirms a logged-in user.
     def logged_in_user
       unless user_logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    # Confirms a logged-in customer.
+    def logged_in_customer
+      unless customer_logged_in?
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
