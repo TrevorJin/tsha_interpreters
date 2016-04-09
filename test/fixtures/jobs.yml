@@ -31,6 +31,9 @@ one:
   nic_advanced_required: false
   nic_master_required: false
   rid_sc_l_required: false
+  bei_required: false
+  bei_advanced_required: false
+  bei_master_required: false
   has_interpreter_assigned: false
   customer_id: 1
 
@@ -65,5 +68,8 @@ two:
   nic_advanced_required: false
   nic_master_required: false
   rid_sc_l_required: false
+  bei_required: false
+  bei_advanced_required: false
+  bei_master_required: false
   has_interpreter_assigned: false
   customer_id: 2

@@ -41,7 +41,10 @@ User.create!(first_name:  "Example",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 # Manager
 
@@ -75,7 +78,10 @@ User.create!(first_name:  "Example",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 User.create!(first_name: "Rene'",
              last_name:  "Ryan",
@@ -108,7 +114,10 @@ User.create!(first_name: "Rene'",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 User.create!(first_name: "Linda",
              last_name:  "Hawkins",
@@ -140,7 +149,10 @@ User.create!(first_name: "Linda",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 User.create!(first_name: "Angie",
              last_name:  "Davis",
@@ -172,7 +184,10 @@ User.create!(first_name: "Angie",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 User.create!(first_name: "Yamileth",
              last_name:  "Canales",
@@ -204,7 +219,10 @@ User.create!(first_name: "Yamileth",
              nic: true,
              nic_advanced: true,
              nic_master: true,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 User.create!(first_name: "Sammy",
              last_name:  "Flake",
@@ -233,7 +251,10 @@ User.create!(first_name: "Sammy",
              nic: true,
              nic_advanced: true,
              nic_master: false,
-             rid_sc_l: true)
+             rid_sc_l: true,
+             bei: true,
+             bei_advanced: true,
+             bei_master: true)
 
 99.times do |n|
   first_name  = Faker::Name.first_name
@@ -274,7 +295,10 @@ User.create!(first_name: "Sammy",
                nic: true,
                nic_advanced: true,
                nic_master: true,
-               rid_sc_l: true)
+               rid_sc_l: true,
+               bei: true,
+               bei_advanced: true,
+               bei_master: false)
 end
 
 # Pending Interpreters
@@ -309,15 +333,18 @@ end
                qast_2_transliterating: true,
                qast_3_transliterating: true,
                qast_4_transliterating: true,
-               qast_5_transliterating: true,
+               qast_5_transliterating: false,
                rid_ci: true,
                rid_ct: true,
-               rid_cdi: true,
+               rid_cdi: false,
                di: true,
                nic: true,
                nic_advanced: true,
-               nic_master: true,
-               rid_sc_l: true)
+               nic_master: false,
+               rid_sc_l: true,
+               bei: true,
+               bei_advanced: true,
+               bei_master: false)
 end
 
 # Customers

@@ -32,6 +32,9 @@ michael:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Manager User
 sanchez:
@@ -64,6 +67,9 @@ sanchez:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Regular Interpreter
 samson:
@@ -95,6 +101,9 @@ samson:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Regular Interpreter
 archer:
@@ -126,6 +135,9 @@ archer:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Regular Interpreter
 wonka:
@@ -157,6 +169,9 @@ wonka:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Regular Interpreter (Not Appproved Yet)
 flaky:
@@ -188,6 +203,9 @@ flaky:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 
 # Regular Interpreters
 <% 30.times do |n| %>
@@ -220,4 +238,7 @@ user_<%= n %>:
   nic_advanced: true
   nic_master: true
   rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
 <% end %>

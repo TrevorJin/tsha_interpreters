@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409194117) do
+ActiveRecord::Schema.define(version: 20160409223304) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -160,6 +160,9 @@ ActiveRecord::Schema.define(version: 20160409194117) do
     t.boolean  "nic_master_required",                      default: false
     t.boolean  "rid_sc_l_required",                        default: false
     t.boolean  "has_interpreter_assigned",                 default: false
+    t.boolean  "bei_required",                             default: false
+    t.boolean  "bei_advanced_required",                    default: false
+    t.boolean  "bei_master_required",                      default: false
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"
@@ -202,6 +205,9 @@ ActiveRecord::Schema.define(version: 20160409194117) do
     t.boolean  "rid_sc_l",                          default: false
     t.boolean  "active",                            default: true
     t.string   "gender"
+    t.boolean  "bei",                               default: false
+    t.boolean  "bei_advanced",                      default: false
+    t.boolean  "bei_master",                        default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

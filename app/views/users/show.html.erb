@@ -276,11 +276,11 @@
                         </th>
                         <!-- /.qualification-cell -->
                         <th class="qualification-cell">
-                  
+                          BEI
                         </th>
                         <!-- /.qualification-cell -->
                         <th class="qualification-cell">
-                  
+                          BEI Advanced
                         </th>
                         <!-- /.qualification-cell -->
                       </tr>
@@ -307,6 +307,59 @@
                           <% else %>
                             <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
                           <% end %>
+                        </th>
+                        <th>
+                          <% if @user.bei? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% else %>
+                            <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                          <% if @user.bei_advanced? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% else %>
+                            <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                      </tr>
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th class="qualification-cell">
+                          BEI Master
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+                          
+                        </th>
+                        <!-- /.qualification-cell -->
+                        <th class="qualification-cell">
+
+                        </th>
+                        <!-- /.qualification-cell -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>
+                          <% if @user.bei_master? %>
+                            <span class="glyphicon glyphicon-ok" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% else %>
+                            <span class="glyphicon glyphicon-remove" style="vertical-align:middle" aria-hidden="true"></span>
+                          <% end %>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
                         </th>
                         <th>
                         </th>
@@ -481,6 +534,29 @@
                           <%= link_to "- RID SC:L", revoke_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-danger", role:"button" %>
                         <% else %>
                           <%= link_to "+ RID SC:L", promote_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-success", role:"button" %>
+                        <% end %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <% if @user.bei? %>
+                          <%= link_to "- BEI", revoke_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-danger", role:"button" %>
+                        <% else %>
+                          <%= link_to "+ BEI", promote_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-success", role:"button" %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if @user.bei_advanced? %>
+                          <%= link_to "- BEI Advanced", revoke_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-danger", role:"button" %>
+                        <% else %>
+                          <%= link_to "+ BEI Advanced", promote_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-success", role:"button" %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if @user.bei_master? %>
+                          <%= link_to "- BEI Master", revoke_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-danger", role:"button" %>
+                        <% else %>
+                          <%= link_to "+ BEI Master", promote_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-success", role:"button" %>
                         <% end %>
                       </td>
                     </tr>

@@ -247,6 +247,12 @@ class User < ActiveRecord::Base
       update_attribute(:nic_master,  true)
     elsif (qualification == "RID SC:L")
       update_attribute(:rid_sc_l,  true)
+    elsif (qualification == "BEI")
+      update_attribute(:bei,  true)
+    elsif (qualification == "BEI Advanced")
+      update_attribute(:bei_advanced,  true)
+    elsif (qualification == "BEI Master")
+      update_attribute(:bei_master,  true)
     end
   end
 
@@ -287,6 +293,12 @@ class User < ActiveRecord::Base
       update_attribute(:nic_master,  false)
     elsif (qualification == "RID SC:L")
       update_attribute(:rid_sc_l,  false)
+    elsif (qualification == "BEI")
+      update_attribute(:bei,  false)
+    elsif (qualification == "BEI Advanced")
+      update_attribute(:bei_advanced,  false)
+    elsif (qualification == "BEI Master")
+      update_attribute(:bei_master,  false)
     end
   end
 
@@ -421,6 +433,27 @@ class User < ActiveRecord::Base
         end
         if job.rid_sc_l_required
           if self.rid_sc_l
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
+        end
+        if job.bei_required
+          if self.bei
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
+        end
+        if job.bei_advanced_required
+          if self.bei_advanced
+            # Interpreter is qualified here, continue.
+          else
+            this_is_an_eligible_job = false
+          end
+        end
+        if job.bei_master_required
+          if self.bei_master
             # Interpreter is qualified here, continue.
           else
             this_is_an_eligible_job = false
