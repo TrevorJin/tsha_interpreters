@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :manager_user,   only: [:edit, :update, :destroy]
+  before_action :update_expired_jobs_and_job_requests, only: [:index, :show, :new, :new_job_from_job_request]
 
   def index
     @pending_users = User.where(approved: false)
@@ -178,5 +179,11 @@ class JobsController < ApplicationController
     # Confirms a manager user.
     def manager_user
       redirect_to(root_url) unless current_user.manager?
+    end
+
+    # Update all expired jobs and job requests
+    def update_expired_jobs_and_job_requests
+      mark_expired_jobs
+      mark_expired_job_requests
     end
 end

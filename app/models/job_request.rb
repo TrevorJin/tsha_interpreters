@@ -61,6 +61,12 @@ class JobRequest < ActiveRecord::Base
     update_attribute(:denied_at, Time.zone.now)
   end
 
+  def expire_job_request
+    update_attribute(:awaiting_approval, false)
+    update_attribute(:expired, true)
+    update_attribute(:expired_at, Time.zone.now)
+  end
+
   private
 
     # Converts requester email to all lower-case.

@@ -3,13 +3,16 @@ class UsersController < ApplicationController
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
                                         :promote_qualification, :confirmed_jobs, :attempted_jobs,
-                                        :destroy]
+                                        :rejected_jobs, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs]
+  before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
                                         :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
                                         :demote_to_interpreter, :deactivate_user, :destroy]
+  before_action :update_expired_jobs_and_job_requests, only: [:current_jobs, :pending_jobs, :completed_jobs,
+                                                              :index, :show, :dashboard, :pending_users,
+                                                              :rejected_jobs]
 
   def index
     @pending_users = User.where(approved: false)
@@ -355,5 +358,11 @@ class UsersController < ApplicationController
     # Confirms an admin user.
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+
+    # Update all expired jobs and job requests
+    def update_expired_jobs_and_job_requests
+      mark_expired_jobs
+      mark_expired_job_requests
     end
 end

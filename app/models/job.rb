@@ -100,4 +100,11 @@ class Job < ActiveRecord::Base
   def rejected?(user)
     rejecting_interpreters.include?(user)
   end
+
+  # Expires a job.
+  def expire_job
+    update_attribute(:has_interpreter_assigned, false)
+    update_attribute(:expired, true)
+    update_attribute(:expired_at, Time.zone.now)
+  end
 end

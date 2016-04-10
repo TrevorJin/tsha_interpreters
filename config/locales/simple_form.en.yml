@@ -31,6 +31,22 @@ en:
           contact_phone_number: 'Contact Phone Number'
           contact_phone_number_extension: 'Contact Phone Number Extension'
           fax: 'Fax'
+        edit:
+          customer_name: 'Customer Name'
+          email: 'Email'
+          contact_first_name: 'Contact First Name'
+          contact_last_name: 'Contact Last Name'
+          billing_address_line_1: 'Billing Address Line 1'
+          billing_address_line_2: 'Billing Address Line 2'
+          billing_address_line_3: 'Billing Address Line 3'
+          mail_address_line_1: 'Mail Address Line 1'
+          mail_address_line_2: 'Mail Address Line 2'
+          mail_address_line_3: 'Mail Address Line 3'
+          phone_number: 'Phone Number'
+          phone_number_extension: 'Phone Number Extension'
+          contact_phone_number: 'Contact Phone Number'
+          contact_phone_number_extension: 'Contact Phone Number Extension'
+          fax: 'Fax'
       user:
         new:
           first_name: 'First Name'

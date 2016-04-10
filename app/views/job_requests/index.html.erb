@@ -1,4 +1,4 @@
-<% provide(:title, 'Current Job Requests') %>
+<% provide(:title, 'Total Job Requests') %>
 <% if customer_logged_in? %>
   <%= render 'layouts/customer_dashboard' %>
 <% elsif user_logged_in? && current_user.manager? %>

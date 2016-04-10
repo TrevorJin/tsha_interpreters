@@ -6,6 +6,9 @@ class CustomersController < ApplicationController
   before_action :admin_user, only: [:destroy]
   before_action :logged_in_user_or_customer, only: [:edit, :update]
   before_action :correct_customer_or_manager_user, only: [:edit, :update]
+  before_action :update_expired_jobs_and_job_requests, only: [:pending_approval, :approved_job_requests,
+                                                              :rejected_job_requests, :expired_job_requests,
+                                                              :index, :show, :new, :pending_customers]
 
   def index
     @pending_users = User.where(approved: false)
@@ -338,5 +341,11 @@ class CustomersController < ApplicationController
     # Confirms an admin user.
     def admin_user
       redirect_to(root_url) unless current_user && current_user.admin?
+    end
+
+    # Update all expired jobs and job requests
+    def update_expired_jobs_and_job_requests
+      mark_expired_jobs
+      mark_expired_job_requests
     end
 end

@@ -48,12 +48,12 @@
           <ul class="nav nav-second-level">
             <li>
               <%= link_to current_jobs_path do %>
-                Current Jobs <%= content_tag :span, "#{@current_jobs.count}", :class => "badge" %>
+                Current <%= content_tag :span, "#{@current_jobs.count}", :class => "badge" %>
               <% end %>
             </li>
             <li>
               <%= link_to pending_jobs_path do %>
-                Pending Jobs <%= content_tag :span, "#{@pending_jobs.count}", :class => "badge" %>
+                Pending <%= content_tag :span, "#{@pending_jobs.count}", :class => "badge" %>
               <% end %>
             </li>
             <li>

@@ -1,5 +1,6 @@
 class JobRequestsController < ApplicationController
   before_action :logged_in_user_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :update_expired_jobs_and_job_requests, only: [:index, :show, :new]
 
   def index
     @pending_users = User.where(approved: false)
@@ -165,5 +166,11 @@ class JobRequestsController < ApplicationController
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+    end
+
+    # Update all expired jobs and job requests
+    def update_expired_jobs_and_job_requests
+      mark_expired_jobs
+      mark_expired_job_requests
     end
 end
