@@ -3,6 +3,8 @@
   <%= render 'layouts/manager_dashboard' %>
 <% elsif user_logged_in? && !current_user.manager? %>
   <%= render 'layouts/interpreter_dashboard' %>
+<% elsif customer_logged_in? %>
+  <%= render 'layouts/customer_dashboard' %>
 <% end %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
@@ -13,6 +15,10 @@
           Completed Jobs
         <% elsif user_logged_in? && !current_user.approved? %>
           Awaiting Approval
+        <% elsif customer_logged_in? && !current_customer.approved? %>
+          Awaiting Approval
+        <% elsif customer_logged_in? && current_customer.approved? %>
+          Completed Jobs
         <% end %>
       </h1>
       <!-- /.page-header -->
@@ -21,6 +27,10 @@
   </div>
   <!-- /.row -->
   <% if user_logged_in? && !current_user.manager? && !current_user.approved? %>
+    <p style="text-align: center">
+      Please wait for TSHA to approve your account before current jobs can be viewed.
+    </p>
+  <% elsif customer_logged_in? && !current_customer.approved? %>
     <p style="text-align: center">
       Please wait for TSHA to approve your account before current jobs can be viewed.
     </p>
@@ -55,6 +65,94 @@
             </td>
             <td>
               TBD
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- /.table table-striped table-hover -->
+  <% elsif user_logged_in? && current_user.manager? && @completed_jobs.count > 0 %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+           Customer Name
+          </th>
+          <th>
+            Location
+          </th>
+          <th>
+            Start
+          </th>
+          <th>
+            End
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @completed_jobs.each do |completed_job| %>
+          <tr>
+            <td>
+              <%= link_to "#{completed_job.id}", completed_job %>
+            </td>
+            <td>
+              <%= link_to "#{completed_job.customer.customer_name}", completed_job %>
+            </td>
+            <td>
+              <%= link_to "#{completed_job.city}, #{completed_job.state} #{completed_job.zip}", completed_job %>
+            </td>
+            <td>
+              <%= completed_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <%= completed_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- /.table table-striped table-hover -->
+  <% elsif customer_logged_in? && @completed_jobs.count > 0 %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+           Customer Name
+          </th>
+          <th>
+            Location
+          </th>
+          <th>
+            Start
+          </th>
+          <th>
+            End
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @completed_jobs.each do |completed_job| %>
+          <tr>
+            <td>
+              <%= link_to "#{completed_job.id}", completed_job %>
+            </td>
+            <td>
+              <%= link_to "#{completed_job.customer.customer_name}", completed_job %>
+            </td>
+            <td>
+              <%= link_to "#{completed_job.city}, #{completed_job.state} #{completed_job.zip}", completed_job %>
+            </td>
+            <td>
+              <%= completed_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <%= completed_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
           </tr>
         <% end %>

@@ -23,6 +23,13 @@
             <%= link_to "Reject", reject_job_request_user_path(job_request_id: @job_request.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to mark this job request as rejected?"} %>
           <% elsif @job_request.accepted? %>
             <span class="label label-success">Approved on <%= @job_request.accepted_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
+            <%= link_to "Create Job From Job Request", new_job_from_job_request_job_path(
+            {:customer_id => @job_request.customer.id}, :job_request_id => @job_request.id,
+             :start => @job_request.start, :end => @job_request.end,
+             :address_line_1 => @job_request.event_location_address_line_1,
+             :address_line_2 => @job_request.event_location_address_line_2,
+             :address_line_3 => @job_request.event_location_address_line_3,
+             :city => @job_request.city, :state => @job_request.state, :zip => @job_request.zip), :class => "btn btn-primary" %>
           <% elsif @job_request.denied? %>
             <span class="label label-danger">Rejected on <%= @job_request.denied_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
           <% elsif @job_request.expired? %>

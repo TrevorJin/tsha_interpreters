@@ -9,11 +9,18 @@ class JobRequestsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if current_user
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    elsif current_customer
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+    end
 
     if current_customer
       @customer = current_customer
@@ -38,12 +45,22 @@ class JobRequestsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
       @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
       @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
     end
 
     @job_request = JobRequest.find(params[:id])
@@ -61,6 +78,10 @@ class JobRequestsController < ApplicationController
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
       @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
       @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
     end
     
   	@job_request = JobRequest.new

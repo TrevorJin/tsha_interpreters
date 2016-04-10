@@ -3,8 +3,9 @@ class UsersController < ApplicationController
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
                                         :promote_qualification, :confirmed_jobs, :attempted_jobs,
-                                        :current_jobs, :pending_jobs, :destroy]
+                                        :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
                                         :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
@@ -131,11 +132,23 @@ class UsersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    elsif (current_customer)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+    end
   end
 
   def pending_jobs
@@ -146,11 +159,23 @@ class UsersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    elsif (current_customer)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+    end
   end
 
   def completed_jobs
@@ -161,11 +186,23 @@ class UsersController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if (current_user)
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    elsif (current_customer)
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @pending_jobs = Job.joins(:attempted_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+    end
   end
 
   def rejected_jobs
@@ -278,6 +315,15 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    # Confirms either a logged-in user or customer.
+    def logged_in_user_or_customer
+      unless user_logged_in? || customer_logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 
     # Confirms a manager user.
