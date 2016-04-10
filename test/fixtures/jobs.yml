@@ -1,8 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start: 2016-02-22 15:10:36
-  end: 2016-02-22 15:10:36
+  start: 2016-10-22 15:10:36
+  end: 2016-10-22 15:11:36
+  requester_first_name: Willy
+  requester_last_name: Wonka
+  requester_email: willy.wonka@gmail.com
+  requester_phone_number: +18662466453
+  contact_person_first_name: Willy
+  contact_person_last_name: Wonka
   address_line_1: MyString
   address_line_2: MyString
   address_line_3: MyString
@@ -40,8 +46,14 @@ one:
   customer_id: 1
 
 two:
-  start: 2016-02-22 15:10:36
-  end: 2016-02-22 15:10:36
+  start: 2016-10-22 15:10:36
+  end: 2016-10-22 15:11:36
+  requester_first_name: Willy
+  requester_last_name: Wonka
+  requester_email: willy.wonka@gmail.com
+  requester_phone_number: +18662466453
+  contact_person_first_name: Willy
+  contact_person_last_name: Wonka
   address_line_1: MyString
   address_line_2: MyString
   address_line_3: MyString

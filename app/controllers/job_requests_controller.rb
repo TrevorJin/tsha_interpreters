@@ -32,16 +32,16 @@ class JobRequestsController < ApplicationController
 
     if current_customer
       @customer = current_customer
-      @job_requests = JobRequest.where(customer_id: @customer.id)
+      @job_requests = JobRequest.where(customer_id: @customer.id).order(id: :desc)
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", @customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", @customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
       @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", @customer.id, false, true)
       @total_job_requests = JobRequest.where("customer_id = ?", @customer.id)
     elsif current_user && current_user.manager?
-      @job_requests = JobRequest.all
+      @job_requests = JobRequest.all.order(id: :desc)
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)
-      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(id: :desc)
     end
   end
 

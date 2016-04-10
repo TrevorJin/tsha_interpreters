@@ -17,7 +17,7 @@ class JobsController < ApplicationController
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
 
-    @jobs = Job.all
+    @jobs = Job.all.order(id: :desc)
 
     if (current_user)
       @user = current_user
@@ -107,6 +107,12 @@ class JobsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     @job = Job.new(job_params)
     if @job.save
       flash[:info] = "Job has been successfully created."
@@ -152,7 +158,9 @@ class JobsController < ApplicationController
   private
 
     def job_params
-      params.require(:job).permit(:start, :end, :address_line_1, :address_line_2,
+      params.require(:job).permit(:start, :end, :requester_first_name, :requester_last_name, 
+                                  :requester_email, :requester_phone_number, :contact_person_first_name,
+                                  :contact_person_last_name, :address_line_1, :address_line_2,
                                    :address_line_3, :city, :state, :zip, :invoice_notes,
                                    :notes_for_irp, :notes_for_interpreter, :directions, :customer_id,
                                    :qast_1_interpreting_required, :qast_2_interpreting_required,

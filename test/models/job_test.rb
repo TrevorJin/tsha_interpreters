@@ -14,6 +14,9 @@ class JobTest < ActiveSupport::TestCase
     @customer.save
     @job = @customer.jobs.create(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
     							 end: DateTime.parse('March 4th 2017 04:05:06 AM'),
+                   requester_first_name: "Willy", requester_last_name: "Wonka",
+                   requester_email: "willy.wonka@gmail.com", requester_phone_number: "+18662466453",
+                   contact_person_first_name: "Willy", contact_person_last_name: "Wonka",
     							 address_line_1: "123 Mulberry Street",
     							 address_line_2: "", address_line_3: "", city: "Tulsa",
     							 state: "Oklahoma", zip: "74104", invoice_notes: "Park in the rear",
@@ -36,6 +39,82 @@ class JobTest < ActiveSupport::TestCase
 
   test "end should be present" do
     @job.end = nil
+    assert_not @job.valid?
+  end
+
+  test "requester first name should be present" do
+    @job.requester_first_name = "     "
+    assert_not @job.valid?
+  end
+
+  test "requester first name should not be too long" do
+    @job.requester_first_name = "a" * 51
+    assert_not @job.valid?
+  end
+
+  test "requester last name should be present" do
+    @job.requester_last_name = "     "
+    assert_not @job.valid?
+  end
+
+  test "requester last name should not be too long" do
+    @job.requester_last_name = "a" * 51
+    assert_not @job.valid?
+  end
+
+  test "requester email should be present" do
+    @job.requester_email = "     "
+    assert_not @job.valid?
+  end
+
+  test "requester email should not be too long" do
+    @job.requester_email = "a" * 244 + "@example.com"
+    assert_not @job.valid?
+  end
+
+  test "requester email validation should accept valid addresses" do
+    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+                         first.last@foo.jp alice+bob@baz.cn]
+    valid_addresses.each do |valid_address|
+      @job.requester_email = valid_address
+      assert @job.valid?, "#{valid_address.inspect} should be valid"
+    end
+  end
+
+  test "requester email addresses should be saved as lower-case" do
+    mixed_case_email = "Foo@ExAMPle.CoM"
+    @job.requester_email = mixed_case_email
+    @job.save
+    assert_equal mixed_case_email.downcase, @job.reload.requester_email
+  end
+
+  test "requester phone number should be present" do
+    @job.requester_phone_number = "     "
+    assert_not @job.valid?
+  end
+
+  test "requester phone number should not be too long" do
+    @job.requester_phone_number = "+186624664531234567890123456789"
+    assert_not @job.valid?
+  end
+
+  test "contact person first name should be present" do
+    @job.contact_person_first_name = "     "
+    assert_not @job.valid?
+  end
+
+  test "contact person first name should not be too long" do
+    @job.contact_person_first_name = "a" * 51
+    assert_not @job.valid?
+  end
+
+  test "contact person last name should be present" do
+    @job.contact_person_last_name = "     "
+    assert_not @job.valid?
+  end
+
+  test "contact person last name should not be too long" do
+    @job.contact_person_last_name = "a" * 51
     assert_not @job.valid?
   end
 

@@ -1,5 +1,9 @@
 <% provide(:title, "Job #{@job.id}") %>
-<%= render 'layouts/manager_dashboard' %>
+<% if customer_logged_in? %>
+  <%= render 'layouts/customer_dashboard' %>
+<% elsif user_logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
+<% end %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
@@ -371,6 +375,42 @@
                 </td>
               </tr>
             </tbody>
+            <thead>
+              <tr>
+                <th>
+                  Requester
+                </th>
+                <th>
+                  Requester Email
+                </th>
+                <th>
+                  Requester Phone Number
+                </th>
+                <th>
+                  Contact Person
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= @job.requester_first_name %> <%= @job.requester_last_name %>
+                </td>
+                <td>
+                  <%= @job.requester_email %>
+                </td>
+                <td>
+                  <%= @job.requester_phone_number %>
+                </td>
+                <td>
+                  <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
           </table>
       <!-- /.table table-striped table-hover -->
       <div class="panel panel-info">
@@ -415,42 +455,46 @@
         <!-- /.panel-body -->
       </div>
       <!-- /. panel panel-info -->
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            Notes for IRP:
-          </h3>
-          <!-- /.panel-title -->
+      <% if current_user && current_user.manager? %>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Notes for IRP:
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @job.notes_for_irp.length != 0 %>
+              <%= @job.notes_for_irp %>
+            <% else %>
+              N/A
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
         </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <% if @job.notes_for_irp.length != 0 %>
-            <%= @job.notes_for_irp %>
-          <% else %>
-            N/A
-          <% end %>
+        <!-- /. panel panel-info -->
+      <% end %>
+      <% if current_user %>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Notes for Interpreter:
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @job.notes_for_interpreter.length != 0 %>
+              <%= @job.notes_for_interpreter %>
+            <% else %>
+              N/A
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
         </div>
-        <!-- /.panel-body -->
-      </div>
-      <!-- /. panel panel-info -->
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            Notes for Interpreter:
-          </h3>
-          <!-- /.panel-title -->
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <% if @job.notes_for_interpreter.length != 0 %>
-            <%= @job.notes_for_interpreter %>
-          <% else %>
-            N/A
-          <% end %>
-        </div>
-        <!-- /.panel-body -->
-      </div>
-      <!-- /. panel panel-info -->
+        <!-- /. panel panel-info -->
+      <% end %>
       <div class="panel panel-info">
         <div class="panel-heading">
           <h3 class="panel-title">

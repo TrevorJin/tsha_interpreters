@@ -1,4 +1,6 @@
 class Job < ActiveRecord::Base
+  before_save :downcase_email
+
 	has_many :confirmed_interpreter_requests, class_name: "Appointment",
 																						foreign_key: "job_id",
 																						dependent: :destroy
@@ -26,6 +28,23 @@ class Job < ActiveRecord::Base
   validates :customer_id, presence: true
 	validates :start, presence: { message: "date and time required" }
 	validates :end, presence: { message: "date and time required" }
+  validates :requester_first_name, presence: { message: "required" }, 
+                                   length: { maximum: 50, message: "must be 50 characters or less" }
+  validates :requester_last_name, presence: { message: "required" }, 
+                                  length: { maximum: 50, message: "must be 50 characters or less" }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :requester_email, presence: { message: "required" },
+                              length: { maximum: 255, message: "must be 255 characters or less" },
+                              format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" }
+  # Clean phone number input before validation.
+  phony_normalize :requester_phone_number, default_country_code: 'US'
+  validates :requester_phone_number, presence: { message: "required" },
+                                     length: { maximum: 30, message: "must be 30 characters or less" },
+                                     phony_plausible: true
+  validates :contact_person_first_name, presence: { message: "required" }, 
+                                        length: { maximum: 50, message: "must be 50 characters or less" }
+  validates :contact_person_last_name, presence: { message: "required" }, 
+                                       length: { maximum: 50, message: "must be 50 characters or less" }  
 	validates :address_line_1, presence: { message: "required" },
 														 length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
@@ -107,4 +126,11 @@ class Job < ActiveRecord::Base
     update_attribute(:expired, true)
     update_attribute(:expired_at, Time.zone.now)
   end
+
+  private
+
+    # Converts requester email to all lower-case.
+    def downcase_email
+      self.requester_email = requester_email.downcase
+    end
 end
