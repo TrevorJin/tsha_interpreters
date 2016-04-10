@@ -27,7 +27,7 @@
         <!-- /.nav nav-second-level -->
         </li>
         <li>
-          <a href="#"><i class="fa fa-briefcase fa-fw"></i> Jobs<span class="fa arrow"></span></a>
+          <a href="#"><i class="fa fa-calendar fa-fw"></i> Jobs<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
               <%= link_to job_requests_path do %>
@@ -60,6 +60,44 @@
             </li>
             <li>
               <%= link_to "Create a Customer", new_customer_path %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-briefcase fa-fw"></i> Your Jobs<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to current_jobs_path do %>
+                Current <%= content_tag :span, "#{@current_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to pending_jobs_path do %>
+                Pending Approval <%= content_tag :span, "#{@pending_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to completed_jobs_path do %>
+                Completed <%= content_tag :span, "#{@completed_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to rejected_jobs_path do %>
+                Rejected <%= content_tag :span, "#{@rejected_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-tasks fa-fw"></i> Your Invoices<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to "History", jobs_path %>
+            </li>
+            <li>
+              <%= link_to "Submit", jobs_path %>
             </li>
           </ul>
           <!-- /.nav nav-second-level -->

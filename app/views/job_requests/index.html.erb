@@ -124,11 +124,11 @@
                 <% if job_request_awaiting_approval.awaiting_approval? %>
                   <span class="label label-warning">Awaiting Approval</span>
                 <% elsif job_request_awaiting_approval.accepted? %>
-                  <span class="label label-success">Job Request Approved</span>
+                  <span class="label label-success">Approved</span>
                 <% elsif job_request_awaiting_approval.denied? %>
-                  <span class="label label-danger">Job Request Rejected</span>
+                  <span class="label label-danger">Rejected</span>
                 <% elsif job_request_awaiting_approval.expired? %>
-                  <span class="label label-danger">Job Request Expired</span>
+                  <span class="label label-danger">Expired</span>
                 <% end %>
               </td>
             </tr>
@@ -147,62 +147,62 @@
         <!-- /.col-lg-12 -->
       </div>
       <!-- /.row -->
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-            Office/Business Name
-          </th>
-          <th>
-            Requester
-          </th>
-          <th>
-            Deaf Client
-          </th>
-          <th>
-            Contact Person
-          </th>
-          <th>
-            Start
-          </th>
-          <th>
-            End
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @job_requests.each do |job_request| %>
+      <table class="table table-striped table-hover">
+        <thead>
           <tr>
-            <td>
-              <%= link_to "#{job_request.id}", job_request %>
-            </td>
-            <td>
-              <%= link_to "#{job_request.office_business_name}", job_request %>
-            </td>
-            <td>
-              <%= link_to "#{job_request.requester_first_name} #{job_request.requester_last_name}", job_request %>
-            </td>
-            <td>
-              <%= link_to "#{job_request.deaf_client_first_name} #{job_request.deaf_client_last_name}", job_request %>
-            </td>
-            <td>
-              <%= link_to "#{job_request.contact_person_first_name} #{job_request.contact_person_last_name}", job_request %>
-            </td>
-            <td>
-              <%= job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              <%= job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-         </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <!-- /.table table-striped table-hover -->
-  <% end %>
+            <th>
+              ID
+            </th>
+            <th>
+              Office/Business Name
+            </th>
+            <th>
+              Requester
+            </th>
+            <th>
+              Deaf Client
+            </th>
+            <th>
+              Contact Person
+            </th>
+            <th>
+              Start
+            </th>
+            <th>
+              End
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @job_requests.each do |job_request| %>
+            <tr>
+              <td>
+                <%= link_to "#{job_request.id}", job_request %>
+              </td>
+              <td>
+                <%= link_to "#{job_request.office_business_name}", job_request %>
+              </td>
+              <td>
+                <%= link_to "#{job_request.requester_first_name} #{job_request.requester_last_name}", job_request %>
+              </td>
+                <td>
+                  <%= link_to "#{job_request.deaf_client_first_name} #{job_request.deaf_client_last_name}", job_request %>
+              </td>
+              <td>
+                <%= link_to "#{job_request.contact_person_first_name} #{job_request.contact_person_last_name}", job_request %>
+              </td>
+              <td>
+                <%= job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
+              </td>
+              <td>
+                <%= job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- /.table table-striped table-hover -->
+    <% end %>
     <% if @job_requests_not_awaiting_approval.count > 0 %>
       <% if @job_requests_awaiting_approval.count == 0 %>
         <div class="row">
@@ -278,11 +278,11 @@
                 <% if job_request_not_awaiting_approval.awaiting_approval? %>
                   <span class="label label-warning">Awaiting Approval</span>
                 <% elsif job_request_not_awaiting_approval.accepted? %>
-                  <span class="label label-success">Job Request Approved</span>
+                  <span class="label label-success">Approved</span>
                 <% elsif job_request_not_awaiting_approval.denied? %>
-                  <span class="label label-danger">Job Request Rejected</span>
+                  <span class="label label-danger">Rejected</span>
                   <% elsif job_request_not_awaiting_approval.expired? %>
-                  <span class="label label-danger">Job Request Expired</span>
+                  <span class="label label-danger">Expired</span>
                 <% end %>
               </td>
           </tr>

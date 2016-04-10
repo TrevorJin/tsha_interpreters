@@ -22,11 +22,11 @@
             <%= link_to "Approve", approve_job_request_user_path(job_request_id: @job_request.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to mark this job request as approved?"} %>
             <%= link_to "Reject", reject_job_request_user_path(job_request_id: @job_request.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to mark this job request as rejected?"} %>
           <% elsif @job_request.accepted? %>
-            <span class="label label-success">Job Request Approved on <%= @job_request.accepted_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
+            <span class="label label-success">Approved on <%= @job_request.accepted_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
           <% elsif @job_request.denied? %>
-            <span class="label label-danger">Job Request Rejected on <%= @job_request.denied_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
+            <span class="label label-danger">Rejected on <%= @job_request.denied_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
           <% elsif @job_request.expired? %>
-            <span class="label label-danger">Job Request Expired on <%= @job_request.expired_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
+            <span class="label label-danger">Expired on <%= @job_request.expired_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
           <% end %>
         </td>
       <% end %>

@@ -24,10 +24,7 @@
           Customer Name
         </th>
         <th>
-          Contact's First Name
-        </th>
-        <th>
-          Contact's Last Name
+          Contact
         </th>
         <th>
           Email
@@ -50,10 +47,7 @@
             <%= link_to "#{pending_customer.customer_name}", pending_customer %>
           </td>
           <td>
-            <%= link_to "#{pending_customer.contact_first_name}", pending_customer %>
-          </td>
-          <td>
-            <%= link_to "#{pending_customer.contact_last_name}", pending_customer %>
+            <%= link_to "#{pending_customer.contact_first_name} #{pending_customer.contact_last_name}", pending_customer %>
           </td>
           <td>
             <%= link_to "#{pending_customer.email}", pending_customer %>

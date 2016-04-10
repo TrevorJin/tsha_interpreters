@@ -66,11 +66,11 @@
               <% if approved_job_request.awaiting_approval? %>
                 <span class="label label-warning">Awaiting Approval</span>
               <% elsif approved_job_request.accepted? %>
-                <span class="label label-success">Job Request Approved</span>
+                <span class="label label-success">Approved</span>
               <% elsif approved_job_request.denied? %>
-                <span class="label label-danger">Job Request Rejected</span>
+                <span class="label label-danger">Rejected</span>
               <% elsif approved_job_request.expired? %>
-                <span class="label label-danger">Job Request Expired</span>
+                <span class="label label-danger">Expired</span>
               <% end %>
             </td>
           </tr>

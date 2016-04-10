@@ -78,7 +78,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", dashboard_path, count: 2
     assert_select "a[href=?]", pending_interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_path, count: 2
-    assert_select "a[href=?]", jobs_path, count: 2
+    assert_select "a[href=?]", jobs_path, count: 4
     assert_select "a[href=?]", new_job_path, count: 1
     assert_select "a[href=?]", customers_path, count: 2
     assert_select "a[href=?]", new_customer_path, count: 1
@@ -91,7 +91,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", dashboard_path, count: 2
     assert_select "a[href=?]", pending_interpreters_path, count: 2
     assert_select "a[href=?]", interpreters_path, count: 2
-    assert_select "a[href=?]", jobs_path, count: 2
+    assert_select "a[href=?]", jobs_path, count: 4
     assert_select "a[href=?]", new_job_path, count: 1
     assert_select "a[href=?]", customers_path, count: 2
     assert_select "a[href=?]", new_customer_path, count: 1

@@ -21,6 +21,8 @@ class UsersController < ApplicationController
     @user = current_user
     @current_jobs = @user.confirmed_jobs
     @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
     
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
@@ -122,6 +124,13 @@ class UsersController < ApplicationController
   end
 
   def current_jobs
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
+    @total_jobs = Job.all
+
     @user = current_user
     @current_jobs = @user.confirmed_jobs
     @pending_jobs = @user.attempted_jobs
@@ -130,6 +139,13 @@ class UsersController < ApplicationController
   end
 
   def pending_jobs
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
+    @total_jobs = Job.all
+
     @user = current_user
     @current_jobs = @user.confirmed_jobs
     @pending_jobs = @user.attempted_jobs
@@ -138,6 +154,13 @@ class UsersController < ApplicationController
   end
 
   def completed_jobs
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
+    @total_jobs = Job.all
+
     @user = current_user
     @current_jobs = @user.confirmed_jobs
     @pending_jobs = @user.attempted_jobs
@@ -146,6 +169,13 @@ class UsersController < ApplicationController
   end
 
   def rejected_jobs
+    @total_users = User.all
+    @pending_users = User.where(approved: false)
+    @total_customers = Customer.all
+    @pending_customers = Customer.where(approved: false)
+    @job_requests = JobRequest.all
+    @total_jobs = Job.all
+    
     @user = current_user
     @current_jobs = @user.confirmed_jobs
     @pending_jobs = @user.attempted_jobs

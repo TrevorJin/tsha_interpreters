@@ -9,6 +9,12 @@ class JobRequestsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    @user = current_user
+    @current_jobs = @user.confirmed_jobs
+    @pending_jobs = @user.attempted_jobs
+    @completed_jobs = @user.completed_jobs
+    @rejected_jobs = @user.rejected_jobs
+
     if current_customer
       @customer = current_customer
       @job_requests = JobRequest.where(customer_id: @customer.id)
