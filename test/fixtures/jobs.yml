@@ -35,6 +35,8 @@ one:
   bei_advanced_required: false
   bei_master_required: false
   has_interpreter_assigned: false
+  expired: false
+  expired_at:
   customer_id: 1
 
 two:
@@ -72,4 +74,6 @@ two:
   bei_advanced_required: false
   bei_master_required: false
   has_interpreter_assigned: false
+  expired: false
+  expired_at:
   customer_id: 2

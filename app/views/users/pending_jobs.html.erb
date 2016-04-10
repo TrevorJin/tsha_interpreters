@@ -18,7 +18,7 @@
         <% elsif customer_logged_in? && !current_customer.approved? %>
           Awaiting Approval
         <% elsif customer_logged_in? && current_customer.approved? %>
-          Jobs Pending Approval
+          Pending Jobs
         <% end %>
       </h1>
       <!-- /.page-header -->

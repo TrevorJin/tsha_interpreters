@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409223304) do
+ActiveRecord::Schema.define(version: 20160410060253) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(version: 20160409223304) do
     t.boolean  "bei_required",                             default: false
     t.boolean  "bei_advanced_required",                    default: false
     t.boolean  "bei_master_required",                      default: false
+    t.boolean  "expired",                                  default: false
+    t.datetime "expired_at"
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"
