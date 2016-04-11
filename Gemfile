@@ -33,6 +33,7 @@ gem 'simple_form',             '3.2.0'
 gem 'phony_rails',             '0.12.13'
 # Fix turbolinks glitches
 gem 'jquery-turbolinks'
+gem 'ransack'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
