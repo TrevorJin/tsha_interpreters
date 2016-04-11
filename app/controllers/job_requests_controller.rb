@@ -1,6 +1,6 @@
 class JobRequestsController < ApplicationController
   before_action :logged_in_user_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  before_action :update_expired_jobs_and_job_requests, only: [:index, :show, :new]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new]
 
   def index
     @pending_users = User.where(approved: false)
@@ -12,7 +12,7 @@ class JobRequestsController < ApplicationController
 
     if current_user
       @user = current_user
-      @current_jobs = @user.confirmed_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
@@ -54,7 +54,7 @@ class JobRequestsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -168,9 +168,10 @@ class JobRequestsController < ApplicationController
       end
     end
 
-    # Update all expired jobs and job requests
-    def update_expired_jobs_and_job_requests
+    # Marks jobs and job requests as expired or completed based on the time.
+    def update_job_and_job_request_statuses
       mark_expired_jobs
       mark_expired_job_requests
+      mark_completed_jobs
     end
 end

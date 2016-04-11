@@ -10,7 +10,7 @@ class UsersController < ApplicationController
                                         :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
                                         :demote_to_interpreter, :deactivate_user, :destroy]
-  before_action :update_expired_jobs_and_job_requests, only: [:current_jobs, :pending_jobs, :completed_jobs,
+  before_action :update_job_and_job_request_statuses, only: [:current_jobs, :pending_jobs, :completed_jobs,
                                                               :index, :show, :dashboard, :pending_users,
                                                               :rejected_jobs]
 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -121,7 +121,7 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -137,7 +137,7 @@ class UsersController < ApplicationController
 
     if current_user
       @user = current_user
-      @current_jobs = @user.confirmed_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true).order(start: :desc)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
@@ -171,7 +171,7 @@ class UsersController < ApplicationController
 
     if current_user
       @user = current_user
-      @current_jobs = @user.confirmed_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
@@ -205,7 +205,7 @@ class UsersController < ApplicationController
 
     if current_user
       @user = current_user
-      @current_jobs = @user.confirmed_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
@@ -238,7 +238,7 @@ class UsersController < ApplicationController
     @total_jobs = Job.all
     
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -360,9 +360,10 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user.admin?
     end
 
-    # Update all expired jobs and job requests
-    def update_expired_jobs_and_job_requests
+    # Marks jobs and job requests as expired or completed based on the time.
+    def update_job_and_job_request_statuses
       mark_expired_jobs
       mark_expired_job_requests
+      mark_completed_jobs
     end
 end

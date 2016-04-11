@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :manager_user,   only: [:edit, :update, :destroy]
-  before_action :update_expired_jobs_and_job_requests, only: [:index, :show, :new, :new_job_from_job_request]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :new_job_from_job_request]
 
   def index
     @pending_users = User.where(approved: false)
@@ -12,7 +12,7 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -35,7 +35,7 @@ class JobsController < ApplicationController
 
     if current_user
       @user = current_user
-      @current_jobs = @user.confirmed_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
@@ -62,6 +62,7 @@ class JobsController < ApplicationController
 
     @job = Job.find(params[:id])
     @attempted_interpreters = @job.attempted_interpreters
+    @confirmed_interpreters = @job.confirmed_interpreters
   end
 
   def new
@@ -73,7 +74,7 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -90,7 +91,7 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -108,7 +109,7 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -131,7 +132,7 @@ class JobsController < ApplicationController
     @total_jobs = Job.all
 
     @user = current_user
-    @current_jobs = @user.confirmed_jobs
+    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
     @completed_jobs = @user.completed_jobs
     @rejected_jobs = @user.rejected_jobs
@@ -153,6 +154,13 @@ class JobsController < ApplicationController
     Job.find(params[:id]).destroy
     flash[:success] = "Job deleted"
     redirect_to jobs_url
+  end
+
+  def finalize_job_and_interpreters
+    @job = Job.find(params[:id])
+    @job.finalize_job_and_interpreters
+    flash[:success] = "Job ##{@job.id} has been finalized."
+    redirect_to job_url(@job)
   end
 
   private
@@ -189,9 +197,10 @@ class JobsController < ApplicationController
       redirect_to(root_url) unless current_user.manager?
     end
 
-    # Update all expired jobs and job requests
-    def update_expired_jobs_and_job_requests
+    # Marks jobs and job requests as expired or completed based on the time.
+    def update_job_and_job_request_statuses
       mark_expired_jobs
       mark_expired_job_requests
+      mark_completed_jobs
     end
 end

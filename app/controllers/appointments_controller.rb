@@ -5,8 +5,9 @@ class AppointmentsController < ApplicationController
   	job = Job.find(params[:job_id])
   	interpreter = User.find(params[:attempted_interpreter_id])
     interpreter.confirm_job(job)
+    job.attempted_interpreters.delete(interpreter)
     flash[:success] = "#{interpreter.first_name} #{interpreter.last_name} has been assigned to this job."
-    redirect_to jobs_url
+    redirect_to job
   end
 
   def destroy

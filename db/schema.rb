@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410072842) do
+ActiveRecord::Schema.define(version: 20160411051656) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -171,6 +171,11 @@ ActiveRecord::Schema.define(version: 20160410072842) do
     t.string   "requester_phone_number"
     t.string   "contact_person_first_name"
     t.string   "contact_person_last_name"
+    t.boolean  "invoice_submitted",                        default: false
+    t.datetime "invoice_submitted_at"
+    t.datetime "has_interpreter_assigned_at"
+    t.boolean  "completed",                                default: false
+    t.datetime "completed_at"
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"

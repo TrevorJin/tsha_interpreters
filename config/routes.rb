@@ -68,6 +68,7 @@ Rails.application.routes.draw do
   resources :jobs do
     member do
       get 'new_job_from_job_request'
+      get 'finalize_job_and_interpreters'
     end
   end
   resources :job_requests

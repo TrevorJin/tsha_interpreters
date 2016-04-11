@@ -5,8 +5,6 @@ class Job < ActiveRecord::Base
 																						foreign_key: "job_id",
 																						dependent: :destroy
   has_many :confirmed_interpreters, through: :confirmed_interpreter_requests, source: :user
-	# has_many :appointments
- #  has_many :users, through: :appointments
 
   has_many :attempted_interpreter_requests, class_name: "InterpretingRequest",
                                     				foreign_key: "job_id",
@@ -122,9 +120,35 @@ class Job < ActiveRecord::Base
 
   # Expires a job.
   def expire_job
-    update_attribute(:has_interpreter_assigned, false)
     update_attribute(:expired, true)
     update_attribute(:expired_at, Time.zone.now)
+    if self.confirmed_interpreters.any?
+      self.confirmed_interpreters.each do |confirmed_interpreter|
+        self.confirmed_interpreters.delete(confirmed_interpreter)
+      end
+    end
+    if self.attempted_interpreters.any?
+      self.attempted_interpreters.each do |attempted_interpreter|
+        self.attempted_interpreters.delete(attempted_interpreter)
+      end
+    end
+  end
+
+  # Completes a job.
+  def job_complete
+    update_attribute(:completed, true)
+    update_attribute(:completed_at, Time.zone.now)
+  end
+
+  # Finalizes job with its interpreters
+  def finalize_job_and_interpreters
+    update_attribute(:has_interpreter_assigned, true)
+    update_attribute(:has_interpreter_assigned_at, Time.zone.now)
+    if self.attempted_interpreters.any?
+      self.attempted_interpreters.each do |attempted_interpreter|
+        self.attempted_interpreters.delete(attempted_interpreter)
+      end
+    end
   end
 
   private

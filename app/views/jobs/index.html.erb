@@ -94,6 +94,9 @@
           <th>
             End
           </th>
+          <th>
+            Status
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -113,6 +116,19 @@
             </td>
             <td>
               <%= job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <% if job.has_interpreter_assigned? && job.start > Time.now %>
+                <span class="label label-success">Confirmed</span>
+              <% elsif job.expired? %>
+                <span class="label label-danger">Expired</span>
+              <% elsif !job.has_interpreter_assigned? && !job.expired? %>
+                <span class="label label-warning">Needs Confirmation</span>
+              <% elsif job.has_interpreter_assigned? && job.start < Time.now && !job.completed? %>
+                <span class="label label-success">Awaiting Completion</span>
+              <% elsif job.has_interpreter_assigned? && job.start < Time.now && !job.invoice_submitted? %>
+                <span class="label label-warning">Awaiting Invoice</span>
+              <% end %>
             </td>
          </tr>
         <% end %>

@@ -41,8 +41,13 @@ one:
   bei_advanced_required: false
   bei_master_required: false
   has_interpreter_assigned: false
+  has_interpreter_assigned_at:
   expired: false
   expired_at:
+  completed: false
+  completed_at:
+  invoice_submitted: false
+  invoice_submitted_at:
   customer_id: 1
 
 two:
@@ -86,6 +91,11 @@ two:
   bei_advanced_required: false
   bei_master_required: false
   has_interpreter_assigned: false
+  has_interpreter_assigned_at:
   expired: false
   expired_at:
+  completed: false
+  completed_at:
+  invoice_submitted: false
+  invoice_submitted_at:
   customer_id: 2

@@ -40,6 +40,12 @@
       <thead>
         <tr>
           <th>
+            ID
+          </th>
+          <th>
+            Contact
+          </th>
+          <th>
             Location
           </th>
           <th>
@@ -48,25 +54,25 @@
           <th>
             End
           </th>
-          <th>
-            Action
-          </th>
         </tr>
       </thead>
       <tbody>
         <% @current_jobs.each do |current_job| %>
           <tr>
             <td>
-              <%= current_job.city %>, <%= current_job.state %>
+              <%= link_to "#{current_job.id}", current_job %>
+            </td>
+            <td>
+              <%= link_to "#{current_job.contact_person_first_name} #{current_job.contact_person_last_name}", current_job %>
+            </td>
+            <td>
+              <%= link_to "#{current_job.city}, #{current_job.state}", current_job %>
             </td>
             <td>
               <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
             <td>
               <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              TBD
             </td>
           </tr>
         <% end %>
