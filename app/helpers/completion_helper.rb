@@ -1,6 +1,6 @@
 module CompletionHelper
 	def mark_completed_jobs
-    @confirmed_and_completed_jobs = Job.where("has_interpreter_assigned = ? AND completed = ? AND end < ?", true, false, Time.now)
+    @confirmed_and_completed_jobs = Job.where("has_interpreter_assigned = ? AND completed = ? AND end < ?", true, false, DateTime.now)
     
     @confirmed_and_completed_jobs.each do |confirmed_and_completed_job|
       

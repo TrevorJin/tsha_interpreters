@@ -169,7 +169,7 @@ class UsersController < ApplicationController
       @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
       @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
 
-      @customer_jobs = Job.where("customer_id= ?", current_customer.id)
+      @customer_jobs = Job.where("customer_id = ?", current_customer.id)
       @pending_jobs = Array.new
       @customer_jobs.each do |customer_job|
         if (!customer_job.confirmed_interpreters.any? && !customer_job.expired?)

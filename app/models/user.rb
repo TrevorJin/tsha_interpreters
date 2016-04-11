@@ -304,7 +304,7 @@ class User < ActiveRecord::Base
 
   def eligible_jobs
     eligible_jobs_array = Array.new
-    available_jobs = Job.where("has_interpreter_assigned = ? AND start > ?", false, Time.now)
+    available_jobs = Job.where("has_interpreter_assigned = ? AND start > ?", false, DateTime.now)
     
     available_jobs.each do |job|
       this_is_an_eligible_job = true
