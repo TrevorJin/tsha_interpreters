@@ -3,34 +3,16 @@ class UsersController < ApplicationController
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
                                         :promote_qualification, :confirmed_jobs, :attempted_jobs,
-                                        :rejected_jobs, :search, :destroy]
+                                        :rejected_jobs, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
-                                        :promote_qualification, :search]
+                                        :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
                                         :demote_to_interpreter, :deactivate_user, :destroy]
   before_action :update_job_and_job_request_statuses, only: [:current_jobs, :pending_jobs, :completed_jobs,
                                                               :index, :show, :dashboard, :pending_users,
                                                               :rejected_jobs]
-
-  def search
-    @pending_users = User.where(approved: false)
-    @total_users = User.all
-    @total_customers = Customer.all
-    @pending_customers = Customer.where(approved: false)
-    @job_requests = JobRequest.all
-    @total_jobs = Job.all
-
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
-
-    @q = Person.ransack(params[:q])
-    @people = @q.result(distinct: true)
-  end
 
   def index
     @pending_users = User.where(approved: false)

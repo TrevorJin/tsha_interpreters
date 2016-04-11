@@ -35,8 +35,7 @@ Rails.application.routes.draw do
   get    'pending_approval'      => 'customers#pending_approval'
   get    'approved_job_requests' => 'customers#approved_job_requests'
   get    'rejected_job_requests' => 'customers#rejected_job_requests'
-  get    'expired_job_requests'  => 'customers#expired_job_requests'
-  get    'search'                => 'users#search'
+  get    'expired_job_requests'  => 'customers#expired_job_requests' 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
