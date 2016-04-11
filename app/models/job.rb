@@ -99,7 +99,7 @@ class Job < ActiveRecord::Base
   end
 
   # Returns true if the current job is completed by this user.
-  def completed?(user)
+  def completed_by_user?(user)
     completing_interpreters.include?(user)
   end
 

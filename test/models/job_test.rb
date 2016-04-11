@@ -211,11 +211,11 @@ class JobTest < ActiveSupport::TestCase
   test "should add link user's job completion and remove it" do
     job = jobs(:one)
     samson  = users(:samson)
-    assert_not job.completed?(samson)
+    assert_not job.completed_by_user?(samson)
     job.complete_job(samson)
-    assert job.completed?(samson)
+    assert job.completed_by_user?(samson)
     job.uncomplete_job(samson)
-    assert_not job.completed?(samson)
+    assert_not job.completed_by_user?(samson)
   end
 
   test "should add link user's job rejection and remove it" do

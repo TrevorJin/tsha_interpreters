@@ -375,7 +375,11 @@
                          <%= link_to "#{confirmed_interpreter.first_name} #{confirmed_interpreter.last_name}", confirmed_interpreter %>
                       </td>
                       <td>
-                        <span class="label label-success">Confirmed</span>
+                        <% if @job.completed? && !@job.invoice_submitted? %>
+                          <span class="label label-warning">Awaiting Invoice</span>
+                        <% elsif %>
+                          <span class="label label-success">Confirmed</span>
+                        <% end %>
                       </td>
                     </tr>
                   <% end %>

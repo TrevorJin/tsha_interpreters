@@ -159,7 +159,7 @@ class JobsController < ApplicationController
   def finalize_job_and_interpreters
     @job = Job.find(params[:id])
     @job.finalize_job_and_interpreters
-    flash[:success] = "Job ##{@job.id} has been finalized."
+    flash[:success] = "This job has been finalized."
     redirect_to job_url(@job)
   end
 
