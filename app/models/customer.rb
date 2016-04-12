@@ -25,7 +25,8 @@ class Customer < ActiveRecord::Base
 	validates :billing_address_line_1, length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :billing_address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :billing_address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }
-	validates :mail_address_line_1, length: { maximum: 100, message: "must be 100 characters or less" }
+	validates :mail_address_line_1, presence: { message: "required" },
+                                              length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :mail_address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
 	validates :mail_address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }
 	# Clean phone number input before validation.
@@ -50,7 +51,15 @@ class Customer < ActiveRecord::Base
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
 
 	def self.search(search, page)
-    order(customer_name: :asc).where("customer_name LIKE ?" , "%#{search}%").paginate(page: page, per_page: 20)
+    order(customer_name: :asc).where("id LIKE ? OR customer_name LIKE ? OR contact_first_name LIKE ? OR contact_last_name LIKE ?
+                                      OR email LIKE ? OR phone_number LIKE ? OR contact_phone_number LIKE ? OR
+                                      billing_address_line_1 LIKE ? OR billing_address_line_2 LIKE ? OR
+                                      billing_address_line_3 LIKE ? OR mail_address_line_1 LIKE ? OR
+                                      mail_address_line_2 LIKE ? OR mail_address_line_3 LIKE ?" ,
+                                      "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                                      "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                                      "%#{search}%"
+                                      ).paginate(page: page, per_page: 20)
   end
 
   # Returns the hash digest of the given string.

@@ -113,6 +113,54 @@
           </tbody>
         </table>
         <!-- /.table table-striped table-hover -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Billing Address:
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @customer.billing_address_line_1 %>
+              <%= @customer.billing_address_line_1 %>
+            <% end %>
+            <% if @customer.billing_address_line_2 %>
+              <br>
+              <%= @customer.billing_address_line_2 %>
+            <% end %>
+            <% if @customer.billing_address_line_3 %>
+              <br>
+              <%= @customer.billing_address_line_3 %>
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /. panel panel-info -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Mail Address:
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @customer.mail_address_line_1 %>
+              <%= @customer.mail_address_line_1 %>
+            <% end %>
+            <% if @customer.mail_address_line_2 %>
+              <br>
+              <%= @customer.mail_address_line_2 %>
+            <% end %>
+            <% if @customer.mail_address_line_3 %>
+              <br>
+              <%= @customer.mail_address_line_3 %>
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /. panel panel-info -->
     	</section>
     	<!-- /.user_info -->
   	</aside>

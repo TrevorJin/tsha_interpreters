@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
                                             :expired_job_requests]
   before_action :manager_user,   only: [:index, :pending_customers]
   before_action :admin_user, only: [:destroy]
-  before_action :logged_in_user_or_customer, only: [:edit, :update]
+  before_action :logged_in_user_or_customer, only: [:show, :edit, :update]
   before_action :correct_customer_or_manager_user, only: [:edit, :update]
   before_action :update_job_and_job_request_statuses, only: [:pending_approval, :approved_job_requests,
                                                               :rejected_job_requests, :expired_job_requests,

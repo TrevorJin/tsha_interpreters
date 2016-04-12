@@ -93,6 +93,11 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
+  test "mail address line 1 should be present" do
+    @customer.mail_address_line_1 = "     "
+    assert_not @customer.valid?
+  end
+
   test "mail address line 1 should not be too long" do
     @customer.mail_address_line_1 = "a" * 101
     assert_not @customer.valid?
