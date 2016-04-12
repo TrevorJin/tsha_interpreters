@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:dashboard, :show, :index, :edit, :update, :promote_to_manager,
+  before_action :logged_in_user, only: [:index, :show, :dashboard, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
                                         :promote_qualification, :confirmed_jobs, :attempted_jobs,
                                         :rejected_jobs, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :correct_user_or_manager_user, only: [:show]
   before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
                                         :promote_qualification]
@@ -15,18 +16,13 @@ class UsersController < ApplicationController
                                                               :rejected_jobs]
 
   def index
+    # Manager Dashboard
     @pending_users = User.where(approved: false)
     @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
-
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
     
     if params[:search]
       @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
@@ -36,13 +32,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @total_users = User.all
+    # Manager Dashboard
     @pending_users = User.where(approved: false)
+    @total_users = User.all
     @total_customers = Customer.all
     @pending_customers = Customer.where(approved: false)
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
+    # Interpreter Dashboard
     @user = current_user
     @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
     @pending_jobs = @user.attempted_jobs
@@ -339,6 +337,18 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    # Confirms a correct user or manager user.
+    def correct_user_or_manager_user
+      @user = User.find(params[:id])
+      if (current_user && current_user?(@user))
+        # Do Nothing
+      elsif (current_user && current_user.manager?)
+        # Do Nothing
+      else
+        redirect_to(root_url)
+      end
     end
 
     # Confirms either a logged-in user or customer.
