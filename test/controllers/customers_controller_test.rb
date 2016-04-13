@@ -631,13 +631,6 @@ class CustomersControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-  test "should redirect pending approval when logged in as wrong customer" do
-    customer_log_in_as(@other_customer)
-    get :pending_approval, id: @customer
-    assert flash.empty?
-    assert_redirected_to root_url
-  end
-
   test "should redirect pending approval when logged in as a regular user" do
     user_log_in_as(@regular_user)
     get :pending_approval, id: @customer
@@ -688,13 +681,6 @@ class CustomersControllerTest < ActionController::TestCase
   test "should redirect approved job requests when not logged in" do
     get :approved_job_requests, id: @customer
     assert_redirected_to login_url
-  end
-
-  test "should redirect approved job requests when logged in as wrong customer" do
-    customer_log_in_as(@other_customer)
-    get :approved_job_requests, id: @customer
-    assert flash.empty?
-    assert_redirected_to root_url
   end
 
   test "should redirect approved job requests when logged in as a regular user" do
@@ -749,13 +735,6 @@ class CustomersControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-  test "should redirect rejected job requests when logged in as wrong customer" do
-    customer_log_in_as(@other_customer)
-    get :rejected_job_requests, id: @customer
-    assert flash.empty?
-    assert_redirected_to root_url
-  end
-
   test "should redirect rejected job requests when logged in as a regular user" do
     user_log_in_as(@regular_user)
     get :rejected_job_requests, id: @customer
@@ -806,13 +785,6 @@ class CustomersControllerTest < ActionController::TestCase
   test "should redirect expired job requests when not logged in" do
     get :expired_job_requests, id: @customer
     assert_redirected_to login_url
-  end
-
-  test "should redirect expired job requests when logged in as wrong customer" do
-    customer_log_in_as(@other_customer)
-    get :expired_job_requests, id: @customer
-    assert flash.empty?
-    assert_redirected_to root_url
   end
 
   test "should redirect expired job requests when logged in as a regular user" do

@@ -66,32 +66,32 @@ class InterpreterInvoiceTest < ActiveSupport::TestCase
   end
 
   test "event location address line 1 should be present" do
-    @job.event_location_address_line_1 = "     "
-    assert_not @job.valid?
+    @interpreter_invoice.event_location_address_line_1 = "     "
+    assert_not @interpreter_invoice.valid?
   end
 
   test "event location address line 1 should not be too long" do
-    @job.event_location_address_line_1 = "a" * 101
-    assert_not @job.valid?
+    @interpreter_invoice.event_location_address_line_1 = "a" * 101
+    assert_not @interpreter_invoice.valid?
   end
 
   test "event location address line 2 should not be too long" do
-    @job.event_location_address_line_2 = "a" * 101
-    assert_not @job.valid?
+    @interpreter_invoice.event_location_address_line_2 = "a" * 101
+    assert_not @interpreter_invoice.valid?
   end
 
   test "event location address line 3 should not be too long" do
-    @job.event_location_address_line_3 = "a" * 101
-    assert_not @job.valid?
+    @interpreter_invoice.event_location_address_line_3 = "a" * 101
+    assert_not @interpreter_invoice.valid?
   end
 
   test "contact person last name should be present" do
-    @job.contact_person_last_name = "     "
-    assert_not @job.valid?
+    @interpreter_invoice.contact_person_last_name = "     "
+    assert_not @interpreter_invoice.valid?
   end
 
   test "contact person last name should not be too long" do
-    @job.contact_person_last_name = "a" * 51
-    assert_not @job.valid?
+    @interpreter_invoice.contact_person_last_name = "a" * 51
+    assert_not @interpreter_invoice.valid?
   end
 end
