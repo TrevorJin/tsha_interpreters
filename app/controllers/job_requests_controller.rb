@@ -53,11 +53,13 @@ class JobRequestsController < ApplicationController
     @job_requests = JobRequest.all
     @total_jobs = Job.all
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if current_user
+      @user = current_user
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
     if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
