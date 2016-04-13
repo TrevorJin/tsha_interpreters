@@ -5,8 +5,8 @@ class CustomersController < ApplicationController
   before_action :manager_user,   only: [:index, :pending_customers, :approve_account]
   before_action :admin_user, only: [:destroy, :deactivate_customer]
   before_action :logged_in_user_or_customer, only: [:show, :edit, :update]
-  before_action :correct_customer, only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
-                                          :expired_job_requests]
+  # before_action :correct_customer, only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
+  #                                         :expired_job_requests]
   before_action :correct_customer_or_manager_user, only: [:show, :edit, :update]
   before_action :update_job_and_job_request_statuses, only: [:pending_approval, :approved_job_requests,
                                                               :rejected_job_requests, :expired_job_requests,
@@ -357,11 +357,11 @@ class CustomersController < ApplicationController
       end
     end
 
-    # Confirms the correct customer.
-    def correct_customer
-      @customer = Customer.find(params[:id])
-      redirect_to(root_url) unless current_customer?(@customer)
-    end
+    # # Confirms the correct customer.
+    # def correct_customer
+    #   @customer = Customer.find(params[:id])
+    #   redirect_to(root_url) unless current_customer?(@customer)
+    # end
 
     # Confirms a correct customer or manager user.
     def correct_customer_or_manager_user

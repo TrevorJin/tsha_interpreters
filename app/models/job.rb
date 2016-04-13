@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   before_save :downcase_email
 
+  has_many :interpreter_invoices
+
 	has_many :confirmed_interpreter_requests, class_name: "Appointment",
 																						foreign_key: "job_id",
 																						dependent: :destroy

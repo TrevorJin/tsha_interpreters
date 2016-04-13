@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411051656) do
+ActiveRecord::Schema.define(version: 20160413160639) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -55,6 +55,26 @@ ActiveRecord::Schema.define(version: 20160411051656) do
   end
 
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
+
+  create_table "interpreter_invoices", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "job_type"
+    t.string   "event_location_address_line_1"
+    t.string   "event_location_address_line_2"
+    t.string   "event_location_address_line_3"
+    t.string   "contact_person_first_name"
+    t.string   "contact_person_last_name"
+    t.string   "contact_person_phone_number"
+    t.text     "interpreter_comments"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "user_id"
+    t.integer  "job_id"
+  end
+
+  add_index "interpreter_invoices", ["job_id"], name: "index_interpreter_invoices_on_job_id"
+  add_index "interpreter_invoices", ["user_id"], name: "index_interpreter_invoices_on_user_id"
 
   create_table "interpreting_requests", force: :cascade do |t|
     t.integer  "user_id"
