@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413160639) do
+ActiveRecord::Schema.define(version: 20160414162627) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -71,6 +71,10 @@ ActiveRecord::Schema.define(version: 20160413160639) do
     t.datetime "updated_at",                    null: false
     t.integer  "user_id"
     t.integer  "job_id"
+    t.decimal  "miles"
+    t.decimal  "mile_rate"
+    t.decimal  "interpreting_hours"
+    t.decimal  "interpreting_rate"
   end
 
   add_index "interpreter_invoices", ["job_id"], name: "index_interpreter_invoices_on_job_id"
