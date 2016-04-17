@@ -15,9 +15,11 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <%= simple_form_for @job do |f| %>
-        <%= f.association :customer, label_method: :customer_name, :input_html => { :selected => params[:customer_id] }, :value_method => :id, collection: Customer.order('customer_name ASC') %>
+        <%= f.association :customer, label_method: :customer_name, :selected => params[:customer_id], :value_method => :id, collection: Customer.order('customer_name ASC') %>
+        <%= f.hint "Suggested Start Date and Time from Job Request: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
         <%= f.input :start, as: :date %>
         <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
+        <%= f.hint "Suggested End Date and Time from Job Request: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
         <%= f.input :end, as: :date %>
         <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
         <% if params[:requester_first_name] %>
@@ -71,7 +73,7 @@
           <%= f.input :city %>
         <% end %>
         <% if params[:state] %>
-          <%= f.input :state, :collection => us_states, :input_html => { :value => params[:state] } %>
+          <%= f.input :state, :collection => us_states, :selected => params[:state] %>
         <% else %>
           <%= f.input :state, :collection => us_states %>
         <% end %>

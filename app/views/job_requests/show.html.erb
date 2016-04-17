@@ -13,7 +13,7 @@
           <% if @job_request.awaiting_approval? %>
             <span class="label label-warning">Awaiting Approval</span>
             <%= link_to "Create Job From Job Request", new_job_from_job_request_job_path(
-            {:customer_id => @job_request.customer.id}, :job_request_id => @job_request.id,
+             :customer_id => @job_request.customer.id, :job_request_id => @job_request.id,
              :start => @job_request.start, :end => @job_request.end,
              :requester_first_name => @job_request.requester_first_name,
              :requester_last_name => @job_request.requester_last_name,
@@ -30,7 +30,7 @@
           <% elsif @job_request.accepted? %>
             <span class="label label-success">Approved on <%= @job_request.accepted_at.strftime("%A, %d %b %Y %l:%M %p") %></span>
             <%= link_to "Create Job From Job Request", new_job_from_job_request_job_path(
-            {:customer_id => @job_request.customer.id}, :job_request_id => @job_request.id,
+             :customer_id => @job_request.customer.id, :job_request_id => @job_request.id,
              :start => @job_request.start, :end => @job_request.end,
              :requester_first_name => @job_request.requester_first_name,
              :requester_last_name => @job_request.requester_last_name,

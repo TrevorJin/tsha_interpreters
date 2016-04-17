@@ -142,6 +142,25 @@ class JobRequestsController < ApplicationController
   end
 
   def create
+    if current_customer
+      @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
+      @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
+      @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
+      @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
+      @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
+      @customer = current_customer
+      @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
+      @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+
+      @customer_jobs = Job.where("customer_id= ?", current_customer.id)
+      @pending_jobs = Array.new
+      @customer_jobs.each do |customer_job|
+        if (!customer_job.confirmed_interpreters.any? && !customer_job.expired?)
+          @pending_jobs.push customer_job
+        end
+      end
+    end
+
     @job_request = JobRequest.new(job_request_params)
     @job_request.customer = current_customer
     if @job_request.save
