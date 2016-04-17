@@ -176,6 +176,12 @@ class UsersController < ApplicationController
       @expired_jobs = Job.where(expired: true).order(end: :desc)
       @total_jobs = Job.all.order(end: :desc)
     end
+
+    if params[:search]
+      @pending_users = User.pending_users_search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where(approved: false)
+    else
+      @pending_users = User.paginate(page: params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where(approved: false)
+    end
   end
 
   def current_jobs
