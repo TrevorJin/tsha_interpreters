@@ -51,7 +51,7 @@ class Customer < ActiveRecord::Base
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
 
 	def self.search(search, page)
-    order(customer_name: :asc).where("id LIKE ? OR customer_name LIKE ? OR contact_first_name LIKE ? OR contact_last_name LIKE ?
+    order(customer_name: :asc).where("cast(id as text) LIKE ? OR customer_name LIKE ? OR contact_first_name LIKE ? OR contact_last_name LIKE ?
                                       OR email LIKE ? OR phone_number LIKE ? OR contact_phone_number LIKE ? OR
                                       billing_address_line_1 LIKE ? OR billing_address_line_2 LIKE ? OR
                                       billing_address_line_3 LIKE ? OR mail_address_line_1 LIKE ? OR
