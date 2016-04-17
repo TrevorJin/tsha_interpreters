@@ -60,6 +60,15 @@ class JobRequestsController < ApplicationController
       @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", @customer.id, false, true)
       @total_job_requests = JobRequest.where("customer_id = ?", @customer.id)
     end
+
+    # Manager Search
+    if current_user && current_user.manager?
+      if params[:search]
+        @job_requests_not_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(end: :desc).where(awaiting_approval: false)
+      else
+        @job_requests_not_awaiting_approval = JobRequest.paginate(page: params[:page]).order(end: :desc).where(awaiting_approval: false)
+      end
+    end
   end
 
   def show
@@ -218,6 +227,15 @@ class JobRequestsController < ApplicationController
       @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
       @expired_jobs = Job.where(expired: true).order(end: :desc)
       @total_jobs = Job.all.order(end: :desc)
+    end
+
+    # Manager Search
+    if current_user && current_user.manager?
+      if params[:search]
+        @job_requests_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(end: :desc).where(awaiting_approval: true)
+      else
+        @job_requests_awaiting_approval = JobRequest.paginate(page: params[:page]).order(end: :desc).where(awaiting_approval: true)
+      end
     end
   end
 

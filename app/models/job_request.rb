@@ -49,6 +49,18 @@ class JobRequest < ActiveRecord::Base
   validates :type_of_appointment_situation, length: { maximum: 2000, message: "must be 2,000 characters or less" }
   validates :message, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
+  def self.search(search, page)
+    order(end: :desc).where("cast(id as text) LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ? OR
+                             office_business_name LIKE ? OR requester_email LIKE ? OR requester_phone_number LIKE ? OR
+                             requester_fax_number LIKE ? OR deaf_client_first_name LIKE ? OR deaf_client_last_name LIKE ?
+                             OR contact_person_first_name LIKE ? OR contact_person_last_name LIKE ? OR
+                             event_location_address_line_1 LIKE ? OR event_location_address_line_2 LIKE ? OR 
+                             event_location_address_line_3 LIKE ? OR office_phone_number LIKE ?", "%#{search}%",
+                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                             "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
+  end
+
   def approve_job_request
     update_attribute(:awaiting_approval, false)
     update_attribute(:accepted, true)
