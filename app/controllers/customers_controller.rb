@@ -302,6 +302,12 @@ class CustomersController < ApplicationController
       @expired_jobs = Job.where(expired: true).order(end: :desc)
       @total_jobs = Job.all.order(end: :desc)
     end
+
+    if params[:search]
+      @pending_customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc).where(approved: false)
+    else
+      @pending_customers = Customer.paginate(page: params[:page]).order(customer_name: :asc).where(approved: false)
+    end
   end
 
   def pending_approval
