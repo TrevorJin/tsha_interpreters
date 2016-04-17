@@ -1,6 +1,7 @@
 class JobRequestsController < ApplicationController
-  before_action :logged_in_user_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new]
+  before_action :manager_user, only: [:pending_job_requests]
+  before_action :manager_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :pending_job_requests]
 
   def index
     # Manager Dashboard
@@ -9,7 +10,9 @@ class JobRequestsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -52,10 +55,6 @@ class JobRequestsController < ApplicationController
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", @customer.id, false, true)
       @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", @customer.id, false, true)
       @total_job_requests = JobRequest.where("customer_id = ?", @customer.id)
-    elsif current_user && current_user.manager?
-      @job_requests = JobRequest.all.order(id: :desc)
-      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true)
-      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(id: :desc)
     end
   end
 
@@ -66,7 +65,9 @@ class JobRequestsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -170,6 +171,31 @@ class JobRequestsController < ApplicationController
     redirect_to job_requests_url
   end
 
+  def pending_job_requests
+    # Manager Dashboard
+    if current_user && current_user.manager?
+      @pending_users = User.where(approved: false)
+      @total_users = User.all
+      @total_customers = Customer.all
+      @pending_customers = Customer.where(approved: false)
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
+      @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
+      @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
+      @confirmed_jobs = Array.new
+      @jobs_with_interpreter_assigned.each do |job|
+        if Time.now < job.start
+          confirmed_jobs.push job
+        end
+      end
+      @jobs_awaiting_completion = Job.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
+      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
+      @expired_jobs = Job.where(expired: true).order(end: :desc)
+      @total_jobs = Job.all.order(end: :desc)
+    end
+  end
+
   private
 
     def job_request_params
@@ -184,9 +210,18 @@ class JobRequestsController < ApplicationController
 
     # Before filters
 
-    # Confirms either a logged-in user or customer.
-    def logged_in_user_or_customer
-      unless user_logged_in? || customer_logged_in?
+    # Confirms a manager user.
+    def manager_user
+      redirect_to(root_url) unless current_user.manager?
+    end
+
+    # Confirms either a manager user or customer.
+    def manager_or_customer
+      if current_user && current_user.manager?
+        # Do Nothing
+      elsif current_customer
+        # Do Nothing
+      else
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url

@@ -5,7 +5,10 @@ class JobsController < ApplicationController
                                         :jobs_awaiting_completion, :jobs_awaiting_invoice,
                                         :expired_jobs]
   before_action :manager_correct_customer_or_interpreter, only: [:show]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :new_job_from_job_request]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :new_job_from_job_request,
+                                                             :jobs_in_need_of_confirmation, :confirmed_jobs,
+                                                             :jobs_awaiting_completion, :jobs_awaiting_invoice,
+                                                             :expired_jobs]
 
   def index
     # Manager Dashboard
@@ -14,7 +17,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -50,7 +55,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -104,7 +111,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -135,7 +144,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -167,7 +178,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -204,7 +217,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -258,7 +273,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -281,7 +298,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -304,7 +323,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -327,7 +348,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
@@ -350,7 +373,9 @@ class JobsController < ApplicationController
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests = JobRequest.all
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
+      @job_requests = JobRequest.all.order(end: :desc)
       @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new

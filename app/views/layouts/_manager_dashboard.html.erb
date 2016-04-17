@@ -21,16 +21,27 @@
               <% end %>
             </li>
           </ul>
-        <!-- /.nav nav-second-level -->
+          <!-- /.nav nav-second-level -->
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-briefcase fa-fw"></i> Job Requests<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to pending_job_requests_path do %>
+                Pending <%= content_tag :span, "#{@job_requests_awaiting_approval.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to job_requests_path do %>
+                History <%= content_tag :span, "#{@job_requests.count}", :class => "badge" %>
+              <% end %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
         </li>
         <li>
           <a href="#"><i class="fa fa-calendar fa-fw"></i> Jobs<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li>
-              <%= link_to job_requests_path do %>
-                Current Job Requests <%= content_tag :span, "#{@job_requests.count}", :class => "badge" %>
-              <% end %>
-            </li>
             <li>
               <%= link_to needs_confirmation_path do %>
                 Needs Confirmation <%= content_tag :span, "#{@jobs_in_need_of_confirmation.count}", :class => "badge" %>
