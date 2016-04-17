@@ -44,7 +44,11 @@ class JobsController < ApplicationController
       @rejected_jobs = @user.rejected_jobs
     end
 
-    @jobs = Job.all.order(end: :desc)
+    if params[:search]
+      @jobs = Job.search(params[:search], params[:page]).order(end: :desc)
+    else
+      @jobs = Job.paginate(page: params[:page]).order(end: :desc)
+    end
   end
 
   def show

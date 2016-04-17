@@ -60,6 +60,15 @@ class Job < ActiveRecord::Base
 	validates :notes_for_interpreter, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 	validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
+  def self.search(search, page)
+    order(end: :desc).where("cast(id as text) LIKE ? OR address_line_1 LIKE ? OR address_line_2 LIKE ? OR
+                             address_line_3 LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ?
+                             OR requester_email LIKE ? OR requester_phone_number LIKE ? OR contact_person_first_name
+                             LIKE ? OR contact_person_last_name LIKE ?", "%#{search}%", "%#{search}%",
+                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                             "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
+  end
+
 	# Confirms a user connection with job
   def confirm_user(user)
     confirmed_interpreter_requests.create(user_id: user.id)
