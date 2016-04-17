@@ -3,12 +3,26 @@ class JobRequestsController < ApplicationController
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new]
 
   def index
-    @pending_users = User.where(approved: false)
-    @total_users = User.all
-    @total_customers = Customer.all
-    @pending_customers = Customer.where(approved: false)
-    @job_requests = JobRequest.all
-    @total_jobs = Job.all
+    # Manager Dashboard
+    if current_user && current_user.manager?
+      @pending_users = User.where(approved: false)
+      @total_users = User.all
+      @total_customers = Customer.all
+      @pending_customers = Customer.where(approved: false)
+      @job_requests = JobRequest.all
+      @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
+      @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
+      @confirmed_jobs = Array.new
+      @jobs_with_interpreter_assigned.each do |job|
+        if Time.now < job.start
+          confirmed_jobs.push job
+        end
+      end
+      @jobs_awaiting_completion = Job.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
+      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
+      @expired_jobs = Job.where(expired: true).order(end: :desc)
+      @total_jobs = Job.all.order(end: :desc)
+    end
 
     if current_user
       @user = current_user
@@ -46,12 +60,26 @@ class JobRequestsController < ApplicationController
   end
 
   def show
-    @pending_users = User.where(approved: false)
-    @total_users = User.all
-    @total_customers = Customer.all
-    @pending_customers = Customer.where(approved: false)
-    @job_requests = JobRequest.all
-    @total_jobs = Job.all
+    # Manager Dashboard
+    if current_user && current_user.manager?
+      @pending_users = User.where(approved: false)
+      @total_users = User.all
+      @total_customers = Customer.all
+      @pending_customers = Customer.where(approved: false)
+      @job_requests = JobRequest.all
+      @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
+      @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
+      @confirmed_jobs = Array.new
+      @jobs_with_interpreter_assigned.each do |job|
+        if Time.now < job.start
+          confirmed_jobs.push job
+        end
+      end
+      @jobs_awaiting_completion = Job.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
+      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
+      @expired_jobs = Job.where(expired: true).order(end: :desc)
+      @total_jobs = Job.all.order(end: :desc)
+    end
 
     if current_user
       @user = current_user
@@ -84,11 +112,6 @@ class JobRequestsController < ApplicationController
   end
 
   def new
-    # @pending_users = User.where(approved: false)
-    # @total_users = User.all
-    # @total_customers = Customer.all
-    # @pending_customers = Customer.where(approved: false)
-
     if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)

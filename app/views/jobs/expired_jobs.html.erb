@@ -1,0 +1,75 @@
+<% provide(:title, 'Expired Jobs') %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+          Expired Jobs
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+         Customer Name
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @expired_jobs.each do |expired_job| %>
+        <tr>
+          <td>
+            <%= link_to "#{expired_job.id}", expired_job %>
+          </td>
+          <td>
+            <%= link_to "#{expired_job.customer.customer_name}", expired_job %>
+          </td>
+          <td>
+            <%= link_to "#{expired_job.city}, #{expired_job.state} #{expired_job.zip}", expired_job %>
+          </td>
+          <td>
+            <%= expired_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <%= expired_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <% if expired_job.has_interpreter_assigned? && expired_job.start > Time.now %>
+              <span class="label label-success">Confirmed</span>
+            <% elsif expired_job.expired? %>
+              <span class="label label-danger">Expired</span>
+            <% elsif !expired_job.has_interpreter_assigned? && !expired_job.expired? %>
+              <span class="label label-warning">Needs Confirmation</span>
+            <% elsif expired_job.has_interpreter_assigned? && expired_job.start < Time.now && !expired_job.completed? %>
+              <span class="label label-success">Awaiting Completion</span>
+            <% elsif expired_job.has_interpreter_assigned? && expired_job.start < Time.now && !expired_job.invoice_submitted? %>
+              <span class="label label-warning">Awaiting Invoice</span>
+            <% end %>
+          </td>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+</div>
+<!-- /.page-wrapper -->

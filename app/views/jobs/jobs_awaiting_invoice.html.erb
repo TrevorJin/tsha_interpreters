@@ -1,0 +1,75 @@
+<% provide(:title, 'Jobs Awaiting Invoice') %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+          Jobs Awaiting Invoice
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+         Customer Name
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @jobs_awaiting_invoice.each do |job_awaiting_invoice| %>
+        <tr>
+          <td>
+            <%= link_to "#{job_awaiting_invoice.id}", job_awaiting_invoice %>
+          </td>
+          <td>
+            <%= link_to "#{job_awaiting_invoice.customer.customer_name}", job_awaiting_invoice %>
+          </td>
+          <td>
+            <%= link_to "#{job_awaiting_invoice.city}, #{job_awaiting_invoice.state} #{job_awaiting_invoice.zip}", job_awaiting_invoice %>
+          </td>
+          <td>
+            <%= job_awaiting_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <%= job_awaiting_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <% if job_awaiting_invoice.has_interpreter_assigned? && job_awaiting_invoice.start > Time.now %>
+              <span class="label label-success">Confirmed</span>
+            <% elsif job_awaiting_invoice.expired? %>
+              <span class="label label-danger">Expired</span>
+            <% elsif !job_awaiting_invoice.has_interpreter_assigned? && !job_awaiting_invoice.expired? %>
+              <span class="label label-warning">Needs Confirmation</span>
+            <% elsif job_awaiting_invoice.has_interpreter_assigned? && job_awaiting_invoice.start < Time.now && !job_awaiting_invoice.completed? %>
+              <span class="label label-success">Awaiting Completion</span>
+            <% elsif job_awaiting_invoice.has_interpreter_assigned? && job_awaiting_invoice.start < Time.now && !job_awaiting_invoice.invoice_submitted? %>
+              <span class="label label-warning">Awaiting Invoice</span>
+            <% end %>
+          </td>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+</div>
+<!-- /.page-wrapper -->

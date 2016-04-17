@@ -32,6 +32,31 @@
               <% end %>
             </li>
             <li>
+              <%= link_to needs_confirmation_path do %>
+                Needs Confirmation <%= content_tag :span, "#{@jobs_in_need_of_confirmation.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to confirmed_jobs_path do %>
+                Confirmed <%= content_tag :span, "#{@confirmed_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to awaiting_completion_path do %>
+                Awaiting Completion <%= content_tag :span, "#{@jobs_awaiting_completion.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to awaiting_invoice_path do %>
+                Awaiting Invoice <%= content_tag :span, "#{@jobs_awaiting_invoice.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to expired_jobs_path do %>
+                Expired <%= content_tag :span, "#{@expired_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
               <%= link_to jobs_path do %>
                 All Jobs <%= content_tag :span, "#{@total_jobs.count}", :class => "badge" %>
               <% end %>
