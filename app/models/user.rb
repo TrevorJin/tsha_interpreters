@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
 
   def self.search(search, page)
-    order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("last_name LIKE ? OR first_name like ?" , "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
+    order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("cast(id as text) LIKE ? OR last_name LIKE ? OR
+                                                                                  first_name LIKE ? OR email LIKE ? OR
+                                                                                  cell_phone LIKE ?", "%#{search}%", "%#{search}%",
+                                                                                  "%#{search}%", "%#{search}%",
+                                                                                  "%#{search}%").paginate(page: page, per_page: 20)
   end
 
   # def self.search(query)
