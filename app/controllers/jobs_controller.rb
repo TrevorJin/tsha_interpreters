@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :manager_user,   only: [:edit, :update, :destroy]
+  before_action :manager_correct_customer_or_interpreter, only: [:show]
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :new_job_from_job_request]
 
   def index
@@ -195,6 +196,20 @@ class JobsController < ApplicationController
     # Confirms a manager user.
     def manager_user
       redirect_to(root_url) unless current_user.manager?
+    end
+
+    # Confirms a manager user, correct customer, or correct interpreter.
+    def manager_correct_customer_or_interpreter
+      @job = Job.find(params[:id])
+      if (current_user && current_user.manager?)
+        # Do Nothing
+      elsif (current_customer && current_customer.jobs.include?(@job))
+        # Do Nothing
+      elsif (current_user && current_user.confirmed_jobs.include?(@job))
+        # Do Nothing
+      else
+        redirect_to root_url
+      end
     end
 
     # Marks jobs and job requests as expired or completed based on the time.
