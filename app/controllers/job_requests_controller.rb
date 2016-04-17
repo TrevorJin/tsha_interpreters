@@ -27,13 +27,17 @@ class JobRequestsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
-    elsif current_customer
+    end
+
+    if current_customer
       @customer = current_customer
       @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
       @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
@@ -82,8 +86,10 @@ class JobRequestsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs

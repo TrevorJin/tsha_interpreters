@@ -116,6 +116,7 @@ class CustomersController < ApplicationController
     # Interpreter Dashboard
     if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
@@ -169,8 +170,9 @@ class CustomersController < ApplicationController
     end
 
     # Interpreter Dashboard
-    if current_user
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs

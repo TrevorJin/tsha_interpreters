@@ -71,11 +71,14 @@ class UsersController < ApplicationController
     end
 
     # Interpreter Dashboard
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
     @user = User.find(params[:id])
   end
@@ -144,12 +147,6 @@ class UsersController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
-
     @interpreters = User.all
     @jobs = Job.all
     @job_requests = JobRequest.all
@@ -179,12 +176,6 @@ class UsersController < ApplicationController
       @expired_jobs = Job.where(expired: true).order(end: :desc)
       @total_jobs = Job.all.order(end: :desc)
     end
-
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
   end
 
   def current_jobs
@@ -211,13 +202,17 @@ class UsersController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
-      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true).order(start: :desc)
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
-    elsif current_customer
+    end
+
+    if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
@@ -261,13 +256,17 @@ class UsersController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
-    elsif current_customer
+    end
+
+    if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
@@ -311,13 +310,17 @@ class UsersController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
       @rejected_jobs = @user.rejected_jobs
-    elsif current_customer
+    end
+    
+    if current_customer
       @pending_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ?", current_customer.id, true)
       @approved_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND accepted = ?", current_customer.id, false, true)
       @rejected_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND denied = ?", current_customer.id, false, true)
@@ -361,11 +364,15 @@ class UsersController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
     
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
   end
 
   def approve_account

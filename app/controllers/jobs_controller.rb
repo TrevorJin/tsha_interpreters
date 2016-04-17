@@ -34,18 +34,17 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
-
-    @jobs = Job.all.order(end: :desc)
-
-    if (current_user)
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
       @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
     end
+
+    @jobs = Job.all.order(end: :desc)
   end
 
   def show
@@ -72,8 +71,10 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    if current_user
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
       @user = current_user
+      @user_jobs = @user.eligible_jobs
       @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
       @pending_jobs = @user.attempted_jobs
       @completed_jobs = @user.completed_jobs
@@ -128,11 +129,15 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
   	@job = Job.new
   end
@@ -161,11 +166,15 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
     @job_request = JobRequest.find(params[:job_request_id])
     @job = Job.new
@@ -195,11 +204,15 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
 
     @job = Job.new(job_params)
     if @job.save
@@ -234,11 +247,15 @@ class JobsController < ApplicationController
       @total_jobs = Job.all.order(end: :desc)
     end
 
-    @user = current_user
-    @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-    @pending_jobs = @user.attempted_jobs
-    @completed_jobs = @user.completed_jobs
-    @rejected_jobs = @user.rejected_jobs
+    # Interpreter Dashboard
+    if current_user && !current_user.manager?
+      @user = current_user
+      @user_jobs = @user.eligible_jobs
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
+      @pending_jobs = @user.attempted_jobs
+      @completed_jobs = @user.completed_jobs
+      @rejected_jobs = @user.rejected_jobs
+    end
     
     @job = Job.find(params[:id])
   end

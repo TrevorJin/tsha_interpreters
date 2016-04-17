@@ -11,7 +11,7 @@
         <% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
         <li>
           <%= link_to jobs_path do %>
-            <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Available Jobs
+            <%= content_tag :i, "", :class => "fa fa-plus-circle fa-fw" %> Available Jobs <%= content_tag :span, "#{@user_jobs.count}", :class => "badge" %>
           <% end %>
         </li>
         <li>
@@ -45,9 +45,6 @@
           <ul class="nav nav-second-level">
             <li>
               <%= link_to "History", jobs_path %>
-            </li>
-            <li>
-              <%= link_to "Submit", jobs_path %>
             </li>
           </ul>
           <!-- /.nav nav-second-level -->
