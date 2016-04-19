@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <th>
+      Requester Name
+    </th>
+    <th>
+      Status
+    </th>
+  </thead>
+  <tbody>
+    <% @confirmed_interpreters.each do |confirmed_interpreter| %>
+      <tr>
+        <td>
+           <%= link_to "#{confirmed_interpreter.first_name} #{confirmed_interpreter.last_name}", confirmed_interpreter %>
+        </td>
+        <td>
+          <% if @job.completed? && !@job.invoice_submitted? %>
+            <span class="label label-warning">Awaiting Invoice</span>
+          <% elsif %>
+            <span class="label label-success">Confirmed</span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- /. table table-striped table-hover -->

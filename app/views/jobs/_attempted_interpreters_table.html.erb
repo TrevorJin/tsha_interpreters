@@ -1,0 +1,34 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <th>
+      Requester Name
+    </th>
+    <th>
+      Action?
+    </th>
+  </thead>
+  <tbody>
+    <% @attempted_interpreters.each do |attempted_interpreter| %>
+      <tr>
+        <td>
+           <%= link_to "#{attempted_interpreter.first_name} #{attempted_interpreter.last_name}", attempted_interpreter %>
+        </td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= form_for(attempted_interpreter.confirmed_job_requests.build) do |f| %>
+              <div>
+                <%= hidden_field_tag :job_id, @job.id %>
+              </div>
+              <div>
+                <%= hidden_field_tag :attempted_interpreter_id, attempted_interpreter.id %>
+              </div>
+              <%= f.submit "Accept", class: "btn btn-primary", data: { confirm: "Are you sure you want to confirm #{attempted_interpreter.first_name} #{attempted_interpreter.last_name} for this job? They will be informed and this cannot be reversed." } %>
+            <% end %>
+          </div>
+          <!-- /.btn-group btn-group-justified -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- /. table table-striped table-hover -->
