@@ -1,7 +1,9 @@
 class JobRequestsController < ApplicationController
   before_action :manager_user, only: [:pending_job_requests]
   before_action :manager_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :pending_job_requests]
+  before_action :active_or_manager_user, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :create, :edit, :update,
+                                                             :destroy, :pending_job_requests]
 
   def index
     # Manager Dashboard
@@ -268,6 +270,13 @@ class JobRequestsController < ApplicationController
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
+      end
+    end
+
+    # Confirms the customer is activated if not a manager user.
+    def active_or_manager_user
+      if (current_customer && !current_customer.active?)
+        redirect_to(job_requests_url)
       end
     end
 

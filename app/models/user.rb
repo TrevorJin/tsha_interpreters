@@ -132,6 +132,11 @@ class User < ActiveRecord::Base
     update_attribute(:active, false)
   end
 
+  # Reactivate user's account
+  def reactivate_user
+    update_attribute(:active, true)
+  end
+
   # Change to manager.
   def change_to_manager
     update_attribute(:manager,  true)

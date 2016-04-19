@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       get 'demote_to_interpreter'
       get 'approve_account'
       get 'deactivate_user'
+      get 'reactivate_user'
       get 'promote_qualification'
       get 'revoke_qualification'
       get :confirmed_jobs, :attempted_jobs
@@ -68,6 +69,7 @@ Rails.application.routes.draw do
     member do
       get 'approve_account'
       get 'deactivate_customer'
+      get 'reactivate_customer'
     end
   end
 

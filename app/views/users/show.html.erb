@@ -45,7 +45,11 @@
       			<% elsif !@user.admin? %>
       				<%= link_to "Promote to Manager", promote_to_manager_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to promote #{@user.first_name} #{@user.last_name} to manager?"} %>
       			<% end %>
-      			<%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
+            <% if @user.active? %>
+      			 <%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
+            <% else %>
+              <%= link_to "Reactivate Account", reactivate_user_user_path(id: @user.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to reactivate #{@user.first_name} #{@user.last_name}'s account? They will be able to use the site again."} %>
+            <% end%>
       		</div>
       		<!-- /.btn-group btn-group-justified -->
         <% elsif !@user.approved? && current_user.manager? && !current_user?(@user) %>
@@ -402,161 +406,161 @@
                     <tr>
                       <td>
                         <% if @user.qast_1_interpreting? %>
-                          <%= link_to "- QAST I Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST I Interpreting"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST I Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST I Interpreting"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST I Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST I Interpreting"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST I Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST I Interpreting"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_2_interpreting? %>
-                          <%= link_to "- QAST II Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST II Interpreting"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST II Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST II Interpreting"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST II Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST II Interpreting"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST II Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST II Interpreting"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_3_interpreting? %>
-                          <%= link_to "- QAST III Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST III Interpreting"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST III Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST III Interpreting"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST III Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST III Interpreting"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST III Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST III Interpreting"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.qast_4_interpreting? %>
-                          <%= link_to "- QAST IV Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST IV Interpreting"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST IV Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST IV Interpreting"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST IV Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST IV Interpreting"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST IV Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST IV Interpreting"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_5_interpreting? %>
-                          <%= link_to "- QAST V Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST V Interpreting"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST V Interpreting", revoke_qualification_user_path(id: @user.id, qualification: "QAST V Interpreting"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST V Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST V Interpreting"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST V Interpreting", promote_qualification_user_path(id: @user.id, qualification: "QAST V Interpreting"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_1_transliterating? %>
-                          <%= link_to "- QAST I Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST I Transliterating"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST I Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST I Transliterating"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST I Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST I Transliterating"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST I Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST I Transliterating"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.qast_2_transliterating? %>
-                          <%= link_to "- QAST II Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST II Transliterating"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST II Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST II Transliterating"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST II Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST II Transliterating"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST II Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST II Transliterating"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_3_transliterating? %>
-                          <%= link_to "- QAST III Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST III Transliterating"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST III Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST III Transliterating"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST III Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST III Transliterating"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST III Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST III Transliterating"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.qast_4_transliterating? %>
-                          <%= link_to "- QAST IV Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST IV Transliterating"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST IV Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST IV Transliterating"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST IV Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST IV Transliterating"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST IV Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST IV Transliterating"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.qast_5_transliterating? %>
-                          <%= link_to "- QAST V Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST V Transliterating"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove QAST V Transliterating", revoke_qualification_user_path(id: @user.id, qualification: "QAST V Transliterating"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ QAST V Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST V Transliterating"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add QAST V Transliterating", promote_qualification_user_path(id: @user.id, qualification: "QAST V Transliterating"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.rid_ci? %>
-                          <%= link_to "- RID CI", revoke_qualification_user_path(id: @user.id, qualification: "RID CI"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove RID CI", revoke_qualification_user_path(id: @user.id, qualification: "RID CI"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ RID CI", promote_qualification_user_path(id: @user.id, qualification: "RID CI"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add RID CI", promote_qualification_user_path(id: @user.id, qualification: "RID CI"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.rid_ct? %>
-                          <%= link_to "- RID CT", revoke_qualification_user_path(id: @user.id, qualification: "RID CT"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove RID CT", revoke_qualification_user_path(id: @user.id, qualification: "RID CT"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ RID CT", promote_qualification_user_path(id: @user.id, qualification: "RID CT"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add RID CT", promote_qualification_user_path(id: @user.id, qualification: "RID CT"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.rid_cdi? %>
-                          <%= link_to "- RID CDI", revoke_qualification_user_path(id: @user.id, qualification: "RID CDI"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove RID CDI", revoke_qualification_user_path(id: @user.id, qualification: "RID CDI"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ RID CDI", promote_qualification_user_path(id: @user.id, qualification: "RID CDI"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add RID CDI", promote_qualification_user_path(id: @user.id, qualification: "RID CDI"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.di? %>
-                          <%= link_to "- DI", revoke_qualification_user_path(id: @user.id, qualification: "DI"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove DI", revoke_qualification_user_path(id: @user.id, qualification: "DI"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ DI", promote_qualification_user_path(id: @user.id, qualification: "DI"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add DI", promote_qualification_user_path(id: @user.id, qualification: "DI"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.nic? %>
-                          <%= link_to "- NIC", revoke_qualification_user_path(id: @user.id, qualification: "NIC"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove NIC", revoke_qualification_user_path(id: @user.id, qualification: "NIC"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ NIC", promote_qualification_user_path(id: @user.id, qualification: "NIC"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add NIC", promote_qualification_user_path(id: @user.id, qualification: "NIC"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.nic_advanced? %>
-                          <%= link_to "- NIC Advanced", revoke_qualification_user_path(id: @user.id, qualification: "NIC Advanced"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove NIC Advanced", revoke_qualification_user_path(id: @user.id, qualification: "NIC Advanced"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ NIC Advanced", promote_qualification_user_path(id: @user.id, qualification: "NIC Advanced"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add NIC Advanced", promote_qualification_user_path(id: @user.id, qualification: "NIC Advanced"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.nic_master? %>
-                          <%= link_to "- NIC Master", revoke_qualification_user_path(id: @user.id, qualification: "NIC Master"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove NIC Master", revoke_qualification_user_path(id: @user.id, qualification: "NIC Master"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ NIC Master", promote_qualification_user_path(id: @user.id, qualification: "NIC Master"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add NIC Master", promote_qualification_user_path(id: @user.id, qualification: "NIC Master"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.rid_sc_l? %>
-                          <%= link_to "- RID SC:L", revoke_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove RID SC:L", revoke_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ RID SC:L", promote_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add RID SC:L", promote_qualification_user_path(id: @user.id, qualification: "RID SC:L"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <% if @user.bei? %>
-                          <%= link_to "- BEI", revoke_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove BEI", revoke_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ BEI", promote_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add BEI", promote_qualification_user_path(id: @user.id, qualification: "BEI"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.bei_advanced? %>
-                          <%= link_to "- BEI Advanced", revoke_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove BEI Advanced", revoke_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ BEI Advanced", promote_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add BEI Advanced", promote_qualification_user_path(id: @user.id, qualification: "BEI Advanced"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                       <td>
                         <% if @user.bei_master? %>
-                          <%= link_to "- BEI Master", revoke_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-success", role:"button" %>
+                          <%= link_to "Remove BEI Master", revoke_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-success", role:"button" %>
                         <% else %>
-                          <%= link_to "+ BEI Master", promote_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-danger", role:"button" %>
+                          <%= link_to "Add BEI Master", promote_qualification_user_path(id: @user.id, qualification: "BEI Master"), class: "btn btn-danger", role:"button" %>
                         <% end %>
                       </td>
                     </tr>

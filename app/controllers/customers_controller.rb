@@ -1,10 +1,13 @@
 class CustomersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :pending_customers, :destroy, :approve_account, :deactivate_customer]
+  before_action :logged_in_user, only: [:index, :pending_customers, :destroy, :approve_account, :deactivate_customer,
+                                        :reactivate_customer]
   before_action :logged_in_customer, only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
                                             :expired_job_requests]
-  before_action :manager_user,   only: [:index, :pending_customers, :approve_account]
-  before_action :admin_user, only: [:destroy, :deactivate_customer]
   before_action :logged_in_user_or_customer, only: [:show, :edit, :update]
+  before_action :active_customer, only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
+                                         :expired_job_requests]
+  before_action :manager_user,   only: [:index, :pending_customers, :approve_account]
+  before_action :admin_user, only: [:destroy, :deactivate_customer, :reactivate_customer]
   before_action :correct_customer_or_manager_user, only: [:show, :edit, :update]
   before_action :update_job_and_job_request_statuses, only: [:pending_approval, :approved_job_requests,
                                                               :rejected_job_requests, :expired_job_requests,
@@ -403,6 +406,14 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @customer.deactivate_customer
     flash[:success] = "The account for #{@customer.customer_name} has been deactivated."
+    redirect_to customer_url(@customer)
+  end
+
+  def reactivate_customer
+    @customer = Customer.find(params[:id])
+    @customer.reactivate_customer
+    flash[:success] = "The account for #{@customer.customer_name} has been reactivated."
+    redirect_to customer_url(@customer)
   end
 
   private
@@ -436,12 +447,28 @@ class CustomersController < ApplicationController
       end
     end
 
+    # Confirms the user is activated if not a manager user.
+    def active_or_manager_user
+      if (current_user && !current_user.manager? && !current_user.active?)
+        redirect_to(jobs_url)
+      elsif (current_customer && !current_customer.active?)
+        redirect_to(jobs_url)
+      end
+    end
+
     # Confirms either a logged-in user or customer.
     def logged_in_user_or_customer
       unless user_logged_in? || customer_logged_in?
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
+      end
+    end
+
+    # Confirms the user is activated if not a manager user.
+    def active_customer
+      if (current_customer && !current_customer.active?)
+        redirect_to(job_requests_url)
       end
     end
 

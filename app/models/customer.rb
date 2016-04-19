@@ -140,6 +140,11 @@ class Customer < ActiveRecord::Base
     update_attribute(:active, false)
   end
 
+  # Reactivate customer's account
+  def reactivate_customer
+    update_attribute(:active, true)
+  end
+
 	private
 
     # Converts email to all lower-case.

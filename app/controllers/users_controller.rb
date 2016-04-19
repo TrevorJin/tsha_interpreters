@@ -2,18 +2,21 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :dashboard, :edit, :update, :promote_to_manager,
                                         :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
                                         :approve_account, :deny_account, :pending_users, :deactivate_user,
-                                        :promote_qualification, :confirmed_jobs, :attempted_jobs,
-                                        :rejected_jobs, :destroy]
+                                        :reactivate_user, :promote_qualification, :confirmed_jobs,
+                                        :attempted_jobs, :rejected_jobs, :destroy]
+  before_action :active_or_manager_user, only: [:confirmed_jobs, :attempted_jobs, :rejected_jobs, :current_jobs,
+                                                :pending_jobs, :completed_jobs]
   before_action :correct_user,   only: [:edit, :update]
   before_action :correct_user_or_manager_user, only: [:show]
   before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :manager_user,   only: [:dashboard, :index, :approve_account, :deny_account, :pending_users,
                                         :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :deactivate_user, :destroy]
-  before_action :update_job_and_job_request_statuses, only: [:current_jobs, :pending_jobs, :completed_jobs,
-                                                              :index, :show, :dashboard, :pending_users,
-                                                              :rejected_jobs]
+                                        :demote_to_interpreter, :deactivate_user, :reactivate_user, :destroy]
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :edit, :update, :dashboard,
+                                                             :pending_users, :current_jobs, :pending_jobs,
+                                                             :completed_jobs, :rejected_jobs, :confirmed_jobs,
+                                                             :attempted_jobs]
 
   def index
     # Manager Dashboard
@@ -394,6 +397,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.deactivate_user
     flash[:success] = "#{@user.first_name} #{@user.last_name}'s account has been deactivated."
+    redirect_to user_url(@user)
+  end
+
+  def reactivate_user
+    @user = User.find(params[:id])
+    @user.reactivate_user
+    flash[:success] = "#{@user.first_name} #{@user.last_name}'s account has been reactivated."
+    redirect_to user_url(@user)
   end
 
   def promote_to_manager
@@ -469,6 +480,15 @@ class UsersController < ApplicationController
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
+      end
+    end
+
+    # Confirms the user is activated if not a manager user.
+    def active_or_manager_user
+      if (current_user && !current_user.manager? && !current_user.active?)
+        redirect_to(jobs_url)
+      elsif (current_customer && !current_customer.active?)
+        redirect_to(jobs_url)
       end
     end
 
