@@ -17,6 +17,16 @@ module ApplicationHelper
     ]
   end
 
+  def job_types
+    [
+      ['Regular', 'Regular'],
+      ['After Hour', 'After Hour'],
+      ['Emergency', 'Emergency'],
+      ['Legal', 'Legal'],
+      ['Tactile', 'Tactile']
+    ]
+  end
+
   def us_states
     [
       ['Alabama', 'AL'],

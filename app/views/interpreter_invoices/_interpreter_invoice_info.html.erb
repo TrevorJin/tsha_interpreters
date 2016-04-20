@@ -1,0 +1,197 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Interpreter
+      </th>
+      <th>
+        Job
+      </th>
+      <th>
+        Start
+      </th>
+      <th>
+        End
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @interpreter_invoice.id %>
+      </td>
+      <td>
+        <%= link_to "#{@interpreter_invoice.user.first_name} #{@interpreter_invoice.user.last_name}", @interpreter_invoice.user %>
+      </td>
+      <td>
+        <%= link_to "Job ##{@interpreter_invoice.job.id}", @interpreter_invoice.job %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Job Type
+      </th>
+      <th>
+        Contact Person
+      </th>
+      <th>
+        Contact Person Phone
+      </th>
+      <th>
+        Miles (50 Miles or Below)
+      </th>
+      <th>
+        Mile Rate (50 Miles or Below)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @interpreter_invoice.job_type %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.contact_person_first_name %> <%= @interpreter_invoice.contact_person_last_name %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.contact_person_phone_number %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.miles %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.mile_rate %>
+      </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Interpreting Hours (Regular)
+      </th>
+      <th>
+        Interpreting Rate (Regular)
+      </th>
+      <th>
+        Miles (Over 50 Miles)
+      </th>
+      <th>
+        Mile Rate (Over 50 Miles)
+      </th>
+      <th>
+        Interpreting Hours (After Hour)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @interpreter_invoice.interpreting_hours %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.interpreting_rate %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.extra_miles %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.extra_mile_rate %>
+      </td>
+      <td>
+        <%= @interpreter_invoice.extra_interpreting_hours %>
+      </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Interpreting Rate (After Hour)
+      </th>
+      <th>
+        
+      </th>
+      <th>
+        
+      </th>
+      <th>
+        
+      </th>
+      <th>
+        
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @interpreter_invoice.extra_interpreting_rate %>
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- /.table table-striped table-hover -->
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Address:
+    </h3>
+    <!-- /.panel-title -->
+  </div>
+  <!-- /.panel-heading -->
+  <div class="panel-body">
+    <% if @interpreter_invoice.event_location_address_line_1.length != 0 %>
+      <%= @interpreter_invoice.event_location_address_line_1 %>
+    <% end %>
+    <% if @interpreter_invoice.event_location_address_line_2.length != 0 %>
+      <br>
+      <%= @interpreter_invoice.event_location_address_line_2 %>
+    <% end %>
+    <% if @interpreter_invoice.event_location_address_line_3.length != 0 %>
+      <br>
+      <%= @interpreter_invoice.event_location_address_line_3 %>
+    <% end %>
+  </div>
+  <!-- /.panel-body -->
+</div>
+<!-- /. panel panel-info -->
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Interpreter Comments:
+    </h3>
+    <!-- /.panel-title -->
+  </div>
+  <!-- /.panel-heading -->
+  <div class="panel-body">
+    <% if @interpreter_invoice.interpreter_comments.length != 0 %>
+      <%= @interpreter_invoice.interpreter_comments %>
+    <% else %>
+      N/A
+    <% end %>
+  </div>
+  <!-- /.panel-body -->
+</div>
+<!-- /. panel panel-info -->

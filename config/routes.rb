@@ -79,6 +79,12 @@ Rails.application.routes.draw do
       get 'finalize_job_and_interpreters'
     end
   end
+
+  resources :interpreter_invoices do
+    member do
+      get 'new_interpreter_invoice_from_job'
+    end
+  end
   resources :job_requests
   resources :account_activations,           only: [:edit]
   resources :password_resets,               only: [:new, :create, :edit, :update]

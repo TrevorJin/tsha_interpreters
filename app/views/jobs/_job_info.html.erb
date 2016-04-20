@@ -24,7 +24,11 @@
         <%= @job.id %>
       </td>
       <td>
-        <%= @job.customer.customer_name %>
+        <% if user_logged_in? && current_user.manager? %>
+          <%= link_to "#{@job.customer.customer_name}", @job.customer %>
+        <% else %>
+          <%= @job.customer.customer_name %>
+        <% end %>
       </td>
       <td>
         <%= @job.start.strftime("%A, %d %b %Y %l:%M %p") %>

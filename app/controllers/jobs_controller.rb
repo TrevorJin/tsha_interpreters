@@ -427,7 +427,8 @@ class JobsController < ApplicationController
                                    :qast_4_transliterating_required, :qast_5_transliterating_required,
                                    :rid_ci_required, :rid_ct_required, :rid_cdi_required, :di_required,
                                    :nic_required, :nic_advanced_required, :nic_master_required, 
-                                   :rid_sc_l_required)
+                                   :rid_sc_l_required, :bei_required, :bei_advanced_required,
+                                   :bei_master_required)
     end
 
     # Before filters
