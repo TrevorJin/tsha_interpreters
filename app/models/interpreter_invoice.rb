@@ -21,4 +21,13 @@ class InterpreterInvoice < ActiveRecord::Base
                                           length: { maximum: 30, message: "must be 30 characters or less" },
                                           phony_plausible: true
   validates :interpreter_comments, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+
+  def self.search(search, page)
+    order(end: :desc).where("cast(id as text) LIKE ? OR job_type LIKE ? OR event_location_address_line_1 LIKE ? OR
+                             event_location_address_line_2 LIKE ? OR event_location_address_line_3 LIKE ?
+                             OR contact_person_first_name LIKE ? OR contact_person_last_name LIKE ?, OR
+                             contact_person_phone_number LIKE ?", "%#{search}%", "%#{search}%",
+                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+                             ).paginate(page: page, per_page: 20)
+  end
 end

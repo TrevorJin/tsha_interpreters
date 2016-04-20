@@ -1,7 +1,7 @@
 class InterpreterInvoicesController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :new_interpreter_invoice_from_job, :create]
   before_action :active_or_manager_user, only: [:index, :show, :new_interpreter_invoice_from_job, :create]
-  before_action :manager_dashboard, only: [:show]
+  before_action :manager_dashboard, only: [:index, :show]
   before_action :interpreter_dashboard, only: [:index, :show, :new_interpreter_invoice_from_job, :create]
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new_interpreter_invoice_from_job,
                                                              :create]
@@ -10,6 +10,13 @@ class InterpreterInvoicesController < ApplicationController
   def index
     if current_user && !current_user.manager?
       @user_invoices = current_user.interpreter_invoices.where(job_completed: false).order(end: :desc)
+    elsif current_user && current_user.manager?
+      # Manager Search
+      if params[:search]
+        @user_invoices = InterpreterInvoice.search(params[:search], params[:page]).order(end: :desc)
+      else
+        @user_invoices = InterpreterInvoice.paginate(page: params[:page]).order(end: :desc)
+      end
     end
   end
 
