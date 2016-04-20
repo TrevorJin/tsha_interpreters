@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420170932) do
+ActiveRecord::Schema.define(version: 20160420202806) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20160420170932) do
     t.string   "contact_person_last_name"
     t.string   "contact_person_phone_number"
     t.text     "interpreter_comments"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "user_id"
     t.integer  "job_id"
     t.decimal  "miles"
@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 20160420170932) do
     t.decimal  "extra_mile_rate"
     t.decimal  "extra_interpreting_hours"
     t.decimal  "extra_interpreting_rate"
+    t.boolean  "job_completed",                 default: false
+    t.datetime "job_completed_at"
   end
 
   add_index "interpreter_invoices", ["job_id"], name: "index_interpreter_invoices_on_job_id"

@@ -214,35 +214,6 @@ class CustomersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get new when logged in as a customer with customer dashboard and no interpreter/manager dashboard" do
-    customer_log_in_as(@customer)
-    get :new
-    assert_response :success
-    assert_template :new
-    assert_template layout: "layouts/application"
-    assert_not_nil assigns(:customer)
-    # Customer Dashboard - Yes
-    assert_not_nil assigns(:pending_job_requests)
-    assert_not_nil assigns(:approved_job_requests)
-    assert_not_nil assigns(:rejected_job_requests)
-    assert_not_nil assigns(:expired_job_requests)
-    assert_not_nil assigns(:total_job_requests)
-    assert_not_nil assigns(:current_jobs)
-    assert_not_nil assigns(:completed_jobs)
-    assert_not_nil assigns(:customer_jobs)
-    assert_not_nil assigns(:pending_jobs)
-    # Interpreter Dashboard - No
-    assert_nil assigns(:user)
-    assert_nil assigns(:rejected_jobs)
-    # Manager Dashboard - No
-    assert_nil assigns(:pending_users)
-    assert_nil assigns(:total_users)
-    assert_nil assigns(:total_customers)
-    assert_nil assigns(:pending_customers)
-    assert_nil assigns(:job_requests)
-    assert_nil assigns(:total_jobs)
-  end
-
   test "should get new when logged in as a manager user with manager dashboard and no interpreter/customer dashboard" do
     user_log_in_as(@manager_user)
     get :new

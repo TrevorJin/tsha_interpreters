@@ -97,6 +97,17 @@
           </ul>
           <!-- /.nav nav-second-level -->
         </li>
+        <li>
+          <a href="#"><i class="fa fa-money fa-fw"></i> Invoices<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li>
+              <%= link_to interpreter_invoices_path do %>
+                Interpreter Invoices <%= content_tag :span, "#{@interpreter_invoices.count}", :class => "badge" %>
+              <% end %>
+            </li>
+          </ul>
+          <!-- /.nav nav-second-level -->
+        </li>
       </ul>
       <!-- /.nav -->
     </div>
