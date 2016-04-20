@@ -47,9 +47,6 @@
         <th>
           End
         </th>
-        <th>
-          Action
-        </th>
       </thead>
       <tbody>
         <% @completed_jobs.each do |completed_job| %>
@@ -62,9 +59,6 @@
             </td>
             <td>
               <%= completed_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              TBD
             </td>
           </tr>
         <% end %>

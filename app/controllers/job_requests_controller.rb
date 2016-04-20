@@ -131,6 +131,7 @@ class JobRequestsController < ApplicationController
         @expired_jobs = Job.where(expired: true).order(end: :desc)
         @total_jobs = Job.all.order(end: :desc)
         @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)
+        @manager_invoices = ManagerInvoice.all.order(end: :desc)
       end
     end
 

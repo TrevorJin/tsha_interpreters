@@ -34,7 +34,8 @@
             <%= render 'jobs/attempted_interpreters_table' %>
           <% end %>
         <% elsif user_logged_in? && !current_user.manager? %>
-          <% if @job.has_interpreter_assigned? && @job.start < Time.now && !@job.invoice_submitted? %>
+          <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: @job.id) %>
+          <% if @job.has_interpreter_assigned? && @job.start < Time.now && !@job.invoice_submitted? && !@interpreter_invoice %>
             <%= link_to "Submit Invoice", new_interpreter_invoice_from_job_interpreter_invoice_path(
              :user_id => current_user.id, :job_id => @job.id,
              :start => @job.start, :end => @job.end,

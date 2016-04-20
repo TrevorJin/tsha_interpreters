@@ -105,6 +105,11 @@
                 Interpreter Invoices <%= content_tag :span, "#{@interpreter_invoices.count}", :class => "badge" %>
               <% end %>
             </li>
+            <li>
+              <%= link_to manager_invoices_path do %>
+                Manager Invoices <%= content_tag :span, "#{@manager_invoices.count}", :class => "badge" %>
+              <% end %>
+            </li>
           </ul>
           <!-- /.nav nav-second-level -->
         </li>
