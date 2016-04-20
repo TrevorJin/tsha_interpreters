@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420202806) do
+ActiveRecord::Schema.define(version: 20160420213003) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -209,6 +209,38 @@ ActiveRecord::Schema.define(version: 20160420202806) do
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"
+
+  create_table "manager_invoices", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "job_type"
+    t.string   "event_location_address_line_1"
+    t.string   "event_location_address_line_2"
+    t.string   "event_location_address_line_3"
+    t.string   "contact_person_first_name"
+    t.string   "contact_person_last_name"
+    t.string   "contact_person_phone_number"
+    t.text     "interpreter_comments"
+    t.decimal  "miles"
+    t.decimal  "mile_rate"
+    t.decimal  "interpreting_hours"
+    t.decimal  "interpreting_rate"
+    t.decimal  "extra_miles"
+    t.decimal  "extra_mile_rate"
+    t.decimal  "extra_interpreting_hours"
+    t.decimal  "extra_interpreting_rate"
+    t.boolean  "job_completed",                 default: false
+    t.datetime "job_completed_at"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.integer  "interpreter_invoice_id"
+  end
+
+  add_index "manager_invoices", ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"
+  add_index "manager_invoices", ["job_id"], name: "index_manager_invoices_on_job_id"
+  add_index "manager_invoices", ["user_id"], name: "index_manager_invoices_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
