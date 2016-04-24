@@ -12,6 +12,9 @@
     <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
+  <% if @expired_jobs.count == 0 %>
+    <div class="alert alert-info" role="alert">No expired jobs found.</div>
+  <% end %>
   <table class="table table-striped table-hover">
     <thead>
       <tr>

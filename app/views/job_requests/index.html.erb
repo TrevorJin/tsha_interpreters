@@ -108,6 +108,10 @@
 
     <%= will_paginate @job_requests_not_awaiting_approval %>
 
+    <% if @job_requests_not_awaiting_approval.count == 0 %>
+      <div class="alert alert-info" role="alert">No results found.</div>
+    <% end %>
+
     <table class="table table-striped table-hover">
       <thead>
         <tr>

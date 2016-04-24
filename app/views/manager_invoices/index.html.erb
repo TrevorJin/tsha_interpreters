@@ -41,6 +41,9 @@
 
   <%= will_paginate @manager_invoices %>
 
+  <% if @manager_invoices.count == 0 %>
+      <div class="alert alert-info" role="alert">No results found.</div>
+    <% end %>
   <table class="table table-striped table-hover">
     <thead>
       <th>

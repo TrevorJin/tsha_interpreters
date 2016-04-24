@@ -42,6 +42,9 @@
 
   <%= will_paginate @pending_customers %>
 
+  <% if @pending_customers.count == 0 %>
+    <div class="alert alert-info" role="alert">No results found.</div>
+  <% end %>
   <table class="table table-striped table-hover">
     <thead>
       <tr>

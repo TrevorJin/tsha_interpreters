@@ -41,6 +41,9 @@
 
   <%= will_paginate @pending_users %>
 
+  <% if @pending_users.count == 0 %>
+    <div class="alert alert-info" role="alert">No results found.</div>
+  <% end %>
   <% if current_user.manager? %>
     <table class="table table-striped table-hover">
       <thead>
