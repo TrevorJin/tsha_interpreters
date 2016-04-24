@@ -63,13 +63,13 @@
         <% @current_jobs.each do |current_job| %>
           <tr>
             <td>
-              <%= link_to "#{current_job.id}", current_job %>
+              <%= link_to "Job ##{current_job.id}", current_job %>
             </td>
             <td>
               <%= link_to "#{current_job.contact_person_first_name} #{current_job.contact_person_last_name}", current_job %>
             </td>
             <td>
-              <%= link_to "#{current_job.city}, #{current_job.state}", current_job %>
+              <%= current_job.city %>, <%= current_job.state %>
             </td>
             <td>
               <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
@@ -79,7 +79,9 @@
             </td>
             <td>
               <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id).first %>
-              <% if current_job.start < Time.now && current_job.end > Time.now %>
+              <% if current_job.job_status_processed? %>
+                <span class="label label-success">Processed</span>
+              <% elsif current_job.start < Time.now && current_job.end > Time.now %>
                 <span class="label label-warning">In Progress</span>
               <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && !@interpreter_invoice %>
                 <span class="label label-warning">Awaiting Your Invoice</span>
@@ -127,7 +129,7 @@
               <%= link_to "#{current_job.customer.customer_name}", current_job %>
             </td>
             <td>
-              <%= link_to "#{current_job.city}, #{current_job.state} #{current_job.zip}", current_job %>
+              <%= current_job.city %>, <%= current_job.state %> <%= current_job.zip %>
             </td>
             <td>
               <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
@@ -171,7 +173,7 @@
               <%= link_to "#{current_job.customer.customer_name}", current_job %>
             </td>
             <td>
-              <%= link_to "#{current_job.city}, #{current_job.state} #{current_job.zip}", current_job %>
+              <%= current_job.city %>, <%= current_job.state %> <%= current_job.zip %>
             </td>
             <td>
               <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>

@@ -38,15 +38,17 @@
   <% if user_logged_in? && current_user.approved? && !current_user.manager? && @pending_jobs.count > 0 %>
 		<table class="table table-striped table-hover">
       <thead>
-        <th>
-          Location
-        </th>
-        <th>
-          Start
-        </th>
-        <th>
-          End
-        </th>
+        <tr>
+          <th>
+            Location
+          </th>
+          <th>
+            Start
+          </th>
+          <th>
+            End
+          </th>
+        </tr>
       </thead>
       <tbody>
         <% @pending_jobs.each do |pending_job| %>

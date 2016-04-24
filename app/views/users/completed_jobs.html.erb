@@ -38,19 +38,36 @@
   <% if user_logged_in? && current_user.approved? && !current_user.manager? && @completed_jobs.count > 0 %>
 		<table class="table table-striped table-hover">
       <thead>
-        <th>
-          Location
-        </th>
-        <th>
-          Start
-        </th>
-        <th>
-          End
-        </th>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Contact
+          </th>
+          <th>
+            Location
+          </th>
+          <th>
+            Start
+          </th>
+          <th>
+            End
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
       </thead>
       <tbody>
         <% @completed_jobs.each do |completed_job| %>
           <tr>
+            <td>
+              <%= link_to "Job ##{completed_job.id}", completed_job %>
+            </td>
+            <td>
+              <%= link_to "#{completed_job.contact_person_first_name} #{completed_job.contact_person_last_name}", completed_job %>
+            </td>
             <td>
               <%= completed_job.city %>, <%= completed_job.state %>
             </td>
@@ -59,6 +76,22 @@
             </td>
             <td>
               <%= completed_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            </td>
+            <td>
+              <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: completed_job.id).first %>
+              <% if completed_job.job_status_processed? %>
+                <span class="label label-success">Processed</span>
+              <% elsif completed_job.start < Time.now && completed_job.end > Time.now %>
+                <span class="label label-warning">In Progress</span>
+              <% elsif completed_job.end < Time.now && !completed_job.invoice_submitted? && !@interpreter_invoice %>
+                <span class="label label-warning">Awaiting Your Invoice</span>
+              <% elsif completed_job.end < Time.now && !completed_job.invoice_submitted? && @interpreter_invoice %>
+                <span class="label label-success">Waiting for Manager</span>
+              <% elsif completed_job.end < Time.now && completed_job.invoice_submitted? %>
+                <span class="label label-success">Invoice Submitted</span>
+              <% elsif completed_job.start > Time.now %>
+                <span class="label label-warning">Not Started</span>
+              <% end %>
             </td>
           </tr>
         <% end %>
@@ -96,7 +129,7 @@
               <%= link_to "#{completed_job.customer.customer_name}", completed_job %>
             </td>
             <td>
-              <%= link_to "#{completed_job.city}, #{completed_job.state} #{completed_job.zip}", completed_job %>
+              <%= completed_job.city %>, <%= completed_job.state %> <%= completed_job.zip %>
             </td>
             <td>
               <%= completed_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
@@ -140,7 +173,7 @@
               <%= link_to "#{completed_job.customer.customer_name}", completed_job %>
             </td>
             <td>
-              <%= link_to "#{completed_job.city}, #{completed_job.state} #{completed_job.zip}", completed_job %>
+              <%= completed_job.city %>, <%= completed_job.state %> <%= completed_job.zip %>
             </td>
             <td>
               <%= completed_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
