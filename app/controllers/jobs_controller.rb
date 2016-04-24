@@ -186,7 +186,7 @@ class JobsController < ApplicationController
       if current_user && !current_user.manager?
         @user = current_user
         @user_jobs = @user.eligible_jobs
-        @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true).order(end: :desc)
+        @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
         @pending_jobs = @user.attempted_jobs.order(end: :desc)
         @completed_jobs = @user.completed_jobs.order(end: :desc)
         @rejected_jobs = @user.rejected_jobs.order(end: :desc)
