@@ -13,11 +13,11 @@ class UsersController < ApplicationController
                                         :promote_qualification]
   before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
                                         :demote_to_interpreter, :deactivate_user, :reactivate_user, :destroy]
-  before_action :manager_dashboard, only: [:index, :show, :dashboard, :pending_users, :current_jobs, :pending_jobs,
+  before_action :manager_dashboard, only: [:index, :show, :new, :dashboard, :pending_users, :current_jobs, :pending_jobs,
                                            :completed_jobs, :rejected_jobs]
   before_action :interpreter_dashboard, only: [:show, :current_jobs, :pending_jobs, :completed_jobs, :rejected_jobs]
   before_action :customer_dashboard, only: [:current_jobs, :pending_jobs, :completed_jobs]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show, :edit, :update, :dashboard,
+  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :edit, :update, :dashboard,
                                                              :pending_users, :current_jobs, :pending_jobs,
                                                              :completed_jobs, :rejected_jobs, :confirmed_jobs,
                                                              :attempted_jobs]

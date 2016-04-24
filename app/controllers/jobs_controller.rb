@@ -15,7 +15,7 @@ class JobsController < ApplicationController
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :create, :new_job_from_job_request,
                                                              :jobs_in_need_of_confirmation, :confirmed_jobs,
                                                              :jobs_awaiting_completion, :jobs_awaiting_invoice,
-                                                             :expired_jobs]
+                                                             :processed_jobs, :expired_jobs]
 
   def index
     if params[:search]

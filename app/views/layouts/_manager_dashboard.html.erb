@@ -20,6 +20,9 @@
                 All Interpreters <%= content_tag :span, "#{@total_users.count}", :class => "badge" %>
               <% end %>
             </li>
+            <li>
+              <%= link_to "Create an Interpreter", new_user_path %>
+            </li>
           </ul>
           <!-- /.nav nav-second-level -->
         </li>

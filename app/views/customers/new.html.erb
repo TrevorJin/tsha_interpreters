@@ -1,16 +1,18 @@
-<% provide(:title, 'Create A Customer') %>
 <% if user_logged_in? && current_user.manager? %>
+  <% provide(:title, 'Create A Customer') %>
   <%= render 'layouts/manager_dashboard' %>
+<% else %>
+  <% provide(:title, 'Sign Up As A Customer') %>
 <div id="page-wrapper">
 <% end %>
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        <% if user_logged_in? %>
+        <% if user_logged_in? && current_user.manager? %>
           Create a Customer
         <% else %>
-          Sign Up
+          Sign Up As a Customer
         <% end %>
       </h1>
       <!-- /.page-header -->

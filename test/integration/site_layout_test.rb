@@ -66,9 +66,9 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", "http://www.tsha.cc/contact-us/", count: 1
     assert_select "a[href=?]", "http://www.tsha.cc/resources/", count: 1
     get interpreter_signup_path
-    assert_select "title", full_title("Sign Up As Interpreter")
+    assert_select "title", full_title("Sign Up As An Interpreter")
     get customer_signup_path
-    assert_select "title", full_title("Create A Customer")
+    assert_select "title", full_title("Sign Up As A Customer")
   end
 
   test "manager dashboard for admin" do
