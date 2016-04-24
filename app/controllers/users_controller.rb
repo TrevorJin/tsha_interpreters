@@ -275,6 +275,7 @@ class UsersController < ApplicationController
           end
         end
         @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
+        @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(end: :desc)
         @expired_jobs = Job.where(expired: true).order(end: :desc)
         @total_jobs = Job.all.order(end: :desc)
         @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)

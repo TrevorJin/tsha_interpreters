@@ -63,6 +63,11 @@
               <% end %>
             </li>
             <li>
+              <%= link_to processed_jobs_path do %>
+                Processed <%= content_tag :span, "#{@processed_jobs.count}", :class => "badge" %>
+              <% end %>
+            </li>
+            <li>
               <%= link_to expired_jobs_path do %>
                 Expired <%= content_tag :span, "#{@expired_jobs.count}", :class => "badge" %>
               <% end %>

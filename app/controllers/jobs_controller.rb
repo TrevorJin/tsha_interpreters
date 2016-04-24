@@ -5,11 +5,11 @@ class JobsController < ApplicationController
                                         :finalize_job_and_interpreters,
                                         :jobs_in_need_of_confirmation, :confirmed_jobs,
                                         :jobs_awaiting_completion, :jobs_awaiting_invoice,
-                                        :expired_jobs]
+                                        :processed_jobs, :expired_jobs]
   before_action :manager_correct_customer_or_interpreter, only: [:show]
   before_action :manager_dashboard, only: [:index, :show, :new, :new_job_from_job_request, :create, :edit,
                                            :jobs_in_need_of_confirmation, :confirmed_jobs, :jobs_awaiting_completion,
-                                           :jobs_awaiting_invoice, :expired_jobs]
+                                           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
   before_action :interpreter_dashboard, only: [:index, :show, :new, :new_job_from_job_request, :create, :edit]
   before_action :customer_dashboard, only: [:show]
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :create, :new_job_from_job_request,
@@ -93,6 +93,10 @@ class JobsController < ApplicationController
     
   end
 
+  def processed_jobs
+
+  end
+
   def expired_jobs
     
   end
@@ -169,6 +173,7 @@ class JobsController < ApplicationController
           end
         end
         @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
+        @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(end: :desc)
         @expired_jobs = Job.where(expired: true).order(end: :desc)
         @total_jobs = Job.all.order(end: :desc)
         @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)

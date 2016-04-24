@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get    'confirmed_jobs'        => 'jobs#confirmed_jobs'
   get    'awaiting_completion'   => 'jobs#jobs_awaiting_completion'
   get    'awaiting_invoice'      => 'jobs#jobs_awaiting_invoice'
+  get    'processed_jobs'        => 'jobs#processed_jobs'
   get    'expired_jobs'          => 'jobs#expired_jobs'
   get    'pending_job_requests'  => 'job_requests#pending_job_requests'
 
