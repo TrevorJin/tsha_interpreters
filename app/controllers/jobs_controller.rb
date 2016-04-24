@@ -186,10 +186,12 @@ class JobsController < ApplicationController
       if current_user && !current_user.manager?
         @user = current_user
         @user_jobs = @user.eligible_jobs
-        @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-        @pending_jobs = @user.attempted_jobs
-        @completed_jobs = @user.completed_jobs
-        @rejected_jobs = @user.rejected_jobs
+        @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true).order(end: :desc)
+        @pending_jobs = @user.attempted_jobs.order(end: :desc)
+        @completed_jobs = @user.completed_jobs.order(end: :desc)
+        @rejected_jobs = @user.rejected_jobs.order(end: :desc)
+        @interpreter_invoices = @user.interpreter_invoices.order(end: :desc)
+        @manager_invoices = @user.manager_invoices.order(end: :desc)
       end
     end
 
@@ -210,6 +212,13 @@ class JobsController < ApplicationController
         @customer_jobs.each do |customer_job|
           if (!customer_job.confirmed_interpreters.any? && !customer_job.expired?)
             @pending_jobs.push customer_job
+          end
+        end
+        @manager_invoices = Array.new
+        @customer_jobs = current_customer.jobs
+        @customer_jobs.each do |customer_job|
+          customer_job.manager_invoices.each do |manager_invoice|
+            @manager_invoices.push manager_invoice
           end
         end
       end

@@ -50,7 +50,14 @@
             <a href="#"><i class="fa fa-tasks fa-fw"></i> Your Invoices<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li>
-                <%= link_to "Current Submitted Invoices", interpreter_invoices_path %>
+                <%= link_to interpreter_invoices_path do %>
+                  Current Submitted Invoices <%= content_tag :span, "#{@interpreter_invoices.count}", :class => "badge" %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to manager_invoices_path do %>
+                  Official TSHA Invoices <%= content_tag :span, "#{@manager_invoices.count}", :class => "badge" %>
+                <% end %>
               </li>
             </ul>
             <!-- /.nav nav-second-level -->

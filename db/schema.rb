@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420213003) do
+ActiveRecord::Schema.define(version: 20160424035404) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -236,6 +236,8 @@ ActiveRecord::Schema.define(version: 20160420213003) do
     t.integer  "user_id"
     t.integer  "job_id"
     t.integer  "interpreter_invoice_id"
+    t.boolean  "customer_approved",             default: false
+    t.datetime "customer_approved_at"
   end
 
   add_index "manager_invoices", ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"

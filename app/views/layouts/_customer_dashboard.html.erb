@@ -74,7 +74,9 @@
           <a href="#"><i class="fa fa-tasks fa-fw"></i> Your Invoices<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to "History", jobs_path %>
+              <%= link_to manager_invoices_path do %>
+                All Invoices <%= content_tag :span, "#{@manager_invoices.count}", :class => "badge" %>
+              <% end %>
             </li>
           </ul>
           <!-- /.nav nav-second-level -->

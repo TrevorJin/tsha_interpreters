@@ -172,6 +172,11 @@ class Job < ActiveRecord::Base
     
     update_attribute(:invoice_submitted, true)
     update_attribute(:invoice_submitted_at, Time.zone.now)
+    
+    @interpreter_invoices = self.interpreter_invoices
+    @interpreter_invoices.each do |interpreter_invoice|
+      interpreter_invoice.job_complete
+    end
   end
 
   # Checks if the job is confirmed.

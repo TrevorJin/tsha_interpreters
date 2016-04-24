@@ -24,7 +24,11 @@
         <%= @manager_invoice.id %>
       </td>
       <td>
-        <%= link_to "#{@manager_invoice.user.first_name} #{@manager_invoice.user.last_name}", @manager_invoice.user %>
+        <% if user_logged_in? %>
+          <%= link_to "#{@manager_invoice.user.first_name} #{@manager_invoice.user.last_name}", @manager_invoice.user %>
+        <% else %>
+          <%= @manager_invoice.user.first_name %> <%= @manager_invoice.user.last_name %>
+        <% end %>
       </td>
       <td>
         <%= link_to "Job ##{@manager_invoice.job.id}", @manager_invoice.job %>
@@ -119,7 +123,9 @@
         Interpreting Rate (After Hour)
       </th>
       <th>
-        Original Interpreter Invoice
+        <% if user_logged_in? %>
+          Original Interpreter Invoice
+        <% end %>
       </th>
       <th>
         
@@ -138,7 +144,9 @@
         <%= @manager_invoice.extra_interpreting_rate %>
       </td>
       <td>
-        <%= link_to "Interpreter Invoice ##{@manager_invoice.interpreter_invoice.id}", @manager_invoice.interpreter_invoice %>
+        <% if user_logged_in? %>
+          <%= link_to "Interpreter Invoice ##{@manager_invoice.interpreter_invoice.id}", @manager_invoice.interpreter_invoice %>
+        <% end %>
       </td>
       <td>
 

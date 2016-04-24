@@ -3,7 +3,6 @@ class JobRequestsController < ApplicationController
   before_action :manager_or_customer, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :active_or_manager_user, only: [:show, :new, :create, :edit, :update, :destroy]
   before_action :manager_dashboard, only: [:index, :show, :pending_job_requests]
-  before_action :interpreter_dashboard, only: [:index]
   before_action :customer_dashboard, only: [:index, :show, :new, :create]
   before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :create, :edit, :update,
                                                              :destroy, :pending_job_requests]
@@ -16,6 +15,8 @@ class JobRequestsController < ApplicationController
       else
         @job_requests_not_awaiting_approval = JobRequest.paginate(page: params[:page]).order(end: :desc).where(awaiting_approval: false)
       end
+    elsif current_customer
+      @job_requests = current_customer.job_requests.order(end: :desc)
     end
   end
 
@@ -139,18 +140,6 @@ class JobRequestsController < ApplicationController
       end
     end
 
-    # Provides an interpreter dashboard for a regular user.
-    def interpreter_dashboard
-      if current_user && !current_user.manager?
-        @user = current_user
-        @user_jobs = @user.eligible_jobs
-        @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true)
-        @pending_jobs = @user.attempted_jobs
-        @completed_jobs = @user.completed_jobs
-        @rejected_jobs = @user.rejected_jobs
-      end
-    end
-
     # Provides a customer dashboard for a customer.
     def customer_dashboard
       if current_customer
@@ -168,6 +157,13 @@ class JobRequestsController < ApplicationController
         @customer_jobs.each do |customer_job|
           if (!customer_job.confirmed_interpreters.any? && !customer_job.expired?)
             @pending_jobs.push customer_job
+          end
+        end
+        @manager_invoices = Array.new
+        @customer_jobs = current_customer.jobs
+        @customer_jobs.each do |customer_job|
+          customer_job.manager_invoices.each do |manager_invoice|
+            @manager_invoices.push manager_invoice
           end
         end
       end

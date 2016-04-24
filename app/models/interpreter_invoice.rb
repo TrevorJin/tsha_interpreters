@@ -32,4 +32,9 @@ class InterpreterInvoice < ActiveRecord::Base
                              "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
                              ).paginate(page: page, per_page: 20)
   end
+
+  def job_complete
+    update_attribute(:job_completed, true)
+    update_attribute(:job_completed_at, Time.zone.now)
+  end
 end

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   before_create :create_activation_digest
 
   has_many :interpreter_invoices
+  has_many :manager_invoices
 
   has_many :confirmed_job_requests, class_name: "Appointment",
                                     foreign_key: "user_id",
