@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   before_save :downcase_email
 
   has_many :interpreter_invoices
+  has_many :manager_invoices
 
 	has_many :confirmed_interpreter_requests, class_name: "Appointment",
 																						foreign_key: "job_id",
@@ -159,6 +160,71 @@ class Job < ActiveRecord::Base
       self.attempted_interpreters.each do |attempted_interpreter|
         self.attempted_interpreters.delete(attempted_interpreter)
       end
+    end
+  end
+
+  # Marks all invoices as submitted
+  def job_status_invoices_submitted
+    # self.confirmed_interpreters.each do |confirmed_interpreter|
+    #   self.complete_job(confirmed_interpreter)
+    #   self.confirmed_interpreters.delete(confirmed_interpreter)
+    # end
+    
+    update_attribute(:invoice_submitted, true)
+    update_attribute(:invoice_submitted_at, Time.zone.now)
+  end
+
+  # Checks if the job is confirmed.
+  def job_status_confirmed?
+    if self.has_interpreter_assigned? && Time.now < self.start
+      return true
+    else
+      return false
+    end
+  end
+
+  # Checks if the job is expired.
+  def job_status_expired?
+    if self.expired?
+      return true
+    else
+      return false
+    end
+  end
+
+  # Checks if the job needs confirmation.
+  def job_status_needs_confirmation?
+    if !self.has_interpreter_assigned? && !self.expired?
+      return true
+    else
+      return false
+    end
+  end
+
+  # Checks if the job is awaiting completion.
+  def job_status_awaiting_completion?
+    if self.has_interpreter_assigned? && !self.completed?
+      return true
+    else
+      return false
+    end
+  end
+
+  # Checks if the job is awaiting invoice.
+  def job_status_awaiting_invoice?
+    if self.has_interpreter_assigned? && !self.invoice_submitted? && self.completed?
+      return true
+    else
+      return false
+    end
+  end
+
+  # Checks if the job has reached its final processed state.
+  def job_status_processed?
+    if self.has_interpreter_assigned? && self.invoice_submitted? && self.completed?
+      return true
+    else
+      return false
     end
   end
 

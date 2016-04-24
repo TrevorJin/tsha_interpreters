@@ -265,12 +265,15 @@ class UsersController < ApplicationController
         @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
         @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
         @confirmed_jobs = Array.new
+        @jobs_awaiting_completion = Array.new
         @jobs_with_interpreter_assigned.each do |job|
           if Time.now < job.start
-            confirmed_jobs.push job
+            @confirmed_jobs.push job
+          end
+          if job.start > Time.now
+            @jobs_awaiting_completion.push job
           end
         end
-        @jobs_awaiting_completion = Job.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
         @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
         @expired_jobs = Job.where(expired: true).order(end: :desc)
         @total_jobs = Job.all.order(end: :desc)

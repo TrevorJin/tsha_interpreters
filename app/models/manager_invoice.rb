@@ -5,7 +5,7 @@ class ManagerInvoice < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :job_id, presence: true
-  validates :interpreter_invoice, presence: true
+  validates :interpreter_invoice_id, presence: true
 
   validates :job_type, presence: { message: "required" }, 
 																 	 length: { maximum: 50, message: "must be 50 characters or less" }

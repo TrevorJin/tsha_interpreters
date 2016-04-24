@@ -1,0 +1,119 @@
+<% provide(:title, 'Create Manager Invoice') %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">
+        Create Manager Invoice
+      </h1>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= simple_form_for @manager_invoice do |f| %>
+        <%= f.input :user_id, as: :hidden, :input_html => { :value => "#{params[:user_id]}" } %>
+        <%= f.input :job_id, as: :hidden, :input_html => { :value => "#{params[:job_id]}" } %>
+        <%= f.input :interpreter_invoice_id, as: :hidden, :input_html => { :value => "#{params[:interpreter_invoice_id]}" } %>
+        <% if params[:start] %>
+          <%= f.hint "Suggested Start Date and Time from Interpreter Invoice: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% end %>
+        <%= f.input :start, as: :date %>
+        <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
+        <% if params[:end] %>
+          <%= f.hint "Suggested End Date and Time from Interpreter Invoice: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% end %>
+        <%= f.input :end, as: :date %>
+        <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
+        <% if params[:job_type] %>
+          <%= f.input :job_type, :collection => job_types, :selected => params[:job_type] %>
+        <% else %>
+          <%= f.input :job_type, :collection => job_types, :selected => "Regular" %>
+        <% end %>
+        <% if params[:event_location_address_line_1] %>
+          <%= f.input :event_location_address_line_1, :input_html => { :value => params[:event_location_address_line_1] } %>
+        <% else %>
+          <%= f.input :event_location_address_line_1 %>
+        <% end %>
+        <% if params[:event_location_address_line_2] %>
+          <%= f.input :event_location_address_line_2, :input_html => { :value => params[:event_location_address_line_2] } %>
+        <% else %>
+          <%= f.input :event_location_address_line_2 %>
+        <% end %>
+        <% if params[:event_location_address_line_3] %>
+          <%= f.input :event_location_address_line_3, :input_html => { :value => params[:event_location_address_line_3] } %>
+        <% else %>
+          <%= f.input :event_location_address_line_3 %>
+        <% end %>
+        <% if params[:contact_person_first_name] %>
+          <%= f.input :contact_person_first_name, :input_html => { :value => params[:contact_person_first_name] } %>
+        <% else %>
+          <%= f.input :contact_person_first_name %>
+        <% end %>
+        <% if params[:contact_person_last_name] %>
+          <%= f.input :contact_person_last_name, :input_html => { :value => params[:contact_person_last_name] } %>
+        <% else %>
+          <%= f.input :contact_person_last_name %>
+        <% end %>
+        <% if params[:contact_person_phone_number] %>
+          <%= f.input :contact_person_phone_number, :input_html => { :value => params[:contact_person_phone_number] } %>
+        <% else %>
+          <%= f.input :contact_person_phone_number %>
+        <% end %>
+        <% if params[:miles] %>
+          <%= f.input :miles, :input_html => { :value => params[:miles] }, placeholder: 'Example: 17' %>
+        <% else %>
+          <%= f.input :miles, placeholder: 'Example: 17' %>
+        <% end %>
+        <% if params[:mile_rate] %>
+          <%= f.input :mile_rate, :input_html => { :value => params[:mile_rate] }, placeholder: 'Example: 8.50' %>
+        <% else %>
+          <%= f.input :mile_rate, placeholder: 'Example: 8.50' %>
+        <% end %>
+        <% if params[:interpreting_hours] %>
+          <%= f.input :interpreting_hours, :input_html => { :value => params[:interpreting_hours] }, placeholder: 'Example: 2' %>
+        <% else %>
+          <%= f.input :interpreting_hours, placeholder: 'Example: 2' %>
+        <% end %>
+        <% if params[:interpreting_rate] %>
+          <%= f.input :interpreting_rate, :input_html => { :value => params[:interpreting_rate] }, placeholder: 'Example: 8.50' %>
+        <% else %>
+          <%= f.input :interpreting_rate, placeholder: 'Example: 8.50' %>
+        <% end %>
+        <% if params[:extra_miles] %>
+          <%= f.input :extra_miles, :input_html => { :value => params[:extra_miles] }, placeholder: 'Example: 5' %>
+        <% else %>
+          <%= f.input :extra_miles, placeholder: 'Example: 5' %>
+        <% end %>
+        <% if params[:extra_mile_rate] %>
+          <%= f.input :extra_mile_rate, :input_html => { :value => params[:extra_mile_rate] }, placeholder: 'Example: 9.50' %>
+        <% else %>
+          <%= f.input :extra_mile_rate, placeholder: 'Example: 9.50' %>
+        <% end %>
+        <% if params[:extra_interpreting_hours] %>
+          <%= f.input :extra_interpreting_hours, :input_html => { :value => params[:extra_interpreting_hours] }, placeholder: 'Example: 2' %>
+        <% else %>
+          <%= f.input :extra_interpreting_hours, placeholder: 'Example: 2' %>
+        <% end %>
+        <% if params[:extra_interpreting_rate] %>
+          <%= f.input :extra_interpreting_rate, :input_html => { :value => params[:extra_interpreting_rate] }, placeholder: 'Example: 9.50' %>
+        <% else %>
+          <%= f.input :extra_interpreting_rate, placeholder: 'Example: 9.50' %>
+        <% end %>
+        <% if params[:interpreter_comments] %>
+          <%= f.input :interpreter_comments, :input_html => { :value => params[:interpreter_comments] } %>
+        <% else %>
+          <%= f.input :interpreter_comments %>
+        <% end %>
+
+        <%= f.submit "Submit Manager Invoice", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <!-- /.col-md-8 col-md-offset-2 -->
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.page-wrapper -->

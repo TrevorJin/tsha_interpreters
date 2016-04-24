@@ -185,6 +185,25 @@ en:
           extra_interpreting_hours: "Interpreting Hours (After Hour)"
           extra_interpreting_rate: "Interpreting Rate (After Hour)"
           interpreter_comments: "Interpreter Comments"
+      manager_invoice:
+        new_manager_invoice_from_interpreter_invoice:
+          start: 'Start Date and Time'
+          end: 'End Date and Time'
+          job_type: 'Job Type'
+          event_location_address_line_1: 'Event Location Address Line 1'
+          event_location_address_line_2: 'Address Line 2'
+          event_location_address_line_3: 'Address Line 3'
+          contact_person_first_name: "Contact Person First Name"
+          contact_person_last_name: "Contact Person Last Name"
+          miles: "Miles (50 Miles or Below)"
+          mile_rate: "Mile Rate (50 Miles or Below)"
+          interpreting_hours: "Interpreting Hours (Regular)"
+          interpreting_rate: "Interpreting Rate (Regular)"
+          extra_miles: "Miles (Over 50 Miles)"
+          extra_mile_rate: "Mile Rate (Over 50 Miles)"
+          extra_interpreting_hours: "Interpreting Hours (After Hour)"
+          extra_interpreting_rate: "Interpreting Rate (After Hour)"
+          interpreter_comments: "Interpreter Comments"
 
     # hints:
       # defaults:

@@ -5,4 +5,5 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ExpirationHelper
   include CompletionHelper
+  include ManagerInvoicesHelper
 end

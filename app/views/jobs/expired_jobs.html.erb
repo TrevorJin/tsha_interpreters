@@ -54,16 +54,18 @@
             <%= expired_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
           </td>
           <td>
-            <% if expired_job.has_interpreter_assigned? && expired_job.start > Time.now %>
+            <% if expired_job.job_status_confirmed? %>
               <span class="label label-success">Confirmed</span>
-            <% elsif expired_job.expired? %>
+            <% elsif expired_job.job_status_expired? %>
               <span class="label label-danger">Expired</span>
-            <% elsif !expired_job.has_interpreter_assigned? && !expired_job.expired? %>
+            <% elsif expired_job.job_status_needs_confirmation? %>
               <span class="label label-warning">Needs Confirmation</span>
-            <% elsif expired_job.has_interpreter_assigned? && expired_job.start < Time.now && !expired_job.completed? %>
+            <% elsif expired_job.job_status_awaiting_completion? %>
               <span class="label label-success">Awaiting Completion</span>
-            <% elsif expired_job.has_interpreter_assigned? && expired_job.start < Time.now && !expired_job.invoice_submitted? %>
+            <% elsif expired_job.job_status_awaiting_invoice? %>
               <span class="label label-warning">Awaiting Invoice</span>
+            <% elsif expired_job.job_status_processed? %>
+              <span class="label label-success">Processed</span>
             <% end %>
           </td>
        </tr>

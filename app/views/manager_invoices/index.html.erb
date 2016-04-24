@@ -50,6 +50,9 @@
         Job
       </th>
       <th>
+        Interpreter Invoice
+      </th>
+      <th>
         Interpreter
       </th>
       <th>
@@ -66,6 +69,9 @@
           </td>
           <td>
             <%= link_to "#{manager_invoice.job.id}", manager_invoice.job %>
+          </td>
+          <td>
+            <%= link_to "#{manager_invoice.interpreter_invoice.id}", manager_invoice.interpreter_invoice %>
           </td>
           <td>
             <%= link_to "#{manager_invoice.user.first_name} #{manager_invoice.user.last_name}", manager_invoice.user %>

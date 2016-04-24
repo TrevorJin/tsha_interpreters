@@ -78,7 +78,7 @@
               <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
             </td>
             <td>
-              <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id) %>
+              <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id).first %>
               <% if current_job.start < Time.now && current_job.end > Time.now %>
                 <span class="label label-warning">In Progress</span>
               <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && !@interpreter_invoice %>

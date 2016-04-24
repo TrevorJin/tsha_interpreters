@@ -17,10 +17,14 @@
       <%= simple_form_for @interpreter_invoice do |f| %>
         <%= f.input :user_id, as: :hidden, :input_html => { :value => "#{current_user.id}" } %>
         <%= f.input :job_id, as: :hidden, :input_html => { :value => "#{params[:job_id]}" } %>
-        <%= f.hint "Suggested Start Date and Time from Job: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% if params[:start] %>
+          <%= f.hint "Suggested Start Date and Time from Job: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% end %>
         <%= f.input :start, as: :date %>
         <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
-        <%= f.hint "Suggested End Date and Time from Job: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% if params[:end] %>
+          <%= f.hint "Suggested End Date and Time from Job: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+        <% end %>
         <%= f.input :end, as: :date %>
         <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
         <%= f.input :job_type, :collection => job_types, :selected => "Regular" %>

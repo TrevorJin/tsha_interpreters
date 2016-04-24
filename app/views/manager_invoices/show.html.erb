@@ -1,0 +1,20 @@
+<% provide(:title, "Manager Invoice #{@manager_invoice.id}") %>
+<% if user_logged_in? && current_user.manager? %>
+  <%= render 'layouts/manager_dashboard' %>
+<% elsif user_logged_in? && !current_user.manager? %>
+  <%= render 'layouts/interpreter_dashboard' %>
+<% end %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <aside class="col-lg-12">
+      <section class="user_info">
+        <%= render 'manager_invoices/manager_invoice_info' %>
+      </section>
+      <!-- /.user_info -->
+    </aside>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.page-wrapper -->

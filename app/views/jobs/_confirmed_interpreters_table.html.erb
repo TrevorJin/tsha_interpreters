@@ -17,11 +17,16 @@
            <%= link_to "#{confirmed_interpreter.first_name} #{confirmed_interpreter.last_name}", confirmed_interpreter %>
         </td>
         <td>
-          <% @interpreter_invoice = InterpreterInvoice.where(user_id: confirmed_interpreter.id, job_id: @job.id) %>
+          <% @interpreter_invoice = InterpreterInvoice.where(user_id: confirmed_interpreter.id, job_id: @job.id).first %>
+          <% if @interpreter_invoice %>
+            <% @manager_invoice = ManagerInvoice.where(user_id: confirmed_interpreter.id, job_id: @job.id, interpreter_invoice_id: @interpreter_invoice.id).first %>
+          <% end %>
           <% if @job.completed? && !@job.invoice_submitted? && !@interpreter_invoice %>
             <span class="label label-warning">Need Invoice from Interpreter</span>
-          <% elsif @job.completed? && !@job.invoice_submitted? && @interpreter_invoice %>
+          <% elsif @job.completed? && !@job.invoice_submitted? && @interpreter_invoice && !@manager_invoice %>
             <span class="label label-warning">Need Invoice from Manager</span>
+          <% elsif @job.completed? && !@job.invoice_submitted? && @interpreter_invoice && @manager_invoice %>
+            <span class="label label-success">Manager Invoice Submitted</span>
           <% else %>
             <span class="label label-success">Confirmed</span>
           <% end %>
@@ -29,18 +34,27 @@
         <td>
           <% if @job.completed? && !@job.invoice_submitted? && !@interpreter_invoice %>
             N/A
-          <% elsif @job.completed? && !@job.invoice_submitted? && @interpreter_invoice %>
-              <%= link_to "Submit Manager Invoice", new_interpreter_invoice_from_job_interpreter_invoice_path(
-               :user_id => current_user.id, :job_id => @job.id,
-               :start => @job.start, :end => @job.end,
-               :contact_person_first_name => @job.contact_person_first_name,
-               :contact_person_last_name => @job.contact_person_last_name,
-               :contact_person_phone_number => @job.customer.contact_phone_number,
-               :event_location_address_line_1 => @job.address_line_1,
-               :event_location_address_line_2 => @job.address_line_2,
-               :event_location_address_line_3 => @job.address_line_3),
+          <% elsif @job.completed? && !@job.invoice_submitted? && @interpreter_invoice && !@manager_invoice %>
+              <%= link_to "Submit Manager Invoice", new_manager_invoice_from_interpreter_invoice_manager_invoice_path(
+               :user_id => confirmed_interpreter.id, :job_id => @job.id,
+               :interpreter_invoice_id => @interpreter_invoice.id,
+               :start => @interpreter_invoice.start, :end => @interpreter_invoice.end,
+               :job_type => @interpreter_invoice.job_type,
+               :event_location_address_line_1 => @interpreter_invoice.event_location_address_line_1,
+               :event_location_address_line_2 => @interpreter_invoice.event_location_address_line_2,
+               :event_location_address_line_3 => @interpreter_invoice.event_location_address_line_3,
+               :contact_person_first_name => @interpreter_invoice.contact_person_first_name,
+               :contact_person_last_name => @interpreter_invoice.contact_person_last_name,
+               :contact_person_phone_number => @interpreter_invoice.contact_person_phone_number,
+               :interpreter_comments => @interpreter_invoice.interpreter_comments,
+               :miles => @interpreter_invoice.miles, :mile_rate => @interpreter_invoice.mile_rate,
+               :interpreting_hours => @interpreter_invoice.interpreting_hours,
+               :interpreting_rate => @interpreter_invoice.interpreting_rate,
+               :extra_miles => @interpreter_invoice.extra_miles,
+               :extra_mile_rate => @interpreter_invoice.extra_mile_rate,
+               :extra_interpreting_hours => @interpreter_invoice.extra_interpreting_hours,
+               :extra_interpreting_rate => @interpreter_invoice.extra_interpreting_rate),
                :class => "btn btn-success" %>
-            <% end %>
           <% else %>
             N/A
           <% end %>
