@@ -240,8 +240,8 @@ class CustomersController < ApplicationController
         @expired_job_requests = JobRequest.where("customer_id = ? AND awaiting_approval = ? AND expired = ?", current_customer.id, false, true)
         @total_job_requests = JobRequest.where("customer_id = ?", current_customer.id)
         @customer = current_customer
-        @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ?", current_customer.id)
-        @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ?", current_customer.id)
+        @current_jobs = Job.joins(:confirmed_interpreters).where("customer_id = ? AND  completed = ?", current_customer.id, false)
+        @completed_jobs = Job.joins(:completing_interpreters).where("customer_id = ? AND completed = ?", current_customer.id, true)
 
         @customer_jobs = Job.where("customer_id= ?", current_customer.id)
         @pending_jobs = Array.new

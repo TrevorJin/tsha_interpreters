@@ -1,7 +1,7 @@
 <% if customer_logged_in? && !current_customer.active? %>
   <% provide(:title, 'Account Deactivated') %>  
 <% elsif customer_logged_in? && current_customer.approved? %>
-  <% provide(:title, 'Total Job Requests') %>
+  <% provide(:title, 'All Job Requests') %>
 <% elsif customer_logged_in? && !current_customer.approved? %>
   <% provide(:title, 'Awaiting Approval') %>
 <% elsif user_logged_in? && current_user.manager? %>
@@ -21,7 +21,7 @@
           <% if customer_logged_in? && !current_customer.active? %>
             Account Deactivated
           <% elsif current_customer.approved? %>
-            Total Job Requests
+            All Job Requests
           <% else %>
             Awaiting Approval
           <% end %>
