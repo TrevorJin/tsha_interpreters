@@ -50,7 +50,7 @@ class ManagerInvoicesController < ApplicationController
       @manager_invoices_number = @current_job.manager_invoices.count
 
       if (@confirmed_interpreters_number == @manager_invoices_number)
-        @current_job.job_invoices_submitted
+        @current_job.job_status_invoices_submitted
         flash[:info] = "All manager invoices submitted. This job is complete."
       else
         flash[:info] = "Manager invoice has been successfully created."
