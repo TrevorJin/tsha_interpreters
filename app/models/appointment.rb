@@ -1,4 +1,4 @@
-class Appointment < ActiveRecord::Base
+class Appointment < ApplicationRecord
 	belongs_to :user, class_name: "User"
 	belongs_to :job, class_name: "Job"
 	validates :user_id, presence: true

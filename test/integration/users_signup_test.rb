@@ -9,13 +9,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup information" do
     get interpreter_signup_path
     assert_no_difference 'User.count' do
-      post users_path, user: { first_name:  "",
-      												 last_name:  "",
-                               gender: "",
-                               cell_phone: "",
-                               email: "user@invalid",
-                               password:              "foo",
-                               password_confirmation: "bar" }
+      post users_path, params: { user: { first_name:  "",
+                                         last_name:  "",
+                                         gender: "",
+                                         cell_phone: "",
+                                         email: "user@invalid",
+                                         password:              "foo",
+                                         password_confirmation: "bar" } }
     end
     assert_template 'users/new'
   end
@@ -23,13 +23,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test "valid signup information with account activation" do
     get interpreter_signup_path
     assert_difference 'User.count', 1 do
-      post users_path, user: { first_name:  "Example",
-      												 last_name:  "User",
-                               gender: "Male",
-                               cell_phone: "+18662466453",
-                               email: "user@example.com",
-                               password:              "password",
-                               password_confirmation: "password" }
+      post users_path, params: { user: { first_name:  "Example",
+                                         last_name:  "User",
+                                         gender: "Male",
+                                         cell_phone: "+18662466453",
+                                         email: "user@example.com",
+                                         password:              "password",
+                                         password_confirmation: "password" } }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)

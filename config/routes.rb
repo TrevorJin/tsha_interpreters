@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root 'static_pages#home'
 
+  # Rails 5
+  get 'static_pages/home'
+  get 'static_pages/help'
+  get 'static_pages/about'
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   get    'help'                  => 'static_pages#help'

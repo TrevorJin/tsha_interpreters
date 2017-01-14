@@ -1,4 +1,4 @@
-class JobRequest < ActiveRecord::Base
+class JobRequest < ApplicationRecord
   before_save :downcase_email
 
   belongs_to :customer

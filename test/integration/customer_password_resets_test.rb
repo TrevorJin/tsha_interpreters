@@ -11,11 +11,11 @@ class CustomerPasswordResetsTest < ActionDispatch::IntegrationTest
     get new_customer_password_reset_path
     assert_template 'customer_password_resets/new'
     # Invalid email
-    post customer_password_resets_path, customer_password_reset: { email: "" }
+    post customer_password_resets_path, params: { customer_password_reset: { email: "" } }
     assert_not flash.empty?
     assert_template 'customer_password_resets/new'
     # Valid email
-    post customer_password_resets_path, customer_password_reset: { email: @customer.email }
+    post customer_password_resets_path, params: { customer_password_reset: { email: @customer.email } }
     assert_not_equal @customer.reset_digest, @customer.reload.reset_digest
     assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
@@ -38,22 +38,22 @@ class CustomerPasswordResetsTest < ActionDispatch::IntegrationTest
     assert_template 'customer_password_resets/edit'
     assert_select "input[name=email][type=hidden][value=?]", customer.email
     # Invalid password & confirmation
-    patch customer_password_reset_path(customer.reset_token),
+    patch customer_password_reset_path(customer.reset_token), params: {
           email: customer.email,
           customer: { password:              "foobaz",
-                      password_confirmation: "barquux" }
+                      password_confirmation: "barquux" } }
     assert_select 'div#error_explanation'
     # Empty password
-    patch customer_password_reset_path(customer.reset_token),
+    patch customer_password_reset_path(customer.reset_token), params: {
           email: customer.email,
           customer: { password:              "",
-                      password_confirmation: "" }
+                      password_confirmation: "" } }
     assert_select 'div#error_explanation'
     # Valid password & confirmation
-    patch customer_password_reset_path(customer.reset_token),
+    patch customer_password_reset_path(customer.reset_token), params: {
           email: customer.email,
           customer: { password:              "foobaz",
-                      password_confirmation: "foobaz" }
+                      password_confirmation: "foobaz" } }
     assert customer_is_logged_in?
     assert_not flash.empty?
     assert_redirected_to customer

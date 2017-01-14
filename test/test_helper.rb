@@ -14,17 +14,9 @@ class ActiveSupport::TestCase
     !session[:user_id].nil?
   end
 
-  # Logs in a test user.
-  def user_log_in_as(user, options = {})
-    password    = options[:password]    || 'password'
-    remember_me = options[:remember_me] || '1'
-    if integration_test?
-      post login_path, session: { email:       user.email,
-                                  password:    password,
-                                  remember_me: remember_me }
-    else
-      session[:user_id] = user.id
-    end
+  # Logs in as a particular user.
+  def user_log_in_as(user)
+    session[:user_id] = user.id
   end
 
   # Customer Helpers
@@ -34,23 +26,25 @@ class ActiveSupport::TestCase
     !session[:customer_id].nil?
   end
 
-  # Logs in a test customer.
-  def customer_log_in_as(customer, options = {})
-    password    = options[:password]    || 'password'
-    remember_me = options[:remember_me] || '1'
-    if integration_test?
-      post login_path, session: { email: customer.email,
-                                  password:    password,
-                                  remember_me: remember_me }
-    else
-      session[:customer_id] = customer.id
-    end
+  # Logs in as a particular customer.
+  def customer_log_in_as(customer)
+    session[:customer_id] = customer.id
+  end
+end
+
+class ActionDispatch::IntegrationTest
+
+  # Logs in as a particular user.
+  def user_log_in_as(user, password: 'password', remember_me: '1')
+    post login_path, params: { session: { email: user.email,
+                                          password: password,
+                                          remember_me: remember_me } }
   end
 
-  private
-
-    # Returns true inside an integration test.
-    def integration_test?
-      defined?(post_via_redirect)
-    end
+  # Logs in as a particular customer.
+  def customer_log_in_as(customer, password: 'password', remember_me: '1')
+    post login_path, params: { session: { email: customer.email,
+                                          password: password,
+                                          remember_me: remember_me } }
+  end
 end

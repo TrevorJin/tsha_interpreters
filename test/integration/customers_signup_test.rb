@@ -9,15 +9,15 @@ class CustomersSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup information" do
     get customer_signup_path
     assert_no_difference 'Customer.count' do
-      post customers_path, customer: { customer_name:  "",
-      												 contact_first_name:  "",
-                               contact_last_name: "",
-                               mail_address_line_1: "",
-                               email: "user@invalid",
-                               phone_number: "",
-                               contact_phone_number: "",
-                               password:              "foo",
-                               password_confirmation: "bar" }
+      post customers_path, params: { customer: { customer_name:  "",
+                                                 contact_first_name:  "",
+                                                 contact_last_name: "",
+                                                 mail_address_line_1: "",
+                                                 email: "user@invalid",
+                                                 phone_number: "",
+                                                 contact_phone_number: "",
+                                                 password:              "foo",
+                                                 password_confirmation: "bar" } }
     end
     assert_template 'customers/new'
   end
@@ -25,15 +25,15 @@ class CustomersSignupTest < ActionDispatch::IntegrationTest
   test "valid signup information with account activation" do
     get customer_signup_path
     assert_difference 'Customer.count', 1 do
-      post customers_path, customer: { customer_name:  "Pasta Palace",
-      												 contact_first_name:  "Peter",
-                               contact_last_name: "Pasta",
-                               mail_address_line_1: "Hideaway-2 Inc.",
-                               email: "peterpasta@pastapalace.com",
-                               phone_number: "+18662466453",
-                               contact_phone_number: "+18662466453",
-                               password:              "password",
-                               password_confirmation: "password" }
+      post customers_path, params: { customer: { customer_name:  "Pasta Palace",
+                                                 contact_first_name:  "Peter",
+                                                 contact_last_name: "Pasta",
+                                                 mail_address_line_1: "Hideaway-2 Inc.",
+                                                 email: "peterpasta@pastapalace.com",
+                                                 phone_number: "+18662466453",
+                                                 contact_phone_number: "+18662466453",
+                                                 password:              "password",
+                                                 password_confirmation: "password" } }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     customer = assigns(:customer)

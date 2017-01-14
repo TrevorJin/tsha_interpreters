@@ -10,12 +10,12 @@ class CustomersEditTest < ActionDispatch::IntegrationTest
     customer_log_in_as(@regular_customer)
     get edit_customer_path(@regular_customer)
     assert_template 'customers/edit'
-    patch customer_path(@regular_customer), customer: { customer_name:  "",
-                                                        email: "foo@invalid",
-                                                        contact_first_name: "",
-    								                    contact_last_name:  "",
-                                                        password:              "foo",
-                                                        password_confirmation: "bar" }
+    patch customer_path(@regular_customer), params: { customer: { customer_name:  "",
+                                                                  email: "foo@invalid",
+                                                                  contact_first_name: "",
+                                                                  contact_last_name:  "",
+                                                                  password:              "foo",
+                                                                  password_confirmation: "bar" } }
     assert_template 'customers/edit'
   end
 
@@ -27,12 +27,12 @@ class CustomersEditTest < ActionDispatch::IntegrationTest
     first_name  = "Fred"
     last_name = "Tucker"
     email = "foo@bar.com"
-    patch customer_path(@regular_customer), customer: { customer_name:  customer_name,
-                                                        email: email,
-                                                        contact_first_name: first_name,
-                                                        contact_last_name:   last_name,
-                                                        password:              "",
-                                                        password_confirmation: "" }
+    patch customer_path(@regular_customer), params: { customer: { customer_name:  customer_name,
+                                                                  email: email,
+                                                                  contact_first_name: first_name,
+                                                                  contact_last_name:   last_name,
+                                                                  password:              "",
+                                                                  password_confirmation: "" } }
     assert_not flash.empty?
     assert_redirected_to @regular_customer
     @regular_customer.reload

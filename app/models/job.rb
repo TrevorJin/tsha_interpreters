@@ -1,4 +1,4 @@
-class Job < ActiveRecord::Base
+class Job < ApplicationRecord
   before_save :downcase_email
 
   has_many :interpreter_invoices

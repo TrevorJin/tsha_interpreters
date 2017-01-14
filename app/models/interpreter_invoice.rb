@@ -1,4 +1,4 @@
-class InterpreterInvoice < ActiveRecord::Base
+class InterpreterInvoice < ApplicationRecord
   belongs_to :user
   belongs_to :job
 

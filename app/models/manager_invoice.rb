@@ -1,4 +1,4 @@
-class ManagerInvoice < ActiveRecord::Base
+class ManagerInvoice < ApplicationRecord
   belongs_to :user
   belongs_to :job
   belongs_to :interpreter_invoice
