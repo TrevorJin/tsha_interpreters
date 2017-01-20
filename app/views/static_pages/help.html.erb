@@ -7,108 +7,17 @@
 </script>
 <div class="container">
 	<%= render 'layouts/alerts' %>
-<div class="row">
-    <!--Nav Bar -->
-    <nav class="col-xs-3 bs-docs-sidebar">
-        <ul id="sidebar" class="nav nav-stacked fixed">
-            <li>
-                <a href="#Admin">Admin</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#PendingInterpreters">Pending Interpreters</a></li>
-                    <li><a href="#AllInterpreters">All Interpreters</a></li>
-                    <li><a href="#PromotionDemotion">Promotion or Demotion of Users</a></li>
-                    <li><a href="#DeactivatingAccount">Deactivating Account</a></li>
-                    <li><a href="#AddInterpreterQualifications">Add Interpreter Qualifications</a></li>
-                    <li><a href="#CreateAnInterpreter">Create an Interpreter</a></li>
-                    <li><a href="#CurrentJobRequests">Current Job Requests</a></li>
-                    <li><a href="#AllJobs">All Jobs</a></li>
-                    <li><a href="#CreateAJob">Create a Job</a></li>
-                    <li><a href="#PendingCustomers">Pending Customers</a></li>
-                    <li><a href="#AllCustomers">All Customers</a></li>
-                    <li><a href="#CreateACustomer">Create a Customer</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    <!--Main Content -->
-    <div class="col-xs-9">
-        <section id="Admin" class="group">
-            <h3>Admin</h3>
-            <div id="PendingInterpreters" class="subgroup scroll-adjust">
-                <h4>Pending Interpreters</h4>
-                <p>
-                    On this page, Admin can approve interpreter to be part of the TSHA system, or deny their access completely. Once an interpreter has signed up for an account they receive an email notification. This email will have a link that directs the interpreter to the TSHA page. Access will only be granted once the admin has approved the application. They will then be able to begin to use their account. If denied, the interpreter will also get an email notification which informs them they have not been accepted.
-                </p>
-            </div>
-            <div id="AllInterpreters" class="subgroup scroll-adjust">
-                <h4>All Interpreters</h4>
-                <p>
-                    On this page, all of the interpreters are listed with their role (admin, manager, interpreter), first name, last name, email and whether they are approved and active. Active determines whether or not the interpreter has accessed the link in the email received after completing the signup form. Approved demonstrates that the interpreter has been accepted and has an account. The admin and manager can later remove any individuals. If an interpreter's first name, last name or email is selected, their personal profile will appear. This includes their qualifications, admin options (promote to admin, demote to interpreters, deactivate account). Interpreters can be searched by first and last name at the top of the page using the search function.
-                </p>
-            </div>
-            <div id="PromotionDemotion" class="subgroup scroll-adjust">
-                <h4>Promotion or Demotion of Users</h4>
-                <p>
-                    By going to the Interpreter subsection of “All Interpreters”, you can see everyone have the capability to act like an interpreter. This will include interpreter,manager and administrator. By clicking on any of their information, the ID, first name, last name, or email, you will direct to their personal information page. Here as an admin or manager, you will see the option of promote, demote or deactivate an account. By promoting or demoting, the user will have the capability of the position they have been newly assigned. All users are restricted to promoting or demoting themselves.
-                </p>
-            </div>
-            <div id="DeactivatingAccount" class="subgroup scroll-adjust">
-                <h4>Deactivating Account</h4>
-                <p>
-                    By going to user’s account page, administrators and managers can see the option to deactivate these account. Deactivating account will deny their access to the TSHA system. The user’s information will still be in the system, if it is needed later. If admin want to reactivate account, the process is the same as deactivating.
-                </p>
-            </div>
-            <div id="AddInterpreterQualifications" class="subgroup scroll-adjust">
-                <h4>Add Interpreter Qualifications</h4>
-                <p>
-                    List of all approved and active interpreters. Admin has the ability to deactivate interpreters here.
-                </p>
-            </div>
-            <div id="CreateAnInterpreter" class="subgroup scroll-adjust">
-                <h4>Create an Interpreter</h4>
-                <p>
-                    The admin has the ability to create an interpreter account here. This occurs in cases where an interpreter is not tech savvy or for some reason is not capable of creating their own account. The admin is required to fill in fields including: First name, last name, gender, cellphone, email, password and confirm password. If the interpreter chooses to use their account on their own, they need to be notified about which email address and password they need to use.
-                </p>
-            </div>
-            <div id="CurrentJobRequests" class="subgroup scroll-adjust">
-                <h4>Current Job Requests</h4>
-                <p>
-                    The admin has the ability to create an interpreter account here. This occurs in cases where an interpreter is not tech savvy or for some reason is not capable of creating their own account. The admin is required to fill in fields including: First name, last name, gender, cellphone, email, password and confirm password. If the interpreter chooses to use their account on their own, they need to be notified about which email address and password they need to use.
-                </p>
-            </div>
-            <div id="AllJobs" class="subgroup scroll-adjust">
-                <h4>All Jobs</h4>
-                <p>
-                    A list of all the available jobs.
-                </p>
-            </div>
-            <div id="CreateAJob" class="subgroup scroll-adjust">
-                <h4>Create a Job</h4>
-                <p>
-                    On this page, the admin can create any job that needs interpreters. Information about the job needs to be filled out, including: Customer, start date and time, end date and time, address (city, state, zip code) and qualifications. This will then go to the all jobs section. An interpreter will only see the list of created jobs that are within their qualifications.
-                </p>
-            </div>
-            <div id="PendingCustomers" class="subgroup scroll-adjust">
-                <h4>Pending Customers</h4>
-                <p>
-                    On this page, Admin can approve customers to be part of the TSHA system, or deny their access completely. Once a customer has signed up for an account they receive an email notification. This email will have a link that directs the customer to the TSHA page. Access will only be granted once the admin has approved the application. They will then be able to begin to use their account. If denied, the customer will also get an email notification which informs them they have not been accepted.
-                </p>
-            </div>
-            <div id="AllCustomers" class="subgroup scroll-adjust">
-                <h4>All Customers</h4>
-                <p>
-                    This page shows a list of all the customers that TSHA has. The information listed on this page includes: ID, customer name, contact's first and last name and their email. Once a customer is selected, the admin is directed to their profile.
-                </p>
-            </div>
-            <div id="CreateACustomer" class="subgroup scroll-adjust">
-                <h4>Create a Customer</h4>
-                <p>
-                    The admin has the ability to create a customer account here. This occurs in cases where a customer is not tech savvy or for some reason is not capable of creating their own account. The admin is required to fill in fields including: Customer name, email, contact first and last name. If the customer chooses to use their account on their own, they need to be notified about which email address and password they need to use.
-                </p>
-            </div>
-        </section>  
-    </div>
-    <!-- /.col-xs-9 -->
+    <div class="row">
+        <% if user_logged_in? && current_user.manager? %>
+            <%= render 'static_pages/admin_help_menu' %>
+            <%= render 'static_pages/admin_help_content' %>
+        <% elsif user_logged_in? && !current_user.manager? %>
+            <%= render 'static_pages/interpreter_help_menu' %>
+            <%= render 'static_pages/interpreter_help_content' %>
+        <% elsif customer_logged_in? %>
+            <%= render 'static_pages/customer_help_menu' %>
+            <%= render 'static_pages/customer_help_content' %>
+        <% end %>
     </div>
     <!-- /.row -->
 </div>
