@@ -5,7 +5,7 @@ class UserMailerTest < ActionMailer::TestCase
     user = users(:michael)
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
-    assert_equal "Account activation", mail.subject
+    assert_equal "Account Activation with TSHA", mail.subject
     assert_equal [user.email], mail.to
     assert_equal ["noreply@tshainterpreters.com"], mail.from
     assert_match user.first_name,         mail.body.encoded
