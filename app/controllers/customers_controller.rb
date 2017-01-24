@@ -76,13 +76,28 @@ class CustomersController < ApplicationController
   end
 
   def pending_customers
+    # Manager Search
     if params[:search]
-      @pending_customers = Customer.search(params[:search], params[:page]).order(customer_name: :asc).where(approved: false)
+      @pending_customers = Customer.search(params[:search][:query], params[:page]).order(customer_name: :asc).where(approved: false)
+      if params[:search][:account_requested_after].present?
+        account_requested_after_string = params[:search][:account_requested_after].to_s
+        account_requested_after = DateTime.strptime(account_requested_after_string, '%m-%d-%Y %H:%M')
+        @pending_customers = @pending_customers.where("created_at >= ?", account_requested_after)
+        if params[:search][:account_requested_before].present?
+          account_requested_before_string = params[:search][:account_requested_before].to_s
+          account_requested_before = DateTime.strptime(account_requested_before_string, '%m-%d-%Y %H:%M')
+          @pending_customers = @pending_customers.where("created_at <= ?", account_requested_before)
+        end
+      elsif params[:search][:account_requested_before].present?
+        account_requested_before_string = params[:search][:account_requested_before].to_s
+        account_requested_before = DateTime.strptime(account_requested_before_string, '%m-%d-%Y %H:%M')
+        @pending_customers = @pending_customers.where("created_at <= ?", account_requested_before)
+      end
     else
       @pending_customers = Customer.paginate(page: params[:page]).order(customer_name: :asc).where(approved: false)
     end
   end
-
+  
   def pending_approval
     
   end

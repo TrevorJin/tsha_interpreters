@@ -48,7 +48,7 @@
               <%= f.submit "Search" %>
             <% end %>
           <% else %>
-            <%= simple_form_for :search,  url: users_path , :method => :get do |f| %>
+            <%= simple_form_for :search,  url: pending_interpreters_path , :method => :get do |f| %>
               <%= f.input :account_requested_after, as: :date_time_picker, input_html: { value: params[:search][:account_requested_after] } %>
               <%= f.input :account_requested_before, as: :second_date_time_picker %>
               <%= f.input :query, :autofocus => true %>
