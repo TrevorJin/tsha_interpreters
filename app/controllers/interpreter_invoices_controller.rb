@@ -13,7 +13,21 @@ class InterpreterInvoicesController < ApplicationController
     elsif current_user && current_user.manager?
       # Manager Search
       if params[:search]
-        @user_invoices = InterpreterInvoice.search(params[:search], params[:page]).order(end: :desc)
+        @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
+        if params[:search][:created_after].present?
+          created_after_string = params[:search][:created_after].to_s
+          created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
+          @user_invoices = @user_invoices.where("created_at >= ?", created_after)
+          if params[:search][:created_before].present?
+            created_before_string = params[:search][:created_before].to_s
+            created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+            @user_invoices = @user_invoices.where("created_at <= ?", created_before)
+          end
+        elsif params[:search][:created_before].present?
+          created_before_string = params[:search][:created_before].to_s
+          created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+          @user_invoices = @user_invoices.where("created_at <= ?", created_before)
+        end
       else
         @user_invoices = InterpreterInvoice.paginate(page: params[:page]).order(end: :desc)
       end
