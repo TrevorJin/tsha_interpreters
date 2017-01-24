@@ -10,13 +10,28 @@ class ManagerInvoicesController < ApplicationController
                                                              :new_manager_invoice_from_interpreter_invoice,
                                                              :create]
 
+  # Show all manager invoices to manager. Show relevant invoices to interpreters and customers.
   def index
     if current_user && !current_user.manager?
       @manager_invoices = current_user.manager_invoices.paginate(page: params[:page]).order(end: :desc)
     elsif user_logged_in? && current_user.manager?
-      # Manager Search
+        # Manager Search
       if params[:search]
-        @manager_invoices = ManagerInvoice.search(params[:search], params[:page]).order(end: :desc)
+        @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
+        if params[:search][:created_after].present?
+          created_after_string = params[:search][:created_after].to_s
+          created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
+          @manager_invoices = @manager_invoices.where("created_at >= ?", created_after)
+          if params[:search][:created_before].present?
+            created_before_string = params[:search][:created_before].to_s
+            created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+            @manager_invoices = @manager_invoices.where("created_at <= ?", created_before)
+          end
+        elsif params[:search][:created_before].present?
+          created_before_string = params[:search][:created_before].to_s
+          created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+          @manager_invoices = @manager_invoices.where("created_at <= ?", created_before)
+        end
       else
         @manager_invoices = ManagerInvoice.paginate(page: params[:page]).order(end: :desc)
       end
