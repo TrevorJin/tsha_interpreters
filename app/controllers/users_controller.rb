@@ -25,7 +25,15 @@ class UsersController < ApplicationController
   def index
     # Manager Search
     if params[:search]
-      @users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
+      @users = User.search(params[:search][:query], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
+      if params[:search][:joined_after].present? && params[:search][:joined_before].present?
+        joined_after_string = params[:search][:joined_after].to_s
+        joined_after = DateTime.strptime(joined_after_string, '%m-%d-%Y %H:%M')
+        joined_before_string = params[:search][:joined_before].to_s
+        joined_before = DateTime.strptime(joined_before_string, '%m-%d-%Y %H:%M')
+        @users = @users.where("created_at >= ?", joined_after)
+        @users = @users.where("created_at <= ?", joined_before)
+      end
     else
       @users = User.paginate(page: params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc)
     end
