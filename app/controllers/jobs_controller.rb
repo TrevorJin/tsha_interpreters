@@ -16,10 +16,25 @@ class JobsController < ApplicationController
                                                              :jobs_in_need_of_confirmation, :confirmed_jobs,
                                                              :jobs_awaiting_completion, :jobs_awaiting_invoice,
                                                              :processed_jobs, :expired_jobs]
-
+  
   def index
+    # Manager Search
     if params[:search]
-      @jobs = Job.search(params[:search], params[:page]).order(end: :desc)
+      @jobs = Job.search(params[:search][:query], params[:page]).order(end: :desc)
+      if params[:search][:start_after].present?
+        start_after_string = params[:search][:start_after].to_s
+        start_after = DateTime.strptime(start_after_string, '%m-%d-%Y %H:%M')
+        @jobs = @jobs.where("start >= ?", start_after)
+        if params[:search][:end_before].present?
+          end_before_string = params[:search][:end_before].to_s
+          end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
+          @jobs = @jobs.where("end <= ?", end_before)
+        end
+      elsif params[:search][:end_before].present?
+        end_before_string = params[:search][:end_before].to_s
+        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
+        @jobs = @jobs.where("end <= ?", end_before)
+      end
     else
       @jobs = Job.paginate(page: params[:page]).order(end: :desc)
     end
