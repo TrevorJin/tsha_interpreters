@@ -56,7 +56,7 @@
             <% end %>
           <% end %>
         <% elsif params[:search][:joined_before].present? %>
-          <% if params[:search][:query].present %>
+          <% if params[:search][:query].present? %>
             <%= simple_form_for :search,  url: users_path , :method => :get do |f| %>
               <%= f.input :joined_after, as: :date_time_picker %>
               <%= f.input :joined_before, as: :second_date_time_picker, input_html: { value: params[:search][:joined_before] } %>
