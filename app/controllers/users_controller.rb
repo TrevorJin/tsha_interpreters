@@ -110,7 +110,21 @@ class UsersController < ApplicationController
   def pending_users
     # Manager Search
     if params[:search]
-      @pending_users = User.search(params[:search], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where(approved: false)
+      @pending_users = User.search(params[:search][:query], params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where(approved: false)
+      if params[:search][:account_requested_after].present?
+        account_requested_after_string = params[:search][:account_requested_after].to_s
+        account_requested_after = DateTime.strptime(account_requested_after_string, '%m-%d-%Y %H:%M')
+        @pending_users = @pending_users.where("created_at >= ?", account_requested_after)
+        if params[:search][:account_requested_before].present?
+          account_requested_before_string = params[:search][:account_requested_before].to_s
+          account_requested_before = DateTime.strptime(account_requested_before_string, '%m-%d-%Y %H:%M')
+          @pending_users = @pending_users.where("created_at <= ?", account_requested_before)
+        end
+      elsif params[:search][:account_requested_before].present?
+        account_requested_before_string = params[:search][:account_requested_before].to_s
+        account_requested_before = DateTime.strptime(account_requested_before_string, '%m-%d-%Y %H:%M')
+        @pending_users = @pending_users.where("created_at <= ?", account_requested_before)
+      end
     else
       @pending_users = User.paginate(page: params[:page]).order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where(approved: false)
     end
