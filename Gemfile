@@ -45,6 +45,7 @@ group :development do
   # Improved error screens
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'brakeman', :require => false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console',           '3.1.1'
   # Listen to file modifications and notifiy about the changes
