@@ -18,7 +18,7 @@ class CustomerMailerTest < ActionMailer::TestCase
     customer = customers(:university)
     customer.reset_token = Customer.new_token
     mail = CustomerMailer.password_reset(customer)
-    assert_equal "Password reset", mail.subject
+    assert_equal "Password Reset", mail.subject
     assert_equal [customer.email], mail.to
     assert_equal ["noreply@tshainterpreters.com"], mail.from
     assert_match customer.reset_token,        mail.body.encoded

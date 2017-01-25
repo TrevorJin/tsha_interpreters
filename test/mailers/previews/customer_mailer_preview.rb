@@ -12,7 +12,7 @@ class CustomerMailerPreview < ActionMailer::Preview
   def password_reset
     customer = Customer.first
     customer.reset_token = Customer.new_token
-    CustomerMailer.password_reset(user)
+    CustomerMailer.password_reset(customer)
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/customer_mailer/account_approved

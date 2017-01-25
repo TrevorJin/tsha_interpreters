@@ -17,7 +17,7 @@ class CustomerMailer < ApplicationMailer
   #
   def password_reset(customer)
     @customer = customer
-    mail to: customer.email, subject: "Password reset"
+    mail to: customer.email, subject: "Password Reset"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
