@@ -1,9 +1,8 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
-  	user = User.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(email: params[:session][:email].downcase)
     customer = Customer.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       if user.activated?
@@ -11,8 +10,8 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? user_remember(user) : user_forget(user)
         redirect_back_or user
       else
-        message  = "Interpreter account not activated. "
-        message += "Check your email for the activation link."
+        message  = 'Interpreter account not activated. '
+        message += 'Check your email for the activation link.'
         flash[:warning] = message
         redirect_to root_url
       end
@@ -22,8 +21,8 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? customer_remember(customer) : customer_forget(customer)
         redirect_back_or customer
       else
-        message  = "Customer account not activated. "
-        message += "Check your email for the activation link."
+        message  = 'Customer account not activated. '
+        message += 'Check your email for the activation link.'
         flash[:warning] = message
         redirect_to root_url
       end
@@ -36,6 +35,6 @@ class SessionsController < ApplicationController
   def destroy
     user_log_out if user_logged_in?
     customer_log_out if customer_logged_in?
-  	redirect_to root_url
+    redirect_to root_url
   end
 end
