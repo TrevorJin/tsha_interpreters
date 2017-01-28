@@ -71,3 +71,27 @@ shady:
   activated_at: <%= Time.zone.now %>
   approved: false
   approved_at:
+
+# Regular customer, deactivated
+
+pizza_hut:
+  customer_name: Pizza Hut
+  contact_first_name: Perry
+  contact_last_name: Pizza
+  contact_phone_number: +18662466453
+  contact_phone_number_extension: 123
+  phone_number: +18662466453
+  phone_number_extension: 321
+  email: letseatsomepizza@pizzahut.com
+  fax: 918-631-5003
+  billing_address_line_1: Pizza Hut Inc.
+  billing_address_line_2: 1631 S. Boston Ave.
+  billing_address_line_3: Tulsa OK 74119
+  mail_address_line_1: Pizza Hut Inc.
+  mail_address_line_2: 1631 S. Boston Ave.
+  mail_address_line_3: Tulsa OK 74119
+  password_digest: <%= Customer.digest('password') %>
+  activated: false
+  activated_at:
+  approved: true
+  approved_at: <%= Time.zone.now %>

@@ -173,7 +173,7 @@ wonka:
   bei_advanced: true
   bei_master: true
 
-# Regular Interpreter (Not Appproved Yet)
+# Regular Interpreter (Not Approved Yet)
 flaky:
   first_name: Flaky
   last_name: Tank
@@ -185,6 +185,40 @@ flaky:
   activated_at: <%= Time.zone.now %>
   approved: false
   approved_at:
+  qast_1_interpreting: true
+  qast_2_interpreting: true
+  qast_3_interpreting: true
+  qast_4_interpreting: true
+  qast_5_interpreting: true
+  qast_1_transliterating: true
+  qast_2_transliterating: true
+  qast_3_transliterating: true
+  qast_4_transliterating: true
+  qast_5_transliterating: true
+  rid_ci: true
+  rid_ct: true
+  rid_cdi: true
+  di: true
+  nic: true
+  nic_advanced: true
+  nic_master: true
+  rid_sc_l: true
+  bei: true
+  bei_advanced: true
+  bei_master: true
+
+# Regular Interpreter (Deactivated)
+crusty:
+  first_name: Crusty
+  last_name: Clown
+  gender: Male
+  cell_phone: +18662466453
+  email: crusty@example.gov
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  activated_at:
+  approved: true
+  approved_at: <%= Time.zone.now %>
   qast_1_interpreting: true
   qast_2_interpreting: true
   qast_3_interpreting: true
