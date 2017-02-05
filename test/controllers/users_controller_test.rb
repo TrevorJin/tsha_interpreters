@@ -486,30 +486,30 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get demote to interpreter when logged in as an admin user" do
     user_log_in_as(@admin_user)
-    get demote_to_manager_user_path(@manager_user)
+    get demote_to_interpreter_user_path(@manager_user)
     assert_redirected_to user_path(@manager_user)
   end
 
   test "should redirect demote to interpreter when not logged in" do
-    get demote_to_manager_user_path(@manager_user)
+    get demote_to_interpreter_user_path(@manager_user)
     assert_redirected_to login_url
   end
 
   test "should redirect demote to interpreter when logged in as a regular user" do
     user_log_in_as(@regular_user)
-    get demote_to_manager_user_path(@manager_user)
+    get demote_to_interpreter_user_path(@manager_user)
     assert_redirected_to root_url
   end
 
   test "should redirect demote to interpreter when logged in as a customer" do
     customer_log_in_as(@customer)
-    get demote_to_manager_user_path(@manager_user)
+    get demote_to_interpreter_user_path(@manager_user)
     assert_redirected_to login_url
   end
 
   test "should redirect demote to interpreter when logged in as a manager" do
     user_log_in_as(@manager_user)
-    get demote_to_manager_user_path(@manager_user)
+    get demote_to_interpreter_user_path(@manager_user)
     assert_redirected_to root_url
   end
 
