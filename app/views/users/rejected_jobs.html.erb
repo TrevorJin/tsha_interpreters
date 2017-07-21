@@ -1,9 +1,5 @@
 <% provide(:title, 'Rejected Jobs') %>
-<% if user_logged_in? && current_user.manager? %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? && !current_user.manager? %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% end %>
+<%= render 'layouts/interpreter_or_manager_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">

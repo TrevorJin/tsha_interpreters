@@ -1,0 +1,19 @@
+<h4>
+  Admin Options:
+</h4>
+<div class="btn-group" role="group" aria-label="Justified button group">
+  <% if @user.admin? %>
+    <%= link_to "Demote to Manager", demote_to_manager_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to demote #{@user.first_name} #{@user.last_name} to manager?"} %>
+  <% elsif @user.manager? %>
+    <%= link_to "Promote to Admin", promote_to_admin_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to promote #{@user.first_name} #{@user.last_name} to admin?"} %>
+    <%= link_to "Demote to Interpreter", demote_to_interpreter_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to demote #{@user.first_name} #{@user.last_name} to interpreter?"} %>
+  <% elsif !@user.admin? %>
+    <%= link_to "Promote to Manager", promote_to_manager_user_path(id: @user.id), class: "btn btn-primary", role:"button", :data => {:confirm => "Are you sure you want to promote #{@user.first_name} #{@user.last_name} to manager?"} %>
+  <% end %>
+  <% if @user.active? %>
+    <%= link_to "Deactivate Account", deactivate_user_user_path(id: @user.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@user.first_name} #{@user.last_name}'s account? They will no longer be able to use the site."} %>
+  <% else %>
+    <%= link_to "Reactivate Account", reactivate_user_user_path(id: @user.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to reactivate #{@user.first_name} #{@user.last_name}'s account? They will be able to use the site again."} %>
+  <% end%>
+</div>
+<!-- /.btn-group -->

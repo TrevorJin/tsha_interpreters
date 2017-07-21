@@ -1,23 +1,17 @@
-<% if user_logged_in? && current_user.manager? %>
-  <% provide(:title, 'All Manager Invoices') %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? %>
-  <% provide(:title, 'TSHA Invoices') %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% elsif customer_logged_in? %>
-  <% provide(:title, 'TSHA Invoices') %>
-  <%= render 'layouts/customer_dashboard' %>
-<% end %>
+<%= render 'layouts/interpreter_or_manager_or_customer_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">
         <% if user_logged_in? && current_user.manager? %>
+          <% provide(:title, 'All Manager Invoices') %>
           All Manager Invoices
         <% elsif user_logged_in? %>
+          <% provide(:title, 'TSHA Invoices') %>
           TSHA Invoices
         <% else %>
+          <% provide(:title, 'TSHA Invoices') %>
           Your Invoices
         <% end %>
       </h3>

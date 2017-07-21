@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424035404) do
+ActiveRecord::Schema.define(version: 20170721202128) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id", "user_id"], name: "index_appointments_on_job_id_and_user_id", unique: true
+    t.index ["job_id"], name: "index_appointments_on_job_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
-
-  add_index "appointments", ["job_id", "user_id"], name: "index_appointments_on_job_id_and_user_id", unique: true
-  add_index "appointments", ["job_id"], name: "index_appointments_on_job_id"
-  add_index "appointments", ["user_id"], name: "index_appointments_on_user_id"
 
   create_table "customers", force: :cascade do |t|
     t.string   "contact_first_name"
@@ -52,9 +50,9 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.boolean  "approved",                       default: false
     t.datetime "approved_at"
     t.boolean  "active",                         default: true
+    t.integer  "tsha_number"
+    t.index ["email"], name: "index_customers_on_email", unique: true
   end
-
-  add_index "customers", ["email"], name: "index_customers_on_email", unique: true
 
   create_table "interpreter_invoices", force: :cascade do |t|
     t.datetime "start"
@@ -81,43 +79,39 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.decimal  "extra_interpreting_rate"
     t.boolean  "job_completed",                 default: false
     t.datetime "job_completed_at"
+    t.index ["job_id"], name: "index_interpreter_invoices_on_job_id"
+    t.index ["user_id"], name: "index_interpreter_invoices_on_user_id"
   end
-
-  add_index "interpreter_invoices", ["job_id"], name: "index_interpreter_invoices_on_job_id"
-  add_index "interpreter_invoices", ["user_id"], name: "index_interpreter_invoices_on_user_id"
 
   create_table "interpreting_requests", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_interpreting_requests_on_job_id"
+    t.index ["user_id", "job_id"], name: "index_interpreting_requests_on_user_id_and_job_id", unique: true
+    t.index ["user_id"], name: "index_interpreting_requests_on_user_id"
   end
-
-  add_index "interpreting_requests", ["job_id"], name: "index_interpreting_requests_on_job_id"
-  add_index "interpreting_requests", ["user_id", "job_id"], name: "index_interpreting_requests_on_user_id_and_job_id", unique: true
-  add_index "interpreting_requests", ["user_id"], name: "index_interpreting_requests_on_user_id"
 
   create_table "job_completions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_job_completions_on_job_id"
+    t.index ["user_id", "job_id"], name: "index_job_completions_on_user_id_and_job_id", unique: true
+    t.index ["user_id"], name: "index_job_completions_on_user_id"
   end
-
-  add_index "job_completions", ["job_id"], name: "index_job_completions_on_job_id"
-  add_index "job_completions", ["user_id", "job_id"], name: "index_job_completions_on_user_id_and_job_id", unique: true
-  add_index "job_completions", ["user_id"], name: "index_job_completions_on_user_id"
 
   create_table "job_rejections", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_job_rejections_on_job_id"
+    t.index ["user_id", "job_id"], name: "index_job_rejections_on_user_id_and_job_id", unique: true
+    t.index ["user_id"], name: "index_job_rejections_on_user_id"
   end
-
-  add_index "job_rejections", ["job_id"], name: "index_job_rejections_on_job_id"
-  add_index "job_rejections", ["user_id", "job_id"], name: "index_job_rejections_on_user_id_and_job_id", unique: true
-  add_index "job_rejections", ["user_id"], name: "index_job_rejections_on_user_id"
 
   create_table "job_requests", force: :cascade do |t|
     t.string   "requester_first_name"
@@ -151,9 +145,8 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.datetime "denied_at"
     t.boolean  "expired",                       default: false
     t.datetime "expired_at"
+    t.index ["customer_id"], name: "index_job_requests_on_customer_id"
   end
-
-  add_index "job_requests", ["customer_id"], name: "index_job_requests_on_customer_id"
 
   create_table "jobs", force: :cascade do |t|
     t.datetime "start"
@@ -206,9 +199,8 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.datetime "has_interpreter_assigned_at"
     t.boolean  "completed",                                default: false
     t.datetime "completed_at"
+    t.index ["customer_id"], name: "index_jobs_on_customer_id"
   end
-
-  add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"
 
   create_table "manager_invoices", force: :cascade do |t|
     t.datetime "start"
@@ -238,11 +230,10 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.integer  "interpreter_invoice_id"
     t.boolean  "customer_approved",             default: false
     t.datetime "customer_approved_at"
+    t.index ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"
+    t.index ["job_id"], name: "index_manager_invoices_on_job_id"
+    t.index ["user_id"], name: "index_manager_invoices_on_user_id"
   end
-
-  add_index "manager_invoices", ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"
-  add_index "manager_invoices", ["job_id"], name: "index_manager_invoices_on_job_id"
-  add_index "manager_invoices", ["user_id"], name: "index_manager_invoices_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -285,8 +276,7 @@ ActiveRecord::Schema.define(version: 20160424035404) do
     t.boolean  "bei",                               default: false
     t.boolean  "bei_advanced",                      default: false
     t.boolean  "bei_master",                        default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

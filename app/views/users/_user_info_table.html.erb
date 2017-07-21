@@ -1,0 +1,61 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Role
+      </th>
+      <th>
+        Gender
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        Cell Phone Number
+      </th>
+      <th>
+        Joined
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @user.id %>
+      </td>
+      <td>
+        <%= @user.first_name %> <%= @user.last_name %>
+      </td>
+      <td>
+        <% if !@user.approved? %>
+          Pending Interpreter
+        <% elsif @user.admin? %>
+          Administrator
+        <% elsif @user.manager? %>
+          Manager
+        <% else %>
+          Interpreter
+        <% end %>
+      </td>
+      <td>
+        <%= @user.gender %>
+      </td>
+      <td>
+        <%= @user.email %>
+      </td>
+      <td>
+        <%= @user.cell_phone %>
+      </td>
+      <td>
+        <%= @user.created_at.strftime("%b %d, %Y") %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- /.table table-striped table-hover -->

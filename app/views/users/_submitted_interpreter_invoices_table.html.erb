@@ -1,0 +1,66 @@
+<h3 class="page-header">
+  Submitted Interpreter Invoices
+</h3>
+<!-- /.page-header -->
+<% if @interpreter_invoices.count == 0 %>
+  <div class="alert alert-info" role="alert">
+    No results found.
+  </div>
+  <!-- /.alert alert-info -->
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Job
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          <% if current_user.manager? %>
+            Manager Invoice?
+          <% else %>
+            TSHA Invoice?
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @interpreter_invoices.each do |interpreter_invoice| %>
+        <tr>
+          <td>
+            <%= link_to "Invoice ##{interpreter_invoice.id}", interpreter_invoice %>
+          </td>
+          <td>
+            <%= link_to "Job ##{interpreter_invoice.job.id}", interpreter_invoice.job %>
+          <td>
+            <%= interpreter_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <%= interpreter_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <% @manager_invoice = interpreter_invoice.manager_invoices.first %>
+            <% if @manager_invoice %>
+              <% if current_user.manager? %>
+                <%= link_to "Manager Invoice ##{@manager_invoice.id}", @manager_invoice %>
+              <% else %>
+                <%= link_to "TSHA Invoice ##{@manager_invoice.id}", @manager_invoice %>
+              <% end %>
+            <% else %>
+              <span class="label label-warning">Waiting on Manager Invoice</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+<% end %>

@@ -1,30 +1,25 @@
-<% if user_logged_in? && current_user.manager? %>
-  <% provide(:title, 'All Jobs') %>
-<% elsif user_logged_in? && !current_user.manager? && !current_user.active? %>
-  <% provide(:title, 'Account Deactivated') %>
-<% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
-  <% provide(:title, 'Available Jobs') %>
-<% elsif user_logged_in? && !current_user.manager? && !current_user.approved? %>
-  <% provide(:title, 'Awaiting Approval') %>
-<% end %>
-<% if user_logged_in? && current_user.manager? %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? && !current_user.manager? %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% end %>
+<%= render 'layouts/interpreter_or_manager_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">
-        <% if user_logged_in? && current_user.manager? %>
-          All Jobs
-        <% elsif user_logged_in? && !current_user.manager? && !current_user.active? %>
-          Account Deactivated
-        <% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
-          Available Jobs
-        <% elsif user_logged_in? && !current_user.manager? && !current_user.approved? %>
-          Awaiting Approval
+        <% if user_logged_in? %>
+          <% if current_user.manager? %>
+            <% provide(:title, 'All Jobs') %>
+            All Jobs
+          <% elsif !current_user.manager? %>
+            <% if !current_user.active? %>
+              <% provide(:title, 'Account Deactivated') %>
+              Account Deactivated
+            <% elsif current_user.approved? %>
+              <% provide(:title, 'Available Jobs') %>
+              Available Jobs
+            <% elsif !current_user.approved? %>
+              <% provide(:title, 'Awaiting Approval') %>
+              Awaiting Approval
+            <% end %>
+          <% end %>
         <% end %>
       </h3>
       <!-- /.page-header -->
@@ -218,7 +213,7 @@
               <%= link_to "#{job.customer.customer_name}", job %>
             </td>
             <td>
-              <%= link_to "#{job.city}, #{job.state} #{job.zip}", job %>
+              <%= link_to "#{job.city}, #{job.state}", job %>
             </td>
             <td>
               <%= job.start.strftime("%A, %d %b %Y %l:%M %p") %>

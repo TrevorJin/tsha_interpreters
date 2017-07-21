@@ -1,11 +1,5 @@
 <% provide(:title, 'Jobs Pending Approval') %>
-<% if user_logged_in? && current_user.manager? %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? && !current_user.manager? %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% elsif customer_logged_in? %>
-  <%= render 'layouts/customer_dashboard' %>
-<% end %>
+<% render 'layouts/interpreter_or_manager_or_customer_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">

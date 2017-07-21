@@ -1,0 +1,5 @@
+<% if user_logged_in? && current_user.manager? %>
+	<%= render 'layouts/manager_dashboard' %>
+<% elsif customer_logged_in? %>
+	<%= render 'layouts/customer_dashboard' %>
+<% end %>

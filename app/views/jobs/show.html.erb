@@ -1,18 +1,16 @@
 <% provide(:title, "Job #{@job.id}") %>
-<% if customer_logged_in? %>
-  <%= render 'layouts/customer_dashboard' %>
-<% elsif user_logged_in? && current_user.manager? %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? && !current_user.manager? %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% end %>
+<% render 'layouts/interpreter_or_manager_or_customer_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <aside class="col-lg-12">
+      <h3 class="page-header">
+        Job #<%= @job.id %>
+      </h3>
+      <!-- /.page-header -->
       <section class="user_info">
         <% if user_logged_in? && current_user.manager? %>
-          <%= render 'jobs/job_label' %>
+          <%= render 'job_label' %>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
             Show Qualification Requirements 
           </button>
@@ -20,20 +18,20 @@
           <% if !@job.has_interpreter_assigned? && @job.confirmed_interpreters.any? %>
             <%= link_to "Finalize Job and Interpreters", finalize_job_and_interpreters_job_path(id: @job.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to finalize this job?"} %>
           <% end %>
-          <%= render 'jobs/job_qualifications_sheet' %>
+          <%= render 'job_qualifications_sheet' %>
           <% if @confirmed_interpreters.count > 0 %>
             <h3 class="page-header">
               Confirmed Interpreters
             </h3>
             <!-- /.page-header -->
-            <%= render 'jobs/confirmed_interpreters_table' %>
+            <%= render 'confirmed_interpreters_table' %>
           <% end %>
           <% if @attempted_interpreters.count > 0 %>
             <h3 class="page-header">
               Interpreting Requests
             </h3>
             <!-- /.page-header -->
-            <%= render 'jobs/attempted_interpreters_table' %>
+            <%= render 'attempted_interpreters_table' %>
           <% end %>
         <% elsif user_logged_in? && !current_user.manager? %>
           <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: @job.id).first %>
@@ -50,7 +48,7 @@
              :class => "btn btn-success" %>
           <% end %>
         <% end %>
-        <%= render 'jobs/job_info' %>
+        <%= render 'job_info' %>
       </section>
       <!-- /.user_info -->
     </aside>

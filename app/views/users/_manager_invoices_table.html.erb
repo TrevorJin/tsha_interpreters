@@ -1,0 +1,85 @@
+<h3 class="page-header">
+  Manager Invoices
+</h3>
+<!-- /.page-header -->
+<% if @manager_invoices.count == 0 %>
+  <div class="alert alert-info" role="alert">No results found.</div>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Job
+        </th>
+        <% if user_logged_in? %>
+          <th>
+            Interpreter Invoice
+          </th>
+        <% end %>
+        <th>
+          Interpreter
+        </th>
+        <th>
+          Job End
+        </th>
+        <% if user_logged_in? %>
+          <th>
+            Approved by Customer?
+          </th>
+        <% elsif customer_logged_in? %>
+          <th>
+            Action
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @manager_invoices.each do |manager_invoice| %>
+        <tr>
+          <td>
+            <%= link_to "Invoice ##{manager_invoice.id}", manager_invoice %>
+          </td>
+          <td>
+            <%= link_to "Job ##{manager_invoice.job.id}", manager_invoice.job %>
+          </td>
+          <% if user_logged_in? %>
+            <td>
+              <%= link_to "Invoice ##{manager_invoice.interpreter_invoice.id}", manager_invoice.  interpreter_invoice %>
+            </td>
+          <% end %>
+          <td>
+            <% if user_logged_in? %>
+              <%= link_to "#{manager_invoice.user.first_name} #{manager_invoice.user.last_name}", manager_invoice  .user %>
+            <% else %>
+              <%= manager_invoice.user.first_name %> <%= manager_invoice.user.last_name %>
+            <% end %>
+          </td>
+          <td>
+            <%= manager_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <% if user_logged_in? %>
+            <td>
+              <% if manager_invoice.customer_approved? %>
+                <span class="label label-success">Approved by Customer</span>
+              <% else %>
+                <span class="label label-warning">Waiting for Customer Approval</span>
+              <% end %>
+            </td>
+          <% elsif customer_logged_in? %>
+            <td>
+              <% if manager_invoice.customer_approved? %>
+                
+              <% else %>
+                <span class="label label-success">Approved by You</span>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+<% end %>

@@ -1,21 +1,14 @@
-<% if user_logged_in? && current_user.manager? %>
-  <% provide(:title, 'All Interpreter Invoices') %>
-<% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
-  <% provide(:title, 'Your Submitted Invoices') %>
-<% end %>
-<% if user_logged_in? && current_user.manager? %>
-  <%= render 'layouts/manager_dashboard' %>
-<% elsif user_logged_in? && !current_user.manager? %>
-  <%= render 'layouts/interpreter_dashboard' %>
-<% end %>
+<%= render 'layouts/interpreter_or_manager_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">
         <% if user_logged_in? && current_user.manager? %>
+          <% provide(:title, 'All Interpreter Invoices') %>
           All Interpreter Invoices
         <% elsif user_logged_in? && !current_user.manager? && current_user.approved? %>
+          <% provide(:title, 'Your Submitted Invoices') %>
           Your Submitted Invoices
         <% end %>
       </h3>
