@@ -22,15 +22,17 @@
           <% end %>
           <%= render 'jobs/job_qualifications_sheet' %>
           <% if @confirmed_interpreters.count > 0 %>
-            <h1 class="page-header">
+            <h3 class="page-header">
               Confirmed Interpreters
-            </h1>
+            </h3>
+            <!-- /.page-header -->
             <%= render 'jobs/confirmed_interpreters_table' %>
           <% end %>
           <% if @attempted_interpreters.count > 0 %>
-            <h1 class="page-header">
+            <h3 class="page-header">
               Interpreting Requests
-            </h1>
+            </h3>
+            <!-- /.page-header -->
             <%= render 'jobs/attempted_interpreters_table' %>
           <% end %>
         <% elsif user_logged_in? && !current_user.manager? %>

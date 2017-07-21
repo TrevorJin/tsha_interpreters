@@ -131,9 +131,9 @@
           <%= render 'users/edit_qualifications' %>
         <% end %>
         <% if @user.approved? && current_user.manager? && !current_user?(@user) %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Current Jobs
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @current_jobs.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>
@@ -182,9 +182,9 @@
             </table>
             <!-- /.table table-striped table-hover -->
           <% end %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Pending Jobs
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @pending_jobs.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>
@@ -233,9 +233,9 @@
             </table>
             <!-- /.table table-striped table-hover -->
           <% end %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Completed Jobs
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @completed_jobs.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>
@@ -284,9 +284,9 @@
             </table>
             <!-- /.table table-striped table-hover -->
           <% end %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Rejected Jobs
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @rejected_jobs.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>
@@ -329,9 +329,9 @@
             </table>
             <!-- /.table table-striped table-hover -->
           <% end %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Submitted Interpreter Invoices
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @interpreter_invoices.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>
@@ -392,9 +392,9 @@
             </table>
             <!-- /.table table-striped table-hover -->
           <% end %>
-          <h1 class="page-header">
+          <h3 class="page-header">
             Manager Invoices
-          </h1>
+          </h3>
           <!-- /.page-header -->
           <% if @manager_invoices.count == 0 %>
             <div class="alert alert-info" role="alert">No results found.</div>

@@ -4,13 +4,13 @@
   <%= render 'layouts/alerts' %>
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">
+      <h3 class="page-header">
         <% if customer_logged_in? && current_customer.approved? %>
           Rejected Job Requests
         <% elsif customer_logged_in && !current_customer.approved? %>
           Awaiting Approval
         <% end %>
-      </h1>
+      </h3>
       <!-- /.page-header -->
     </div>
     <!-- /.col-lg-12 -->
