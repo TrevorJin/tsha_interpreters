@@ -23,7 +23,7 @@ gem 'momentjs-rails',          '2.9.0'
 gem 'phony_rails',             '0.12.13'
 gem 'puma',                    '3.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',                   '5.0.1'
+gem 'rails',                   '5.0.2'
 gem 'ransack',                 '1.8.2'
 # Use SCSS for stylesheets
 gem 'sass-rails',              '5.0.6'
@@ -40,6 +40,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a
   # debugger console
   gem 'byebug',      '9.0.0', platform: :mri
+  # Newer version of minitest not working with Rails 5.0.2
+  gem "minitest",              '5.10.1'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3',     '1.3.12'
 end
