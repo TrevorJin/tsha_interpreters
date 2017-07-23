@@ -23,6 +23,7 @@ university:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  active: true
 
 # Regular Customer
 
@@ -47,8 +48,9 @@ hideaway:
   activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  active: true
 
-# Regular Customer, not yet approved
+# Regular Customer (Not Approved Yet)
 
 shady:
   customer_name: Shady Corporation
@@ -71,8 +73,9 @@ shady:
   activated_at: <%= Time.zone.now %>
   approved: false
   approved_at:
+  active: true
 
-# Regular customer, deactivated
+# Regular Customer (Not Activated, Not Approved Yet)
 
 pizza_hut:
   customer_name: Pizza Hut
@@ -93,5 +96,31 @@ pizza_hut:
   password_digest: <%= Customer.digest('password') %>
   activated: false
   activated_at:
+  approved: false
+  approved_at:
+  active: true
+
+# Regular Customer (Account Deactivated by Admin)
+
+apple:
+  customer_name: Apple
+  contact_first_name: Johnny
+  contact_last_name: Appleseed
+  contact_phone_number: +18662466453
+  contact_phone_number_extension: 123
+  phone_number: +18662466453
+  phone_number_extension: 321
+  email: johnny.appleseed@apple.com
+  fax: 918-631-5003
+  billing_address_line_1: Apple Headquarters
+  billing_address_line_2: One Infinite Loop
+  billing_address_line_3: Cupertino CA 95014
+  mail_address_line_1: Apple Headquarters
+  mail_address_line_2: One Infinite Loop
+  mail_address_line_3: Cupertino CA 95014
+  password_digest: <%= Customer.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
   approved: true
   approved_at: <%= Time.zone.now %>
+  active: false

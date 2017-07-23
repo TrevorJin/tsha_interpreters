@@ -77,6 +77,7 @@ Rails.application.routes.draw do
       get 'approve_account'
       get 'deactivate_customer'
       get 'reactivate_customer'
+      patch 'change_tsha_number'
     end
   end
 

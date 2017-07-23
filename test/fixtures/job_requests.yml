@@ -1,0 +1,27 @@
+one:
+  requester_first_name: Willy
+  requester_last_name: Wonka
+  office_business_name: Wonka Chocolate Factory
+  requester_email: willy.wonka@gmail.com
+  requester_phone_number: +18662466453
+  requester_fax_number: 918-631-5003
+  start: 2016-10-22 15:10:36
+  end: 2016-10-22 15:11:36
+  deaf_client_first_name: Sammy
+  deaf_client_last_name: Smith
+  contact_person_first_name: Willy
+  contact_person_last_name: Wonka
+  event_location_address_line_1: MyString
+  event_location_address_line_2: MyString
+  event_location_address_line_3: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  office_phone_number: +18662466453
+  type_of_appointment_situation: Certainly an important one
+  message: Better come quick!
+  customer_id: 1
+  awaiting_approval: true
+  accepted: false
+  denied: false
+  expired: false

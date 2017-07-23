@@ -7,7 +7,7 @@
     	<section class="user_info">
     		<div class="page-header">
       		<h3>
-      			#<%= @customer.id %> - <%= @customer.customer_name %>
+      			<%= @customer.customer_name %>
       				<small>
       					Contact: <%= @customer.contact_first_name %> <%= @customer.contact_last_name %>
       				</small>
@@ -40,7 +40,10 @@
           <thead>
             <tr>
               <th>
-                Customer ID
+                TSHA Number
+              </th>
+              <th>
+                System ID
               </th>
               <th>
                 Customer Name
@@ -49,15 +52,15 @@
                 Email
               </th>
               <th>
-                Phone
-              </th>
-              <th>
-                Phone Ext.
+                Fax Number
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td>
+                <%= @customer.tsha_number %>
+              </td>
               <td>
                 <%= @customer.id %>
               </td>
@@ -68,17 +71,17 @@
                 <%= @customer.email %>
               </td>
               <td>
-                <%= @customer.phone_number %>
-              </td>
-              <td>
-                <%= @customer.phone_number_extension %>
+                <%= @customer.fax %>
               </td>
             </tr>
           </tbody>
           <thead>
             <tr>
               <th>
-                Fax Number
+                Customer Phone
+              </th>
+              <th>
+                Phone Ext.
               </th>
               <th>
                 Contact Name
@@ -89,14 +92,15 @@
               <th>
                 Contact Phone Ext.
               </th>
-              <th>
-              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <%= @customer.fax %>
+                <%= @customer.phone_number %>
+              </td>
+              <td>
+                <%= @customer.phone_number_extension %>
               </td>
               <td>
                 <%= @customer.contact_first_name %> <%= @customer.contact_last_name %>
@@ -107,12 +111,19 @@
               <td>
                 <%= @customer.contact_phone_number_extension %>
               </td>
-              <td>
-              </td>
             </tr>
           </tbody>
         </table>
         <!-- /.table table-striped table-hover -->
+        <% if @customer.approved? && user_logged_in? && current_user.manager? %>
+          <h4>
+            Change Customer's TSHA #
+          </h4>
+          <%= form_for @customer, url: change_tsha_number_customer_path(@customer) do |f| %>
+            <%= f.text_field :tsha_number %>
+            <button type="submit" class="button">Update TSHA #</button>
+          <% end %>
+        <% end %>
         <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">

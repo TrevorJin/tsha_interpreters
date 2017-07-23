@@ -31,6 +31,31 @@ class ActiveSupport::TestCase
     session[:customer_id] = customer.id
   end
 
+  def log_in_as_customer
+    @customer = customers(:university)
+    customer_log_in_as(@customer)
+  end
+
+  def log_in_as_regular_user
+    @regular_user = users(:samson)
+    user_log_in_as(@regular_user)
+  end
+
+  def log_in_as_manager
+    @manager_user = users(:sanchez)
+    user_log_in_as(@manager_user)
+  end
+
+  def log_in_as_admin
+    @admin_user = users(:michael)
+    user_log_in_as(@admin_user)
+  end
+
+  def assert_successful_application_layout
+    assert_response :success
+    assert_template layout: "layouts/application"
+  end
+
   def assert_manager_dashboard_present_alone
     assert_manager_dashboard_present
     assert_customer_dashboard_not_present
@@ -48,6 +73,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_manager_dashboard_present
+    assert_successful_application_layout
     assert_not_nil assigns(:pending_users)
     assert_not_nil assigns(:total_users)
     assert_not_nil assigns(:total_customers)
@@ -74,7 +100,6 @@ class ActiveSupport::TestCase
     assert_nil assigns(:pending_customers)
     assert_nil assigns(:job_requests_awaiting_approval)
     assert_nil assigns(:job_requests_not_awaiting_approval)
-    assert_nil assigns(:job_requests)
     assert_nil assigns(:jobs_in_need_of_confirmation)
     assert_nil assigns(:jobs_with_interpreter_assigned)
     assert_nil assigns(:confirmed_jobs)
@@ -86,6 +111,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_customer_dashboard_present
+    assert_successful_application_layout
     assert_not_nil assigns(:pending_job_requests)
     assert_not_nil assigns(:approved_job_requests)
     assert_not_nil assigns(:rejected_job_requests)
@@ -108,6 +134,7 @@ class ActiveSupport::TestCase
   end
 
   def assert_interpreter_dashboard_present
+    assert_successful_application_layout
     assert_not_nil assigns(:user)
     assert_not_nil assigns(:user_jobs)
     assert_not_nil assigns(:current_jobs)
@@ -116,6 +143,16 @@ class ActiveSupport::TestCase
     assert_not_nil assigns(:rejected_jobs)
     assert_not_nil assigns(:interpreter_invoices)
     assert_not_nil assigns(:manager_invoices)
+  end
+
+  def assert_empty_flash_and_root_url_redirect
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  def assert_flash_and_login_url_redirect
+    assert_not flash.empty?
+    assert_redirected_to login_url
   end
 end
 

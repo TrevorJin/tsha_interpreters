@@ -12,7 +12,8 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 phone_number: "+18662466453", phone_number_extension: "1",
     							 					 contact_phone_number: "+18662466453", contact_phone_number_extension: "1",
     							 					 email: "samadams@bostonbeer.com", fax: "111222333",
-                             password: "foobar", password_confirmation: "foobar")
+                             password: "foobar", password_confirmation: "foobar",
+                             tsha_number: 777)
   end
 
   test "customer name should be present" do
