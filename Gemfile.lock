@@ -383,8 +383,8 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (= 3.1.11)
-  better_errors
-  binding_of_caller
+  better_errors (= 2.1.1)
+  binding_of_caller (= 0.7.2)
   bootstrap-sass (= 3.3.6)
   bootstrap-will_paginate (= 0.0.10)
   brakeman
@@ -398,7 +398,7 @@ DEPENDENCIES
   guard-minitest (= 2.4.4)
   jbuilder (= 2.4.1)
   jquery-rails (= 4.1.1)
-  jquery-turbolinks
+  jquery-turbolinks (= 2.1.0)
   listen (= 3.0.8)
   mini_magick (= 4.5.1)
   minitest-reporters (= 1.1.9)
@@ -409,7 +409,7 @@ DEPENDENCIES
   rails (= 5.0.1)
   rails-controller-testing (= 0.1.1)
   rails_12factor (= 0.0.2)
-  ransack
+  ransack (= 1.8.2)
   sass-rails (= 5.0.6)
   simple_form (= 3.3.1)
   spring (= 1.7.2)

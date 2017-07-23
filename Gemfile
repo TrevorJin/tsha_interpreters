@@ -15,7 +15,7 @@ gem 'jbuilder',                '2.4.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails',            '4.1.1'
 # Fix turbolinks glitches
-gem 'jquery-turbolinks'
+gem 'jquery-turbolinks',       '2.1.0'
 gem 'mini_magick',             '4.5.1'
 gem 'momentjs-rails',          '2.9.0'
 # Validate phone numbers
@@ -23,7 +23,7 @@ gem 'phony_rails',             '0.12.13'
 gem 'puma',                    '3.4.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',                   '5.0.1'
-gem 'ransack'
+gem 'ransack',                 '1.8.2'
 # Use SCSS for stylesheets
 gem 'sass-rails',              '5.0.6'
 # Easy forms
@@ -45,8 +45,8 @@ end
 
 group :development do
   # Improved error screens
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  gem 'better_errors',         '2.1.1'
+  gem 'binding_of_caller',     '0.7.2'
   gem 'brakeman', :require => false
   # Listen to file modifications and notifiy about the changes
   gem 'listen',                '3.0.8'
