@@ -6,16 +6,16 @@ class InterpretingRequestTest < ActiveSupport::TestCase
     @interpreting_request = InterpretingRequest.new(user_id: 1, job_id: 2)
   end
 
-  test "should be valid" do
+  test 'should be valid' do
     assert @interpreting_request.valid?
   end
 
-  test "should require a user_id" do
+  test 'should require a user_id' do
     @interpreting_request.user_id = nil
     assert_not @interpreting_request.valid?
   end
 
-  test "should require a job_id" do
+  test 'should require a job_id' do
     @interpreting_request.job_id = nil
     assert_not @interpreting_request.valid?
   end

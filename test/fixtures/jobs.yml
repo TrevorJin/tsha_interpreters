@@ -48,7 +48,7 @@ one:
   completed_at:
   invoice_submitted: false
   invoice_submitted_at:
-  customer_id: 1
+  customer: university
 
 two:
   start: 2016-10-22 15:10:36
@@ -98,4 +98,4 @@ two:
   completed_at:
   invoice_submitted: false
   invoice_submitted_at:
-  customer_id: 2
+  customer: hideaway

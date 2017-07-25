@@ -1,10 +1,17 @@
 class JobsController < ApplicationController
   before_action :logged_in_user, only: [:index, :new, :create,
                                         :new_job_from_job_request,
-                                        :edit, :update, :destroy]
+                                        :edit, :update,
+                                        :finalize_job_and_interpreters,
+                                        :jobs_in_need_of_confirmation,
+                                        :confirmed_jobs,
+                                        :jobs_awaiting_completion,
+                                        :jobs_awaiting_invoice,
+                                        :processed_jobs,
+                                        :expired_jobs]
   before_action :manager_user,   only: [:new, :create,
                                         :new_job_from_job_request,
-                                        :edit, :update, :destroy,
+                                        :edit, :update,
                                         :finalize_job_and_interpreters,
                                         :jobs_in_need_of_confirmation,
                                         :confirmed_jobs,
@@ -20,9 +27,7 @@ class JobsController < ApplicationController
                                            :jobs_awaiting_completion,
                                            :jobs_awaiting_invoice,
                                            :processed_jobs, :expired_jobs]
-  before_action :interpreter_dashboard, only: [:index, :show, :new,
-                                               :new_job_from_job_request,
-                                               :create, :edit]
+  before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:show]
   before_action :update_job_and_job_request_statuses, only: [:index, :show,
                                                              :new, :create,
@@ -94,12 +99,6 @@ class JobsController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def destroy
-    Job.find(params[:id]).destroy
-    flash[:success] = 'Job deleted'
-    redirect_to jobs_url
   end
 
   def finalize_job_and_interpreters
@@ -179,86 +178,5 @@ class JobsController < ApplicationController
     else
       redirect_to root_url
     end
-  end
-
-  # Provides a manager dashboard for a manager.
-  def manager_dashboard
-    if current_user && current_user.manager?
-      @pending_users = User.where(approved: false)
-      @total_users = User.all
-      @total_customers = Customer.all
-      @pending_customers = Customer.where(approved: false)
-      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
-      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
-      @job_requests = JobRequest.all.order(end: :desc)
-      @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
-      @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
-      @confirmed_jobs = []
-      @jobs_awaiting_completion = []
-      @jobs_with_interpreter_assigned.each do |job|
-        if Time.now < job.start
-          @confirmed_jobs.push job
-        end
-        if job.start > Time.now
-          @jobs_awaiting_completion.push job
-        end
-      end
-      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
-      @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(end: :desc)
-      @expired_jobs = Job.where(expired: true).order(end: :desc)
-      @total_jobs = Job.all.order(end: :desc)
-      @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)
-      @manager_invoices = ManagerInvoice.all.order(end: :desc)
-    end
-  end
-
-  # Provides an interpreter dashboard for a regular user.
-  def interpreter_dashboard
-    if current_user && !current_user.manager?
-      @user = current_user
-      @user_jobs = @user.eligible_jobs
-      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
-      @pending_jobs = @user.attempted_jobs.order(end: :desc)
-      @completed_jobs = @user.completed_jobs.order(end: :desc)
-      @rejected_jobs = @user.rejected_jobs.order(end: :desc)
-      @interpreter_invoices = @user.interpreter_invoices.order(end: :desc)
-      @manager_invoices = @user.manager_invoices.order(end: :desc)
-    end
-  end
-
-  # Provides a customer dashboard for a customer.
-  def customer_dashboard
-    if current_customer
-      @pending_job_requests = JobRequest.where('customer_id = ? AND awaiting_approval = ?', current_customer.id, true)
-      @approved_job_requests = JobRequest.where('customer_id = ? AND awaiting_approval = ? AND accepted = ?', current_customer.id, false, true)
-      @rejected_job_requests = JobRequest.where('customer_id = ? AND awaiting_approval = ? AND denied = ?', current_customer.id, false, true)
-      @expired_job_requests = JobRequest.where('customer_id = ? AND awaiting_approval = ? AND expired = ?', current_customer.id, false, true)
-      @total_job_requests = JobRequest.where('customer_id = ?', current_customer.id)
-      @customer = current_customer
-      @current_jobs = Job.joins(:confirmed_interpreters).where('customer_id = ? AND  completed = ?', current_customer.id, false)
-      @completed_jobs = Job.joins(:completing_interpreters).where('customer_id = ? AND completed = ?', current_customer.id, true)
-
-      @customer_jobs = Job.where('customer_id= ?', current_customer.id)
-      @pending_jobs = []
-      @customer_jobs.each do |customer_job|
-        if (!customer_job.confirmed_interpreters.any? && !customer_job.expired?)
-          @pending_jobs.push customer_job
-        end
-      end
-      @manager_invoices = []
-      @customer_jobs = current_customer.jobs
-      @customer_jobs.each do |customer_job|
-        customer_job.manager_invoices.each do |manager_invoice|
-          @manager_invoices.push manager_invoice
-        end
-      end
-    end
-  end
-
-  # Marks jobs and job requests as expired or completed based on the time.
-  def update_job_and_job_request_statuses
-    mark_expired_jobs
-    mark_expired_job_requests
-    mark_completed_jobs
   end
 end

@@ -53,7 +53,7 @@ class ActiveSupport::TestCase
 
   def assert_successful_application_layout
     assert_response :success
-    assert_template layout: "layouts/application"
+    assert_template layout: 'layouts/application'
   end
 
   def assert_manager_dashboard_present_alone

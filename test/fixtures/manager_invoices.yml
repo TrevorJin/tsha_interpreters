@@ -1,0 +1,26 @@
+one:
+  start: 2016-10-22 15:10:36
+  end: 2016-10-22 15:11:36
+  job_type: Regular
+  event_location_address_line_1: MyString
+  event_location_address_line_2: MyString
+  event_location_address_line_3: MyString
+  contact_person_first_name: Willy
+  contact_person_last_name: Wonka
+  contact_person_phone_number: +18662466453
+  interpreter_comments: Great Job
+  user: michael
+  job: one
+  miles: 20
+  mile_rate: 2.5
+  interpreting_hours: 3
+  interpreting_rate: 24
+  extra_miles: 3
+  extra_mile_rate: 3.5
+  extra_interpreting_hours: 2
+  extra_interpreting_rate: 34
+  job_completed: true
+  job_completed_at: 2016-10-23 11:11:36
+  interpreter_invoice: one
+  customer_approved: true
+  customer_approved_at: <%= Time.zone.now %>
