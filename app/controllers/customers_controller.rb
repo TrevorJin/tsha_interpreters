@@ -45,6 +45,10 @@ class CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
+
+    if @customer.approved? && user_logged_in? && current_user.manager?
+      @jobs = @customer.jobs.order(end: :desc)
+    end
   end
 
   def new

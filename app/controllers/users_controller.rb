@@ -132,21 +132,13 @@ class UsersController < ApplicationController
     end
   end
 
-  def current_jobs
+  def current_jobs; end
 
-  end
+  def pending_jobs; end
 
-  def pending_jobs
+  def completed_jobs; end
 
-  end
-
-  def completed_jobs
-    
-  end
-
-  def rejected_jobs
-    
-  end
+  def rejected_jobs; end
 
   def approve_account
     @user = User.find(params[:id])

@@ -1,0 +1,11 @@
+<h4>
+  Admin Options:
+</h4>
+<div class="btn-group" role="group" aria-label="Justified button group">
+  <% if @customer.active? %>
+   <%= link_to "Deactivate Account", deactivate_customer_customer_path(id: @customer.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to deactivate #{@customer.customer_name}'s account? They will no longer be able to use the site."} %>
+  <% else %>
+    <%= link_to "Reactivate Account", reactivate_customer_customer_path(id: @customer.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to reactivate #{@customer.customer_name}'s account? They will be able to use the site again."} %>
+  <% end%>
+</div>
+<!-- /.btn-group btn-group-justified -->
