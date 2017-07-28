@@ -20,7 +20,7 @@
     <!-- /.col-lg-12 -->
   </div>
   <!-- /.row -->
-  <% if user_logged_in? && current_user.manager? %>
+  <% if (user_logged_in? && current_user.manager?) || customer_logged_in? %>
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">
@@ -116,7 +116,7 @@
     </script>
   <% end %>
 
-  <% if user_logged_in? %>
+  <% if user_logged_in? || customer_logged_in? %>
     <%= will_paginate @manager_invoices %>
   <% end %>
 
@@ -201,7 +201,7 @@
   </table>
   <!-- /.table table-striped table-hover -->
 
-  <% if user_logged_in? %>
+  <% if user_logged_in? || customer_logged_in? %>
     <%= will_paginate @manager_invoices %>
   <% end %>
 </div>

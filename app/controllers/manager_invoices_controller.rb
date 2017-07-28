@@ -19,7 +19,7 @@ class ManagerInvoicesController < ApplicationController
   def index
     if current_user && !current_user.manager?
       @manager_invoices = current_user.manager_invoices.paginate(page: params[:page]).order(end: :desc)
-    elsif user_logged_in? && current_user.manager?
+    elsif (user_logged_in? && current_user.manager?) || customer_logged_in?
         # Manager Search
       if params[:search]
         @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
