@@ -39,5 +39,6 @@ ratings:
   - "**.php"
   - "**.py"
 exclude_paths:
+  - "app/assets/javascripts/bootstrap-datetimepicker.js"
 - config/
 - vendor/
