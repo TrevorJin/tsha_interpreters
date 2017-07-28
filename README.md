@@ -1,5 +1,12 @@
 # TSHA Interpreters System
 
+<h1 align="center">
+  <br>
+  <a href="http://www.tsha.cc/"><img src="http://www.tsha.cc/wp-content/uploads/2017/02/TSHA-logo-color-small-for-web.jpg" alt="Saint Stories Banner" width="203"></a>
+</h1>
+
+<h4 align="center">TSHA Interpreters System</h4>
+
 <p align="center">
   <a href="https://codeclimate.com/github/TrevorJin/tsha_interpreters"><img src="https://codeclimate.com/github/TrevorJin/tsha_interpreters/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/TrevorJin/tsha_interpreters/coverage"><img src="https://codeclimate.com/github/TrevorJin/tsha_interpreters/badges/coverage.svg" /></a> <a href="https://travis-ci.org/TrevorJin/tsha_interpreters/"><img src = "https://travis-ci.org/TrevorJin/tsha_interpreters.svg?branch=master" /></a>
 </p>
