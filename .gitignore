@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -19,6 +20,12 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore Spring files.
+/spring/*.pid
+
+# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
+config/initializers/secret_token.rb
+
 # Miscellaneous
 
 *.rbc
@@ -30,3 +37,7 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+.DS_Store
+
+# Ignore application configuration
+/config/application.yml

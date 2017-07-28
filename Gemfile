@@ -41,7 +41,7 @@ group :development, :test do
   # debugger console
   gem 'byebug',      '9.0.0', platform: :mri
   # Newer version of minitest not working with Rails 5.0.2
-  gem "minitest",              '5.10.1'
+  gem 'minitest',              '5.10.1'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3',     '1.3.12'
 end
@@ -66,7 +66,11 @@ group :test do
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
   gem 'minitest-reporters',       '1.1.9'
+  # Provides Travis CI with rack access.
+  gem 'rack',                     '2.0.3'
   gem 'rails-controller-testing', '0.1.1'
+  # Travis CI Ruby Test Coverage
+  gem 'simplecov',                 '0.12.0'
 end
 
 group :production do
