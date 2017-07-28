@@ -24,6 +24,8 @@ university:
   approved: true
   approved_at: <%= Time.zone.now %>
   active: true
+  tsha_number: 777
+  fund_number: 777
 
 # Regular Customer
 
@@ -49,6 +51,8 @@ hideaway:
   approved: true
   approved_at: <%= Time.zone.now %>
   active: true
+  tsha_number: 777
+  fund_number: 777
 
 # Regular Customer (Not Approved Yet)
 
@@ -74,6 +78,8 @@ shady:
   approved: false
   approved_at:
   active: true
+  tsha_number: 777
+  fund_number: 777
 
 # Regular Customer (Not Activated, Not Approved Yet)
 
@@ -99,6 +105,8 @@ pizza_hut:
   approved: false
   approved_at:
   active: true
+  tsha_number: 777
+  fund_number: 777
 
 # Regular Customer (Account Deactivated by Admin)
 
@@ -124,3 +132,5 @@ apple:
   approved: true
   approved_at: <%= Time.zone.now %>
   active: false
+  tsha_number: 777
+  fund_number: 777

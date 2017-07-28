@@ -13,7 +13,7 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 contact_phone_number: '+18662466453', contact_phone_number_extension: '1',
     							 					 email: 'samadams@bostonbeer.com', fax: '111222333',
                              password: 'foobar', password_confirmation: 'foobar',
-                             tsha_number: 777)
+                             tsha_number: 777, fund_number: 777)
   end
 
   test 'customer name should be present' do
@@ -164,4 +164,23 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
   end
 
+  test 'TSHA number should be not be a string' do
+    @customer.tsha_number = 'a'
+    assert_not @customer.valid?
+  end
+
+  test 'TSHA number should be not be a float' do
+    @customer.tsha_number = 777.777
+    assert_not @customer.valid?
+  end
+
+  test 'fund number should be not be a string' do
+    @customer.fund_number = 'a'
+    assert_not @customer.valid?
+  end
+
+  test 'fund number should be not be a float' do
+    @customer.fund_number = 777.777
+    assert_not @customer.valid?
+  end
 end

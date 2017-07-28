@@ -148,7 +148,17 @@ class CustomersController < ApplicationController
 
   def change_tsha_number
     @customer = Customer.find(params[:id])
-    @customer.update_attribute(:tsha_number, params[:customer][:tsha_number])
+    @tsha_number = params[:customer][:tsha_number]
+    @customer.update_attribute(:tsha_number, @tsha_number)
+    flash[:success] = "#{@customer.customer_name}'s TSHA number has been updated to #{@tsha_number}."
+    redirect_to customer_url(@customer)
+  end
+
+  def change_fund_number
+    @customer = Customer.find(params[:id])
+    @fund_number = params[:customer][:fund_number]
+    @customer.update_attribute(:fund_number, @fund_number)
+    flash[:success] = "#{@customer.customer_name}'s fund number has been updated to #{@fund_number}."
     redirect_to customer_url(@customer)
   end
 

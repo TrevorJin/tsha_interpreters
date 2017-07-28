@@ -113,6 +113,38 @@
               </td>
             </tr>
           </tbody>
+          <% if user_logged_in? && current_user.manager? %>
+            <thead>
+              <tr>
+                <th>
+                  Fund Number
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <%= @customer.fund_number %>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
         </table>
         <!-- /.table table-striped table-hover -->
         <% if @customer.approved? && user_logged_in? && current_user.manager? %>
@@ -122,6 +154,13 @@
           <%= form_for @customer, url: change_tsha_number_customer_path(@customer) do |f| %>
             <%= f.text_field :tsha_number %>
             <button type="submit" class="button">Update TSHA #</button>
+          <% end %>
+          <h4>
+            Change Customer's Fund #
+          </h4>
+          <%= form_for @customer, url: change_fund_number_customer_path(@customer) do |f| %>
+            <%= f.text_field :fund_number %>
+            <button type="submit" class="button">Update Fund #</button>
           <% end %>
         <% end %>
         <div class="panel panel-info">

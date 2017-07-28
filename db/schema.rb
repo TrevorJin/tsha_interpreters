@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721202128) do
+ActiveRecord::Schema.define(version: 20170728162017) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170721202128) do
     t.datetime "approved_at"
     t.boolean  "active",                         default: true
     t.integer  "tsha_number"
+    t.integer  "fund_number"
     t.index ["email"], name: "index_customers_on_email", unique: true
   end
 

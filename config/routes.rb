@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       get 'deactivate_customer'
       get 'reactivate_customer'
       patch 'change_tsha_number'
+      patch 'change_fund_number'
     end
   end
 
