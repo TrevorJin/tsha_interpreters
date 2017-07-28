@@ -7,7 +7,7 @@
     	<section class="user_info">
     		<%= render 'name_and_role' %>
         <%= render 'user_info_table' %>
-        <% if current_user?(@user) %>
+        <% if current_user?(@user) && !current_user.manager? %>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
             Show Qualifications
           </button>
