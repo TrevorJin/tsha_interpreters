@@ -112,6 +112,15 @@ module SessionsHelper
     @current_customer = nil
   end
 
+  # Redirect to jobs index unless active interpreter or customer
+  def active_or_manager_user_else_jobs
+    if current_user && !current_user.manager? && !current_user.active?
+      redirect_to(jobs_url)
+    elsif current_customer && !current_customer.active?
+      redirect_to(jobs_url)
+    end
+  end
+  
   # Dashboards
 
   # Provides an interpreter dashboard for a regular user.

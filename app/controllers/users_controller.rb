@@ -1,28 +1,33 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :dashboard, :edit, :update, :promote_to_manager,
-                                        :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
-                                        :approve_account, :pending_users, :deactivate_user,
-                                        :reactivate_user, :promote_qualification, :revoke_qualification,
-                                        :approve_job_request, :reject_job_request, :confirmed_jobs,
-                                        :attempted_jobs, :rejected_jobs, :destroy]
-  before_action :active_or_manager_user, only: [:confirmed_jobs, :attempted_jobs, :rejected_jobs, :current_jobs,
-                                                :pending_jobs, :completed_jobs]
+  before_action :logged_in_user,
+    only: [:index, :show, :dashboard, :edit, :update, :promote_to_manager,
+           :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
+           :approve_account, :pending_users, :deactivate_user, :reactivate_user,
+           :promote_qualification, :revoke_qualification, :approve_job_request,
+           :reject_job_request, :confirmed_jobs, :attempted_jobs, :rejected_jobs,
+           :destroy]
+  before_action :active_or_manager_user_else_jobs,
+    only: [:confirmed_jobs, :attempted_jobs, :rejected_jobs, :current_jobs,
+           :pending_jobs, :completed_jobs]
   before_action :correct_user,   only: [:edit, :update]
   before_action :correct_user_or_manager_user, only: [:show]
-  before_action :logged_in_user_or_customer, only: [:current_jobs, :pending_jobs, :completed_jobs]
-  before_action :manager_user,   only: [:dashboard, :index, :approve_account, :pending_users,
-                                        :promote_qualification, :revoke_qualification, :approve_job_request,
-                                        :reject_job_request]
-  before_action :admin_user,     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
-                                        :demote_to_interpreter, :deactivate_user, :reactivate_user, :destroy]
-  before_action :manager_dashboard, only: [:index, :show, :new, :dashboard, :pending_users, :current_jobs, :pending_jobs,
-                                           :completed_jobs, :rejected_jobs]
-  before_action :interpreter_dashboard, only: [:show, :current_jobs, :pending_jobs, :completed_jobs, :rejected_jobs]
-  before_action :customer_dashboard, only: [:current_jobs, :pending_jobs, :completed_jobs]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show, :new, :edit, :update, :dashboard,
-                                                             :pending_users, :current_jobs, :pending_jobs,
-                                                             :completed_jobs, :rejected_jobs, :confirmed_jobs,
-                                                             :attempted_jobs]
+  before_action :logged_in_user_or_customer,
+    only: [:current_jobs, :pending_jobs, :completed_jobs]
+  before_action :manager_user,
+    only: [:dashboard, :index, :approve_account, :pending_users, :promote_qualification,
+      :revoke_qualification, :approve_job_request, :reject_job_request]
+  before_action :admin_user,
+    only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
+           :demote_to_interpreter, :deactivate_user, :reactivate_user, :destroy]
+  before_action :manager_dashboard,
+    only: [:index, :show, :new, :dashboard, :pending_users, :current_jobs, :pending_jobs,
+           :completed_jobs, :rejected_jobs]
+  before_action :interpreter_dashboard,
+    only: [:show, :current_jobs, :pending_jobs, :completed_jobs, :rejected_jobs]
+  before_action :customer_dashboard,only: [:current_jobs, :pending_jobs, :completed_jobs]
+  before_action :update_job_and_job_request_statuses,
+    only: [:index, :show, :new, :edit, :update, :dashboard, :pending_users, :current_jobs,
+           :pending_jobs, :completed_jobs, :rejected_jobs, :confirmed_jobs, :attempted_jobs]
 
   def index
     # Manager Search
@@ -236,15 +241,6 @@ class UsersController < ApplicationController
         store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
-      end
-    end
-
-    # Confirms the user is activated if not a manager user.
-    def active_or_manager_user
-      if (current_user && !current_user.manager? && !current_user.active?)
-        redirect_to(jobs_url)
-      elsif (current_customer && !current_customer.active?)
-        redirect_to(jobs_url)
       end
     end
 

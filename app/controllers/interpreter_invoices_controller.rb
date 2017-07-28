@@ -1,17 +1,13 @@
 class InterpreterInvoicesController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show,
-                                        :new_interpreter_invoice_from_job,
-                                        :create]
-  before_action :active_user_or_manager_user, only: [:index, :show,
-                                                     :new_interpreter_invoice_from_job,
-                                                     :create]
+  before_action :logged_in_user,
+    only: [:index, :show, :new_interpreter_invoice_from_job, :create]
+  before_action :active_user_or_manager_user,
+    only: [:index, :show, :new_interpreter_invoice_from_job, :create]
   before_action :manager_dashboard, only: [:index, :show]
-  before_action :interpreter_dashboard, only: [:index, :show,
-                                               :new_interpreter_invoice_from_job,
-                                               :create]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show,
-                                                             :new_interpreter_invoice_from_job,
-                                                             :create]
+  before_action :interpreter_dashboard,
+    only: [:index, :show, :new_interpreter_invoice_from_job, :create]
+  before_action :update_job_and_job_request_statuses,
+    only: [:index, :show, :new_interpreter_invoice_from_job, :create]
 
   # Show all interpreter invoices to manager.
   # Show active invoices to regular user.
@@ -21,21 +17,7 @@ class InterpreterInvoicesController < ApplicationController
     elsif current_user && current_user.manager?
       # Manager Search
       if params[:search]
-        @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
-        if params[:search][:created_after].present?
-          created_after_string = params[:search][:created_after].to_s
-          created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
-          @user_invoices = @user_invoices.where('created_at >= ?', created_after)
-          if params[:search][:created_before].present?
-            created_before_string = params[:search][:created_before].to_s
-            created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-            @user_invoices = @user_invoices.where('created_at <= ?', created_before)
-          end
-        elsif params[:search][:created_before].present?
-          created_before_string = params[:search][:created_before].to_s
-          created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-          @user_invoices = @user_invoices.where('created_at <= ?', created_before)
-        end
+        manager_search
       else
         @user_invoices = InterpreterInvoice.paginate(page: params[:page]).order(end: :desc)
       end
@@ -78,6 +60,24 @@ class InterpreterInvoicesController < ApplicationController
                                                 :extra_miles, :extra_mile_rate,
                                                 :extra_interpreting_hours,
                                                 :extra_interpreting_rate)
+  end
+
+  def manager_search
+    @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
+    if params[:search][:created_after].present?
+      created_after_string = params[:search][:created_after].to_s
+      created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
+      @user_invoices = @user_invoices.where('created_at >= ?', created_after)
+      if params[:search][:created_before].present?
+        created_before_string = params[:search][:created_before].to_s
+        created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+        @user_invoices = @user_invoices.where('created_at <= ?', created_before)
+      end
+    elsif params[:search][:created_before].present?
+      created_before_string = params[:search][:created_before].to_s
+      created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
+      @user_invoices = @user_invoices.where('created_at <= ?', created_before)
+    end
   end
 
   # Before filters

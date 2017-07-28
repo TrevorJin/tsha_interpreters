@@ -1,18 +1,15 @@
 class ManagerInvoicesController < ApplicationController
-  before_action :active_or_manager_user, only: [:index, :show]
-  before_action :logged_in_user_or_customer, only: [:show, :index,
-                                                    :new_manager_invoice_from_interpreter_invoice,
-                                                    :create]
-  before_action :manager_user, only: [:new_manager_invoice_from_interpreter_invoice,
-                                      :create]
-  before_action :manager_dashboard, only: [:index, :show,
-                                           :new_manager_invoice_from_interpreter_invoice,
-                                           :create]
+  before_action :active_or_manager_user_else_jobs, only: [:index, :show]
+  before_action :logged_in_user_or_customer,
+    only: [:show, :index, :new_manager_invoice_from_interpreter_invoice, :create]
+  before_action :manager_user,
+    only: [:new_manager_invoice_from_interpreter_invoice, :create]
+  before_action :manager_dashboard,
+    only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:index, :show]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show,
-                                                             :new_manager_invoice_from_interpreter_invoice,
-                                                             :create]
+  before_action :update_job_and_job_request_statuses,
+    only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create]
 
   # Show all manager invoices to manager.
   # Show relevant invoices to interpreters and customers.
@@ -110,15 +107,6 @@ class ManagerInvoicesController < ApplicationController
       store_location
       flash[:danger] = 'Please log in.'
       redirect_to login_url
-    end
-  end
-
-  # Confirms the user is activated if not a manager user.
-  def active_or_manager_user
-    if current_user && !current_user.manager? && !current_user.active?
-      redirect_to(jobs_url)
-    elsif current_customer && !current_customer.active?
-      redirect_to(jobs_url)
     end
   end
 

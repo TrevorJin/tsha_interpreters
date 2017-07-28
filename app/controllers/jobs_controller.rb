@@ -1,62 +1,31 @@
 class JobsController < ApplicationController
-  before_action :logged_in_user, only: [:index, :new, :create,
-                                        :new_job_from_job_request,
-                                        :edit, :update,
-                                        :finalize_job_and_interpreters,
-                                        :jobs_in_need_of_confirmation,
-                                        :confirmed_jobs,
-                                        :jobs_awaiting_completion,
-                                        :jobs_awaiting_invoice,
-                                        :processed_jobs,
-                                        :expired_jobs]
-  before_action :manager_user,   only: [:new, :create,
-                                        :new_job_from_job_request,
-                                        :edit, :update,
-                                        :finalize_job_and_interpreters,
-                                        :jobs_in_need_of_confirmation,
-                                        :confirmed_jobs,
-                                        :jobs_awaiting_completion,
-                                        :jobs_awaiting_invoice,
-                                        :processed_jobs, :expired_jobs]
+  before_action :logged_in_user,
+    only: [:index, :new, :create, :new_job_from_job_request, :edit, :update,
+           :finalize_job_and_interpreters, :jobs_in_need_of_confirmation,
+           :confirmed_jobs, :jobs_awaiting_completion, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
+  before_action :manager_user,
+    only: [:new, :create, :new_job_from_job_request, :edit, :update,
+           :finalize_job_and_interpreters, :jobs_in_need_of_confirmation,
+           :confirmed_jobs, :jobs_awaiting_completion, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
   before_action :manager_correct_customer_or_interpreter, only: [:show]
-  before_action :manager_dashboard, only: [:index, :show, :new,
-                                           :new_job_from_job_request,
-                                           :create, :edit,
-                                           :jobs_in_need_of_confirmation,
-                                           :confirmed_jobs,
-                                           :jobs_awaiting_completion,
-                                           :jobs_awaiting_invoice,
-                                           :processed_jobs, :expired_jobs]
+  before_action :manager_dashboard,
+    only: [:index, :show, :new, :new_job_from_job_request, :create, :edit,
+           :jobs_in_need_of_confirmation, :confirmed_jobs,
+           :jobs_awaiting_completion, :jobs_awaiting_invoice, :processed_jobs,
+           :expired_jobs]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:show]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show,
-                                                             :new, :create,
-                                                             :new_job_from_job_request,
-                                                             :jobs_in_need_of_confirmation,
-                                                             :confirmed_jobs,
-                                                             :jobs_awaiting_completion,
-                                                             :jobs_awaiting_invoice,
-                                                             :processed_jobs,
-                                                             :expired_jobs]
+  before_action :update_job_and_job_request_statuses,
+    only: [:index, :show, :new, :create, :new_job_from_job_request,
+           :jobs_in_need_of_confirmation, :confirmed_jobs, :jobs_awaiting_completion,
+           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
   
   def index
     # Manager Search
     if params[:search]
-      @jobs = Job.search(params[:search][:query], params[:page]).order(end: :desc)
-      if params[:search][:start_after].present?
-        start_after_string = params[:search][:start_after].to_s
-        start_after = DateTime.strptime(start_after_string, '%m-%d-%Y %H:%M')
-        @jobs = @jobs.where('start >= ?', start_after)
-        if params[:search][:end_before].present?
-          end_before_string = params[:search][:end_before].to_s
-          end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
-          @jobs = @jobs.where('end <= ?', end_before)
-        end
-      elsif params[:search][:end_before].present?
-        end_before_string = params[:search][:end_before].to_s
-        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
-        @jobs = @jobs.where('end <= ?', end_before)
-      end
+      job_search
     else
       @jobs = Job.paginate(page: params[:page]).order(end: :desc)
     end
@@ -148,6 +117,24 @@ class JobsController < ApplicationController
                                 :nic_master_required, :rid_sc_l_required,
                                 :bei_required, :bei_advanced_required,
                                 :bei_master_required)
+  end
+
+  def job_search
+    @jobs = Job.search(params[:search][:query], params[:page]).order(end: :desc)
+    if params[:search][:start_after].present?
+      start_after_string = params[:search][:start_after].to_s
+      start_after = DateTime.strptime(start_after_string, '%m-%d-%Y %H:%M')
+      @jobs = @jobs.where('start >= ?', start_after)
+      if params[:search][:end_before].present?
+        end_before_string = params[:search][:end_before].to_s
+        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
+        @jobs = @jobs.where('end <= ?', end_before)
+      end
+    elsif params[:search][:end_before].present?
+      end_before_string = params[:search][:end_before].to_s
+      end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
+      @jobs = @jobs.where('end <= ?', end_before)
+    end
   end
 
   # Before filters

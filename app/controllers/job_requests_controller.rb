@@ -1,16 +1,14 @@
 class JobRequestsController < ApplicationController
   before_action :logged_in_user, only: [:pending_job_requests]
   before_action :manager_user, only: [:pending_job_requests]
-  before_action :manager_or_customer, only: [:index, :show, :new, :create,
-                                             :update]
-  before_action :active_or_manager_user, only: [:show, :new, :create, :update]
-  before_action :manager_dashboard, only: [:index, :show, :new,
-                                           :pending_job_requests]
+  before_action :manager_or_customer,
+    only: [:index, :show, :new, :create, :update]
+  before_action :active_customer_else_job_requests,only: [:show, :new, :create, :update]
+  before_action :manager_dashboard,
+    only: [:index, :show, :new, :pending_job_requests]
   before_action :customer_dashboard, only: [:index, :show, :new, :create]
-  before_action :update_job_and_job_request_statuses, only: [:index, :show,
-                                                             :new, :create,
-                                                             :update,
-                                                             :pending_job_requests]
+  before_action :update_job_and_job_request_statuses,
+    only: [:index, :show, :new, :create, :update, :pending_job_requests]
 
   def index
     # Manager Search
@@ -116,8 +114,8 @@ class JobRequestsController < ApplicationController
     end
   end
 
-  # Confirms the customer is activated if not a manager user.
-  def active_or_manager_user
+  # Redirect to job requests index unless active customer
+  def active_customer_else_job_requests
     if current_customer && !current_customer.active?
       redirect_to(job_requests_url)
     end
