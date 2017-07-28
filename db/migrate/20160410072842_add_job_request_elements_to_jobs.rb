@@ -1,4 +1,4 @@
-class AddJobRequestElementsToJobs < ActiveRecord::Migration
+class AddJobRequestElementsToJobs < ActiveRecord::Migration[4.2]
   def change
   	add_column :jobs, :requester_first_name, :string
   	add_column :jobs, :requester_last_name, :string

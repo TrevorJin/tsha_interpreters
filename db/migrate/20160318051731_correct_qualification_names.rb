@@ -1,4 +1,4 @@
-class CorrectQualificationNames < ActiveRecord::Migration
+class CorrectQualificationNames < ActiveRecord::Migration[4.2]
   def change
   	add_column :users, :qast_1_interpreting, :boolean, default: false
   	add_column :users, :qast_2_interpreting, :boolean, default: false

@@ -1,4 +1,4 @@
-class AddQualificationsToJobs < ActiveRecord::Migration
+class AddQualificationsToJobs < ActiveRecord::Migration[4.2]
   def change
   	add_column :jobs, :qast_1_interpreting_required, :boolean, default: false
   	add_column :jobs, :qast_2_interpreting_required, :boolean, default: false

@@ -1,4 +1,4 @@
-class CreateInterpretingRequests < ActiveRecord::Migration
+class CreateInterpretingRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :interpreting_requests do |t|
     	t.integer :user_id

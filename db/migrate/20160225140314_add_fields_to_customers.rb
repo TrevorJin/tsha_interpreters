@@ -1,4 +1,4 @@
-class AddFieldsToCustomers < ActiveRecord::Migration
+class AddFieldsToCustomers < ActiveRecord::Migration[4.2]
   def change
   	add_column :customers, :contact_last_name, :string
     add_column :customers, :billing_address_line_1, :string

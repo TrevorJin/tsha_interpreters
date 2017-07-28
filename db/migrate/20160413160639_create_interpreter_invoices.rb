@@ -1,4 +1,4 @@
-class CreateInterpreterInvoices < ActiveRecord::Migration
+class CreateInterpreterInvoices < ActiveRecord::Migration[4.2]
   def change
     create_table :interpreter_invoices do |t|
     	t.datetime :start

@@ -1,4 +1,4 @@
-class AddBeiToUsers < ActiveRecord::Migration
+class AddBeiToUsers < ActiveRecord::Migration[4.2]
   def change
   	add_column :users, :bei, :boolean, default: false
   	add_column :users, :bei_advanced, :boolean, default: false

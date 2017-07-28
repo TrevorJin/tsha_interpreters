@@ -1,4 +1,4 @@
-class AddMoreRatesToInterpreterInvoices < ActiveRecord::Migration
+class AddMoreRatesToInterpreterInvoices < ActiveRecord::Migration[4.2]
   def change
   	add_column :interpreter_invoices, :extra_miles, :decimal
   	add_column :interpreter_invoices, :extra_mile_rate, :decimal

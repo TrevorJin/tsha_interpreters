@@ -1,4 +1,4 @@
-class CreateJobCompletions < ActiveRecord::Migration
+class CreateJobCompletions < ActiveRecord::Migration[4.2]
   def change
     create_table :job_completions do |t|
     	t.integer :user_id

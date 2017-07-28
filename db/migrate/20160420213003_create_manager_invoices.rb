@@ -1,4 +1,4 @@
-class CreateManagerInvoices < ActiveRecord::Migration
+class CreateManagerInvoices < ActiveRecord::Migration[4.2]
   def change
     create_table :manager_invoices do |t|
     	t.datetime :start

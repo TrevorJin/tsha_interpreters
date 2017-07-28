@@ -1,4 +1,4 @@
-class CreateJobRequests < ActiveRecord::Migration
+class CreateJobRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :job_requests do |t|
     	t.string :requester_first_name
