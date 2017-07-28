@@ -1,0 +1,47 @@
+<% if @user_jobs.count == 0 %>
+  <%= render 'layouts/no_results_found_alert' %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <th>
+        Location
+      </th>
+      <th>
+        Start
+      </th>
+      <th>
+        End
+      </th>
+      <th>
+        Action?
+      </th>
+    </thead>
+    <tbody>
+      <% @user_jobs.each do |user_job| %>
+        <tr>
+          <td>
+            <%= user_job.city %>, <%= user_job.state %>
+          </td>
+          <td>
+            <%= user_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <%= user_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Justified button group">
+              <%= form_for(current_user.attempted_job_requests.build) do |f| %>
+                <div>
+                  <%= hidden_field_tag :job_id, user_job.id %>
+                </div>
+                <%= f.submit "Request", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+            <!-- /.btn-group btn-group-justified -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+<% end %>

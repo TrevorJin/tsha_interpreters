@@ -1,4 +1,3 @@
-<% provide(:title, 'Current Jobs') %>
 <%= render 'layouts/interpreter_or_manager_or_customer_dashboard' %>
 <div id="page-wrapper">
   <%= render 'layouts/alerts' %>
@@ -6,12 +5,16 @@
     <div class="col-lg-12">
       <h3 class="page-header">
         <% if user_logged_in? && current_user.approved? %>
+          <% provide(:title, 'Current Jobs') %>
           Current Jobs
         <% elsif user_logged_in? && !current_user.approved? %>
+          <% provide(:title, 'Awaiting Approval') %>
           Awaiting Approval
         <% elsif customer_logged_in? && !current_customer.approved? %>
+          <% provide(:title, 'Awaiting Approval') %>
           Awaiting Approval
         <% elsif customer_logged_in? && current_customer.approved? %>
+          <% provide(:title, 'Current Jobs') %>
           Current Jobs
         <% end %>
       </h3>
@@ -21,165 +24,16 @@
   </div>
   <!-- /.row -->
   <% if user_logged_in? && !current_user.manager? && !current_user.approved? %>
-    <p style="text-align: center">
-      Please wait for TSHA to approve your account before current jobs can be viewed.
-    </p>
+    <%= render 'layouts/please_wait_for_tsha_to_approve_you' %>
   <% elsif customer_logged_in? && !current_customer.approved? %>
-    <p style="text-align: center">
-      Please wait for TSHA to approve your account before current jobs can be viewed.
-    </p>
+    <%= render 'layouts/please_wait_for_tsha_to_approve_you' %>
   <% end %>
-  <% if user_logged_in? && current_user.approved? && !current_user.manager? && @current_jobs.count > 0 %>
-		<table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-            Contact
-          </th>
-          <th>
-            Location
-          </th>
-          <th>
-            Start
-          </th>
-          <th>
-            End
-          </th>
-          <th>
-            Status
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @current_jobs.each do |current_job| %>
-          <tr>
-            <td>
-              <%= link_to "Job ##{current_job.id}", current_job %>
-            </td>
-            <td>
-              <%= link_to "#{current_job.contact_person_first_name} #{current_job.contact_person_last_name}", current_job %>
-            </td>
-            <td>
-              <%= current_job.city %>, <%= current_job.state %>
-            </td>
-            <td>
-              <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id).first %>
-              <% if current_job.job_status_processed? %>
-                <span class="label label-success">Processed</span>
-              <% elsif current_job.start < Time.now && current_job.end > Time.now %>
-                <span class="label label-warning">In Progress</span>
-              <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && !@interpreter_invoice %>
-                <span class="label label-warning">Awaiting Your Invoice</span>
-              <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && @interpreter_invoice %>
-                <span class="label label-success">Waiting for Manager</span>
-              <% elsif current_job.end < Time.now && current_job.invoice_submitted? %>
-                <span class="label label-success">Invoice Submitted</span>
-              <% elsif current_job.start > Time.now %>
-                <span class="label label-warning">Not Started</span>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <!-- /.table table-striped table-hover -->
-  <% elsif user_logged_in? && current_user.manager? && @current_jobs.count > 0 %>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-           Customer Name
-          </th>
-          <th>
-            Location
-          </th>
-          <th>
-            Start
-          </th>
-          <th>
-            End
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @current_jobs.each do |current_job| %>
-          <tr>
-            <td>
-              <%= link_to "Job ##{current_job.id}", current_job %>
-            </td>
-            <td>
-              <%= link_to "#{current_job.customer.customer_name}", current_job %>
-            </td>
-            <td>
-              <%= current_job.city %>, <%= current_job.state %> <%= current_job.zip %>
-            </td>
-            <td>
-              <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <!-- /.table table-striped table-hover -->
-    <% elsif customer_logged_in? && @current_jobs.count > 0 %>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-           Customer Name
-          </th>
-          <th>
-            Location
-          </th>
-          <th>
-            Start
-          </th>
-          <th>
-            End
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @current_jobs.each do |current_job| %>
-          <tr>
-            <td>
-              <%= link_to "Job ##{current_job.id}", current_job %>
-            </td>
-            <td>
-              <%= link_to "#{current_job.customer.customer_name}", current_job %>
-            </td>
-            <td>
-              <%= current_job.city %>, <%= current_job.state %> <%= current_job.zip %>
-            </td>
-            <td>
-              <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-            <td>
-              <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <!-- /.table table-striped table-hover -->
+  <% if user_logged_in? && current_user.approved? && !current_user.manager? %>
+		<%= render 'interpreter_current_jobs_table' %>
+  <% elsif user_logged_in? && current_user.manager? %>
+    <%= render 'manager_current_jobs_table' %>
+  <% elsif customer_logged_in? %>
+    <%= render 'customer_current_jobs_table' %>
   <% end %>
 </div>
 <!-- /.page-wrapper -->

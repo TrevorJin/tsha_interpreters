@@ -1,18 +1,18 @@
 <div class="container">
-	<%= render 'layouts/alerts' %>
-	<div class="center jumbotron">
-		<%= link_to image_tag("tshalogo.png", alt: "TSHA Logo"), 'http://www.tsha.cc' %>
-		<h3>
-			TSHA Interpreters
-		</h3>
-		<h2>
-			This is the home page for TSHA's interpreter matching system. For more info on TSHA, please visit <a href="http://www.tsha.cc/">TSHA's website</a>.
-		</h2>
-		<% if !user_logged_in? && !customer_logged_in? %>
-			<%= link_to "Looking for an interpreter? Sign up as a customer", customer_signup_path, class: "btn btn-lg btn-primary" %>
-			<%= link_to "Sign up as an interpreter", interpreter_signup_path, class: "btn btn-lg btn-primary" %>
-		<% end %>
-	</div>
-	<!-- /.center jumbotron -->
+  <%= render 'layouts/alerts' %>
+  <div class="center jumbotron">
+    <%= link_to image_tag("tshalogo.png", alt: "TSHA Logo"), 'http://www.tsha.cc' %>
+    <h3>
+      TSHA Interpreters
+    </h3>
+    <h2>
+      This is the home page for TSHA's interpreter matching system. For more info on TSHA, please visit <a href="http://www.tsha.cc/">TSHA's website</a>.
+    </h2>
+    <% if !user_logged_in? && !customer_logged_in? %>
+      <%= link_to "Looking for an interpreter? Sign up as a customer", customer_signup_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Sign up as an interpreter", interpreter_signup_path, class: "btn btn-lg btn-primary" %>
+    <% end %>
+  </div>
+  <!-- /.center jumbotron -->
 </div>
 <!-- /.container -->

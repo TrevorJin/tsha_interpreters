@@ -1,32 +1,13 @@
-<% provide(:title, "Edit customer") %>
+<% provide(:title, "Update Your Profile") %>
 <%= render 'layouts/alerts' %>
 <h3>
-  Update your profile
+  Update Your Profile
 </h3>
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <%= simple_form_for @customer do |f| %>
-        <%= f.input :customer_name %>
-        <%= f.input :email %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
-        <%= f.input :contact_first_name %>
-        <%= f.input :contact_last_name %>
-        <%= f.input :billing_address_line_1 %>
-        <%= f.input :billing_address_line_2 %>
-        <%= f.input :billing_address_line_3 %>
-        <%= f.input :mail_address_line_1 %>
-        <%= f.input :mail_address_line_2 %>
-        <%= f.input :mail_address_line_3 %>
-        <%= f.input :phone_number %>
-        <%= f.input :phone_number_extension %>
-        <%= f.input :contact_phone_number %>
-        <%= f.input :contact_phone_number_extension %>
-        <%= f.input :fax %>
-        <%= f.submit "Save Changes", class: "btn btn-primary" %>
-      <% end %>
-    </div>
-    <!-- /.col-md8 col-md-offset-2 -->
+  <div class="col-md-8 col-md-offset-2">
+    <%= render 'form' %>
   </div>
-  <!-- /.row -->
+  <!-- /.col-md8 col-md-offset-2 -->
+</div>
+<!-- /.row -->

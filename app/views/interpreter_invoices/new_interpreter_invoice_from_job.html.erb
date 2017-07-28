@@ -14,62 +14,7 @@
   <!-- /.row -->
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <%= simple_form_for @interpreter_invoice do |f| %>
-        <%= f.input :user_id, as: :hidden, :input_html => { :value => "#{current_user.id}" } %>
-        <%= f.input :job_id, as: :hidden, :input_html => { :value => "#{params[:job_id]}" } %>
-        <% if params[:start] %>
-          <%= f.hint "Suggested Start Date and Time from Job: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
-        <% end %>
-        <%= f.input :start, as: :date %>
-        <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
-        <% if params[:end] %>
-          <%= f.hint "Suggested End Date and Time from Job: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
-        <% end %>
-        <%= f.input :end, as: :date %>
-        <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
-        <%= f.input :job_type, :collection => job_types, :selected => "Regular" %>
-        <% if params[:event_location_address_line_1] %>
-          <%= f.input :event_location_address_line_1, :input_html => { :value => params[:event_location_address_line_1] } %>
-        <% else %>
-          <%= f.input :event_location_address_line_1 %>
-        <% end %>
-        <% if params[:event_location_address_line_2] %>
-          <%= f.input :event_location_address_line_2, :input_html => { :value => params[:event_location_address_line_2] } %>
-        <% else %>
-          <%= f.input :event_location_address_line_2 %>
-        <% end %>
-        <% if params[:event_location_address_line_3] %>
-          <%= f.input :event_location_address_line_3, :input_html => { :value => params[:event_location_address_line_3] } %>
-        <% else %>
-          <%= f.input :event_location_address_line_3 %>
-        <% end %>
-        <% if params[:contact_person_first_name] %>
-          <%= f.input :contact_person_first_name, :input_html => { :value => params[:contact_person_first_name] } %>
-        <% else %>
-          <%= f.input :contact_person_first_name %>
-        <% end %>
-        <% if params[:contact_person_last_name] %>
-          <%= f.input :contact_person_last_name, :input_html => { :value => params[:contact_person_last_name] } %>
-        <% else %>
-          <%= f.input :contact_person_last_name %>
-        <% end %>
-        <% if params[:contact_person_phone_number] %>
-          <%= f.input :contact_person_phone_number, :input_html => { :value => params[:contact_person_phone_number] } %>
-        <% else %>
-          <%= f.input :contact_person_phone_number %>
-        <% end %>
-        <%= f.input :miles, placeholder: 'Example: 17' %>
-        <%= f.input :mile_rate, placeholder: 'Example: 8.50' %>
-        <%= f.input :interpreting_hours, placeholder: 'Example: 2' %>
-        <%= f.input :interpreting_rate, placeholder: 'Example: 8.50' %>
-        <%= f.input :extra_miles, placeholder: 'Example: 5' %>
-        <%= f.input :extra_mile_rate, placeholder: 'Example: 9.50' %>
-        <%= f.input :extra_interpreting_hours, placeholder: 'Example: 2' %>
-        <%= f.input :extra_interpreting_rate, placeholder: 'Example: 9.50' %>
-        <%= f.input :interpreter_comments %>
-
-        <%= f.submit "Submit Invoice", class: "btn btn-primary" %>
-      <% end %>
+      <%= render 'form' %>
     </div>
     <!-- /.col-md-8 col-md-offset-2 -->
   </div>

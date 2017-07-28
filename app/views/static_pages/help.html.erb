@@ -1,24 +1,24 @@
 <% provide(:title, "Help") %>
 <script type="text/javascript">
-	$('body').scrollspy({
+  $('body').scrollspy({
     target: '.bs-docs-sidebar',
     offset: 40
-	});
+  });
 </script>
 <div class="container">
-	<%= render 'layouts/alerts' %>
-    <div class="row">
-        <% if user_logged_in? && current_user.manager? %>
-            <%= render 'static_pages/admin_help_menu' %>
-            <%= render 'static_pages/admin_help_content' %>
-        <% elsif user_logged_in? && !current_user.manager? %>
-            <%= render 'static_pages/interpreter_help_menu' %>
-            <%= render 'static_pages/interpreter_help_content' %>
-        <% elsif customer_logged_in? %>
-            <%= render 'static_pages/customer_help_menu' %>
-            <%= render 'static_pages/customer_help_content' %>
-        <% end %>
-    </div>
-    <!-- /.row -->
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <% if user_logged_in? && current_user.manager? %>
+      <%= render 'static_pages/admin_help_menu' %>
+      <%= render 'static_pages/admin_help_content' %>
+    <% elsif user_logged_in? && !current_user.manager? %>
+      <%= render 'static_pages/interpreter_help_menu' %>
+      <%= render 'static_pages/interpreter_help_content' %>
+    <% elsif customer_logged_in? %>
+      <%= render 'static_pages/customer_help_menu' %>
+      <%= render 'static_pages/customer_help_content' %>
+    <% end %>
+  </div>
+  <!-- /.row -->
 </div>
 <!-- /.container -->

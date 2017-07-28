@@ -36,16 +36,7 @@
         <% elsif user_logged_in? && !current_user.manager? %>
           <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: @job.id).first %>
           <% if @job.has_interpreter_assigned? && @job.start < Time.now && !@job.invoice_submitted? && !@interpreter_invoice %>
-            <%= link_to "Submit Invoice", new_interpreter_invoice_from_job_interpreter_invoice_path(
-             :user_id => current_user.id, :job_id => @job.id,
-             :start => @job.start, :end => @job.end,
-             :contact_person_first_name => @job.contact_person_first_name,
-             :contact_person_last_name => @job.contact_person_last_name,
-             :contact_person_phone_number => @job.customer.contact_phone_number,
-             :event_location_address_line_1 => @job.address_line_1,
-             :event_location_address_line_2 => @job.address_line_2,
-             :event_location_address_line_3 => @job.address_line_3),
-             :class => "btn btn-success" %>
+            <%= render 'submit_invoice_button' %>
           <% end %>
         <% end %>
         <%= render 'job_info' %>

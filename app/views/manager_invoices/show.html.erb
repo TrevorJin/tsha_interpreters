@@ -1,4 +1,3 @@
-<% provide(:title, "Manager Invoice #{@manager_invoice.id}") %>
 <% if user_logged_in? && current_user.manager? %>
   <%= render 'layouts/manager_dashboard' %>
 <% elsif user_logged_in? && !current_user.manager? %>
@@ -12,8 +11,10 @@
     <aside class="col-lg-12">
       <h3 class="page-header">
         <% if customer_logged_in? %>
+          <% provide(:title, "TSHA Invoice #{@manager_invoice.id}") %>
           TSHA Invoice #<%= @manager_invoice.id %>
         <% else %>
+          <% provide(:title, "Manager Invoice #{@manager_invoice.id}") %>
           Manager Invoice #<%= @manager_invoice.id %>
         <% end %>
       </h3>

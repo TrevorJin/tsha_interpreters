@@ -1,21 +1,12 @@
-<% provide(:title, "Edit user") %>
+<% provide(:title, "Update Your Profile") %>
 <%= render 'layouts/alerts' %>
 <h3>
-  Update your profile
+  Update Your Profile
 </h3>
 
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
-    <%= simple_form_for @user do |f| %>
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-      <%= f.input :gender, :collection => gender_options %>
-      <%= f.input :cell_phone %>
-      <%= f.input :email %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-      <%= f.submit "Save Changes", class: "btn btn-primary" %>
-    <% end %>
+    <%= render 'form' %>
   </div>
   <!-- /.col-md-4 col-md-offset-4 -->
 </div>

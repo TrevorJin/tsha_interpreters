@@ -1,0 +1,46 @@
+<%= simple_form_for @job do |f| %>
+  <%= f.association :customer, label_method: :customer_name, :value_method => :id, collection: Customer.order('customer_name ASC') %>
+  <%= f.input :start, as: :date %>
+  <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
+  <%= f.input :end, as: :date %>
+  <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
+  <%= f.input :requester_first_name %>
+  <%= f.input :requester_last_name %>
+  <%= f.input :requester_email %>
+  <%= f.input :requester_phone_number %>
+  <%= f.input :contact_person_first_name %>
+  <%= f.input :contact_person_last_name %>
+  <%= f.input :address_line_1 %>
+  <%= f.input :address_line_2 %>
+  <%= f.input :address_line_3 %>
+  <%= f.input :city %>
+  <%= f.input :state, :collection => us_states %>
+  <%= f.input :zip %>
+  <%= f.input :invoice_notes %>
+  <%= f.input :notes_for_irp %>
+  <%= f.input :notes_for_interpreter %>
+  <%= f.input :directions %>
+  <%= f.label "Qualifications" %>
+  <%= f.input :qast_1_interpreting_required %>
+  <%= f.input :qast_2_interpreting_required %>
+  <%= f.input :qast_3_interpreting_required %>
+  <%= f.input :qast_4_interpreting_required %>
+  <%= f.input :qast_5_interpreting_required %>
+  <%= f.input :qast_1_transliterating_required_required %>
+  <%= f.input :qast_2_transliterating_required %>
+  <%= f.input :qast_3_transliterating_required %>
+  <%= f.input :qast_4_transliterating_required %>
+  <%= f.input :qast_5_transliterating_required %>
+  <%= f.input :rid_ci_required %>
+  <%= f.input :rid_ct_required %>
+  <%= f.input :rid_cdi_required %>
+  <%= f.input :rid_sc_l_required %>
+  <%= f.input :di_required %>
+  <%= f.input :nic_required %>
+  <%= f.input :nic_advanced_required %>
+  <%= f.input :nic_master_required %>
+  <%= f.input :bei_required %>
+  <%= f.input :bei_advanced_required %>
+  <%= f.input :bei_master_required %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

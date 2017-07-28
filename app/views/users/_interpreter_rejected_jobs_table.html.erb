@@ -1,0 +1,41 @@
+<% if @rejected_jobs.count == 0 %>
+  <%= render 'layouts/no_results_found_alert' %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          Location
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rejected_jobs.each do |rejected_job| %>
+        <tr>
+          <td>
+            <%= rejected_job.city %>, <%= rejected_job.state %>
+          </td>
+          <td>
+            <%= rejected_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            <%= rejected_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+          </td>
+          <td>
+            TBD
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- /.table table-striped table-hover -->
+<% end %>

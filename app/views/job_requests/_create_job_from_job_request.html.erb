@@ -1,0 +1,14 @@
+<%= link_to "Create Job From Job Request", new_job_from_job_request_job_path(
+  :customer_id => @job_request.customer.id, :job_request_id => @job_request.id,
+  :start => @job_request.start, :end => @job_request.end,
+  :requester_first_name => @job_request.requester_first_name,
+  :requester_last_name => @job_request.requester_last_name,
+  :requester_email => @job_request.requester_email,
+  :requester_phone_number => @job_request.requester_phone_number,
+  :contact_person_first_name => @job_request.contact_person_first_name,
+  :contact_person_last_name => @job_request.contact_person_last_name,
+  :address_line_1 => @job_request.event_location_address_line_1,
+  :address_line_2 => @job_request.event_location_address_line_2,
+  :address_line_3 => @job_request.event_location_address_line_3,
+  :city => @job_request.city, :state => @job_request.state, :zip => @job_request.zip), :class => "btn btn-primary" %>
+  

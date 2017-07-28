@@ -1,0 +1,96 @@
+<%= simple_form_for @job do |f| %>
+  <%= f.association :customer, label_method: :customer_name, :selected => params[:customer_id], :value_method => :id, collection: Customer.order('customer_name ASC') %>
+  <%= f.hint "Suggested Start Date and Time from Job Request: #{DateTime.parse(params[:start]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+  <%= f.input :start, as: :date %>
+  <%= f.input :start, as: :time, :ampm => true, :ignore_date => true %>
+  <%= f.hint "Suggested End Date and Time from Job Request: #{DateTime.parse(params[:end]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+  <%= f.input :end, as: :date %>
+  <%= f.input :end, as: :time, :ampm => true, :ignore_date => true %>
+  <% if params[:requester_first_name] %>
+    <%= f.input :requester_first_name, :input_html => { :value => params[:requester_first_name] } %>
+  <% else %>
+    <%= f.input :requester_first_name %>
+  <% end %>
+  <% if params[:requester_last_name] %>
+    <%= f.input :requester_last_name, :input_html => { :value => params[:requester_last_name] } %>
+  <% else %>
+    <%= f.input :requester_last_name %>
+  <% end %>
+  <% if params[:requester_email] %>
+    <%= f.input :requester_email, :input_html => { :value => params[:requester_email] } %>
+  <% else %>
+    <%= f.input :requester_email %>
+  <% end %>
+  <% if params[:requester_phone_number] %>
+    <%= f.input :requester_phone_number, :input_html => { :value => params[:requester_phone_number] } %>
+  <% else %>
+    <%= f.input :requester_phone_number %>
+  <% end %>
+  <% if params[:contact_person_first_name] %>
+    <%= f.input :contact_person_first_name, :input_html => { :value => params[:contact_person_first_name] } %>
+  <% else %>
+    <%= f.input :contact_person_first_name %>
+  <% end %>
+  <% if params[:contact_person_last_name] %>
+    <%= f.input :contact_person_last_name, :input_html => { :value => params[:contact_person_last_name] } %>
+  <% else %>
+    <%= f.input :contact_person_last_name %>
+  <% end %>
+  <% if params[:address_line_1] %>
+    <%= f.input :address_line_1, :input_html => { :value => params[:address_line_1] } %>
+  <% else %>
+    <%= f.input :address_line_1 %>
+  <% end %>
+  <% if params[:address_line_2] %>
+    <%= f.input :address_line_2, :input_html => { :value => params[:address_line_2] } %>
+  <% else %>
+    <%= f.input :address_line_2 %>
+  <% end %>
+  <% if params[:address_line_3] %>
+    <%= f.input :address_line_3, :input_html => { :value => params[:address_line_3] } %>
+  <% else %>
+    <%= f.input :address_line_3 %>
+  <% end %>
+  <% if params[:city] %>
+    <%= f.input :city, :input_html => { :value => params[:city] } %>
+  <% else %>
+    <%= f.input :city %>
+  <% end %>
+  <% if params[:state] %>
+    <%= f.input :state, :collection => us_states, :selected => params[:state] %>
+  <% else %>
+    <%= f.input :state, :collection => us_states %>
+  <% end %>
+  <% if params[:zip] %>
+    <%= f.input :zip, :input_html => { :value => params[:zip] } %>
+  <% else %>
+    <%= f.input :zip %>
+  <% end %>
+  <%= f.input :invoice_notes %>
+  <%= f.input :notes_for_irp %>
+  <%= f.input :notes_for_interpreter %>
+  <%= f.input :directions %>
+  <%= f.label "Qualifications" %>
+  <%= f.input :qast_1_interpreting_required %>
+  <%= f.input :qast_2_interpreting_required %>
+  <%= f.input :qast_3_interpreting_required %>
+  <%= f.input :qast_4_interpreting_required %>
+  <%= f.input :qast_5_interpreting_required %>
+  <%= f.input :qast_1_transliterating_required_required %>
+  <%= f.input :qast_2_transliterating_required %>
+  <%= f.input :qast_3_transliterating_required %>
+  <%= f.input :qast_4_transliterating_required %>
+  <%= f.input :qast_5_transliterating_required %>
+  <%= f.input :rid_ci_required %>
+  <%= f.input :rid_ct_required %>
+  <%= f.input :rid_cdi_required %>
+  <%= f.input :rid_sc_l_required %>
+  <%= f.input :di_required %>
+  <%= f.input :nic_required %>
+  <%= f.input :nic_advanced_required %>
+  <%= f.input :nic_master_required %>
+  <%= f.input :bei_required %>
+  <%= f.input :bei_advanced_required %>
+  <%= f.input :bei_master_required %>
+  <%= f.submit "Create Job", class: "btn btn-primary" %>
+<% end %>
