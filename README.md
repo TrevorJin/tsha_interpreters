@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="http://www.tsha.cc/"><img src="http://www.tsha.cc/wp-content/uploads/2017/02/TSHA-logo-color-small-for-web.jpg" alt="Saint Stories Banner" width="203"></a>
+  <a href="http://www.tsha.cc/"><img src="https://www.tsha.cc/wp-content/uploads/2017/02/TSHA-logo-color-small-for-web.jpg" alt="Saint Stories Banner" width="203"></a>
 </h1>
 
 <h3 align="center">TSHA Interpreters System</h3>
@@ -18,7 +18,7 @@
 
 ## What is TSHA?
 
-Total Source for Hearing-loss and Access, TSHA is a non-profit Tulsa Area United Way member agency. The focus at TSHA is to equip deaf, hard of hearing, and deaf with additional disabilities with the tools they need to live independently. TSHA also provides services for interested individuals: family, friends, employers, and employees. These services include sign language interpreters, advocacy, sign language classes, support groups, and information.
+TSHA is a non-profit Tulsa Area United Way member agency. The focus at TSHA is to equip deaf, hard of hearing, and deaf with additional disabilities with the tools they need to live independently. TSHA also provides services for interested individuals: family, friends, employers, and employees. These services include sign language interpreters, advocacy, sign language classes, support groups, and information.
 
 TSHA provides information and support to parents of children
 with hearing loss. We support the philosophy that these
