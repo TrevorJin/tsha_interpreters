@@ -206,15 +206,6 @@ class Job < ApplicationRecord
     end
   end
 
-  # Checks if the job is awaiting completion.
-  def job_status_awaiting_completion?
-    if self.has_interpreter_assigned? && !self.completed?
-      return true
-    else
-      return false
-    end
-  end
-
   # Checks if the job is awaiting invoice.
   def job_status_awaiting_invoice?
     if self.has_interpreter_assigned? && !self.invoice_submitted? && self.completed?

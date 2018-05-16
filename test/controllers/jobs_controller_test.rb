@@ -232,37 +232,6 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_manager_dashboard_present_alone
   end
 
-  test 'should redirect jobs awaiting completion when not logged in' do
-    get awaiting_completion_path
-    assert_flash_and_login_url_redirect
-  end
-
-  test 'should redirect jobs awaiting completion when logged in as a regular user' do
-    log_in_as_regular_user
-    get awaiting_completion_path
-    assert_empty_flash_and_root_url_redirect
-  end
-
-  test 'should redirect jobs awaiting completion when logged in as a customer' do
-    log_in_as_customer
-    get awaiting_completion_path
-    assert_flash_and_login_url_redirect
-  end
-
-  test 'should get jobs awaiting completion when logged in as a manager user with manager dashboard' do
-    log_in_as_manager
-    get awaiting_completion_path
-    assert_template :jobs_awaiting_completion
-    assert_manager_dashboard_present_alone
-  end
-
-  test 'should get jobs awaiting completion when logged in as an admin user with manager dashboard' do
-    log_in_as_admin
-    get awaiting_completion_path
-    assert_template :jobs_awaiting_completion
-    assert_manager_dashboard_present_alone
-  end
-
   test 'should redirect awaiting invoice when not logged in' do
     get awaiting_invoice_path
     assert_flash_and_login_url_redirect

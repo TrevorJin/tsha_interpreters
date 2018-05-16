@@ -56,11 +56,6 @@
               <% end %>
             </li>
             <li>
-              <%= link_to awaiting_completion_path do %>
-                Awaiting Completion <%= content_tag :span, "#{@jobs_awaiting_completion.count}", :class => "badge" %>
-              <% end %>
-            </li>
-            <li>
               <%= link_to awaiting_invoice_path do %>
                 Awaiting Invoice <%= content_tag :span, "#{@jobs_awaiting_invoice.count}", :class => "badge" %>
               <% end %>
