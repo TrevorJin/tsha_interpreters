@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728162017) do
+ActiveRecord::Schema.define(version: 20180516155544) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "user_id"
@@ -277,6 +277,7 @@ ActiveRecord::Schema.define(version: 20170728162017) do
     t.boolean  "bei",                               default: false
     t.boolean  "bei_advanced",                      default: false
     t.boolean  "bei_master",                        default: false
+    t.integer  "vendor_number"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

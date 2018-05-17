@@ -5,7 +5,7 @@ class UsersController < ApplicationController
            :approve_account, :pending_users, :deactivate_user, :reactivate_user,
            :promote_qualification, :revoke_qualification, :approve_job_request,
            :reject_job_request, :confirmed_jobs, :attempted_jobs, :rejected_jobs,
-           :destroy]
+           :destroy, :change_vendor_number]
   before_action :active_or_manager_user_else_jobs,
     only: [:confirmed_jobs, :attempted_jobs, :rejected_jobs, :current_jobs,
            :pending_jobs, :completed_jobs]
@@ -15,7 +15,8 @@ class UsersController < ApplicationController
     only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :manager_user,
     only: [:dashboard, :index, :approve_account, :pending_users, :promote_qualification,
-      :revoke_qualification, :approve_job_request, :reject_job_request]
+      :revoke_qualification, :approve_job_request, :reject_job_request,
+      :change_vendor_number]
   before_action :admin_user,
     only: [:promote_to_manager, :promote_to_admin, :demote_to_manager,
            :demote_to_interpreter, :deactivate_user, :reactivate_user, :destroy]
@@ -224,6 +225,14 @@ class UsersController < ApplicationController
     @job_request.reject_job_request
     flash[:success] = "Job Request #{@job_request.id} for #{@job_request.requester_first_name} #{@job_request.requester_last_name} has been marked as denied."
     redirect_to job_request_url(@job_request)
+  end
+
+  def change_vendor_number
+    @user = User.find(params[:id])
+    @vendor_number = params[:user][:vendor_number]
+    @user.update_attribute(:vendor_number, @vendor_number)
+    flash[:success] = "#{@user.first_name} #{@user.last_name}'s vendor number has been updated to #{@vendor_number}."
+    redirect_to user_url(@user)
   end
 
   private

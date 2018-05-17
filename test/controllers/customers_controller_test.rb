@@ -18,6 +18,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
                          phone_number: @customer.phone_number,
                          contact_phone_number: @customer.contact_phone_number }
     @example_tsha_number = { tsha_number: 777 }
+    @example_fund_number = { fund_number: 888 }
   end
 
   test 'should get index when logged in as a manager user with manager dashboard' do
@@ -536,6 +537,18 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   test 'should redirect change TSHA number logged in as a customer' do
     log_in_as_customer
     patch change_tsha_number_customer_path(@customer), params: @example_tsha_number
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect change fund number logged in as a regular user' do
+    log_in_as_regular_user
+    patch change_fund_number_customer_path(@customer), params: @example_fund_number
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect change fund number logged in as a customer' do
+    log_in_as_customer
+    patch change_fund_number_customer_path(@customer), params: @example_fund_number
     assert_flash_and_login_url_redirect
   end
 end

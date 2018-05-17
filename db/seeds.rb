@@ -265,10 +265,12 @@ User.create!(first_name: "Sammy",
   else
     gender = "Female"
   end
+  vendor_number = Faker::Number.unique.between(1, 1000)
   email = Faker::Internet.free_email("#{first_name}#{last_name}")
   User.create!(first_name:  first_name,
   						 last_name:  last_name,
                gender: gender,
+               vendor_number: vendor_number,
                cell_phone: "+18662466453",
                email: email,
                password:              "password",

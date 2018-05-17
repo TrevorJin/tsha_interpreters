@@ -1,17 +1,17 @@
 <div class="page-header">
   <h3>
     <%= @user.first_name %> <%= @user.last_name %>
-		<small>
-      <% if !@user.approved? %>
-        Pending Interpreter
-			<% elsif @user.admin? %>
-				Administrator
-			<% elsif @user.manager? %>
-				Manager
-			<% else %>
-				Interpreter
-			<% end %>
-		</small>
-	</h3>
+      <small>
+        <% if !@user.approved? %>
+          Pending Interpreter
+        <% elsif @user.admin? %>
+          Administrator
+        <% elsif @user.manager? %>
+          Manager
+        <% else %>
+          Interpreter
+      <% end %>
+    </small>
+  </h3>
 </div>
 <!-- /.page-header -->

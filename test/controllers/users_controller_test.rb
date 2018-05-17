@@ -14,6 +14,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                      gender: @regular_user.gender,
                      cell_phone: @regular_user.cell_phone,
                      email: @regular_user.email }
+    @example_vendor_number = { fund_number: 999 }
   end
 
   test 'should get index when logged in as a manager user with manager dashboard' do
@@ -592,6 +593,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should redirect reject job request when logged in as a customer' do
     log_in_as_customer
     get reject_job_request_user_path(@regular_user)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect change vendor number logged in as a regular user' do
+    log_in_as_regular_user
+    patch change_vendor_number_user_path(@regular_user), params: @example_vendor_number
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect change vendor number logged in as a customer' do
+    log_in_as_customer
+    patch change_vendor_number_user_path(@regular_user), params: @example_vendor_number
     assert_flash_and_login_url_redirect
   end
 end

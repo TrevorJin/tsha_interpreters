@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       get :confirmed_jobs, :attempted_jobs
       get 'approve_job_request'
       get 'reject_job_request'
+      patch 'change_vendor_number'
     end
   end
 

@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(first_name: 'Example', last_name: 'User', gender: 'Male', cell_phone: '+18662466453',
                      email: 'user@example.com', password: 'foobar',
-                     password_confirmation: 'foobar')
+                     password_confirmation: 'foobar', vendor_number: 999)
   end
 
   test 'should be valid' do
@@ -26,7 +26,6 @@ class UserTest < ActiveSupport::TestCase
     @user.gender = '     '
     assert_not @user.valid?
   end
-
 
   test 'cell phone should be present' do
     @user.cell_phone = '     '
@@ -141,6 +140,16 @@ class UserTest < ActiveSupport::TestCase
     assert samson.rejected?(job)
     samson.unreject_job(job)
     assert_not samson.rejected?(job)
+  end
+
+  test 'vendor number should be not be a string' do
+    @user.vendor_number = 'a'
+    assert_not @user.valid?
+  end
+
+  test 'fund number should be not be a float' do
+    @user.vendor_number = 777.777
+    assert_not @user.valid?
   end
 end
 	

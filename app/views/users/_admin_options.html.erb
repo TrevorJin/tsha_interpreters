@@ -15,5 +15,12 @@
   <% else %>
     <%= link_to "Reactivate Account", reactivate_user_user_path(id: @user.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to reactivate #{@user.first_name} #{@user.last_name}'s account? They will be able to use the site again."} %>
   <% end%>
+  <h4>
+    Change Intepreter's Vendor #
+  </h4>
+  <%= form_for @user, url: change_vendor_number_user_path(@user) do |f| %>
+    <%= f.text_field :vendor_number %>
+      <button type="submit" class="button">Update Vendor #</button>
+  <% end %>
 </div>
 <!-- /.btn-group -->
