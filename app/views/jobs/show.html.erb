@@ -14,7 +14,7 @@
             Manager Options:
           </h4>
           <div class="btn-group" role="group" aria-label="Justified button group">
-            <%= link_to "Edit Job", edit_job_path(@job), class: 'btn' %>
+            <%= link_to "Edit Job", edit_job_path(@job), class: 'btn btn-primary' %>
             <% if !@job.expired? && !@job.completed? %>
               <%= link_to "Expire Job", expire_job_job_path(id: @job.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to expire Job #{@job.id}? This cannot be reversed."} %>
             <% end %>
