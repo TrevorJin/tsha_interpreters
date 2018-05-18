@@ -10,7 +10,7 @@
       <!-- /.page-header -->
       <section class="user_info">
         <% if user_logged_in? && current_user.manager? %>
-          <%= link_to "Edit Job", edit_job_path(@job) %>
+          <%= link_to "Edit Job", edit_job_path(@job), class: 'btn' %>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
             Show Qualification Requirements 
           </button>
