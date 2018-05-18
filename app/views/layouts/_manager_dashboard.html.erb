@@ -51,11 +51,6 @@
               <% end %>
             </li>
             <li>
-              <%= link_to confirmed_jobs_path do %>
-                Confirmed <%= content_tag :span, "#{@confirmed_jobs.count}", :class => "badge" %>
-              <% end %>
-            </li>
-            <li>
               <%= link_to awaiting_invoice_path do %>
                 Awaiting Invoice <%= content_tag :span, "#{@jobs_awaiting_invoice.count}", :class => "badge" %>
               <% end %>

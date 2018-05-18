@@ -179,15 +179,6 @@ class Job < ApplicationRecord
     end
   end
 
-  # Checks if the job is confirmed.
-  def job_status_confirmed?
-    if self.has_interpreter_assigned? && Time.now < self.start
-      return true
-    else
-      return false
-    end
-  end
-
   # Checks if the job is expired.
   def job_status_expired?
     if self.expired?

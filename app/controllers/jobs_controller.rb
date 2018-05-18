@@ -2,22 +2,22 @@ class JobsController < ApplicationController
   before_action :logged_in_user,
     only: [:index, :new, :create, :new_job_from_job_request, :edit, :update,
            :finalize_job_and_interpreters, :jobs_in_need_of_confirmed_interpreter,
-           :confirmed_jobs, :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
   before_action :manager_user,
     only: [:new, :create, :new_job_from_job_request, :edit, :update,
            :finalize_job_and_interpreters, :jobs_in_need_of_confirmed_interpreter,
-           :confirmed_jobs, :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
   before_action :manager_correct_customer_or_interpreter, only: [:show]
   before_action :manager_dashboard,
     only: [:index, :show, :new, :new_job_from_job_request, :create, :edit,
-           :jobs_in_need_of_confirmed_interpreter, :confirmed_jobs,
-           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:show]
   before_action :update_job_and_job_request_statuses,
     only: [:index, :show, :new, :create, :new_job_from_job_request,
-           :jobs_in_need_of_confirmed_interpreter, :confirmed_jobs,
-           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
   
   def index
     # Manager Search
@@ -75,8 +75,6 @@ class JobsController < ApplicationController
   end
 
   def jobs_in_need_of_confirmed_interpreter; end
-
-  def confirmed_jobs; end
 
   def jobs_awaiting_invoice; end
 

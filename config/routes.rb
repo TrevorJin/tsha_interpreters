@@ -43,7 +43,6 @@ Rails.application.routes.draw do
   get    'rejected_job_requests'       => 'customers#rejected_job_requests'
   get    'expired_job_requests'        => 'customers#expired_job_requests'
   get    'needs_confirmed_interpreter' => 'jobs#jobs_in_need_of_confirmed_interpreter'
-  get    'confirmed_jobs'              => 'jobs#confirmed_jobs'
   get    'awaiting_invoice'            => 'jobs#jobs_awaiting_invoice'
   get    'processed_jobs'              => 'jobs#processed_jobs'
   get    'expired_jobs'                => 'jobs#expired_jobs'

@@ -4,11 +4,11 @@ class UsersController < ApplicationController
            :promote_to_admin, :demote_to_manager, :demote_to_interpreter,
            :approve_account, :pending_users, :deactivate_user, :reactivate_user,
            :promote_qualification, :revoke_qualification, :approve_job_request,
-           :reject_job_request, :confirmed_jobs, :attempted_jobs, :rejected_jobs,
-           :destroy, :change_vendor_number]
+           :reject_job_request, :attempted_jobs, :rejected_jobs, :destroy,
+           :change_vendor_number]
   before_action :active_or_manager_user_else_jobs,
-    only: [:confirmed_jobs, :attempted_jobs, :rejected_jobs, :current_jobs,
-           :pending_jobs, :completed_jobs]
+    only: [:attempted_jobs, :rejected_jobs, :current_jobs, :pending_jobs,
+           :completed_jobs]
   before_action :correct_user,   only: [:edit, :update]
   before_action :correct_user_or_manager_user, only: [:show]
   before_action :logged_in_user_or_customer,
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   before_action :customer_dashboard,only: [:current_jobs, :pending_jobs, :completed_jobs]
   before_action :update_job_and_job_request_statuses,
     only: [:index, :show, :new, :edit, :update, :dashboard, :pending_users, :current_jobs,
-           :pending_jobs, :completed_jobs, :rejected_jobs, :confirmed_jobs, :attempted_jobs]
+           :pending_jobs, :completed_jobs, :rejected_jobs, :attempted_jobs]
 
   def index
     # Manager Search

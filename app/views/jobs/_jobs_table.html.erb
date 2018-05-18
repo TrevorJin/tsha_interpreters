@@ -43,9 +43,7 @@
             <%= job.end.strftime("%A, %d %b %Y %l:%M %p") %>
           </td>
           <td>
-            <% if job.job_status_confirmed? %>
-              <span class="label label-success">Confirmed</span>
-            <% elsif job.job_status_expired? %>
+            <% if job.job_status_expired? %>
               <span class="label label-danger">Expired</span>
             <% elsif job.job_status_needs_interpreter? %>
               <span class="label label-warning">Needs Interpreter</span>

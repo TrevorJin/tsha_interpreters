@@ -201,37 +201,6 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_manager_dashboard_present_alone
   end
 
-  test 'should redirect confirmed jobs when not logged in' do
-    get confirmed_jobs_path
-    assert_flash_and_login_url_redirect
-  end
-
-  test 'should redirect confirmed jobs when logged in as a regular user' do
-    log_in_as_regular_user
-    get confirmed_jobs_path
-    assert_empty_flash_and_root_url_redirect
-  end
-
-  test 'should redirect confirmed jobs when logged in as a customer' do
-    log_in_as_customer
-    get confirmed_jobs_path
-    assert_flash_and_login_url_redirect
-  end
-
-  test 'should get confirmed jobs when logged in as a manager user with manager dashboard' do
-    log_in_as_manager
-    get confirmed_jobs_path
-    assert_template :confirmed_jobs
-    assert_manager_dashboard_present_alone
-  end
-
-  test 'should get confirmed jobs when logged in as an admin user with manager dashboard' do
-    log_in_as_admin
-    get confirmed_jobs_path
-    assert_template :confirmed_jobs
-    assert_manager_dashboard_present_alone
-  end
-
   test 'should redirect awaiting invoice when not logged in' do
     get awaiting_invoice_path
     assert_flash_and_login_url_redirect

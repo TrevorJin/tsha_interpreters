@@ -148,13 +148,6 @@ module SessionsHelper
       @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
       @job_requests = JobRequest.all.order(end: :desc)
       @jobs_without_confirmed_interpreter = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
-      @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
-      @confirmed_jobs = Array.new
-      @jobs_with_interpreter_assigned.each do |job|
-        if Time.now < job.start
-          @confirmed_jobs.push job
-        end
-      end
       @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
       @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(end: :desc)
        @expired_jobs = Job.where(expired: true).order(end: :desc)
