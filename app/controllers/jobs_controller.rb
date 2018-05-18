@@ -1,12 +1,14 @@
 class JobsController < ApplicationController
   before_action :logged_in_user,
     only: [:index, :new, :create, :new_job_from_job_request, :edit, :update,
-           :finalize_job_and_interpreters, :jobs_in_need_of_confirmed_interpreter,
-           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :finalize_job_and_interpreters, :expire_job,
+           :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
   before_action :manager_user,
     only: [:new, :create, :new_job_from_job_request, :edit, :update,
-           :finalize_job_and_interpreters, :jobs_in_need_of_confirmed_interpreter,
-           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
+           :finalize_job_and_interpreters, :expire_job,
+           :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
+           :processed_jobs, :expired_jobs]
   before_action :manager_correct_customer_or_interpreter, only: [:show]
   before_action :manager_dashboard,
     only: [:index, :show, :new, :new_job_from_job_request, :create, :edit,
@@ -72,6 +74,13 @@ class JobsController < ApplicationController
     @job.finalize_job_and_interpreters
     flash[:success] = 'This job has been finalized.'
     redirect_to job_url(@job)
+  end
+
+  def expire_job
+    @job = Job.find(params[:id])
+    @job.expire_job
+    flash[:success] = "Job #{@job.id} has been expired."
+    redirect_to jobs_url
   end
 
   def jobs_in_need_of_confirmed_interpreter; end
