@@ -147,7 +147,7 @@ module SessionsHelper
       @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
       @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
       @job_requests = JobRequest.all.order(end: :desc)
-      @jobs_in_need_of_confirmation = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
+      @jobs_without_confirmed_interpreter = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
       @jobs_with_interpreter_assigned = Job.where(has_interpreter_assigned: true).order(end: :desc)
       @confirmed_jobs = Array.new
       @jobs_with_interpreter_assigned.each do |job|

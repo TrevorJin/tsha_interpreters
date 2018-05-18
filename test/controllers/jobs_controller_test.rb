@@ -170,34 +170,34 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_flash_and_login_url_redirect
   end
 
-  test 'should redirect jobs in need of confirmation when not logged in' do
-    get needs_confirmation_path
+  test 'should redirect jobs in need of interpreter when not logged in' do
+    get needs_confirmed_interpreter_path
     assert_flash_and_login_url_redirect
   end
 
-  test 'should redirect jobs in need of confirmation when logged in as a regular user' do
+  test 'should redirect jobs in need of interpreter when logged in as a regular user' do
     log_in_as_regular_user
-    get needs_confirmation_path
+    get needs_confirmed_interpreter_path
     assert_empty_flash_and_root_url_redirect
   end
 
-  test 'should redirect jobs in need of confirmation when logged in as a customer' do
+  test 'should redirect jobs in need of interpreter when logged in as a customer' do
     log_in_as_customer
-    get needs_confirmation_path
+    get needs_confirmed_interpreter_path
     assert_flash_and_login_url_redirect
   end
 
-  test 'should get jobs in need of confirmation when logged in as a manager user with manager dashboard' do
+  test 'should get jobs in need of interpreter when logged in as a manager user with manager dashboard' do
     log_in_as_manager
-    get needs_confirmation_path
-    assert_template :jobs_in_need_of_confirmation
+    get needs_confirmed_interpreter_path
+    assert_template :jobs_in_need_of_confirmed_interpreter
     assert_manager_dashboard_present_alone
   end
 
-  test 'should get jobs in need of confirmation when logged in as an admin user with manager dashboard' do
+  test 'should get jobs in need of interpreter when logged in as an admin user with manager dashboard' do
     log_in_as_admin
-    get needs_confirmation_path
-    assert_template :jobs_in_need_of_confirmation
+    get needs_confirmed_interpreter_path
+    assert_template :jobs_in_need_of_confirmed_interpreter
     assert_manager_dashboard_present_alone
   end
 

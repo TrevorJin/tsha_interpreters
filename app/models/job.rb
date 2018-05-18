@@ -197,8 +197,8 @@ class Job < ApplicationRecord
     end
   end
 
-  # Checks if the job needs confirmation.
-  def job_status_needs_confirmation?
+  # Checks if the job needs interpreter.
+  def job_status_needs_interpreter?
     if !self.has_interpreter_assigned? && !self.expired?
       return true
     else

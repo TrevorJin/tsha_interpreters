@@ -46,8 +46,8 @@
           <a href="#"><i class="fa fa-calendar fa-fw"></i> Jobs<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li>
-              <%= link_to needs_confirmation_path do %>
-                Needs Confirmation <%= content_tag :span, "#{@jobs_in_need_of_confirmation.count}", :class => "badge" %>
+              <%= link_to needs_confirmed_interpreter_path do %>
+                No Confirmed Interpreter <%= content_tag :span, "#{@jobs_without_confirmed_interpreter.count}", :class => "badge" %>
               <% end %>
             </li>
             <li>

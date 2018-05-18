@@ -97,7 +97,7 @@
             <!-- /.col-sx-3 -->
             <div class="col-xs-9 text-right">
               <div class="huge">
-                <%= @jobs_in_need_of_confirmation.count %>
+                <%= @jobs_without_confirmed_interpreter.count %>
               </div>
               <!-- /.huge -->
               <div>
@@ -109,7 +109,7 @@
           <!-- /.row -->
         </div>
         <!-- /.panel-heading -->
-        <%= link_to needs_confirmation_path do %>
+        <%= link_to needs_confirmed_interpreter_path do %>
           <div class="panel-footer">
             <span class="pull-left">
               View Details
