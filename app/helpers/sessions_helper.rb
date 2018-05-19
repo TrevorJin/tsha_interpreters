@@ -154,6 +154,7 @@ module SessionsHelper
       @total_jobs = Job.all.order(end: :desc)
       @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)
       @manager_invoices = ManagerInvoice.all.order(end: :desc)
+      @total_deaf_clients = DeafClient.all
     end
   end
 

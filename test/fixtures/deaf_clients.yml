@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Regular Deaf Client
+
+sally:
+  first_name: Sally
+  last_name: Johnson
+  internal_notes: Okay person
+  public_notes: Great person

@@ -92,6 +92,7 @@ class ActiveSupport::TestCase
     assert_not_nil assigns(:total_jobs)
     assert_not_nil assigns(:interpreter_invoices)
     assert_not_nil assigns(:manager_invoices)
+    assert_not_nil assigns(:total_deaf_clients)
   end
 
   def assert_manager_dashboard_not_present
@@ -106,6 +107,7 @@ class ActiveSupport::TestCase
     assert_nil assigns(:processed_jobs)
     assert_nil assigns(:expired_jobs)
     assert_nil assigns(:total_jobs)
+    assert_nil assigns(:total_deaf_clients)
   end
 
   def assert_customer_dashboard_present

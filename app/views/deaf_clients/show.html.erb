@@ -1,0 +1,66 @@
+<% provide(:title, @deaf_client.first_name) %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <aside class="col-lg-12">
+      <section class="user_info">
+        <div class="page-header">
+          <h3>
+            <%= @deaf_client.first_name %> <%= @deaf_client.last_name %>
+          </h3>
+        </div>
+        <!-- /.page-header -->
+        <% if user_logged_in? && current_user.manager? %>
+          <h4>
+            Manager Options:
+          </h4>
+          <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= link_to "Edit Deaf Client", edit_deaf_client_path(@deaf_client), class: 'btn btn-primary' %>
+          </div>
+          <!-- /.btn-group btn-group-justified -->
+        <% end %>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Internal Notes:
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @deaf_client.internal_notes.length != 0 %>
+              <%= @deaf_client.internal_notes %>
+            <% else %>
+              N/A
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /. panel panel-info -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Public Notes
+            </h3>
+            <!-- /.panel-title -->
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <% if @deaf_client.public_notes.length != 0 %>
+              <%= @deaf_client.public_notes %>
+            <% else %>
+              N/A
+            <% end %>
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /. panel panel-info -->
+    	</section>
+    	<!-- /.user_info -->
+  	</aside>
+  	<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+</div>
+<!-- /.page-wrapper -->

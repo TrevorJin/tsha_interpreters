@@ -1,0 +1,7 @@
+<%= simple_form_for @deaf_client do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :internal_notes %>
+  <%= f.input :public_notes %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

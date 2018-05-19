@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_requests
+  resources :deaf_clients
   resources :account_activations,           only: [:edit]
   resources :password_resets,               only: [:new, :create, :edit, :update]
   resources :customer_account_activations,  only: [:edit]

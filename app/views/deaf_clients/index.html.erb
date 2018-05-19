@@ -1,0 +1,20 @@
+<% provide(:title, 'Deaf Clients') %>
+<%= render 'layouts/manager_dashboard' %>
+<div id="page-wrapper">
+  <%= render 'layouts/alerts' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="page-header">
+        Deaf Clients
+      </h3>
+      <!-- /.page-header -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+  <%= render 'deaf_client_search' %>
+  <%= will_paginate %>
+  <%= render 'deaf_clients_table' %>
+  <%= will_paginate %>
+</div>
+<!-- /.page-wrapper -->
