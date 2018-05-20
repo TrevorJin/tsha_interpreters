@@ -10,7 +10,7 @@ gem 'carrierwave',             '1.2.2'
 gem 'coffee-rails',            '4.2.2'
 gem 'faker',                   '1.8.7'
 gem 'fog',                     '2.0.0'
-gem 'font-awesome-rails',      '4.7.0'
+gem 'font-awesome-rails',      '4.7.0.4'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder',                '2.7.0'
 # Use jquery as the JavaScript library
@@ -23,12 +23,12 @@ gem 'momentjs-rails',          '2.20.1'
 gem 'phony_rails',             '0.14.6'
 gem 'puma',                    '3.11.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',                   '5.0.2'
+gem 'rails',                   '5.1.0'
 gem 'ransack',                 '1.8.8'
 # Use SCSS for stylesheets
 gem 'sass-rails',              '5.0.7'
 # Easy forms
-gem 'simple_form',             '3.3.1'
+gem 'simple_form',             '4.0.1'
 # Turbolinks makes following links in your web application faster.
 # Read more: https://github.com/rails/turbolinks
 gem 'turbolinks',              '5.1.1'
