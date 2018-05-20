@@ -3,6 +3,8 @@ ruby '2.4.0'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt',                  '3.1.11'
+# For railties app_generator_test
+gem "bootsnap",                '>= 1.1.0', require: false
 gem 'bootstrap-sass',          '3.3.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'carrierwave',             '1.2.2'
@@ -23,7 +25,7 @@ gem 'momentjs-rails',          '2.20.1'
 gem 'phony_rails',             '0.14.6'
 gem 'puma',                    '3.11.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',                   '5.1.0'
+gem 'rails',                   '5.2.0'
 gem 'ransack',                 '1.8.8'
 # Use SCSS for stylesheets
 gem 'sass-rails',              '5.0.7'
