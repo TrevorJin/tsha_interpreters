@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt',                  '3.1.11'
+gem 'bcrypt',                  '3.1.12'
 # For railties app_generator_test
 gem "bootsnap",                '>= 1.1.0', require: false
 gem 'bootstrap-sass',          '3.3.7'
@@ -42,8 +42,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a
   # debugger console
   gem 'byebug',      '10.0.2', platform: :mri
-  # Newer version of minitest not working with Rails 5.0.2
-  gem 'minitest',              '5.10.1'
+  gem 'minitest',              '5.11.3'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3',     '1.3.13'
 end
@@ -61,7 +60,7 @@ group :development do
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console',           '3.6.1'
+  gem 'web-console',           '3.6.2'
 end
 
 group :test do
@@ -76,7 +75,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg',             '0.18.4'
+  gem 'pg',             '1.0.0'
   gem 'rails_12factor', '0.0.3'
 end
 
