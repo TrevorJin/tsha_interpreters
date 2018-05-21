@@ -1,6 +1,8 @@
 class JobRequestsController < ApplicationController
-  before_action :logged_in_user, only: [:pending_job_requests]
-  before_action :manager_user, only: [:pending_job_requests]
+  before_action :logged_in_user,
+    only: [:pending_job_requests, :expire_job_request]
+  before_action :manager_user,
+    only: [:pending_job_requests, :expire_job_request]
   before_action :manager_or_customer,
     only: [:index, :show, :new, :create, :update]
   before_action :active_customer_else_job_requests,only: [:show, :new, :create, :update]
@@ -66,6 +68,13 @@ class JobRequestsController < ApplicationController
         @job_requests_awaiting_approval = JobRequest.paginate(page: params[:page]).order(start_date: :desc).where(awaiting_approval: true)
       end
     end
+  end
+
+  def expire_job_request
+    @job_request = JobRequest.find(params[:id])
+    @job_request.expire_job_request
+    flash[:success] = "Job Request #{@job_request.id} has been expired."
+    redirect_to job_requests_url
   end
 
   private

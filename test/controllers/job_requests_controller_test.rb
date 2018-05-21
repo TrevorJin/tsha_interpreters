@@ -171,4 +171,15 @@ class JobRequestsControllerTest < ActionDispatch::IntegrationTest
     get pending_job_requests_path
     assert_flash_and_login_url_redirect
   end
+
+  test 'should redirect expire job request when not logged in' do
+    get expire_job_request_job_request_path(@job_request)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect expire job request when logged in as a regular user' do
+    log_in_as_regular_user
+    get expire_job_request_job_request_path(@job_request)
+    assert_empty_flash_and_root_url_redirect
+  end
 end

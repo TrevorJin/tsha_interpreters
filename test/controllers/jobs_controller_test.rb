@@ -293,4 +293,15 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_template :expired_jobs
     assert_manager_dashboard_present_alone
   end
+
+  test 'should redirect expire job when not logged in' do
+    get expire_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect expire job when logged in as a regular user' do
+    log_in_as_regular_user
+    get expire_job_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
 end

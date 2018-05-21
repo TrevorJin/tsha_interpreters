@@ -16,6 +16,9 @@
         <td>
           <%= render 'job_request_status' %>
         </td>
+        <% if !@job_request.expired? && !@job_request.accepted? && !@job_request.denied? && @job_request.awaiting_approval? %>
+          <%= link_to "Expire Job Request", expire_job_request_job_request_path(id: @job_request.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to expire Job Request #{@job_request.id}? This cannot be reversed."} %>
+        <% end %>
       <% end %>
       <%= render 'job_request_info' %>
     </aside>

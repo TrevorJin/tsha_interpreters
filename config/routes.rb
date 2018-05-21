@@ -81,6 +81,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :job_requests do
+    member do
+      get 'expire_job_request'
+    end
+  end
+
   resources :jobs do
     member do
       get 'new_job_from_job_request'
@@ -101,7 +107,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :job_requests
   resources :deaf_clients
   resources :account_activations,           only: [:edit]
   resources :password_resets,               only: [:new, :create, :edit, :update]
