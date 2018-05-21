@@ -315,7 +315,7 @@ class User < ApplicationRecord
     
     available_jobs.each do |job|
 
-      if job.start > Time.now
+      if job.start_date >= Date.today
         this_is_an_eligible_job = true
         if self.requesting?(job) || self.confirmed?(job)
           # Interpreter already connected to this job

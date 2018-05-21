@@ -18,10 +18,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
       </tr>
     </thead>
@@ -38,10 +35,7 @@
             <%= current_job.city %>, <%= current_job.state %> <%= current_job.zip %>
           </td>
           <td>
-            <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= current_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
         </tr>
       <% end %>

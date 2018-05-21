@@ -14,10 +14,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,10 +34,7 @@
             <%= link_to "#{job_without_confirmed_interpreter.city}, #{job_without_confirmed_interpreter.state} #{job_without_confirmed_interpreter.zip}", job_without_confirmed_interpreter %>
           </td>
           <td>
-            <%= job_without_confirmed_interpreter.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= job_without_confirmed_interpreter.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= job_without_confirmed_interpreter.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if job_without_confirmed_interpreter.job_status_expired? %>

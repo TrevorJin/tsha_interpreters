@@ -5,8 +5,7 @@ one:
   requester_email: willy.wonka@gmail.com
   requester_phone_number: +18662466453
   requester_fax_number: 918-631-5003
-  start: 2018-10-22 15:10:36
-  end: 2018-10-22 15:11:36
+  start_date: 2018-10-22
   deaf_client_first_name: Sammy
   deaf_client_last_name: Smith
   contact_person_first_name: Willy

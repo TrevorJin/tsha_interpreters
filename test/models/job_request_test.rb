@@ -17,8 +17,7 @@ class JobRequestTest < ActiveSupport::TestCase
                                                  office_business_name: 'Cincinnati Reds',
                                                  requester_email: 'billy.hamilton@cincinnatireds.com',
                                                  requester_phone_number: '+18662466453', requester_fax_number: '',
-                                                 start: DateTime.parse('May 3rd 2017 04:05:06 AM'),
-                                                 end: DateTime.parse('May 4th 2017 04:05:06 AM'),
+                                                 start_date: Date.parse('May 3rd 2017'),
                                                  deaf_client_first_name: 'Dusty', deaf_client_last_name: 'Baker',
                                                  contact_person_first_name: 'Alexander',
                                                  contact_person_last_name: 'Hamilton',
@@ -110,16 +109,11 @@ class JobRequestTest < ActiveSupport::TestCase
     assert_not @job_request.valid?
   end
 
-  test 'start should be present' do
-    @job_request.start = nil
+  test 'start date should be present' do
+    @job_request.start_date = nil
     assert_not @job_request.valid?
   end
-
-  test 'end should be present' do
-    @job_request.end = nil
-    assert_not @job_request.valid?
-  end
-
+  
   test 'deaf client first name should be present' do
     @job_request.deaf_client_first_name = '     '
     assert_not @job_request.valid?

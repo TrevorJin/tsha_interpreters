@@ -14,10 +14,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,25 +34,18 @@
             <%= completed_job.city %>, <%= completed_job.state %>
           </td>
           <td>
-            <%= completed_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= completed_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= completed_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: completed_job.id).first %>
             <% if completed_job.job_status_processed? %>
               <span class="label label-success">Processed</span>
-            <% elsif completed_job.start < Time.now && completed_job.end > Time.now %>
-              <span class="label label-warning">In Progress</span>
-            <% elsif completed_job.end < Time.now && !completed_job.invoice_submitted? && !@interpreter_invoice %>
+            <% elsif completed_job.start_date >= Date.today && !completed_job.invoice_submitted? && !@interpreter_invoice %>
               <span class="label label-warning">Awaiting Your Invoice</span>
-            <% elsif completed_job.end < Time.now && !completed_job.invoice_submitted? && @interpreter_invoice %>
+            <% elsif completed_job.start_date >= Date.today && !completed_job.invoice_submitted? && @interpreter_invoice %>
               <span class="label label-success">Waiting for Manager</span>
-            <% elsif completed_job.end < Time.now && completed_job.invoice_submitted? %>
+            <% elsif completed_job.start_date >= Date.today && completed_job.invoice_submitted? %>
               <span class="label label-success">Invoice Submitted</span>
-            <% elsif completed_job.start > Time.now %>
-              <span class="label label-warning">Not Started</span>
             <% end %>
           </td>
         </tr>

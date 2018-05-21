@@ -22,9 +22,6 @@
         <th>
           Interpreter
         </th>
-        <th>
-          Job End
-        </th>
         <% if user_logged_in? %>
           <th>
             Approved by Customer?
@@ -56,9 +53,6 @@
             <% else %>
               <%= manager_invoice.user.first_name %> <%= manager_invoice.user.last_name %>
             <% end %>
-          </td>
-          <td>
-            <%= manager_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
           </td>
           <% if user_logged_in? %>
             <td>

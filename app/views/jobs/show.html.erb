@@ -44,7 +44,7 @@
           <% end %>
         <% elsif user_logged_in? && !current_user.manager? %>
           <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: @job.id).first %>
-          <% if @job.has_interpreter_assigned? && @job.start < Time.now && !@job.invoice_submitted? && !@interpreter_invoice %>
+          <% if @job.has_interpreter_assigned? && Date.today >= @job.start_date && !@job.invoice_submitted? && !@interpreter_invoice %>
             <%= render 'submit_invoice_button' %>
           <% end %>
         <% end %>

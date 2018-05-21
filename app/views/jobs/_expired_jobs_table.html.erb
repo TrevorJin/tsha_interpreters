@@ -14,10 +14,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,10 +34,7 @@
             <%= link_to "#{expired_job.city}, #{expired_job.state} #{expired_job.zip}", expired_job %>
           </td>
           <td>
-            <%= expired_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= expired_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= expired_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if expired_job.job_status_expired? %>

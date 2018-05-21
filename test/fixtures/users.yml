@@ -36,6 +36,7 @@ michael:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 111
 
 # Manager User
 sanchez:
@@ -72,6 +73,7 @@ sanchez:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 222
 
 # Regular Interpreter
 samson:
@@ -107,6 +109,7 @@ samson:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 333
 
 # Regular Interpreter
 archer:
@@ -142,6 +145,7 @@ archer:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 444
 
 # Regular Interpreter
 wonka:
@@ -177,6 +181,7 @@ wonka:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 555
 
 # Regular Interpreter (Activated, Not Approved Yet)
 flaky:
@@ -212,6 +217,7 @@ flaky:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 777
 
 # Regular Interpreter (Not Activated, Not Approved Yet)
 crusty:
@@ -247,6 +253,7 @@ crusty:
   bei_advanced: true
   bei_master: true
   active: true
+  vendor_number: 888
 
 # Regular Interpreter (Account Deactivated by Admin)
 will:
@@ -282,6 +289,7 @@ will:
   bei_advanced: true
   bei_master: true
   active: false
+  vendor_number: 999
 
 # Regular Interpreters
 <% 30.times do |n| %>

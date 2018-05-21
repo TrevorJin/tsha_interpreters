@@ -8,10 +8,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
       </tr>
     </thead>
@@ -22,10 +19,7 @@
             <%= pending_job.city %>, <%= pending_job.state %>
           </td>
           <td>
-            <%= pending_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= pending_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= pending_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
         </tr>
       <% end %>

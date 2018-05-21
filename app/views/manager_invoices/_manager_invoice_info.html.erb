@@ -11,10 +11,10 @@
         Job
       </th>
       <th>
-        Start
+        Start Date
       </th>
       <th>
-        End
+        Job Type
       </th>
     </tr>
   </thead>
@@ -34,18 +34,15 @@
         <%= link_to "Job ##{@manager_invoice.job.id}", @manager_invoice.job %>
       </td>
       <td>
-        <%= @manager_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @manager_invoice.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @manager_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @manager_invoice.job_type %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Job Type
-      </th>
       <th>
         Contact Person
       </th>
@@ -58,13 +55,13 @@
       <th>
         Mile Rate (50 Miles or Below)
       </th>
+      <th>
+        Interpreting Hours (Regular)
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%= @manager_invoice.job_type %>
-      </td>
       <td>
         <%= @manager_invoice.contact_person_first_name %> <%= @manager_invoice.contact_person_last_name %>
       </td>
@@ -77,13 +74,13 @@
       <td>
         <%= @manager_invoice.mile_rate %>
       </td>
+      <td>
+        <%= @manager_invoice.interpreting_hours %>
+      </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Interpreting Hours (Regular)
-      </th>
       <th>
         Interpreting Rate (Regular)
       </th>
@@ -96,13 +93,13 @@
       <th>
         Interpreting Hours (After Hour)
       </th>
+      <th>
+        Interpreting Rate (After Hour)
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%= @manager_invoice.interpreting_hours %>
-      </td>
       <td>
         <%= @manager_invoice.interpreting_rate %>
       </td>
@@ -115,47 +112,42 @@
       <td>
         <%= @manager_invoice.extra_interpreting_hours %>
       </td>
+      <td>
+        <%= @manager_invoice.extra_interpreting_rate %>
+      </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Interpreting Rate (After Hour)
-      </th>
       <th>
         <% if user_logged_in? %>
           Original Interpreter Invoice
         <% end %>
       </th>
       <th>
-        
       </th>
       <th>
-        
       </th>
       <th>
-        
+      </th>
+      <th>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <%= @manager_invoice.extra_interpreting_rate %>
-      </td>
-      <td>
         <% if user_logged_in? %>
           <%= link_to "Interpreter Invoice ##{@manager_invoice.interpreter_invoice.id}", @manager_invoice.interpreter_invoice %>
         <% end %>
       </td>
       <td>
-
       </td>
       <td>
-
       </td>
       <td>
-
+      </td>
+      <td>
       </td>
     </tr>
   </tbody>

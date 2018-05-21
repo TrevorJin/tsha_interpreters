@@ -128,12 +128,12 @@ module SessionsHelper
     if current_user && !current_user.manager?
       @user = current_user
       @user_jobs = @user.eligible_jobs
-      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
-      @pending_jobs = @user.attempted_jobs.order(end: :desc)
-      @completed_jobs = @user.completed_jobs.order(end: :desc)
-      @rejected_jobs = @user.rejected_jobs.order(end: :desc)
-      @interpreter_invoices = @user.interpreter_invoices.order(end: :desc)
-      @manager_invoices = @user.manager_invoices.order(end: :desc)
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(start_date: :desc)
+      @pending_jobs = @user.attempted_jobs.order(start_date: :desc)
+      @completed_jobs = @user.completed_jobs.order(start_date: :desc)
+      @rejected_jobs = @user.rejected_jobs.order(start_date: :desc)
+      @interpreter_invoices = @user.interpreter_invoices.order(start_date: :desc)
+      @manager_invoices = @user.manager_invoices.order(start_date: :desc)
     end
   end
 
@@ -144,16 +144,16 @@ module SessionsHelper
       @total_users = User.all
       @total_customers = Customer.all
       @pending_customers = Customer.where(approved: false)
-      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(end: :desc)
-      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(end: :desc)
-      @job_requests = JobRequest.all.order(end: :desc)
-      @jobs_without_confirmed_interpreter = Job.where(has_interpreter_assigned: false, expired: false).order(end: :desc)
-      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(end: :desc)
-      @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(end: :desc)
-       @expired_jobs = Job.where(expired: true).order(end: :desc)
-      @total_jobs = Job.all.order(end: :desc)
-      @interpreter_invoices = InterpreterInvoice.all.order(end: :desc)
-      @manager_invoices = ManagerInvoice.all.order(end: :desc)
+      @job_requests_awaiting_approval = JobRequest.where(awaiting_approval: true).order(start_date: :desc)
+      @job_requests_not_awaiting_approval = JobRequest.where(awaiting_approval: false).order(start_date: :desc)
+      @job_requests = JobRequest.all.order(start_date: :desc)
+      @jobs_without_confirmed_interpreter = Job.where(has_interpreter_assigned: false, expired: false).order(start_date: :desc)
+      @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(start_date: :desc)
+      @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(start_date: :desc)
+       @expired_jobs = Job.where(expired: true).order(start_date: :desc)
+      @total_jobs = Job.all.order(start_date: :desc)
+      @interpreter_invoices = InterpreterInvoice.all.order(start_date: :desc)
+      @manager_invoices = ManagerInvoice.all.order(start_date: :desc)
       @total_deaf_clients = DeafClient.all
     end
   end

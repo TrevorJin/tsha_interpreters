@@ -14,10 +14,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,10 +34,7 @@
             <%= link_to "#{job_awaiting_invoice.city}, #{job_awaiting_invoice.state} #{job_awaiting_invoice.zip}", job_awaiting_invoice %>
           </td>
           <td>
-            <%= job_awaiting_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= job_awaiting_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= job_awaiting_invoice.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if job_awaiting_invoice.job_status_expired? %>

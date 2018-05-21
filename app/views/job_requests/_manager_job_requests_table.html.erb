@@ -20,13 +20,12 @@
           Contact Person
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
+        </th>
+        <th>
         </th>
       </tr>
     </thead>
@@ -49,10 +48,7 @@
             <%= link_to "#{job_request_not_awaiting_approval.contact_person_first_name} #{job_request_not_awaiting_approval.contact_person_last_name}", job_request_not_awaiting_approval %>
           </td>
           <td>
-            <%= job_request_not_awaiting_approval.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= job_request_not_awaiting_approval.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= job_request_not_awaiting_approval.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if job_request_not_awaiting_approval.awaiting_approval? %>
@@ -64,6 +60,8 @@
             <% elsif job_request_not_awaiting_approval.expired? %>
               <span class="label label-danger">Expired</span>
             <% end %>
+          </td>
+          <td>
           </td>
         </tr>
       <% end %>

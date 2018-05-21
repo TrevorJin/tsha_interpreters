@@ -14,10 +14,7 @@
           Contact Person
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,10 +34,7 @@
             <%= link_to "#{pending_job_request.contact_person_first_name} #{pending_job_request.contact_person_last_name}", pending_job_request %>
           </td>
           <td>
-            <%= pending_job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= pending_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= pending_job_request.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if pending_job_request.awaiting_approval? %>

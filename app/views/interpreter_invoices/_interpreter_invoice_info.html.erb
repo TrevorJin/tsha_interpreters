@@ -11,10 +11,10 @@
         Job
       </th>
       <th>
-        Start
+        Start Date
       </th>
       <th>
-        End
+        Job Type
       </th>
     </tr>
   </thead>
@@ -30,18 +30,15 @@
         <%= link_to "Job ##{@interpreter_invoice.job.id}", @interpreter_invoice.job %>
       </td>
       <td>
-        <%= @interpreter_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @interpreter_invoice.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @interpreter_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @interpreter_invoice.job_type %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Job Type
-      </th>
       <th>
         Contact Person
       </th>
@@ -54,13 +51,13 @@
       <th>
         Mile Rate (50 Miles or Below)
       </th>
+      <th>
+        Interpreting Hours (Regular)
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%= @interpreter_invoice.job_type %>
-      </td>
       <td>
         <%= @interpreter_invoice.contact_person_first_name %> <%= @interpreter_invoice.contact_person_last_name %>
       </td>
@@ -73,13 +70,13 @@
       <td>
         <%= @interpreter_invoice.mile_rate %>
       </td>
+      <td>
+        <%= @interpreter_invoice.interpreting_hours %>
+      </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Interpreting Hours (Regular)
-      </th>
       <th>
         Interpreting Rate (Regular)
       </th>
@@ -92,13 +89,13 @@
       <th>
         Interpreting Hours (After Hour)
       </th>
+      <th>
+        Interpreting Rate (After Hour)
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%= @interpreter_invoice.interpreting_hours %>
-      </td>
       <td>
         <%= @interpreter_invoice.interpreting_rate %>
       </td>
@@ -111,43 +108,8 @@
       <td>
         <%= @interpreter_invoice.extra_interpreting_hours %>
       </td>
-    </tr>
-  </tbody>
-  <thead>
-    <tr>
-      <th>
-        Interpreting Rate (After Hour)
-      </th>
-      <th>
-        
-      </th>
-      <th>
-        
-      </th>
-      <th>
-        
-      </th>
-      <th>
-        
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
       <td>
         <%= @interpreter_invoice.extra_interpreting_rate %>
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
-      </td>
-      <td>
-
       </td>
     </tr>
   </tbody>

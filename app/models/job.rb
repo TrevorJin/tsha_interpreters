@@ -27,8 +27,7 @@ class Job < ApplicationRecord
   belongs_to :customer
 
   validates :customer_id, presence: true
-	validates :start, presence: { message: "date and time required" }
-	validates :end, presence: { message: "date and time required" }
+	validates :start_date, presence: { message: "start date required" }
   validates :requester_first_name, presence: { message: "required" }, 
                                    length: { maximum: 50, message: "must be 50 characters or less" }
   validates :requester_last_name, presence: { message: "required" }, 
@@ -62,12 +61,12 @@ class Job < ApplicationRecord
 	validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
   def self.search(search, page)
-    order(end: :desc).where("cast(id as text) LIKE ? OR address_line_1 LIKE ? OR address_line_2 LIKE ? OR
-                             address_line_3 LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ?
-                             OR requester_email LIKE ? OR requester_phone_number LIKE ? OR contact_person_first_name
-                             LIKE ? OR contact_person_last_name LIKE ?", "%#{search}%", "%#{search}%",
-                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
-                             "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
+    order(start_date: :desc).where("cast(id as text) LIKE ? OR address_line_1 LIKE ? OR address_line_2 LIKE ? OR
+                                    address_line_3 LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ?
+                                    OR requester_email LIKE ? OR requester_phone_number LIKE ? OR contact_person_first_name
+                                    LIKE ? OR contact_person_last_name LIKE ?", "%#{search}%", "%#{search}%",
+                                    "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                                    "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
   end
 
 	# Confirms a user connection with job

@@ -7,10 +7,7 @@
         Location
       </th>
       <th>
-        Start
-      </th>
-      <th>
-        End
+        Start Date
       </th>
       <th>
         Action?
@@ -23,10 +20,7 @@
             <%= user_job.city %>, <%= user_job.state %>
           </td>
           <td>
-            <%= user_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= user_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= user_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <div class="btn-group" role="group" aria-label="Justified button group">

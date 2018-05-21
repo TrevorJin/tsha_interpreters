@@ -13,13 +13,13 @@ class InterpreterInvoicesController < ApplicationController
   # Show active invoices to regular user.
   def index
     if current_user && !current_user.manager?
-      @user_invoices = current_user.interpreter_invoices.where(job_completed: false).order(end: :desc)
+      @user_invoices = current_user.interpreter_invoices.where(job_completed: false).order(start_date: :desc)
     elsif current_user && current_user.manager?
       # Manager Search
       if params[:search]
         manager_search
       else
-        @user_invoices = InterpreterInvoice.paginate(page: params[:page]).order(end: :desc)
+        @user_invoices = InterpreterInvoice.paginate(page: params[:page]).order(start_date: :desc)
       end
     end
   end
@@ -46,7 +46,7 @@ class InterpreterInvoicesController < ApplicationController
   private
 
   def interpreter_invoice_params
-    params.require(:interpreter_invoice).permit(:start, :end, :job_type,
+    params.require(:interpreter_invoice).permit(:start_date, :job_type,
                                                 :event_location_address_line_1, 
                                                 :event_location_address_line_2,
                                                 :event_location_address_line_3,
@@ -63,7 +63,7 @@ class InterpreterInvoicesController < ApplicationController
   end
 
   def manager_search
-    @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
+    @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(start_date: :desc)
     if params[:search][:created_after].present?
       created_after_string = params[:search][:created_after].to_s
       created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')

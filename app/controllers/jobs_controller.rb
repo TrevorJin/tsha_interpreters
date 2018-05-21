@@ -26,7 +26,7 @@ class JobsController < ApplicationController
     if params[:search]
       job_search
     else
-      @jobs = Job.paginate(page: params[:page]).order(end: :desc)
+      @jobs = Job.paginate(page: params[:page]).order(start_date: :desc)
     end
   end
 
@@ -94,7 +94,7 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:start, :end, :requester_first_name,
+    params.require(:job).permit(:start_date, :requester_first_name,
                                 :requester_last_name, :requester_email,
                                 :requester_phone_number,
                                 :contact_person_first_name,
@@ -122,7 +122,7 @@ class JobsController < ApplicationController
   end
 
   def job_search
-    @jobs = Job.search(params[:search][:query], params[:page]).order(end: :desc)
+    @jobs = Job.search(params[:search][:query], params[:page]).order(start_date: :desc)
     if params[:search][:start_after].present?
       start_after_string = params[:search][:start_after].to_s
       start_after = DateTime.strptime(start_after_string, '%m-%d-%Y %H:%M')

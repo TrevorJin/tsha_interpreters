@@ -15,11 +15,11 @@ class ManagerInvoicesController < ApplicationController
   # Show relevant invoices to interpreters and customers.
   def index
     if current_user && !current_user.manager?
-      @manager_invoices = current_user.manager_invoices.paginate(page: params[:page]).order(end: :desc)
+      @manager_invoices = current_user.manager_invoices.paginate(page: params[:page]).order(start_date: :desc)
     elsif (user_logged_in? && current_user.manager?)
         # Manager Search
       if params[:search]
-        @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(end: :desc)
+        @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(start_date: :desc)
         if params[:search][:created_after].present?
           created_after_string = params[:search][:created_after].to_s
           created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
@@ -35,7 +35,7 @@ class ManagerInvoicesController < ApplicationController
           @manager_invoices = @manager_invoices.where('created_at <= ?', created_before)
         end
       else
-        @manager_invoices = ManagerInvoice.paginate(page: params[:page]).order(end: :desc)
+        @manager_invoices = ManagerInvoice.paginate(page: params[:page]).order(start_date: :desc)
       end
     elsif customer_logged_in?
       @manager_invoices = []
@@ -45,7 +45,7 @@ class ManagerInvoicesController < ApplicationController
           @manager_invoices.push manager_invoice
         end
       end
-      # @manager_invoices = @manager_invoices.paginate(page: params[:page]).order(end: :desc)
+      # @manager_invoices = @manager_invoices.paginate(page: params[:page]).order(start_date: :desc)
     end
   end
 
@@ -82,7 +82,7 @@ class ManagerInvoicesController < ApplicationController
   private
 
   def manager_invoice_params
-    params.require(:manager_invoice).permit(:start, :end, :job_type,
+    params.require(:manager_invoice).permit(:start_date, :job_type,
                                             :event_location_address_line_1, 
                                             :event_location_address_line_2,
                                             :event_location_address_line_3,

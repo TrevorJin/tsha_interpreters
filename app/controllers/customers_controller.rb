@@ -38,7 +38,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
 
     if @customer.approved? && user_logged_in? && current_user.manager?
-      @jobs = @customer.jobs.order(end: :desc)
+      @jobs = @customer.jobs.order(start_date: :desc)
     end
   end
 

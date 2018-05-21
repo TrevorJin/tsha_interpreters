@@ -21,8 +21,7 @@ class JobRequest < ApplicationRecord
 																		 length: { maximum: 30, message: "must be 30 characters or less" },
 													 					 phony_plausible: true
   validates :requester_fax_number, length: { maximum: 30, message: "must be 30 characters or less" }
-  validates :start, presence: { message: "date and time required" }
-	validates :end, presence: { message: "date and time required" }
+  validates :start_date, presence: { message: "start date required" }
 	validates :deaf_client_first_name, presence: { message: "required" }, 
 																 	 	 length: { maximum: 50, message: "must be 50 characters or less" }
   validates :deaf_client_last_name, presence: { message: "required" }, 
@@ -50,15 +49,15 @@ class JobRequest < ApplicationRecord
   validates :message, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
   def self.search(search, page)
-    order(end: :desc).where("cast(id as text) LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ? OR
-                             office_business_name LIKE ? OR requester_email LIKE ? OR requester_phone_number LIKE ? OR
-                             requester_fax_number LIKE ? OR deaf_client_first_name LIKE ? OR deaf_client_last_name LIKE ?
-                             OR contact_person_first_name LIKE ? OR contact_person_last_name LIKE ? OR
-                             event_location_address_line_1 LIKE ? OR event_location_address_line_2 LIKE ? OR 
-                             event_location_address_line_3 LIKE ? OR office_phone_number LIKE ?", "%#{search}%",
-                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
-                             "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
-                             "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
+    order(start_date: :desc).where("cast(id as text) LIKE ? OR requester_first_name LIKE ? OR requester_last_name LIKE ? OR
+                                    office_business_name LIKE ? OR requester_email LIKE ? OR requester_phone_number LIKE ? OR
+                                    requester_fax_number LIKE ? OR deaf_client_first_name LIKE ? OR deaf_client_last_name LIKE ?
+                                    OR contact_person_first_name LIKE ? OR contact_person_last_name LIKE ? OR
+                                    event_location_address_line_1 LIKE ? OR event_location_address_line_2 LIKE ? OR 
+                                    event_location_address_line_3 LIKE ? OR office_phone_number LIKE ?", "%#{search}%",
+                                    "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                                    "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%",
+                                    "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
   end
 
   def approve_job_request

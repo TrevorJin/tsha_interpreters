@@ -38,7 +38,7 @@
               <%= link_to "Submit Manager Invoice", new_manager_invoice_from_interpreter_invoice_manager_invoice_path(
                :user_id => confirmed_interpreter.id, :job_id => @job.id,
                :interpreter_invoice_id => @interpreter_invoice.id,
-               :start => @interpreter_invoice.start, :end => @interpreter_invoice.end,
+               :start_date => @interpreter_invoice.start_date,
                :job_type => @interpreter_invoice.job_type,
                :event_location_address_line_1 => @interpreter_invoice.event_location_address_line_1,
                :event_location_address_line_2 => @interpreter_invoice.event_location_address_line_2,

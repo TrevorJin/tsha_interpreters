@@ -14,10 +14,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,7 +34,7 @@
             <%= current_job.city %>, <%= current_job.state %>
           </td>
           <td>
-            <%= current_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= current_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
@@ -46,16 +43,12 @@
             <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id).first %>
             <% if current_job.job_status_processed? %>
               <span class="label label-success">Processed</span>
-            <% elsif current_job.start < Time.now && current_job.end > Time.now %>
-              <span class="label label-warning">In Progress</span>
-            <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && !@interpreter_invoice %>
+            <% elsif current_job.start_date >= Date.today && !current_job.invoice_submitted? && !@interpreter_invoice %>
               <span class="label label-warning">Awaiting Your Invoice</span>
-            <% elsif current_job.end < Time.now && !current_job.invoice_submitted? && @interpreter_invoice %>
+            <% elsif current_job.start_date >= Date.today && !current_job.invoice_submitted? && @interpreter_invoice %>
               <span class="label label-success">Waiting for Manager</span>
-            <% elsif current_job.end < Time.now && current_job.invoice_submitted? %>
+            <% elsif current_job.start_date >= Date.today && current_job.invoice_submitted? %>
               <span class="label label-success">Invoice Submitted</span>
-            <% elsif current_job.start > Time.now %>
-              <span class="label label-warning">Not Started</span>
             <% end %>
           </td>
         </tr>

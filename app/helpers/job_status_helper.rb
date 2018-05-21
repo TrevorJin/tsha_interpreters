@@ -4,7 +4,7 @@ module JobStatusHelper
     
     @confirmed_and_completed_jobs.each do |confirmed_and_completed_job|
       
-      if confirmed_and_completed_job.end < Time.now
+      if Date.today >= confirmed_and_completed_job.start_date
         confirmed_and_completed_job.confirmed_interpreters.each do |confirmed_interpreter|
           confirmed_and_completed_job.complete_job(confirmed_interpreter)
         end

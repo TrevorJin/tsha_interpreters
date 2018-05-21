@@ -13,8 +13,7 @@ class JobTest < ActiveSupport::TestCase
                              contact_phone_number_extension: '', fax: '',
                              password: 'foobar', password_confirmation: 'foobar')
     @customer.save
-    @job = @customer.jobs.create(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
-    							 end: DateTime.parse('March 4th 2017 04:05:06 AM'),
+    @job = @customer.jobs.create(start_date: Date.parse('March 3rd 2017'),
                    requester_first_name: 'Willy', requester_last_name: 'Wonka',
                    requester_email: 'willy.wonka@gmail.com', requester_phone_number: '+18662466453',
                    contact_person_first_name: 'Willy', contact_person_last_name: 'Wonka',
@@ -33,13 +32,8 @@ class JobTest < ActiveSupport::TestCase
     assert_not @job.valid?
   end
 
-  test 'start should be present' do
-    @job.start = nil
-    assert_not @job.valid?
-  end
-
-  test 'end should be present' do
-    @job.end = nil
+  test 'start date should be present' do
+    @job.start_date = nil
     assert_not @job.valid?
   end
 

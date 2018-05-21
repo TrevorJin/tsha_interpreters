@@ -40,10 +40,10 @@
         Requester Fax Number
       </th>
       <th>
-        Event Start
+        Event Start Date
       </th>
       <th>
-        Event End
+        Deaf Client
       </th>
     </tr>
   </thead>
@@ -56,18 +56,15 @@
         <%= @job_request.requester_fax_number %>
       </td>
       <td>
-        <%= @job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @job_request.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @job_request.deaf_client_first_name %> <%= @job_request.deaf_client_last_name %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Deaf Client
-      </th>
       <th>
         Contact Person
       </th>
@@ -76,18 +73,19 @@
       </th>
       <th>
       </th>
+      <th>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <%= @job_request.deaf_client_first_name %> <%= @job_request.deaf_client_last_name %>
-      </td>
-      <td>
         <%= @job_request.contact_person_first_name %> <%= @job_request.contact_person_last_name %>
       </td>
       <td>
         <%= @job_request.office_phone_number %>
+      </td>
+      <td>
       </td>
       <td>
       </td>

@@ -59,12 +59,12 @@ class UsersController < ApplicationController
     # Manager View
     if (!current_user?(@user))    
       @user_jobs = @user.eligible_jobs
-      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(end: :desc)
-      @pending_jobs = @user.attempted_jobs.order(end: :desc)
-      @completed_jobs = @user.completed_jobs.order(end: :desc)
-      @rejected_jobs = @user.rejected_jobs.order(end: :desc)
-      @interpreter_invoices = @user.interpreter_invoices.order(end: :desc)
-      @manager_invoices = @user.manager_invoices.order(end: :desc)
+      @current_jobs = @user.confirmed_jobs.where(has_interpreter_assigned: true, completed: false).order(start_date: :desc)
+      @pending_jobs = @user.attempted_jobs.order(start_date: :desc)
+      @completed_jobs = @user.completed_jobs.order(start_date: :desc)
+      @rejected_jobs = @user.rejected_jobs.order(start_date: :desc)
+      @interpreter_invoices = @user.interpreter_invoices.order(start_date: :desc)
+      @manager_invoices = @user.manager_invoices.order(start_date: :desc)
     end
   end
 

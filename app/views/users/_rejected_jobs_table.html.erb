@@ -12,10 +12,7 @@
           Location
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Action
@@ -29,10 +26,7 @@
             <%= rejected_job.city %>, <%= rejected_job.state %>
           </td>
           <td>
-            <%= rejected_job.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= rejected_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= rejected_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             TBD

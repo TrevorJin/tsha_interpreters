@@ -17,8 +17,7 @@ class InterpreterInvoiceTest < ActiveSupport::TestCase
                              contact_phone_number_extension: '', fax: '',
                              password: 'foobar', password_confirmation: 'foobar')
     @customer.save
-    @job = @customer.jobs.create(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
-                   end: DateTime.parse('March 4th 2017 04:05:06 AM'),
+    @job = @customer.jobs.create(start_date: Date.parse('March 3rd 2017'),
                    requester_first_name: 'Willy', requester_last_name: 'Wonka',
                    requester_email: 'willy.wonka@gmail.com', requester_phone_number: '+18662466453',
                    contact_person_first_name: 'Willy', contact_person_last_name: 'Wonka',
@@ -26,8 +25,7 @@ class InterpreterInvoiceTest < ActiveSupport::TestCase
                    address_line_2: '', address_line_3: '', city: 'Tulsa',
                    state: 'Oklahoma', zip: '74104', invoice_notes: 'Park in the rear',
                    notes_for_irp: '', notes_for_interpreter: '', directions: '')
-    @interpreter_invoice = InterpreterInvoice.new(start: DateTime.parse('March 3rd 2017 04:05:06 AM'),
-                                                  end: DateTime.parse('March 4th 2017 04:05:06 AM'),
+    @interpreter_invoice = InterpreterInvoice.new(start_date: Date.parse('March 3rd 2017'),
                                                   job_type: 'Emergency',
                                                   event_location_address_line_1: '567 5th Avenue',
                                                   event_location_address_line_2: '',

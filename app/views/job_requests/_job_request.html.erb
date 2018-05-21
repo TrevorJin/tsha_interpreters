@@ -9,10 +9,7 @@
     <%= link_to "#{job_request.contact_person_first_name} #{job_request.contact_person_last_name}", job_request %>
   </td>
   <td>
-    <%= job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
-  </td>
-  <td>
-    <%= job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+    <%= job_request.start_date.to_formatted_s(:long_ordinal) %>
   </td>
   <td>
 		<% if job_request.awaiting_approval? %>

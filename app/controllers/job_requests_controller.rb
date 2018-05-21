@@ -14,12 +14,12 @@ class JobRequestsController < ApplicationController
     # Manager Search
     if current_user && current_user.manager?
       if params[:search]
-        @job_requests_not_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(end: :desc).where(awaiting_approval: false)
+        @job_requests_not_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(start_date: :desc).where(awaiting_approval: false)
       else
-        @job_requests_not_awaiting_approval = JobRequest.paginate(page: params[:page]).order(end: :desc).where(awaiting_approval: false)
+        @job_requests_not_awaiting_approval = JobRequest.paginate(page: params[:page]).order(start_date: :desc).where(awaiting_approval: false)
       end
     elsif current_customer
-      @job_requests = current_customer.job_requests.order(end: :desc)
+      @job_requests = current_customer.job_requests.order(start_date: :desc)
     end
   end
 
@@ -61,9 +61,9 @@ class JobRequestsController < ApplicationController
     # Manager Search
     if current_user && current_user.manager?
       if params[:search]
-        @job_requests_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(end: :desc).where(awaiting_approval: true)
+        @job_requests_awaiting_approval = JobRequest.search(params[:search], params[:page]).order(start_date: :desc).where(awaiting_approval: true)
       else
-        @job_requests_awaiting_approval = JobRequest.paginate(page: params[:page]).order(end: :desc).where(awaiting_approval: true)
+        @job_requests_awaiting_approval = JobRequest.paginate(page: params[:page]).order(start_date: :desc).where(awaiting_approval: true)
       end
     end
   end
@@ -74,7 +74,7 @@ class JobRequestsController < ApplicationController
     params.require(:job_request).permit(:requester_first_name, :requester_last_name,
                                         :office_business_name, :requester_email,
                                         :requester_phone_number, :requester_fax_number, 
-                                        :start, :end, :deaf_client_first_name,
+                                        :start_date, :deaf_client_first_name,
                                         :deaf_client_last_name, :contact_person_first_name,
                                         :contact_person_last_name,
                                         :event_location_address_line_1,

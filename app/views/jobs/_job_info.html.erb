@@ -11,10 +11,10 @@
         Customer
       </th>
       <th>
-        Start
+        Start Date
       </th>
       <th>
-        End
+        Location
       </th>
     </tr>
   </thead>
@@ -42,18 +42,15 @@
         <% end %>
       </td>
       <td>
-        <%= @job.start.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @job.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+        <%= @job.city %>, <%= @job.state %>  <%= @job.zip %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Location
-      </th>
       <th>
         Requester
       </th>
@@ -66,13 +63,12 @@
       <th>
         Contact Person
       </th>
+      <th>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%= @job.city %>, <%= @job.state %>  <%= @job.zip %>
-      </td>
       <td>
         <%= @job.requester_first_name %> <%= @job.requester_last_name %>
       </td>
@@ -84,6 +80,8 @@
       </td>
       <td>
         <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
+      </td>
+      <td>
       </td>
     </tr>
   </tbody>

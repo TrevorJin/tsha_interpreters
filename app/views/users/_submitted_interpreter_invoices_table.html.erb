@@ -15,10 +15,7 @@
           Job
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           <% if current_user.manager? %>
@@ -38,10 +35,7 @@
           <td>
             <%= link_to "Job ##{interpreter_invoice.job.id}", interpreter_invoice.job %>
           <td>
-            <%= interpreter_invoice.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= interpreter_invoice.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= interpreter_invoice.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% @manager_invoice = interpreter_invoice.manager_invoices.first %>

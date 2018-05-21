@@ -14,10 +14,7 @@
           Contact Person
         </th>
         <th>
-          Start
-        </th>
-        <th>
-          End
+          Start Date
         </th>
         <th>
           Status
@@ -37,10 +34,7 @@
             <%= link_to "#{expired_job_request.contact_person_first_name} #{expired_job_request.contact_person_last_name}", expired_job_request %>
           </td>
           <td>
-            <%= expired_job_request.start.strftime("%A, %d %b %Y %l:%M %p") %>
-          </td>
-          <td>
-            <%= expired_job_request.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <%= expired_job_request.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
             <% if expired_job_request.awaiting_approval? %>
