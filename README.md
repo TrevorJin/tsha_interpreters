@@ -46,11 +46,11 @@ questions in a timely manner.
 Our internal tests are passed through Travis, testing against the following
 Ruby versions on Linux:
 
-- 2.4.0
+- 2.5.0
 
 ## License
 
-Copyright (c) 2017 Trevor Jin.
+Copyright (c) 2018 Trevor Jin.
 
 [travis]: https://travis-ci.org/TrevorJin/tsha_interpreters
 [codeclimate]: https://codeclimate.com/github/TrevorJin/tsha_interpreters
