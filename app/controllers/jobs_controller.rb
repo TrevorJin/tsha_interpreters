@@ -125,17 +125,17 @@ class JobsController < ApplicationController
     @jobs = Job.search(params[:search][:query], params[:page]).order(start_date: :desc)
     if params[:search][:start_after].present?
       start_after_string = params[:search][:start_after].to_s
-      start_after = DateTime.strptime(start_after_string, '%m-%d-%Y %H:%M')
-      @jobs = @jobs.where('start >= ?', start_after)
+      start_after = DateTime.strptime(start_after_string, '%m-%d-%Y')
+      @jobs = @jobs.where('start_date >= ?', start_after)
       if params[:search][:end_before].present?
         end_before_string = params[:search][:end_before].to_s
-        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
-        @jobs = @jobs.where('end <= ?', end_before)
+        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+        @jobs = @jobs.where('start_date <= ?', end_before)
       end
     elsif params[:search][:end_before].present?
       end_before_string = params[:search][:end_before].to_s
-      end_before = DateTime.strptime(end_before_string, '%m-%d-%Y %H:%M')
-      @jobs = @jobs.where('end <= ?', end_before)
+      end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+      @jobs = @jobs.where('start_date <= ?', end_before)
     end
   end
 
