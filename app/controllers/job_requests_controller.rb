@@ -91,6 +91,7 @@ class JobRequestsController < ApplicationController
                                         :event_location_address_line_3, :city, :state,
                                         :zip, :office_phone_number,
                                         :type_of_appointment_situation, :message,
+                                        :start_time, :requested_end_time,
                                         :customer_id)
   end
 

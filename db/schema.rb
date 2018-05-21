@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_200244) do
+ActiveRecord::Schema.define(version: 2018_05_21_212248) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -81,13 +81,19 @@ ActiveRecord::Schema.define(version: 2018_05_20_200244) do
     t.decimal "mile_rate"
     t.decimal "interpreting_hours"
     t.decimal "interpreting_rate"
-    t.decimal "extra_miles"
-    t.decimal "extra_mile_rate"
     t.decimal "extra_interpreting_hours"
     t.decimal "extra_interpreting_rate"
     t.boolean "job_completed", default: false
     t.datetime "job_completed_at"
     t.date "start_date"
+    t.decimal "misc_travel"
+    t.decimal "legal_hours"
+    t.decimal "legal_rate"
+    t.decimal "extra_legal_hours"
+    t.decimal "extra_legal_rate"
+    t.datetime "start_time"
+    t.datetime "requested_end_time"
+    t.datetime "actual_end_time"
     t.index ["job_id"], name: "index_interpreter_invoices_on_job_id"
     t.index ["user_id"], name: "index_interpreter_invoices_on_user_id"
   end
@@ -153,6 +159,8 @@ ActiveRecord::Schema.define(version: 2018_05_20_200244) do
     t.boolean "expired", default: false
     t.datetime "expired_at"
     t.date "start_date"
+    t.datetime "start_time"
+    t.datetime "requested_end_time"
     t.index ["customer_id"], name: "index_job_requests_on_customer_id"
   end
 
@@ -206,6 +214,8 @@ ActiveRecord::Schema.define(version: 2018_05_20_200244) do
     t.boolean "completed", default: false
     t.datetime "completed_at"
     t.date "start_date"
+    t.datetime "start_time"
+    t.datetime "requested_end_time"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
   end
 
@@ -222,8 +232,6 @@ ActiveRecord::Schema.define(version: 2018_05_20_200244) do
     t.decimal "mile_rate"
     t.decimal "interpreting_hours"
     t.decimal "interpreting_rate"
-    t.decimal "extra_miles"
-    t.decimal "extra_mile_rate"
     t.decimal "extra_interpreting_hours"
     t.decimal "extra_interpreting_rate"
     t.boolean "job_completed", default: false
@@ -236,6 +244,14 @@ ActiveRecord::Schema.define(version: 2018_05_20_200244) do
     t.boolean "customer_approved", default: false
     t.datetime "customer_approved_at"
     t.date "start_date"
+    t.decimal "misc_travel"
+    t.decimal "legal_hours"
+    t.decimal "legal_rate"
+    t.decimal "extra_legal_hours"
+    t.decimal "extra_legal_rate"
+    t.datetime "start_time"
+    t.datetime "requested_end_time"
+    t.datetime "actual_end_time"
     t.index ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"
     t.index ["job_id"], name: "index_manager_invoices_on_job_id"
     t.index ["user_id"], name: "index_manager_invoices_on_user_id"

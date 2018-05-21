@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-	attr_accessor :remember_token, :activation_token, :reset_token
-	before_save   :downcase_email
+  attr_accessor :remember_token, :activation_token, :reset_token
+  before_save   :downcase_email
   before_create :create_activation_digest
 
   has_many :interpreter_invoices
@@ -29,27 +29,27 @@ class User < ApplicationRecord
                         dependent: :destroy
   has_many :rejected_jobs, through: :rejections, source: :job
 
-	validates :first_name, presence: { message: "required" },
+  validates :first_name, presence: { message: "required" },
                          length: { maximum: 50, message: "must be 50 characters or less" }
-	validates :last_name, presence: { message: "required" },
+  validates :last_name, presence: { message: "required" },
                         length: { maximum: 50, message: "must be 50 characters or less" }
   validates :gender, presence: { message: "required" }
 
   # Clean phone number input before validation.
   phony_normalize :cell_phone, default_country_code: 'US'
-	validates :cell_phone, presence: { message: "required" },
+  validates :cell_phone, presence: { message: "required" },
                          length: { maximum: 30, message: "must be 30 characters or less" },
                          phony_plausible: true
 
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-	validates :email, presence: { message: "required" },
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :email, presence: { message: "required" },
                     length: { maximum: 255, message: "must be 255 characters or less" },
-	                  format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" },
-	                  uniqueness: { case_sensitive: false, message: "has already been taken" }
+                    format: { with: VALID_EMAIL_REGEX, message: "is not a valid email format" },
+                    uniqueness: { case_sensitive: false, message: "has already been taken" }
   validate :unique_email
-	
+
   has_secure_password
-	validates :password, presence: { message: "required" },
+  validates :password, presence: { message: "required" },
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
   validates :vendor_number, numericality: { only_integer: true }, allow_nil: true
 
@@ -61,7 +61,7 @@ class User < ApplicationRecord
                                                                                   "%#{search}%").paginate(page: page, per_page: 20)
   end
 
-	# Returns the hash digest of the given string.
+  # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost

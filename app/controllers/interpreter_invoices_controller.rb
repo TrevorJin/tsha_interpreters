@@ -46,7 +46,9 @@ class InterpreterInvoicesController < ApplicationController
   private
 
   def interpreter_invoice_params
-    params.require(:interpreter_invoice).permit(:start_date, :job_type,
+    params.require(:interpreter_invoice).permit(:start_date, :start_time,
+                                                :requested_end_time,
+                                                :actual_end_time, :job_type,
                                                 :event_location_address_line_1, 
                                                 :event_location_address_line_2,
                                                 :event_location_address_line_3,
@@ -57,9 +59,11 @@ class InterpreterInvoicesController < ApplicationController
                                                 :job_id, :miles, :mile_rate,
                                                 :interpreting_hours,
                                                 :interpreting_rate,
-                                                :extra_miles, :extra_mile_rate,
                                                 :extra_interpreting_hours,
-                                                :extra_interpreting_rate)
+                                                :extra_interpreting_rate,
+                                                :misc_travel, :legal_hours,
+                                                :legal_rate, :extra_legal_hours,
+                                                :extra_legal_rate)
   end
 
   def manager_search

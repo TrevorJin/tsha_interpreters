@@ -5,6 +5,18 @@
     <%= f.hint "Suggested Start Date from Job: #{Date.parse(params[:start_date]).strftime("%Y-%m-%d")}" %>
   <% end %>
   <%= f.input :start_date, as: :date %>
+  <% if params[:start_time] %>
+    <%= f.hint "Suggested Start Time from Job: #{DateTime.parse(params[:start_time]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+  <% end %>
+  <%= f.input :start_time, as: :date %>
+  <%= f.input :start_time, as: :time, :ampm => true, :ignore_date => true %>
+  <% if params[:requested_end_time] %>
+    <%= f.hint "Suggested Requested End Time from Job: #{DateTime.parse(params[:requested_end_time]).strftime("%A, %d %b %Y %l:%M %p")}" %>
+  <% end %>
+  <%= f.input :requested_end_time, as: :date %>
+  <%= f.input :requested_end_time, as: :time, :ampm => true, :ignore_date => true %>
+  <%= f.input :actual_end_time, as: :date %>
+  <%= f.input :actual_end_time, as: :time, :ampm => true, :ignore_date => true %>
   <%= f.input :job_type, :collection => job_types, :selected => "Regular" %>
   <% if params[:event_location_address_line_1] %>
     <%= f.input :event_location_address_line_1, :input_html => { :value => params[:event_location_address_line_1] } %>
@@ -38,12 +50,15 @@
   <% end %>
   <%= f.input :miles, placeholder: 'Example: 17' %>
   <%= f.input :mile_rate, placeholder: 'Example: 8.50' %>
+  <%= f.input :misc_travel, placeholder: 'Example: 3.45' %>
   <%= f.input :interpreting_hours, placeholder: 'Example: 2' %>
   <%= f.input :interpreting_rate, placeholder: 'Example: 8.50' %>
-  <%= f.input :extra_miles, placeholder: 'Example: 5' %>
-  <%= f.input :extra_mile_rate, placeholder: 'Example: 9.50' %>
   <%= f.input :extra_interpreting_hours, placeholder: 'Example: 2' %>
   <%= f.input :extra_interpreting_rate, placeholder: 'Example: 9.50' %>
+  <%= f.input :legal_hours, placeholder: 'Example: 5' %>
+  <%= f.input :legal_rate, placeholder: 'Example: 10.50' %>
+  <%= f.input :extra_legal_hours, placeholder: 'Example: 3' %>
+  <%= f.input :extra_legal_rate, placeholder: 'Example: 12.50' %>
   <%= f.input :interpreter_comments %>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>

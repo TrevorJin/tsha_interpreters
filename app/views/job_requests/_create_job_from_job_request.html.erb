@@ -1,6 +1,7 @@
 <%= link_to "Create Job From Job Request", new_job_from_job_request_job_path(
   :customer_id => @job_request.customer.id, :job_request_id => @job_request.id,
-  :start_date => @job_request.start_date,
+  :start_date => @job_request.start_date, :start_time => @job_request.start_time,
+  :requested_end_time => @job_request.requested_end_time,
   :requester_first_name => @job_request.requester_first_name,
   :requester_last_name => @job_request.requester_last_name,
   :requester_email => @job_request.requester_email,

@@ -8,7 +8,7 @@ class ManagerInvoice < ApplicationRecord
   validates :interpreter_invoice_id, presence: true
 
   validates :job_type, presence: { message: "required" }, 
-																 	 length: { maximum: 50, message: "must be 50 characters or less" }
+                                   length: { maximum: 50, message: "must be 50 characters or less" }
   validates :event_location_address_line_1, presence: { message: "required" },
                                             length: { maximum: 100, message: "must be 100 characters or less" }
   validates :event_location_address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }

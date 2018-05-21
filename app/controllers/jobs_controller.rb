@@ -94,7 +94,9 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:start_date, :requester_first_name,
+    params.require(:job).permit(:start_date, :start_time,
+                                :requested_end_time,
+                                :requester_first_name,
                                 :requester_last_name, :requester_email,
                                 :requester_phone_number,
                                 :contact_person_first_name,

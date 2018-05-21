@@ -43,7 +43,7 @@
         Event Start Date
       </th>
       <th>
-        Deaf Client
+        Event Start Time
       </th>
     </tr>
   </thead>
@@ -59,35 +59,39 @@
         <%= @job_request.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @job_request.deaf_client_first_name %> <%= @job_request.deaf_client_last_name %>
+        <%= @job_request.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
       <th>
+        Requested End Time
+      </th>
+      <th>
+        Deaf Client
+      </th>
+      <th>
         Contact Person
       </th>
       <th>
         Office Phone Number
-      </th>
-      <th>
-      </th>
-      <th>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
+        <%= @job_request.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+      <td>
+        <%= @job_request.deaf_client_first_name %> <%= @job_request.deaf_client_last_name %>
+      </td>
+      <td>
         <%= @job_request.contact_person_first_name %> <%= @job_request.contact_person_last_name %>
       </td>
       <td>
         <%= @job_request.office_phone_number %>
-      </td>
-      <td>
-      </td>
-      <td>
       </td>
     </tr>
   </tbody>

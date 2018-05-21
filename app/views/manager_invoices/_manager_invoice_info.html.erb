@@ -14,7 +14,7 @@
         Start Date
       </th>
       <th>
-        Job Type
+        Start Time
       </th>
     </tr>
   </thead>
@@ -37,37 +37,69 @@
         <%= @manager_invoice.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @manager_invoice.job_type %>
+        <%= @manager_invoice.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
       <th>
+        Requested End Time
+      </th>
+      <th>
+        Actual End Time
+      </th>
+      <th>
+        Job Type
+      </th>
+      <th>
         Contact Person
       </th>
       <th>
         Contact Person Phone
-      </th>
-      <th>
-        Miles (50 Miles or Below)
-      </th>
-      <th>
-        Mile Rate (50 Miles or Below)
-      </th>
-      <th>
-        Interpreting Hours (Regular)
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
+        <%= @manager_invoice.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+      <td>
+        <%= @manager_invoice.actual_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+      <td>
+        <%= @manager_invoice.job_type %>
+      </td>
+      <td>
         <%= @manager_invoice.contact_person_first_name %> <%= @manager_invoice.contact_person_last_name %>
       </td>
       <td>
         <%= @manager_invoice.contact_person_phone_number %>
       </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Miles
+      </th>
+      <th>
+        Mile Rate
+      </th>
+      <th>
+        Misc. Travel
+      </th>
+      <th>
+        Interpreting Hours (Regular)
+      </th>
+      <th>
+        Interpreting Rate (Regular)
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td>
         <%= @manager_invoice.miles %>
       </td>
@@ -75,50 +107,59 @@
         <%= @manager_invoice.mile_rate %>
       </td>
       <td>
+        <%= @manager_invoice.misc_travel %>
+      </td>
+      <td>
         <%= @manager_invoice.interpreting_hours %>
+      </td>
+      <td>
+        <%= @manager_invoice.interpreting_rate %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th>
-        Interpreting Rate (Regular)
-      </th>
-      <th>
-        Miles (Over 50 Miles)
-      </th>
-      <th>
-        Mile Rate (Over 50 Miles)
-      </th>
       <th>
         Interpreting Hours (After Hour)
       </th>
       <th>
         Interpreting Rate (After Hour)
       </th>
+      <th>
+        Legal Hours (Regular)
+      </th>
+      <th>
+        Legal Rate (Regular)
+      </th>
+      <th>
+        Legal Hours (After Hour)
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <%= @manager_invoice.interpreting_rate %>
-      </td>
-      <td>
-        <%= @manager_invoice.extra_miles %>
-      </td>
-      <td>
-        <%= @manager_invoice.extra_mile_rate %>
+        <%= @manager_invoice.extra_interpreting_rate %>
       </td>
       <td>
         <%= @manager_invoice.extra_interpreting_hours %>
       </td>
       <td>
-        <%= @manager_invoice.extra_interpreting_rate %>
+        <%= @manager_invoice.legal_hours %>
       </td>
+      <td>
+        <%= @manager_invoice.legal_rate %>
+      </td>
+      <td>
+        <%= @manager_invoice.extra_legal_hours %>
+      </td>      
     </tr>
   </tbody>
   <thead>
     <tr>
+      <th>
+        Legal Rate (After Hour)
+      </th>
       <th>
         <% if user_logged_in? %>
           Original Interpreter Invoice
@@ -130,18 +171,17 @@
       </th>
       <th>
       </th>
-      <th>
-      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
+        <%= @manager_invoice.extra_legal_rate %>
+      </td>
+      <td>
         <% if user_logged_in? %>
           <%= link_to "Interpreter Invoice ##{@manager_invoice.interpreter_invoice.id}", @manager_invoice.interpreter_invoice %>
         <% end %>
-      </td>
-      <td>
       </td>
       <td>
       </td>

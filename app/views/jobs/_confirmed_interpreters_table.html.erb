@@ -39,6 +39,9 @@
                :user_id => confirmed_interpreter.id, :job_id => @job.id,
                :interpreter_invoice_id => @interpreter_invoice.id,
                :start_date => @interpreter_invoice.start_date,
+               :start_time => @interpreter_invoice.start_time,
+               :requested_end_time => @interpreter_invoice.requested_end_time,
+               :actual_end_time => @interpreter_invoice.actual_end_time,
                :job_type => @interpreter_invoice.job_type,
                :event_location_address_line_1 => @interpreter_invoice.event_location_address_line_1,
                :event_location_address_line_2 => @interpreter_invoice.event_location_address_line_2,
@@ -48,12 +51,15 @@
                :contact_person_phone_number => @interpreter_invoice.contact_person_phone_number,
                :interpreter_comments => @interpreter_invoice.interpreter_comments,
                :miles => @interpreter_invoice.miles, :mile_rate => @interpreter_invoice.mile_rate,
+               :misc_travel => @interpreter_invoice.misc_travel,
                :interpreting_hours => @interpreter_invoice.interpreting_hours,
                :interpreting_rate => @interpreter_invoice.interpreting_rate,
-               :extra_miles => @interpreter_invoice.extra_miles,
-               :extra_mile_rate => @interpreter_invoice.extra_mile_rate,
                :extra_interpreting_hours => @interpreter_invoice.extra_interpreting_hours,
-               :extra_interpreting_rate => @interpreter_invoice.extra_interpreting_rate),
+               :extra_interpreting_rate => @interpreter_invoice.extra_interpreting_rate,
+               :legal_hours => @interpreter_invoice.legal_hours,
+               :legal_rate => @interpreter_invoice.legal_rate,
+               :extra_legal_hours => @interpreter_invoice.extra_legal_hours,
+               :extra_legal_rate => @interpreter_invoice.extra_legal_rate),
                :class => "btn btn-success" %>
           <% else %>
             N/A

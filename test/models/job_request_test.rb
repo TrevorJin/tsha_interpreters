@@ -13,20 +13,23 @@ class JobRequestTest < ActiveSupport::TestCase
                              contact_phone_number_extension: '', fax: '',
                              password: 'foobar', password_confirmation: 'foobar')
     @customer.save
-    @job_request = @customer.job_requests.create(requester_first_name: 'Billy', requester_last_name: 'Hamilton',
-                                                 office_business_name: 'Cincinnati Reds',
-                                                 requester_email: 'billy.hamilton@cincinnatireds.com',
-                                                 requester_phone_number: '+18662466453', requester_fax_number: '',
-                                                 start_date: Date.parse('May 3rd 2017'),
-                                                 deaf_client_first_name: 'Dusty', deaf_client_last_name: 'Baker',
-                                                 contact_person_first_name: 'Alexander',
-                                                 contact_person_last_name: 'Hamilton',
-                                                 event_location_address_line_1: '5000 Emerald Lane',
-                                                 event_location_address_line_2: '', event_location_address_line_3: '',
-                                                 city: 'Cincinnati', state: 'Ohio', zip: '45201',
-                                                 office_phone_number: '+18662466453',
-                                                 type_of_appointment_situation: "Can't hear the umpire well enough.",
-                                                 message: 'Please help us.')
+    @job_request = @customer.job_requests.create(requester_first_name: 'Billy',
+                              requester_last_name: 'Hamilton',
+                              office_business_name: 'Cincinnati Reds',
+                              requester_email: 'billy.hamilton@cincinnatireds.com',
+                              requester_phone_number: '+18662466453', requester_fax_number: '',
+                              start_date: Date.parse('May 3rd 2017'),
+                              start_time: DateTime.parse('March 3rd 2017 04:05:06 AM'),
+                              requested_end_time: DateTime.parse('March 3rd 2017 05:05:06 AM'),
+                              deaf_client_first_name: 'Dusty', deaf_client_last_name: 'Baker',
+                              contact_person_first_name: 'Alexander',
+                              contact_person_last_name: 'Hamilton',
+                              event_location_address_line_1: '5000 Emerald Lane',
+                              event_location_address_line_2: '', event_location_address_line_3: '',
+                              city: 'Cincinnati', state: 'Ohio', zip: '45201',
+                              office_phone_number: '+18662466453',
+                              type_of_appointment_situation: "Can't hear the umpire well enough.",
+                              message: 'Please help us.')
   end
 
   test 'should be valid' do

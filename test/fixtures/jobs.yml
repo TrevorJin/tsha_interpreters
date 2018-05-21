@@ -2,6 +2,8 @@
 
 one:
   start_date: 2016-10-22
+  start_time: 2016-10-22 10:10:36
+  requested_end_time: 2016-10-22 11:11:36
   requester_first_name: Willy
   requester_last_name: Wonka
   requester_email: willy.wonka@gmail.com

@@ -1,6 +1,7 @@
 <%= link_to "Submit Invoice", new_interpreter_invoice_from_job_interpreter_invoice_path(
   :user_id => current_user.id, :job_id => @job.id,
-  :start_date => @job.start_date,
+  :start_date => @job.start_date, :start_time => @job.start_time,
+  :requested_end_time => @job.requested_end_time,
   :contact_person_first_name => @job.contact_person_first_name,
   :contact_person_last_name => @job.contact_person_last_name,
   :contact_person_phone_number => @job.customer.contact_phone_number,

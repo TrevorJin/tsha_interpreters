@@ -4,14 +4,14 @@ class Job < ApplicationRecord
   has_many :interpreter_invoices
   has_many :manager_invoices
 
-	has_many :confirmed_interpreter_requests, class_name: "Appointment",
-																						foreign_key: "job_id",
-																						dependent: :destroy
+  has_many :confirmed_interpreter_requests, class_name: "Appointment",
+                                            foreign_key: "job_id",
+                                            dependent: :destroy
   has_many :confirmed_interpreters, through: :confirmed_interpreter_requests, source: :user
 
   has_many :attempted_interpreter_requests, class_name: "InterpretingRequest",
-                                    				foreign_key: "job_id",
-                                    				dependent: :destroy
+                                            foreign_key: "job_id",
+                                            dependent: :destroy
   has_many :attempted_interpreters, through: :attempted_interpreter_requests, source: :user
 
   has_many :job_completions, class_name: "JobCompletion",
@@ -27,7 +27,7 @@ class Job < ApplicationRecord
   belongs_to :customer
 
   validates :customer_id, presence: true
-	validates :start_date, presence: { message: "start date required" }
+  validates :start_date, presence: { message: "start date required" }
   validates :requester_first_name, presence: { message: "required" }, 
                                    length: { maximum: 50, message: "must be 50 characters or less" }
   validates :requester_last_name, presence: { message: "required" }, 
@@ -45,20 +45,20 @@ class Job < ApplicationRecord
                                         length: { maximum: 50, message: "must be 50 characters or less" }
   validates :contact_person_last_name, presence: { message: "required" }, 
                                        length: { maximum: 50, message: "must be 50 characters or less" }  
-	validates :address_line_1, presence: { message: "required" },
-														 length: { maximum: 100, message: "must be 100 characters or less" }
-	validates :address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
-	validates :address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }
-	validates :city, presence: { message: "required" },
-									 length: { maximum: 50, message: "must be 50 characters or less" }
-	validates :state, presence: { message: "required" },
-										length: { maximum: 30, message: "must be 30 characters or less" }
-	validates :zip, presence: { message: "required" },
-									length: { maximum: 20, message: "must be 20 characters or less" }
-	validates :invoice_notes, length: { maximum: 2000, message: "must be 2,000 characters or less" }
-	validates :notes_for_irp, length: { maximum: 2000, message: "must be 2,000 characters or less" }
-	validates :notes_for_interpreter, length: { maximum: 2000, message: "must be 2,000 characters or less" }
-	validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+  validates :address_line_1, presence: { message: "required" },
+                             length: { maximum: 100, message: "must be 100 characters or less" }
+  validates :address_line_2, length: { maximum: 100, message: "must be 100 characters or less" }
+  validates :address_line_3, length: { maximum: 100, message: "must be 100 characters or less" }
+  validates :city, presence: { message: "required" },
+                   length: { maximum: 50, message: "must be 50 characters or less" }
+  validates :state, presence: { message: "required" },
+                    length: { maximum: 30, message: "must be 30 characters or less" }
+  validates :zip, presence: { message: "required" },
+                  length: { maximum: 20, message: "must be 20 characters or less" }
+  validates :invoice_notes, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+  validates :notes_for_irp, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+  validates :notes_for_interpreter, length: { maximum: 2000, message: "must be 2,000 characters or less" }
+  validates :directions, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
   def self.search(search, page)
     order(start_date: :desc).where("cast(id as text) LIKE ? OR address_line_1 LIKE ? OR address_line_2 LIKE ? OR
@@ -69,7 +69,7 @@ class Job < ApplicationRecord
                                     "%#{search}%", "%#{search}%").paginate(page: page, per_page: 20)
   end
 
-	# Confirms a user connection with job
+  # Confirms a user connection with job
   def confirm_user(user)
     confirmed_interpreter_requests.create(user_id: user.id)
   end

@@ -1,6 +1,10 @@
 <%= simple_form_for @job do |f| %>
   <%= f.association :customer, label_method: :customer_name, :value_method => :id, collection: Customer.order('customer_name ASC') %>
   <%= f.input :start_date, as: :date %>
+  <%= f.input :start_time, as: :date %>
+  <%= f.input :start_time, as: :time, :ampm => true, :ignore_date => true %>
+  <%= f.input :requested_end_time, as: :date %>
+  <%= f.input :requested_end_time, as: :time, :ampm => true, :ignore_date => true %>
   <%= f.input :requester_first_name %>
   <%= f.input :requester_last_name %>
   <%= f.input :requester_email %>

@@ -18,6 +18,8 @@ class InterpreterInvoiceTest < ActiveSupport::TestCase
                              password: 'foobar', password_confirmation: 'foobar')
     @customer.save
     @job = @customer.jobs.create(start_date: Date.parse('March 3rd 2017'),
+                   start_time: DateTime.parse('March 3rd 2017 04:05:06 AM'),
+                   requested_end_time: DateTime.parse('March 3rd 2017 05:05:06 AM'),
                    requester_first_name: 'Willy', requester_last_name: 'Wonka',
                    requester_email: 'willy.wonka@gmail.com', requester_phone_number: '+18662466453',
                    contact_person_first_name: 'Willy', contact_person_last_name: 'Wonka',
@@ -26,14 +28,23 @@ class InterpreterInvoiceTest < ActiveSupport::TestCase
                    state: 'Oklahoma', zip: '74104', invoice_notes: 'Park in the rear',
                    notes_for_irp: '', notes_for_interpreter: '', directions: '')
     @interpreter_invoice = InterpreterInvoice.new(start_date: Date.parse('March 3rd 2017'),
-                                                  job_type: 'Emergency',
-                                                  event_location_address_line_1: '567 5th Avenue',
-                                                  event_location_address_line_2: '',
-                                                  event_location_address_line_3: '',
-                                                  contact_person_first_name: 'Willy',
-                                                  contact_person_last_name: 'Wonka',
-                                                  contact_person_phone_number: '+18662466453',
-                                                  interpreter_comments: '')
+                                    start_time: DateTime.parse('March 3rd 2017 04:05:06 AM'),
+                                    requested_end_time: DateTime.parse('March 3rd 2017 05:05:06 AM'),
+                                    actual_end_time: DateTime.parse('March 3rd 2017 05:05:06 AM'),
+                                    job_type: 'Emergency',
+                                    event_location_address_line_1: '567 5th Avenue',
+                                    event_location_address_line_2: '',
+                                    event_location_address_line_3: '',
+                                    contact_person_first_name: 'Willy',
+                                    contact_person_last_name: 'Wonka',
+                                    contact_person_phone_number: '+18662466453',
+                                    interpreter_comments: '',
+                                    miles: 30, mile_rate: 2.50, misc_travel: 7.50,
+                                    interpreting_hours: 3, interpreting_rate: 25,
+                                    extra_interpreting_hours: 2,
+                                    extra_interpreting_rate: 30,
+                                    legal_hours: 3, legal_rate: 37,
+                                    extra_legal_hours: 2, extra_legal_rate: 40)
     @interpreter_invoice.job = @job
     @interpreter_invoice.user = @user
     @interpreter_invoice.save

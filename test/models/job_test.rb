@@ -14,6 +14,8 @@ class JobTest < ActiveSupport::TestCase
                              password: 'foobar', password_confirmation: 'foobar')
     @customer.save
     @job = @customer.jobs.create(start_date: Date.parse('March 3rd 2017'),
+                   start_time: DateTime.parse('March 3rd 2017 04:05:06 AM'),
+                   requested_end_time: DateTime.parse('March 3rd 2017 05:05:06 AM'),
                    requester_first_name: 'Willy', requester_last_name: 'Wonka',
                    requester_email: 'willy.wonka@gmail.com', requester_phone_number: '+18662466453',
                    contact_person_first_name: 'Willy', contact_person_last_name: 'Wonka',

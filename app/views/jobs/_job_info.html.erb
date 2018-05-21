@@ -52,6 +52,12 @@
   <thead>
     <tr>
       <th>
+        Start Time
+      </th>
+      <th>
+       Requested End Time
+      </th>
+      <th>
         Requester
       </th>
       <th>
@@ -60,15 +66,16 @@
       <th>
         Requester Phone Number
       </th>
-      <th>
-        Contact Person
-      </th>
-      <th>
-      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>
+        <%= @job.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
+      <td>
+        <%= @job.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+      </td>
       <td>
         <%= @job.requester_first_name %> <%= @job.requester_last_name %>
       </td>
@@ -78,8 +85,35 @@
       <td>
         <%= @job.requester_phone_number %>
       </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Contact Person
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td>
         <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
       </td>
       <td>
       </td>

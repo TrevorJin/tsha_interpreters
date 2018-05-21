@@ -10,10 +10,7 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
-    # Examples
     labels:
-      # defaults:
-        # password: 'Password'
       customer:
         new:
           customer_name: 'Customer Name'
@@ -174,12 +171,15 @@ en:
           contact_person_last_name: "Contact Person Last Name"
           miles: "Miles (50 Miles or Below)"
           mile_rate: "Mile Rate (50 Miles or Below)"
+          misc_travel: "Misc. Travel"
           interpreting_hours: "Interpreting Hours (Regular)"
           interpreting_rate: "Interpreting Rate (Regular)"
-          extra_miles: "Miles (Over 50 Miles)"
-          extra_mile_rate: "Mile Rate (Over 50 Miles)"
           extra_interpreting_hours: "Interpreting Hours (After Hour)"
           extra_interpreting_rate: "Interpreting Rate (After Hour)"
+          legal_hours: "Legal Hours (Regular)"
+          legal_rate: "Legal Rate (Regular)"
+          extra_legal_hours: "Legal Hours (After Hour)"
+          extra_legal_rate: "Legal Rate (After Hour)"
           interpreter_comments: "Interpreter Comments"
       manager_invoice:
         new_manager_invoice_from_interpreter_invoice:
@@ -192,21 +192,13 @@ en:
           contact_person_last_name: "Contact Person Last Name"
           miles: "Miles (50 Miles or Below)"
           mile_rate: "Mile Rate (50 Miles or Below)"
+          misc_travel: "Misc. Travel"
           interpreting_hours: "Interpreting Hours (Regular)"
           interpreting_rate: "Interpreting Rate (Regular)"
-          extra_miles: "Miles (Over 50 Miles)"
-          extra_mile_rate: "Mile Rate (Over 50 Miles)"
           extra_interpreting_hours: "Interpreting Hours (After Hour)"
           extra_interpreting_rate: "Interpreting Rate (After Hour)"
+          legal_hours: "Legal Hours (Regular)"
+          legal_rate: "Legal Rate (Regular)"
+          extra_legal_hours: "Legal Hours (After Hour)"
+          extra_legal_rate: "Legal Rate (After Hour)"
           interpreter_comments: "Interpreter Comments"
-
-    # hints:
-      # defaults:
-        # username: 'User name to sign in.'
-        # password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'
