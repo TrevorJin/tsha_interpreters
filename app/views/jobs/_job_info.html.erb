@@ -71,10 +71,14 @@
   <tbody>
     <tr>
       <td>
-        <%= @job.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% if @job.start_time? %>
+          <%= @job.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
       </td>
       <td>
-        <%= @job.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% if @job.requested_end_time? %>
+          <%= @job.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
       </td>
       <td>
         <%= @job.requester_first_name %> <%= @job.requester_last_name %>

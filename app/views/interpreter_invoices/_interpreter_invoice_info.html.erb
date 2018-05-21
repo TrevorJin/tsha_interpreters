@@ -33,7 +33,9 @@
         <%= @interpreter_invoice.start_date.to_formatted_s(:long_ordinal) %>
       </td>
       <td>
-        <%= @interpreter_invoice.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% if @interpreter_invoice.start_time? %>
+          <%= @interpreter_invoice.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
       </td>
     </tr>
   </tbody>
@@ -59,10 +61,14 @@
   <tbody>
     <tr>
       <td>
-        <%= @interpreter_invoice.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% if @interpreter_invoice.requested_end_time? %>
+          <%= @interpreter_invoice.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
       </td>
       <td>
-        <%= @interpreter_invoice.actual_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% if @interpreter_invoice.actual_end_time? %>
+          <%= @interpreter_invoice.actual_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
       </td>
       <td>
         <%= @interpreter_invoice.job_type %>
