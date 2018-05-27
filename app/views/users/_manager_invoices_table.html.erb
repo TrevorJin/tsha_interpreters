@@ -27,11 +27,11 @@
         </th>
         <% if user_logged_in? %>
           <th>
-            Approved by Customer?
+            
           </th>
         <% elsif customer_logged_in? %>
           <th>
-            Action
+            
           </th>
         <% end %>
       </tr>
@@ -62,19 +62,11 @@
           </td>
           <% if user_logged_in? %>
             <td>
-              <% if manager_invoice.customer_approved? %>
-                <span class="label label-success">Approved by Customer</span>
-              <% else %>
-                <span class="label label-warning">Waiting for Customer Approval</span>
-              <% end %>
+              
             </td>
           <% elsif customer_logged_in? %>
             <td>
-              <% if manager_invoice.customer_approved? %>
-                
-              <% else %>
-                <span class="label label-success">Approved by You</span>
-              <% end %>
+              
             </td>
           <% end %>
         </tr>

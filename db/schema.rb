@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_26_234737) do
+ActiveRecord::Schema.define(version: 2018_05_27_021753) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -242,8 +242,6 @@ ActiveRecord::Schema.define(version: 2018_05_26_234737) do
     t.integer "user_id"
     t.integer "job_id"
     t.integer "interpreter_invoice_id"
-    t.boolean "customer_approved", default: false
-    t.datetime "customer_approved_at"
     t.date "start_date"
     t.decimal "misc_travel"
     t.decimal "legal_hours"

@@ -150,7 +150,7 @@ module SessionsHelper
       @jobs_without_confirmed_interpreter = Job.where(has_interpreter_assigned: false, expired: false).order(start_date: :desc)
       @jobs_awaiting_invoice = Job.where(has_interpreter_assigned: true, invoice_submitted: false, completed: true).order(start_date: :desc)
       @processed_jobs = Job.where(has_interpreter_assigned: true, invoice_submitted: true, completed: true).order(start_date: :desc)
-       @expired_jobs = Job.where(expired: true).order(start_date: :desc)
+      @expired_jobs = Job.where(expired: true).order(start_date: :desc)
       @total_jobs = Job.all.order(start_date: :desc)
       @interpreter_invoices = InterpreterInvoice.all.order(start_date: :desc)
       @manager_invoices = ManagerInvoice.all.order(start_date: :desc)
