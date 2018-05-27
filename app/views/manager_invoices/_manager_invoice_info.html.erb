@@ -172,7 +172,9 @@
         <% end %>
       </th>
       <th>
-        Status
+        <% if user_logged_in? && current_user.manager? %>
+          Status
+        <% end %>
       </th>
       <th>
       </th>
@@ -191,10 +193,12 @@
         <% end %>
       </td>
       <td>
-        <% if @manager_invoice.processed? %>
-          <span class="label label-success">Processed</span>
-        <% else %>
-          <span class="label label-warning">Not Processed</span>
+        <% if user_logged_in? && current_user.manager? %>
+          <% if @manager_invoice.processed? %>
+            <span class="label label-success">Processed</span>
+          <% else %>
+            <span class="label label-warning">Not Processed</span>
+          <% end %>
         <% end %>
       </td>
       <td>
