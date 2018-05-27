@@ -110,16 +110,16 @@
         <%= @manager_invoice.miles %>
       </td>
       <td>
-        <%= @manager_invoice.mile_rate %>
+        <%= number_to_currency(@manager_invoice.mile_rate) %>
       </td>
       <td>
-        <%= @manager_invoice.misc_travel %>
+        <%= number_to_currency(@manager_invoice.misc_travel) %>
       </td>
       <td>
         <%= @manager_invoice.interpreting_hours %>
       </td>
       <td>
-        <%= @manager_invoice.interpreting_rate %>
+        <%= number_to_currency(@manager_invoice.interpreting_rate) %>
       </td>
     </tr>
   </tbody>
@@ -145,16 +145,16 @@
   <tbody>
     <tr>
       <td>
-        <%= @manager_invoice.extra_interpreting_rate %>
+        <%= @manager_invoice.extra_interpreting_hours %>
       </td>
       <td>
-        <%= @manager_invoice.extra_interpreting_hours %>
+        <%= number_to_currency(@manager_invoice.extra_interpreting_rate) %>
       </td>
       <td>
         <%= @manager_invoice.legal_hours %>
       </td>
       <td>
-        <%= @manager_invoice.legal_rate %>
+        <%= number_to_currency(@manager_invoice.legal_rate) %>
       </td>
       <td>
         <%= @manager_invoice.extra_legal_hours %>
@@ -186,7 +186,7 @@
   <tbody>
     <tr>
       <td>
-        <%= @manager_invoice.extra_legal_rate %>
+        <%= number_to_currency(@manager_invoice.extra_legal_rate) %>
       </td>
       <td>
         <% if user_logged_in? %>
