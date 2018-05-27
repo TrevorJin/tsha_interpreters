@@ -37,4 +37,29 @@ class InterpreterInvoice < ApplicationRecord
     update_attribute(:job_completed, true)
     update_attribute(:job_completed_at, Time.zone.now)
   end
+
+  def total_amount(miles, mile_rate, interpreting_hours, interpreting_rate, extra_interpreting_hours,
+                   extra_interpreting_rate, misc_travel, legal_hours, legal_rate, extra_legal_hours,
+                   extra_legal_rate)
+    total = 0.0
+    if (!miles.nil? && !mile_rate.nil?)
+      total = total + miles*mile_rate
+    end
+    if (!interpreting_hours.nil? && !interpreting_rate.nil?)
+      total = total + interpreting_hours*interpreting_rate
+    end
+    if (!extra_interpreting_hours.nil? && !extra_interpreting_rate.nil?)
+      total = total + extra_interpreting_hours*extra_interpreting_rate
+    end
+    if (!misc_travel.nil?)
+      total = total + misc_travel
+    end
+    if (!legal_hours.nil? && !legal_rate.nil?)
+      total = total + legal_hours*legal_rate
+    end
+    if (!extra_legal_hours.nil? && !extra_legal_rate.nil?)
+      total = total + extra_legal_hours*extra_legal_rate
+    end
+    return total
+  end
 end
