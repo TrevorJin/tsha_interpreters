@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_21_212248) do
+ActiveRecord::Schema.define(version: 2018_05_26_234737) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_212248) do
     t.boolean "active", default: true
     t.integer "tsha_number"
     t.integer "fund_number"
+    t.text "customer_notes"
     t.index ["email"], name: "index_customers_on_email", unique: true
   end
 

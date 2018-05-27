@@ -1,7 +1,8 @@
 class CustomersController < ApplicationController
   before_action :logged_in_user,
     only: [:index, :pending_customers, :destroy, :approve_account, :deactivate_customer,
-           :reactivate_customer, :change_tsha_number, :change_fund_number]
+           :reactivate_customer, :change_tsha_number, :change_fund_number,
+           :change_customer_notes]
   before_action :logged_in_customer,
     only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
            :expired_job_requests]
@@ -11,7 +12,7 @@ class CustomersController < ApplicationController
            :expired_job_requests]
   before_action :manager_user,
     only: [:index, :pending_customers, :approve_account, :change_tsha_number,
-           :change_fund_number]
+           :change_fund_number, :change_customer_notes]
   before_action :admin_user, only: [:destroy, :deactivate_customer, :reactivate_customer]
   before_action :correct_customer_or_manager_user, only: [:show, :edit, :update]
   before_action :manager_dashboard,
@@ -154,6 +155,14 @@ class CustomersController < ApplicationController
     @fund_number = params[:customer][:fund_number]
     @customer.update_attribute(:fund_number, @fund_number)
     flash[:success] = "#{@customer.customer_name}'s fund number has been updated to #{@fund_number}."
+    redirect_to customer_url(@customer)
+  end
+
+  def change_customer_notes
+    @customer = Customer.find(params[:id])
+    @customer_notes = params[:customer][:customer_notes]
+    @customer.update_attribute(:customer_notes, @customer_notes)
+    flash[:success] = "#{@customer.customer_name}'s notes have been updated."
     redirect_to customer_url(@customer)
   end
 

@@ -51,6 +51,7 @@ class Customer < ApplicationRecord
                        length: { minimum: 6, message: "must be at least 6 characters long" }, allow_nil: true
   validates :tsha_number, numericality: { only_integer: true }, allow_nil: true
   validates :fund_number, numericality: { only_integer: true }, allow_nil: true
+  validates :customer_notes, length: { maximum: 2000, message: "must be 2,000 characters or less" }
 
   def self.search(search, page)
     order(customer_name: :asc).where("cast(id as text) LIKE ? OR customer_name LIKE ? OR contact_first_name LIKE ? OR contact_last_name LIKE ?

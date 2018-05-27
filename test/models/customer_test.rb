@@ -13,7 +13,7 @@ class CustomerTest < ActiveSupport::TestCase
     							 					 contact_phone_number: '+18662466453', contact_phone_number_extension: '1',
     							 					 email: 'samadams@bostonbeer.com', fax: '111222333',
                              password: 'foobar', password_confirmation: 'foobar',
-                             tsha_number: 777, fund_number: 777)
+                             tsha_number: 777, fund_number: 777, customer_notes: 'She is cool.')
   end
 
   test 'customer name should be present' do
@@ -181,6 +181,11 @@ class CustomerTest < ActiveSupport::TestCase
 
   test 'fund number should be not be a float' do
     @customer.fund_number = 777.777
+    assert_not @customer.valid?
+  end
+
+  test 'customer notes should not be too long' do
+    @customer.customer_notes = 'a' * 2001
     assert_not @customer.valid?
   end
 end
