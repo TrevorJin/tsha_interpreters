@@ -172,6 +172,7 @@
         <% end %>
       </th>
       <th>
+        Status
       </th>
       <th>
       </th>
@@ -190,6 +191,11 @@
         <% end %>
       </td>
       <td>
+        <% if @manager_invoice.processed? %>
+          <span class="label label-success">Processed</span>
+        <% else %>
+          <span class="label label-warning">Not Processed</span>
+        <% end %>
       </td>
       <td>
       </td>
