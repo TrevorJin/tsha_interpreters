@@ -14,21 +14,20 @@
         <th>
           Job
         </th>
-        <% if user_logged_in? %>
-          <th>
-            Interpreter Invoice
-          </th>
-        <% end %>
         <th>
           Interpreter
         </th>
-        <% if user_logged_in? %>
+        <% if user_logged_in? && current_user.manager? %>
           <th>
-            
+            Customer
           </th>
-        <% elsif customer_logged_in? %>
+        <% end %>
+        <th>
+          Total
+        </th>
+        <% if user_logged_in? && current_user.manager? %>
           <th>
-            
+            Status
           </th>
         <% end %>
       </tr>
@@ -42,11 +41,6 @@
           <td>
             <%= link_to "Job ##{manager_invoice.job.id}", manager_invoice.job %>
           </td>
-          <% if user_logged_in? %>
-            <td>
-              <%= link_to "Invoice ##{manager_invoice.interpreter_invoice.id}", manager_invoice.interpreter_invoice %>
-            </td>
-          <% end %>
           <td>
             <% if user_logged_in? %>
               <%= link_to "#{manager_invoice.user.first_name} #{manager_invoice.user.last_name}", manager_invoice.user %>
@@ -54,14 +48,20 @@
               <%= manager_invoice.user.first_name %> <%= manager_invoice.user.last_name %>
             <% end %>
           </td>
-          <% if user_logged_in? %>
+          <% if user_logged_in? && current_user.manager? %>
             <td>
-              
+              <%= link_to "#{manager_invoice.job.customer.customer_name}", manager_invoice.job.customer %>
             </td>
-          <% elsif customer_logged_in? %>
-            <td>
-              
-            </td>
+          <% end %>
+          <td>
+            <%= number_to_currency(manager_invoice.total_amount) %>
+          </td>
+          <% if user_logged_in? && current_user.manager? %>
+            <% if @manager_invoice.processed? %>
+              <span class="label label-success">Processed</span>
+            <% else %>
+              <span class="label label-warning">Not Processed</span>
+            <% end %>
           <% end %>
        </tr>
       <% end %>

@@ -22,15 +22,9 @@
         <th>
           Interpreter
         </th>
-        <% if user_logged_in? %>
-          <th>
-            
-          </th>
-        <% elsif customer_logged_in? %>
-          <th>
-            
-          </th>
-        <% end %>
+        <th>
+          Total
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -54,15 +48,9 @@
               <%= manager_invoice.user.first_name %> <%= manager_invoice.user.last_name %>
             <% end %>
           </td>
-          <% if user_logged_in? %>
-            <td>
-              
-            </td>
-          <% elsif customer_logged_in? %>
-            <td>
-              
-            </td>
-          <% end %>
+          <td>
+            <%= number_to_currency(manager_invoice.total_amount) %>
+          </td>
         </tr>
       <% end %>
     </tbody>
