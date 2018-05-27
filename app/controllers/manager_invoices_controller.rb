@@ -40,9 +40,9 @@ class ManagerInvoicesController < ApplicationController
 
   def show
     @manager_invoice = ManagerInvoice.find(params[:id])
-    @total = @manager_invoice.total_amount(@manger_invoice.miles, @manger_invoice.mile_rate,
-                                           @manger_invoice.interpreting_hours, @manger_invoice.interpreting_rate,
-                                           @manger_invoice.extra_interpreting_hours,
+    @total = @manager_invoice.total_amount(@manager_invoice.miles, @manager_invoice.mile_rate,
+                                           @manager_invoice.interpreting_hours, @manager_invoice.interpreting_rate,
+                                           @manager_invoice.extra_interpreting_hours,
                                            @manager_invoice.extra_interpreting_rate,
                                            @manager_invoice.misc_travel, @manager_invoice.legal_hours,
                                            @manager_invoice.legal_rate, @manager_invoice.extra_legal_hours,
