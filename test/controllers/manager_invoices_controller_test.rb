@@ -116,6 +116,24 @@ class ManagerInvoicesControllerTest < ActionDispatch::IntegrationTest
     assert_empty_flash_and_root_url_redirect
   end
 
+  test 'should get edit when logged in as a manager user with manager dashboard' do
+    log_in_as_manager
+    get edit_manager_invoice_path(@manager_invoice)
+    assert_template :edit
+    assert_manager_dashboard_present_alone
+  end
+
+  test 'should redirect edit when not logged in' do
+    get edit_manager_invoice_path(@manager_invoice)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect edit when logged in as a regular user' do
+    log_in_as_regular_user
+    get edit_manager_invoice_path(@manager_invoice)
+    assert_empty_flash_and_root_url_redirect
+  end
+
   test 'should redirect process manager invoice when not logged in' do
     get process_manager_invoice_manager_invoice_path(@manager_invoice)
     assert_flash_and_login_url_redirect

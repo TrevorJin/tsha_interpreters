@@ -20,8 +20,9 @@
       </h3>
       <!-- /.page-header -->
       <section class="user_info">
-        <% if user_logged_in? && current_user.manager? && !@manager_invoice.processed? %>
+        <% if user_logged_in? && current_user.manager? %>
           <div class="btn-group" role="group" aria-label="Justified button group">
+            <%= link_to "Edit Manager Invoice", edit_manager_invoice_path(@manager_invoice), class: 'btn btn-primary' %>
             <% if !@manager_invoice.processed? %>
               <%= link_to "Process Manager Invoice", process_manager_invoice_manager_invoice_path(id: @manager_invoice.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to process this manager invoice?"} %>
             <% else %>

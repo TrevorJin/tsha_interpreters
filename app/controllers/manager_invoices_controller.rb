@@ -2,12 +2,13 @@ class ManagerInvoicesController < ApplicationController
   before_action :active_or_manager_user_else_jobs, only: [:index, :show]
   before_action :logged_in_user_or_customer,
     only: [:show, :index, :new_manager_invoice_from_interpreter_invoice, :create]
-  before_action :logged_in_user, only: [:process_manager_invoice, :unprocess_manager_invoice]
+  before_action :logged_in_user, only: [:process_manager_invoice, :unprocess_manager_invoice,
+                                        :edit, :update,]
   before_action :manager_user,
     only: [:new_manager_invoice_from_interpreter_invoice, :create, :process_manager_invoice,
-           :unprocess_manager_invoice]
+           :unprocess_manager_invoice, :edit, :update,]
   before_action :manager_dashboard,
-    only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create]
+    only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create, :edit]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:index, :show]
   before_action :update_job_and_job_request_statuses,
@@ -64,6 +65,20 @@ class ManagerInvoicesController < ApplicationController
       redirect_to manager_invoices_url
     else
       render 'new_manager_invoice_from_interpreter_invoice'
+    end
+  end
+
+  def edit
+    @manager_invoice = ManagerInvoice.find(params[:id])
+  end
+
+  def update
+    @manager_invoice = ManagerInvoice.find(params[:id])
+    if @manager_invoice.update_attributes(manager_invoice_params)
+      flash[:success] = 'Manager Invoice Updated'
+      redirect_to @manager_invoice
+    else
+      render 'edit'
     end
   end
 

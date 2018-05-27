@@ -170,6 +170,24 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_flash_and_login_url_redirect
   end
 
+  test 'should get edit when logged in as a manager user with manager dashboard' do
+    log_in_as_manager
+    get edit_job_path(@job)
+    assert_template :edit
+    assert_manager_dashboard_present_alone
+  end
+
+  test 'should redirect edit when not logged in' do
+    get edit_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect edit when logged in as a regular user' do
+    log_in_as_regular_user
+    get edit_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
+
   test 'should redirect jobs in need of interpreter when not logged in' do
     get needs_confirmed_interpreter_path
     assert_flash_and_login_url_redirect
