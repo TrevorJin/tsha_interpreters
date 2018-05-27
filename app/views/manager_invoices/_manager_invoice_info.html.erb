@@ -167,12 +167,12 @@
         Legal Rate (After Hour)
       </th>
       <th>
+        Total
+      </th>
+      <th>
         <% if user_logged_in? %>
           Original Interpreter Invoice
         <% end %>
-      </th>
-      <th>
-        Total
       </th>
       <th>
         <% if user_logged_in? && current_user.manager? %>
@@ -189,12 +189,12 @@
         <%= number_to_currency(@manager_invoice.extra_legal_rate) %>
       </td>
       <td>
+        <%= number_to_currency(@total) %>
+      </td>
+      <td>
         <% if user_logged_in? %>
           <%= link_to "Interpreter Invoice ##{@manager_invoice.interpreter_invoice.id}", @manager_invoice.interpreter_invoice %>
         <% end %>
-      </td>
-      <td>
-        <%= @total %>
       </td>
       <td>
         <% if user_logged_in? && current_user.manager? %>

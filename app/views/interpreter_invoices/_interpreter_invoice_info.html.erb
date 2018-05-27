@@ -106,16 +106,16 @@
         <%= @interpreter_invoice.miles %>
       </td>
       <td>
-        <%= @interpreter_invoice.mile_rate %>
+        <%= number_to_currency(@interpreter_invoice.mile_rate) %>
       </td>
       <td>
-        <%= @interpreter_invoice.misc_travel %>
+        <%= number_to_currency(@interpreter_invoice.misc_travel) %>
       </td>
       <td>
         <%= @interpreter_invoice.interpreting_hours %>
       </td>
       <td>
-        <%= @interpreter_invoice.interpreting_rate %>
+        <%= number_to_currency(@interpreter_invoice.interpreting_rate) %>
       </td>
     </tr>
   </tbody>
@@ -144,13 +144,13 @@
         <%= @interpreter_invoice.extra_interpreting_hours %>
       </td>
       <td>
-        <%= @interpreter_invoice.extra_interpreting_rate %>
+        <%= number_to_currency(@interpreter_invoice.extra_interpreting_rate) %>
       </td>
       <td>
         <%= @interpreter_invoice.legal_hours %>
       </td>
       <td>
-        <%= @interpreter_invoice.legal_rate %>
+        <%= number_to_currency(@interpreter_invoice.legal_rate) %>
       </td>
       <td>
         <%= @interpreter_invoice.extra_legal_hours %>
@@ -163,6 +163,7 @@
         Legal Rate (After Hour)
       </th>
       <th>
+        Total
       </th>
       <th>
       </th>
@@ -175,9 +176,10 @@
   <tbody>
     <tr>
       <td>
-        <%= @interpreter_invoice.extra_legal_rate %>
+        <%= number_to_currency(@interpreter_invoice.extra_legal_rate) %>
       </td>
       <td>
+        <%= number_to_currency(@total) %>
       </td>
       <td>
       </td>

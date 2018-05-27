@@ -26,6 +26,16 @@ class InterpreterInvoicesController < ApplicationController
 
   def show
     @interpreter_invoice = InterpreterInvoice.find(params[:id])
+    @total = @interpreter_invoice.total_amount(@interpreter_invoice.miles, @interpreter_invoice.mile_rate,
+                                               @interpreter_invoice.interpreting_hours,
+                                               @interpreter_invoice.interpreting_rate,
+                                               @interpreter_invoice.extra_interpreting_hours,
+                                               @interpreter_invoice.extra_interpreting_rate,
+                                               @interpreter_invoice.misc_travel,
+                                               @interpreter_invoice.legal_hours,
+                                               @interpreter_invoice.legal_rate,
+                                               @interpreter_invoice.extra_legal_hours,
+                                               @interpreter_invoice.extra_legal_rate)
   end
 
   def new_interpreter_invoice_from_job
