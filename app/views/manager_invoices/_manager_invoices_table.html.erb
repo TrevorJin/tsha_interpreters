@@ -57,7 +57,7 @@
             <%= number_to_currency(manager_invoice.total_amount) %>
           </td>
           <% if user_logged_in? && current_user.manager? %>
-            <% if @manager_invoice.processed? %>
+            <% if manager_invoice.processed? %>
               <span class="label label-success">Processed</span>
             <% else %>
               <span class="label label-warning">Not Processed</span>
