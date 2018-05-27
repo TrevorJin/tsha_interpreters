@@ -68,19 +68,19 @@ class InterpreterInvoicesController < ApplicationController
 
   def manager_search
     @user_invoices = InterpreterInvoice.search(params[:search][:query], params[:page]).order(start_date: :desc)
-    if params[:search][:created_after].present?
-      created_after_string = params[:search][:created_after].to_s
-      created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
-      @user_invoices = @user_invoices.where('created_at >= ?', created_after)
-      if params[:search][:created_before].present?
-        created_before_string = params[:search][:created_before].to_s
-        created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-        @user_invoices = @user_invoices.where('created_at <= ?', created_before)
+    if params[:search][:start_after].present?
+      start_after_string = params[:search][:start_after].to_s
+      start_after = DateTime.strptime(start_after_string, '%m-%d-%Y')
+      @user_invoices = @user_invoices.where('start_date >= ?', start_after)
+      if params[:search][:end_before].present?
+        end_before_string = params[:search][:end_before].to_s
+        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+        @user_invoices = @user_invoices.where('start_date <= ?', end_before)
       end
-    elsif params[:search][:created_before].present?
-      created_before_string = params[:search][:created_before].to_s
-      created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-      @user_invoices = @user_invoices.where('created_at <= ?', created_before)
+    elsif params[:search][:end_before].present?
+      end_before_string = params[:search][:end_before].to_s
+      end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+      @user_invoices = @user_invoices.where('start_date <= ?', end_before)
     end
   end
 
