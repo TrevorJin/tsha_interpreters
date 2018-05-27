@@ -2,13 +2,13 @@
   <thead>
     <tr>
       <th>
-        ID
+        Job
+      </th>
+      <th>
+        Customer
       </th>
       <th>
         Interpreter
-      </th>
-      <th>
-        Job
       </th>
       <th>
         Start Date
@@ -21,7 +21,14 @@
   <tbody>
     <tr>
       <td>
-        <%= @manager_invoice.id %>
+        <%= link_to "Job ##{@manager_invoice.job.id}", @manager_invoice.job %>
+      </td>
+      <td>
+        <% if user_logged_in? && current_user.manager? %>
+          <%= link_to "#{@manager_invoice.job.customer.customer_name}", @manager_invoice.job.customer %>
+        <% else %>
+          <%= @manager_invoice.job.customer.customer_name %>
+        <% end %>
       </td>
       <td>
         <% if user_logged_in? %>
@@ -29,9 +36,6 @@
         <% else %>
           <%= @manager_invoice.user.first_name %> <%= @manager_invoice.user.last_name %>
         <% end %>
-      </td>
-      <td>
-        <%= link_to "Job ##{@manager_invoice.job.id}", @manager_invoice.job %>
       </td>
       <td>
         <%= @manager_invoice.start_date.to_formatted_s(:long_ordinal) %>

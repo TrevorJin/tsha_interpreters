@@ -2,13 +2,13 @@
   <thead>
     <tr>
       <th>
-        ID
+        Job
+      </th>
+      <th>
+        Customer
       </th>
       <th>
         Interpreter
-      </th>
-      <th>
-        Job
       </th>
       <th>
         Start Date
@@ -21,13 +21,17 @@
   <tbody>
     <tr>
       <td>
-        <%= @interpreter_invoice.id %>
+        <%= link_to "Job ##{@interpreter_invoice.job.id}", @interpreter_invoice.job %>
+      </td>
+      <td>
+        <% if user_logged_in? && current_user.manager? %>
+          <%= link_to "#{@interpreter_invoice.job.customer.customer_name}", @interpreter_invoice.job.customer %>
+        <% else %>
+          <%= @interpreter_invoice.job.customer.customer_name %>
+        <% end %>
       </td>
       <td>
         <%= link_to "#{@interpreter_invoice.user.first_name} #{@interpreter_invoice.user.last_name}", @interpreter_invoice.user %>
-      </td>
-      <td>
-        <%= link_to "Job ##{@interpreter_invoice.job.id}", @interpreter_invoice.job %>
       </td>
       <td>
         <%= @interpreter_invoice.start_date.to_formatted_s(:long_ordinal) %>
@@ -166,6 +170,9 @@
         Total
       </th>
       <th>
+        <% if user_logged_in? %>
+          TSHA Invoice
+        <% end %>
       </th>
       <th>
       </th>
@@ -182,6 +189,14 @@
         <%= number_to_currency(@total) %>
       </td>
       <td>
+        <% if user_logged_in? %>
+          <% @manager_invoice = @interpreter_invoice.manager_invoices.first %>
+          <% if @manager_invoice %>
+            <%= link_to "TSHA Invoice ##{@manager_invoice.id}", @manager_invoice %>
+          <% else %>
+            N/A
+          <% end %>
+        <% end %>
       </td>
       <td>
       </td>
