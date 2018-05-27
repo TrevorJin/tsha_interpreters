@@ -32,4 +32,16 @@ class ManagerInvoice < ApplicationRecord
                                     "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
                                     ).paginate(page: page, per_page: 20)
   end
+
+  # Processes a manager invoice.
+  def process_manager_invoice
+    update_attribute(:processed, true)
+    update_attribute(:processed_at, Time.zone.now)
+  end
+
+  # Unprocesses a manager invoice.
+  def unprocess_manager_invoice
+    update_attribute(:processed, false)
+    update_attribute(:processed_at, nil)
+  end
 end

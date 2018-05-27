@@ -2,8 +2,10 @@ class ManagerInvoicesController < ApplicationController
   before_action :active_or_manager_user_else_jobs, only: [:index, :show]
   before_action :logged_in_user_or_customer,
     only: [:show, :index, :new_manager_invoice_from_interpreter_invoice, :create]
+  before_action :logged_in_user, only: [:process_manager_invoice, :unprocess_manager_invoice]
   before_action :manager_user,
-    only: [:new_manager_invoice_from_interpreter_invoice, :create]
+    only: [:new_manager_invoice_from_interpreter_invoice, :create, :process_manager_invoice,
+           :unprocess_manager_invoice]
   before_action :manager_dashboard,
     only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create]
   before_action :interpreter_dashboard, only: [:index, :show]
@@ -77,6 +79,22 @@ class ManagerInvoicesController < ApplicationController
     else
       render 'new_manager_invoice_from_interpreter_invoice'
     end
+  end
+
+  # Processes a manager invoice.
+  def process_manager_invoice
+    @manager_invoice = ManagerInvoice.find(params[:id])
+    @manager_invoice.process_manager_invoice
+    flash[:success] = 'This manager invoice has been processed.'
+    redirect_to manager_invoice_url(@manager_invoice)
+  end
+
+  # Unprocesses a manager invoice.
+  def unprocess_manager_invoice
+    @manager_invoice = ManagerInvoice.find(params[:id])
+    @manager_invoice.unprocess_manager_invoice
+    flash[:success] = 'This manager invoice has been unprocessed.'
+    redirect_to manager_invoice_url(@manager_invoice)
   end
 
   private

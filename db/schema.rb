@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_27_021753) do
+ActiveRecord::Schema.define(version: 2018_05_27_023417) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -251,6 +251,8 @@ ActiveRecord::Schema.define(version: 2018_05_27_021753) do
     t.datetime "start_time"
     t.datetime "requested_end_time"
     t.datetime "actual_end_time"
+    t.boolean "processed", default: false
+    t.datetime "processed_at"
     t.index ["interpreter_invoice_id"], name: "index_manager_invoices_on_interpreter_invoice_id"
     t.index ["job_id"], name: "index_manager_invoices_on_job_id"
     t.index ["user_id"], name: "index_manager_invoices_on_user_id"

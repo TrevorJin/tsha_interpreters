@@ -105,6 +105,8 @@ Rails.application.routes.draw do
   resources :manager_invoices do
     member do
       get 'new_manager_invoice_from_interpreter_invoice'
+      get 'process_manager_invoice'
+      get 'unprocess_manager_invoice'
     end
   end
 

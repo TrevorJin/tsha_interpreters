@@ -115,4 +115,26 @@ class ManagerInvoicesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_empty_flash_and_root_url_redirect
   end
+
+  test 'should redirect process manager invoice when not logged in' do
+    get process_manager_invoice_manager_invoice_path(@manager_invoice)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect process manager invoice when logged in as a regular user' do
+    log_in_as_regular_user
+    get process_manager_invoice_manager_invoice_path(@manager_invoice)
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect unprocess manager invoice when not logged in' do
+    get unprocess_manager_invoice_manager_invoice_path(@manager_invoice)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect unprocess manager invoice when logged in as a regular user' do
+    log_in_as_regular_user
+    get unprocess_manager_invoice_manager_invoice_path(@manager_invoice)
+    assert_empty_flash_and_root_url_redirect
+  end
 end
