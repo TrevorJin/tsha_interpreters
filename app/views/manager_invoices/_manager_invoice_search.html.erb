@@ -8,66 +8,66 @@
   <!-- /.panel-heading -->
   <div class="panel-body">
     <% if params[:search].present? %>
-      <% if params[:search][:created_after].present? %>
-        <% if params[:search][:created_before].present? %>
+      <% if params[:search][:start_after].present? %>
+        <% if params[:search][:end_before].present? %>
           <% if params[:search][:query].present? %>
             <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-              <%= f.input :created_after, as: :date_time_picker, input_html: { value: params[:search][:created_after] } %>
-              <%= f.input :created_before, as: :second_date_time_picker, input_html: { value: params[:search][:created_before] } %>
+              <%= f.input :start_after, as: :date_time_picker, input_html: { value: params[:search][:start_after] } %>
+              <%= f.input :end_before, as: :second_date_time_picker, input_html: { value: params[:search][:end_before] } %>
               <%= f.input :query, :autofocus => true, input_html: { value: params[:search][:query] } %>
               <%= f.submit "Search" %>
             <% end %>
           <% else %>
             <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-              <%= f.input :created_after, as: :date_time_picker, input_html: { value: params[:search][:created_after] } %>
-              <%= f.input :created_before, as: :second_date_time_picker, input_html: { value: params[:search][:created_before] } %>
+              <%= f.input :start_after, as: :date_time_picker, input_html: { value: params[:search][:start_after] } %>
+              <%= f.input :end_before, as: :second_date_time_picker, input_html: { value: params[:search][:end_before] } %>
               <%= f.input :query, :autofocus => true %>
               <%= f.submit "Search" %>
             <% end %>
           <% end %>
         <% elsif params[:search][:query].present? %>
           <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-            <%= f.input :created_after, as: :date_time_picker, input_html: { value: params[:search][:created_after] } %>
-            <%= f.input :created_before, as: :second_date_time_picker %>
+            <%= f.input :start_after, as: :date_time_picker, input_html: { value: params[:search][:start_after] } %>
+            <%= f.input :end_before, as: :second_date_time_picker %>
             <%= f.input :query, :autofocus => true, input_html: { value: params[:search][:query] } %>
             <%= f.submit "Search" %>
           <% end %>
         <% else %>
           <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-            <%= f.input :created_after, as: :date_time_picker, input_html: { value: params[:search][:created_after] } %>
-            <%= f.input :created_before, as: :second_date_time_picker %>
+            <%= f.input :start_after, as: :date_time_picker, input_html: { value: params[:search][:start_after] } %>
+            <%= f.input :end_before, as: :second_date_time_picker %>
             <%= f.input :query, :autofocus => true %>
             <%= f.submit "Search" %>
           <% end %>
         <% end %>
-      <% elsif params[:search][:created_before].present? %>
+      <% elsif params[:search][:end_before].present? %>
         <% if params[:search][:query].present? %>
           <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-            <%= f.input :created_after, as: :date_time_picker %>
-            <%= f.input :created_before, as: :second_date_time_picker, input_html: { value: params[:search][:created_before] } %>
+            <%= f.input :start_after, as: :date_time_picker %>
+            <%= f.input :end_before, as: :second_date_time_picker, input_html: { value: params[:search][:end_before] } %>
             <%= f.input :query, :autofocus => true, input_html: { value: params[:search][:query] } %>
             <%= f.submit "Search" %>
           <% end %>
         <% else %>
           <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-            <%= f.input :created_after, as: :date_time_picker %>
-            <%= f.input :created_before, as: :second_date_time_picker, input_html: { value: params[:search][:created_before] } %>
+            <%= f.input :start_after, as: :date_time_picker %>
+            <%= f.input :end_before, as: :second_date_time_picker, input_html: { value: params[:search][:end_before] } %>
             <%= f.input :query, :autofocus => true %>
             <%= f.submit "Search" %>
           <% end %>
         <% end %>
       <% else %>
         <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-          <%= f.input :created_after, as: :date_time_picker %>
-          <%= f.input :created_before, as: :second_date_time_picker %>
+          <%= f.input :start_after, as: :date_time_picker %>
+          <%= f.input :end_before, as: :second_date_time_picker %>
           <%= f.input :query, :autofocus => true, input_html: { value: params[:search][:query] } %>
           <%= f.submit "Search" %>
         <% end %>
       <% end %>
     <% else %>
       <%= simple_form_for :search,  url: manager_invoices_path , :method => :get do |f| %>
-        <%= f.input :created_after, as: :date_time_picker %>
-        <%= f.input :created_before, as: :second_date_time_picker %>
+        <%= f.input :start_after, as: :date_time_picker %>
+        <%= f.input :end_before, as: :second_date_time_picker %>
         <%= f.input :query, :autofocus => true %>
         <%= f.submit "Search" %>
       <% end %>

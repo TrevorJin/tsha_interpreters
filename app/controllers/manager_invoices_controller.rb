@@ -21,21 +21,7 @@ class ManagerInvoicesController < ApplicationController
     elsif (user_logged_in? && current_user.manager?)
         # Manager Search
       if params[:search]
-        @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(start_date: :desc)
-        if params[:search][:created_after].present?
-          created_after_string = params[:search][:created_after].to_s
-          created_after = DateTime.strptime(created_after_string, '%m-%d-%Y %H:%M')
-          @manager_invoices = @manager_invoices.where('created_at >= ?', created_after)
-          if params[:search][:created_before].present?
-            created_before_string = params[:search][:created_before].to_s
-            created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-            @manager_invoices = @manager_invoices.where('created_at <= ?', created_before)
-          end
-        elsif params[:search][:created_before].present?
-          created_before_string = params[:search][:created_before].to_s
-          created_before = DateTime.strptime(created_before_string, '%m-%d-%Y %H:%M')
-          @manager_invoices = @manager_invoices.where('created_at <= ?', created_before)
-        end
+        manager_search
       else
         @manager_invoices = ManagerInvoice.paginate(page: params[:page]).order(start_date: :desc)
       end
@@ -119,6 +105,24 @@ class ManagerInvoicesController < ApplicationController
                                             :misc_travel, :legal_hours,
                                             :legal_rate, :extra_legal_hours,
                                             :extra_legal_rate)
+  end
+
+  def manager_search
+    @manager_invoices = ManagerInvoice.search(params[:search][:query], params[:page]).order(start_date: :desc)
+      if params[:search][:start_after].present?
+        start_after_string = params[:search][:start_after].to_s
+        start_after = DateTime.strptime(start_after_string, '%m-%d-%Y')
+        @manager_invoices = @manager_invoices.where('start_date >= ?', start_after)
+        if params[:search][:end_before].present?
+          end_before_string = params[:search][:end_before].to_s
+          end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+          @manager_invoices = @manager_invoices.where('start_date <= ?', end_before)
+        end
+      elsif params[:search][:end_before].present?
+        end_before_string = params[:search][:end_before].to_s
+        end_before = DateTime.strptime(end_before_string, '%m-%d-%Y')
+        @manager_invoices = @manager_invoices.where('start_date <= ?', end_before)
+      end
   end
 
   # Before filters
