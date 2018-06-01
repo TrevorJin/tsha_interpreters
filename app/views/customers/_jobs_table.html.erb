@@ -20,6 +20,9 @@
         <th>
           Start Date
         </th>
+        <th>
+          Start Time
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +39,11 @@
           </td>
           <td>
             <%= job.start_date.to_formatted_s(:long_ordinal) %>
+          </td>
+          <td>
+            <% if job.start_time? %>
+              <%= job.start_time.strftime("%l:%M %p") %>
+            <% end %>
           </td>
         </tr>
       <% end %>
