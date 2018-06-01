@@ -8,6 +8,8 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     @correct_user = users(:wonka)
     @incorrect_user = users(:archer)
     @job_request = job_requests(:one)
+    @job_params = { requester_first_name: @correct_user.first_name,
+                    requester_last_name: @correct_user.last_name }
   end
 
   test 'should get index when logged in as a regular user' do
@@ -188,6 +190,91 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_empty_flash_and_root_url_redirect
   end
 
+  test 'should redirect update when not logged in' do
+    patch job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect update when logged in as a regular user' do
+    log_in_as_regular_user
+    patch job_path(@job), params: @job_params
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect update when logged in as a customer' do
+    log_in_as_customer
+    patch job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect add interpreter to job when not logged in' do
+    patch add_interpreter_to_job_job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect add interpreter to job when logged in as a regular user' do
+    log_in_as_regular_user
+    patch add_interpreter_to_job_job_path(@job), params: @job_params
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect add interpreter to job when logged in as a customer' do
+    log_in_as_customer
+    patch add_interpreter_to_job_job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect remove interpreter from job when not logged in' do
+    get remove_interpreter_from_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect remove interpreter from job when logged in as a regular user' do
+    log_in_as_regular_user
+    get remove_interpreter_from_job_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect remove interpreter from job when logged in as a customer' do
+    log_in_as_customer
+    get remove_interpreter_from_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect finalize job and interpreters when not logged in' do
+    get finalize_job_and_interpreters_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect finalize job and interpreters when logged in as a regular user' do
+    log_in_as_regular_user
+    get finalize_job_and_interpreters_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect finalize job and interpreters when logged in as a customer' do
+    log_in_as_customer
+    get finalize_job_and_interpreters_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end  
+
+  test 'should redirect expire job when not logged in' do
+    get expire_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect expire job when logged in as a regular user' do
+    log_in_as_regular_user
+    get expire_job_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect expire job when logged in as a customer' do
+    log_in_as_customer
+    get expire_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
   test 'should redirect jobs in need of interpreter when not logged in' do
     get needs_confirmed_interpreter_path
     assert_flash_and_login_url_redirect
@@ -310,16 +397,5 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     get expired_jobs_path
     assert_template :expired_jobs
     assert_manager_dashboard_present_alone
-  end
-
-  test 'should redirect expire job when not logged in' do
-    get expire_job_job_path(@job)
-    assert_flash_and_login_url_redirect
-  end
-
-  test 'should redirect expire job when logged in as a regular user' do
-    log_in_as_regular_user
-    get expire_job_job_path(@job)
-    assert_empty_flash_and_root_url_redirect
   end
 end

@@ -1,0 +1,39 @@
+<div class="btn-group" role="group" aria-label="Justified button group">
+  <%= link_to "Edit Job", edit_job_path(@job), class: 'btn btn-primary' %>
+  <% if !@job.expired? && !@job.completed? %>
+    <%= link_to "Expire Job", expire_job_job_path(id: @job.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to expire Job #{@job.id}? This cannot be reversed."} %>
+  <% end %>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+    Show Qualification Requirements 
+  </button>
+  <!-- /.btn btn-primary -->
+  <% if !@job.has_interpreter_assigned? && @job.confirmed_interpreters.any? %>
+    <%= link_to "Finalize Job and Interpreters", finalize_job_and_interpreters_job_path(id: @job.id), class: "btn btn-success", role:"button", :data => {:confirm => "Are you sure you want to finalize this job?"} %>
+  <% end %>
+</div>
+<!-- /.btn-group btn-group-justified -->
+<%= render 'job_qualifications_sheet' %>
+<% if !@job.has_interpreter_assigned? %>
+  <h3 class="page-header">
+    Add Interpreter to Job
+  </h3>
+  <!-- /.page-header -->
+  <%= form_for @job, url: add_interpreter_to_job_job_path(@job) do |f| %>
+    <%= f.collection_select :confirmed_interpreters, User.all.order(:last_name), :id, :full_name_with_vendor_number %>
+    <button type="submit" class="button">Add Interpreter to Job</button>
+  <% end %>
+<% end %>
+<% if @confirmed_interpreters.count > 0 %>
+  <h3 class="page-header">
+    Confirmed Interpreters
+  </h3>
+  <!-- /.page-header -->
+  <%= render 'confirmed_interpreters_table' %>
+<% end %>
+<% if @attempted_interpreters.count > 0 %>
+  <h3 class="page-header">
+    Interpreting Requests
+  </h3>
+  <!-- /.page-header -->
+  <%= render 'attempted_interpreters_table' %>
+<% end %>

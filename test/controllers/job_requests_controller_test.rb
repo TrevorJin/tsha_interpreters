@@ -182,4 +182,10 @@ class JobRequestsControllerTest < ActionDispatch::IntegrationTest
     get expire_job_request_job_request_path(@job_request)
     assert_empty_flash_and_root_url_redirect
   end
+
+  test 'should redirect expire job request when logged in as a customer' do
+    log_in_as_customer
+    get expire_job_request_job_request_path(@job_request)
+    assert_flash_and_login_url_redirect
+  end
 end

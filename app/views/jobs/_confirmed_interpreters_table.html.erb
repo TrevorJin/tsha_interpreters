@@ -61,8 +61,8 @@
                :extra_legal_hours => @interpreter_invoice.extra_legal_hours,
                :extra_legal_rate => @interpreter_invoice.extra_legal_rate),
                :class => "btn btn-success" %>
-          <% else %>
-            N/A
+          <% elsif !@job.completed? %>
+            <%= link_to "Remove Interpreter", remove_interpreter_from_job_job_path(id: @job.id, interpreter_id: confirmed_interpreter.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to remove #{confirmed_interpreter.full_name_with_vendor_number} from Job #{@job.id}?"} %>
           <% end %>
         </td>
       </tr>

@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       get 'finalize_job_and_interpreters'
       get 'expire_job'
       patch 'add_interpreter_to_job'
+      get 'remove_interpreter_from_job'
     end
   end
 
