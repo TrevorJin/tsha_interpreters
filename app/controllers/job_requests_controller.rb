@@ -9,8 +9,6 @@ class JobRequestsController < ApplicationController
   before_action :manager_dashboard,
     only: [:index, :show, :new, :pending_job_requests]
   before_action :customer_dashboard, only: [:index, :show, :new, :create]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new, :create, :update, :pending_job_requests]
 
   def index
     # Manager Search

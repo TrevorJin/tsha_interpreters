@@ -28,6 +28,28 @@
           </div>
           <!-- /.btn-group btn-group-justified -->
           <%= render 'job_qualifications_sheet' %>
+          <% if !@job.has_interpreter_assigned? %>
+            <h3 class="page-header">
+              Add Interpreter to Job
+            </h3>
+            <!-- /.page-header -->
+            <%= form_for @job, url: add_interpreter_to_job_job_path(@job) do |f| %>
+              <%= f.collection_select :confirmed_interpreters, User.all.order(:last_name), :id, :full_name_with_vendor_number %>
+              <button type="submit" class="button">Add Interpreter to Job</button>
+            <% end %>
+          <% end %>
+          <h6>
+            Has interpreter assigned? <%= @job.has_interpreter_assigned %>
+          </h6>
+          <h6>
+            Expired? <%= @job.expired %>
+          </h6>
+          <h6>
+            Invoice Submitted? <%= @job.invoice_submitted %>
+          </h6>
+          <h6>
+            Completed? <%= @job.completed %>
+          </h6>
           <% if @confirmed_interpreters.count > 0 %>
             <h3 class="page-header">
               Confirmed Interpreters

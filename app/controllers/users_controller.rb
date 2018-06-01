@@ -26,9 +26,6 @@ class UsersController < ApplicationController
   before_action :interpreter_dashboard,
     only: [:show, :current_jobs, :pending_jobs, :completed_jobs, :rejected_jobs]
   before_action :customer_dashboard,only: [:current_jobs, :pending_jobs, :completed_jobs]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new, :edit, :update, :dashboard, :pending_users, :current_jobs,
-           :pending_jobs, :completed_jobs, :rejected_jobs, :attempted_jobs]
 
   def index
     # Manager Search

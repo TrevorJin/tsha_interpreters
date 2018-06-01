@@ -1,4 +1,4 @@
-<% if @user_invoices.count == 0 %>
+<% if @interpreter_invoices.count == 0 %>
   <%= render 'layouts/no_results_found_alert' %>
 <% else %>
 	<table class="table table-striped table-hover">
@@ -23,18 +23,18 @@
       </tr>
     </thead>
     <tbody>
-      <% @user_invoices.each do |user_invoice| %>
+      <% @interpreter_invoices.each do |interpreter_invoice| %>
         <tr>
           <td>
-            <%= link_to "Invoice ##{user_invoice.id}", user_invoice %>
+            <%= link_to "Invoice ##{interpreter_invoice.id}", interpreter_invoice %>
           </td>
           <td>
-            <%= link_to "Job ##{user_invoice.job.id}", user_invoice.job %>
+            <%= link_to "Job ##{interpreter_invoice.job.id}", interpreter_invoice.job %>
           <td>
-            <%= user_invoice.start_date.to_formatted_s(:long_ordinal) %>
+            <%= interpreter_invoice.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
-            <% @manager_invoice = user_invoice.manager_invoices.first %>
+            <% @manager_invoice = interpreter_invoice.manager_invoices.first %>
             <% if @manager_invoice %>
               <% if current_user.manager? %>
                 <%= link_to "Manager Invoice ##{@manager_invoice.id}", @manager_invoice %>

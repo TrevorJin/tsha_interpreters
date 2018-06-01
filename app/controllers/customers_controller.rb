@@ -20,11 +20,6 @@ class CustomersController < ApplicationController
   before_action :customer_dashboard,
     only: [:show, :edit, :update, :pending_approval, :approved_job_requests,
            :rejected_job_requests, :expired_job_requests]
-  before_action :update_job_and_job_request_statuses,
-    only: [:pending_approval, :approved_job_requests, :rejected_job_requests,
-           :expired_job_requests, :index, :show, :new, :pending_customers,
-           :pending_approval, :approved_job_requests, :rejected_job_requests,
-           :expired_job_requests]
 
   def index
     # Manager Search

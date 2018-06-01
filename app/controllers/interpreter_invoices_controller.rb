@@ -6,8 +6,6 @@ class InterpreterInvoicesController < ApplicationController
   before_action :manager_dashboard, only: [:index, :show]
   before_action :interpreter_dashboard,
     only: [:index, :show, :new_interpreter_invoice_from_job, :create]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new_interpreter_invoice_from_job, :create]
 
   # Show all interpreter invoices to manager.
   # Show active invoices to regular user.

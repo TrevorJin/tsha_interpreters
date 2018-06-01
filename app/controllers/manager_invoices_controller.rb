@@ -11,8 +11,6 @@ class ManagerInvoicesController < ApplicationController
     only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create, :edit]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:index, :show]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new_manager_invoice_from_interpreter_invoice, :create]
 
   # Show all manager invoices to manager.
   # Show relevant invoices to interpreters and customers.

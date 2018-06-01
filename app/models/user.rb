@@ -73,6 +73,14 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  def full_name_with_vendor_number
+    if self.vendor_number?
+      "#{first_name} #{last_name} (#{vendor_number})"
+    else
+      "#{first_name} #{last_name}"
+    end
+  end
+
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))

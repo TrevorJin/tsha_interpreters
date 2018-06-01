@@ -68,6 +68,7 @@ en:
           requester_last_name: 'Requester Last Name'
           requester_email: 'Requester Email'
           requester_phone_number: 'Requester Phone Number'
+          requester_phone_number_extension: 'Requester Phone Number Extension'
           contact_person_first_name: 'Contact Person First Name'
           contact_person_last_name: 'Contact Person Last Name'
           address_line_1: 'Address Line 1'
@@ -109,6 +110,7 @@ en:
           requester_last_name: 'Requester Last Name'
           requester_email: 'Requester Email'
           requester_phone_number: 'Requester Phone Number'
+          requester_phone_number_extension: 'Requester Phone Number Extension'
           contact_person_first_name: 'Contact Person First Name'
           contact_person_last_name: 'Contact Person Last Name'
           address_line_1: 'Address Line 1'
@@ -149,6 +151,7 @@ en:
           office_business_name: "Office/Business Name"
           requester_email: "Requester Email"
           requester_phone_number: "Requester Phone Number"
+          requester_phone_number_extension: 'Requester Phone Number Extension'
           requester_fax_number: "Requester Fax Number"
           start_date: 'Event Start Date'
           start_time: 'Event Start Time'

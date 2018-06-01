@@ -16,10 +16,6 @@ class JobsController < ApplicationController
            :processed_jobs, :expired_jobs]
   before_action :interpreter_dashboard, only: [:index, :show]
   before_action :customer_dashboard, only: [:show]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new, :create, :new_job_from_job_request,
-           :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
-           :processed_jobs, :expired_jobs]
   
   def index
     # Manager Search
@@ -69,9 +65,21 @@ class JobsController < ApplicationController
     end
   end
 
+  def add_interpreter_to_job
+    @job = Job.find(params[:id])
+    @new_interpreter = User.find(params[:job][:confirmed_interpreters])
+    @job.confirm_user(@new_interpreter)
+    flash[:success] = "#{@new_interpreter.full_name_with_vendor_number} has been added to Job ##{@job.id}"
+    redirect_to job_url(@job)
+  end
+
   def finalize_job_and_interpreters
     @job = Job.find(params[:id])
     @job.finalize_job_and_interpreters
+    @job.confirmed_interpreters.each do |confirmed_interpreter|
+      @job.complete_job(confirmed_interpreter)
+    end
+    @job.job_complete
     flash[:success] = 'This job has been finalized.'
     redirect_to job_url(@job)
   end

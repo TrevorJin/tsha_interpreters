@@ -12,9 +12,6 @@ class DeafClientsController < ApplicationController
     only: [:index, :show, :new, :new_job_from_job_request, :create, :edit,
            :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
            :processed_jobs, :expired_jobs]
-  before_action :update_job_and_job_request_statuses,
-    only: [:index, :show, :new, :create, :jobs_in_need_of_confirmed_interpreter,
-           :jobs_awaiting_invoice, :processed_jobs, :expired_jobs]
 
   def index
     # Manager Search
