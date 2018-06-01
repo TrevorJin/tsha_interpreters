@@ -54,7 +54,7 @@ class User < ApplicationRecord
   validates :vendor_number, numericality: { only_integer: true }, allow_nil: true
 
   def self.search(search, page)
-    order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("vendor_number LIKE ? OR last_name LIKE ? OR
+    order(admin: :desc, manager: :desc, last_name: :asc, first_name: :asc).where("cast(vendor_number as text) LIKE ? OR last_name LIKE ? OR
                                                                                   first_name LIKE ? OR email LIKE ? OR
                                                                                   cell_phone LIKE ?", "%#{search}%", "%#{search}%",
                                                                                   "%#{search}%", "%#{search}%",
