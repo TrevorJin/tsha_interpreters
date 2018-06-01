@@ -32,6 +32,11 @@
   <% else %>
     <%= f.input :requester_phone_number %>
   <% end %>
+  <% if params[:requester_phone_number_extension] %>
+    <%= f.input :requester_phone_number_extension, :input_html => { :value => params[:requester_phone_number_extension] } %>
+  <% else %>
+    <%= f.input :requester_phone_number_extension %>
+  <% end %>
   <% if params[:contact_person_first_name] %>
     <%= f.input :contact_person_first_name, :input_html => { :value => params[:contact_person_first_name] } %>
   <% else %>

@@ -94,9 +94,10 @@
   <thead>
     <tr>
       <th>
-        Contact Person
+        Requester Phone Number Extension
       </th>
       <th>
+        Contact Person
       </th>
       <th>
       </th>
@@ -109,9 +110,12 @@
   <tbody>
     <tr>
       <td>
-        <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
+        <% if @job.requester_phone_number_extension? %>
+          <%= @job.requester_phone_number_extension %>
+        <% end %>
       </td>
       <td>
+        <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
       </td>
       <td>
       </td>

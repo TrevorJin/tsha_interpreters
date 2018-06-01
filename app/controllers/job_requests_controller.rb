@@ -82,8 +82,8 @@ class JobRequestsController < ApplicationController
   def job_request_params
     params.require(:job_request).permit(:requester_first_name, :requester_last_name,
                                         :office_business_name, :requester_email,
-                                        :requester_phone_number, :requester_fax_number, 
-                                        :start_date, :deaf_client_first_name,
+                                        :requester_phone_number, :requester_phone_number_extension,
+                                        :requester_fax_number,  :start_date, :deaf_client_first_name,
                                         :deaf_client_last_name, :contact_person_first_name,
                                         :contact_person_last_name,
                                         :event_location_address_line_1,

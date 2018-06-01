@@ -20,6 +20,7 @@ class JobRequest < ApplicationRecord
   validates :requester_phone_number, presence: { message: "required" },
                                      length: { maximum: 30, message: "must be 30 characters or less" },
                                      phony_plausible: true
+  validates :requester_phone_number_extension, length: { maximum: 10, message: "must be 10 characters or less" }
   validates :requester_fax_number, length: { maximum: 30, message: "must be 30 characters or less" }
   validates :start_date, presence: { message: "start date required" }
   validates :deaf_client_first_name, presence: { message: "required" }, 

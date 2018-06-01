@@ -99,6 +99,7 @@ class JobsController < ApplicationController
                                 :requester_first_name,
                                 :requester_last_name, :requester_email,
                                 :requester_phone_number,
+                                :requester_phone_number_extension,
                                 :contact_person_first_name,
                                 :contact_person_last_name,
                                 :address_line_1, :address_line_2,

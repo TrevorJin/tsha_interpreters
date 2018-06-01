@@ -37,13 +37,13 @@
        Requester Phone Number
       </th>
       <th>
+        Requester Phone Number Extension
+      </th>
+      <th>
         Requester Fax Number
       </th>
       <th>
         Event Start Date
-      </th>
-      <th>
-        Event Start Time
       </th>
     </tr>
   </thead>
@@ -53,20 +53,25 @@
         <%= @job_request.requester_phone_number %>
       </td>
       <td>
-        <%= @job_request.requester_fax_number %>
+        <% if @job_request.requester_phone_number_extension? %>
+          <%= @job_request.requester_phone_number_extension %>
+        <% end %>
+      </td>
+      <td>
+        <% if @job_request.requester_fax_number? %>
+          <%= @job_request.requester_fax_number %>
+        <% end %>
       </td>
       <td>
         <%= @job_request.start_date.to_formatted_s(:long_ordinal) %>
-      </td>
-      <td>
-        <% if @job_request.start_time? %>
-          <%= @job_request.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
-        <% end %>
       </td>
     </tr>
   </tbody>
   <thead>
     <tr>
+      <th>
+        Event Start Time
+      </th>
       <th>
         Requested End Time
       </th>
@@ -76,13 +81,15 @@
       <th>
         Contact Person
       </th>
-      <th>
-        Office Phone Number
-      </th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>
+        <% if @job_request.start_time? %>
+          <%= @job_request.start_time.strftime("%A, %d %b %Y %l:%M %p") %>
+        <% end %>
+      </td>
       <td>
         <% if @job_request.requested_end_time? %>
           <%= @job_request.requested_end_time.strftime("%A, %d %b %Y %l:%M %p") %>
@@ -94,8 +101,31 @@
       <td>
         <%= @job_request.contact_person_first_name %> <%= @job_request.contact_person_last_name %>
       </td>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th>
+        Office Phone Number
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <td>
         <%= @job_request.office_phone_number %>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td>
       </td>
     </tr>
   </tbody>

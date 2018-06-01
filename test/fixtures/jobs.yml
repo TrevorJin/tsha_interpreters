@@ -8,6 +8,7 @@ one:
   requester_last_name: Wonka
   requester_email: willy.wonka@gmail.com
   requester_phone_number: +18662466453
+  requester_phone_number_extension: '2'
   contact_person_first_name: Willy
   contact_person_last_name: Wonka
   address_line_1: MyString
@@ -57,6 +58,7 @@ two:
   requester_last_name: Wonka
   requester_email: willy.wonka@gmail.com
   requester_phone_number: +18662466453
+  requester_phone_number_extension: '2'
   contact_person_first_name: Willy
   contact_person_last_name: Wonka
   address_line_1: MyString
