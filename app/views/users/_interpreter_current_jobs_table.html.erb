@@ -17,6 +17,9 @@
           Start Date
         </th>
         <th>
+          Start Time
+        </th>
+        <th>
           Status
         </th>
       </tr>
@@ -37,7 +40,9 @@
             <%= current_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
-            <%= current_job.end.strftime("%A, %d %b %Y %l:%M %p") %>
+            <% if current_job.start_time? %>
+              <%= current_job.start_time.strftime("%l:%M %p") %>
+            <% end %>
           </td>
           <td>
             <% @interpreter_invoice = InterpreterInvoice.where(user_id: current_user.id, job_id: current_job.id).first %>

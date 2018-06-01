@@ -11,7 +11,7 @@
           Start Date
         </th>
         <th>
-          Action
+          Start Time
         </th>
       </tr>
     </thead>
@@ -25,7 +25,9 @@
             <%= rejected_job.start_date.to_formatted_s(:long_ordinal) %>
           </td>
           <td>
-            TBD
+            <% if rejected_job.start_time? %>
+              <%= rejected_job.start_time.strftime("%l:%M %p") %>
+            <% end %>
           </td>
         </tr>
       <% end %>
