@@ -19,10 +19,11 @@
   </h3>
   <!-- /.page-header -->
   <%= form_for @job, url: add_interpreter_to_job_job_path(@job) do |f| %>
-    <%= f.collection_select :confirmed_interpreters, User.all.order(:last_name), :id, :full_name_with_vendor_number %>
+    <%= f.collection_select :deaf_client, User.all.order(:last_name), :id, :full_name_with_vendor_number %>
     <button type="submit" class="button">Add Interpreter to Job</button>
   <% end %>
 <% end %>
+<%= render 'deaf_client_info' %>
 <% if @confirmed_interpreters.count > 0 %>
   <h3 class="page-header">
     Confirmed Interpreters

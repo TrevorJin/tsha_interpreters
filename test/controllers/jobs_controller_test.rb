@@ -207,6 +207,40 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
     assert_flash_and_login_url_redirect
   end
 
+  test 'should redirect add deaf client to job when not logged in' do
+    patch add_deaf_client_to_job_job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect add deaf client to job when logged in as a regular user' do
+    log_in_as_regular_user
+    patch add_deaf_client_to_job_job_path(@job), params: @job_params
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect add deaf client to job when logged in as a customer' do
+    log_in_as_customer
+    patch add_deaf_client_to_job_job_path(@job), params: @job_params
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect remove deaf client from job when not logged in' do
+    get remove_deaf_client_from_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
+  test 'should redirect remove deaf client from job when logged in as a regular user' do
+    log_in_as_regular_user
+    get remove_deaf_client_from_job_job_path(@job)
+    assert_empty_flash_and_root_url_redirect
+  end
+
+  test 'should redirect remove deaf client from job when logged in as a customer' do
+    log_in_as_customer
+    get remove_deaf_client_from_job_job_path(@job)
+    assert_flash_and_login_url_redirect
+  end
+
   test 'should redirect add interpreter to job when not logged in' do
     patch add_interpreter_to_job_job_path(@job), params: @job_params
     assert_flash_and_login_url_redirect

@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="http://www.tsha.cc/"><img src="https://www.tsha.cc/wp-content/uploads/2017/02/TSHA-logo-color-small-for-web.jpg" alt="Saint Stories Banner" width="203"></a>
+  <a href="http://www.tsha.cc/"><img src="https://www.tsha.cc/wp-content/uploads/2017/02/TSHA-logo-color-small-for-web.jpg" alt="TSHA Logo" width="203"></a>
 </h1>
 
 <h3 align="center">TSHA Interpreters System</h3>

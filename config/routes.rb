@@ -95,6 +95,8 @@ Rails.application.routes.draw do
       get 'expire_job'
       patch 'add_interpreter_to_job'
       get 'remove_interpreter_from_job'
+      patch 'add_deaf_client_to_job'
+      get 'remove_deaf_client_from_job'
     end
   end
 

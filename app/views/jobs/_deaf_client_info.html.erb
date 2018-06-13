@@ -1,0 +1,32 @@
+<% if @job.has_deaf_client? %>
+  <table class="table table-striped table-hover">
+    <thead>
+      <th>
+        Deaf Client
+      </th>
+      <th>
+        Manager Action
+      </th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <%= @job.deaf_client.full_name %>
+        </td>
+        <td>
+          <%= link_to "Remove Deaf Client", remove_deaf_client_from_job_job_path(id: @job.id, deaf_client_id: @job.deaf_client.id), class: "btn btn-danger", role:"button", :data => {:confirm => "Are you sure you want to remove #{@job.deaf_client.full_name} from Job #{@job.id}?"} %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- /. table table-striped table-hover -->
+<% else %>
+  <h3 class="page-header">
+    Add Deaf Client
+  </h3>
+  <!-- /.page-header -->
+  <%= form_for @job, url: add_deaf_client_to_job_job_path(@job) do |f| %>
+    <%= f.collection_select :deaf_client, DeafClient.all.order(:last_name), :id, :full_name %>
+    <button type="submit" class="button">Add Deaf Client to Job</button>
+  <% end %>
+<% end %>

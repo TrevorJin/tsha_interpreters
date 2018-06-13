@@ -1,12 +1,14 @@
 class JobsController < ApplicationController
   before_action :logged_in_user,
     only: [:index, :new, :create, :new_job_from_job_request, :edit, :update,
+           :add_deaf_client_to_job, :remove_deaf_client_from_job,
            :add_interpreter_to_job, :remove_interpreter_from_job,
            :finalize_job_and_interpreters, :expire_job,
            :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
            :processed_jobs, :expired_jobs]
   before_action :manager_user,
     only: [:new, :create, :new_job_from_job_request, :edit, :update,
+           :add_deaf_client_to_job, :remove_deaf_client_from_job,
            :add_interpreter_to_job, :remove_interpreter_from_job,
            :finalize_job_and_interpreters, :expire_job,
            :jobs_in_need_of_confirmed_interpreter, :jobs_awaiting_invoice,
@@ -65,6 +67,22 @@ class JobsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def add_deaf_client_to_job
+    @job = Job.find(params[:id])
+    @deaf_client = DeafClient.find(params[:job][:deaf_client])
+    @job.add_deaf_client(@deaf_client)
+    flash[:success] = "#{@deaf_client.full_name} has been added to Job ##{@job.id}."
+    redirect_to job_url(@job)
+  end
+
+  def remove_deaf_client_from_job
+    @job = Job.find(params[:id])
+    @deaf_client = DeafClient.find(params[:deaf_client_id])
+    @job.remove_deaf_client(@deaf_client)
+    flash[:success] = "#{@deaf_client.full_name} has been removed to Job ##{@job.id}."
+    redirect_to job_url(@job)
   end
 
   def add_interpreter_to_job

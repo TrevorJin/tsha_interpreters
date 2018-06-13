@@ -25,6 +25,7 @@ class Job < ApplicationRecord
   has_many :rejecting_interpreters, through: :job_rejections, source: :user
 
   belongs_to :customer
+  belongs_to :deaf_client
 
   validates :customer_id, presence: true
   validates :start_date, presence: { message: "start date required" }
@@ -83,6 +84,23 @@ class Job < ApplicationRecord
   # Returns true if the current job is confirmed with this user.
   def confirmed?(user)
     confirmed_interpreters.include?(user)
+  end
+
+  # Checks if job has a deaf client
+  def has_deaf_client?
+    !self.deaf_client.nil?
+  end
+
+  # Adds a deaf client.
+  def add_deaf_client(deaf_client)
+    self.deaf_client = deaf_client
+    self.save
+  end
+
+  # Remove a deaf client.
+  def remove_deaf_client(deaf_client)
+    self.deaf_client = nil
+    self.save
   end
 
   # Adds a requesting user.

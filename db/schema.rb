@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_01_000208) do
+ActiveRecord::Schema.define(version: 2018_06_13_192815) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "user_id"
@@ -219,7 +219,9 @@ ActiveRecord::Schema.define(version: 2018_06_01_000208) do
     t.datetime "start_time"
     t.datetime "requested_end_time"
     t.string "requester_phone_number_extension"
+    t.integer "deaf_client_id"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
+    t.index ["deaf_client_id"], name: "index_jobs_on_deaf_client_id"
   end
 
   create_table "manager_invoices", force: :cascade do |t|
