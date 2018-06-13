@@ -100,7 +100,9 @@
         Contact Person
       </th>
       <th>
-        Deaf Client
+        <% if @job.has_deaf_client? %>
+          Deaf Client
+        <% end %>
       </th>
       <th>
       </th>
@@ -119,7 +121,9 @@
         <%= @job.contact_person_first_name %> <%= @job.contact_person_last_name %>
       </td>
       <td>
-        <%= @job.deaf_client.full_name %>
+        <% if @job.has_deaf_client? %>
+          <%= @job.deaf_client.full_name %>
+        <% end %>
       </td>
       <td>
       </td>
